@@ -1,0 +1,25 @@
+# 白名单策略：默认全忽略，只放行确定安全的
+*
+!.gitignore
+
+# === 核心资产目录 ===
+!memories/
+!memories/**
+!skills/
+!skills/**
+!scripts/
+!scripts/**
+!reviews/
+!reviews/**
+!references/
+!references/**
+!profiles/
+!profiles/**
+!cron/
+!cron/**
+
+# === 知识文档 ===
+!lessons.md
+!safety_invariants.md
+!model_routing.md
+!config.yaml

@@ -1,0 +1,6 @@
+{"ts": "2026-07-02T08:10:17.132514", "task": "test_contract", "verdict": "FAIL", "escalate": true, "fail_count": 1, "cond_count": 4, "total_items": 8}
+{"ts": "2026-07-02T09:43:09.940425", "task": "contract_q7", "verdict": "FAIL", "escalate": true, "fail_count": 4, "cond_count": 0, "total_items": 4}
+{"ts": "2026-07-02T09:44:06.862666", "task": "contract_q7", "verdict": "PASS", "escalate": false, "fail_count": 0, "cond_count": 0, "total_items": 6}
+{"ts": "2026-07-02T11:46:03.248896", "task": "contract_xhs_skill_miss", "verdict": "CONDITIONAL", "escalate": true, "fail_count": 0, "cond_count": 5, "total_items": 6}
+{"ts": "2026-07-02T12:13:42.881827", "task": "contract_backup", "verdict": "FAIL", "escalate": true, "fail_count": 2, "cond_count": 2, "total_items": 9}
+{"ts": "2026-07-02T12:14:55.490781", "task": "contract_backup", "verdict": "PASS", "escalate": false, "fail_count": 0, "cond_count": 0, "total_items": 11}
