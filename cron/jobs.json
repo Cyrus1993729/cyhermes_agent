@@ -114,7 +114,7 @@
       "schedule_display": "0 8 * * *",
       "repeat": {
         "times": null,
-        "completed": 5
+        "completed": 6
       },
       "enabled": true,
       "state": "scheduled",
@@ -122,10 +122,10 @@
       "paused_reason": null,
       "created_at": "2026-07-02T12:38:24.038222+08:00",
       "next_run_at": "2026-07-04T08:00:00+08:00",
-      "last_run_at": "2026-07-03T15:15:07.919866+08:00",
-      "last_status": "error",
-      "last_error": "Script exited with code 1\nstderr:\nFile \"C:\\Users\\Administrator\\AppData\\Local\\hermes\\scripts\\backup_git.bat\", line 10\n    echo \u274c Hermes backup failed! %date% %time%\n         ^\nSyntaxError: invalid character '\u274c' (U+274C)",
-      "last_delivery_error": "delivery error: Weixin send failed: iLink sendmessage rate limited; cooldown active for 30.0s",
+      "last_run_at": "2026-07-03T15:15:32.609007+08:00",
+      "last_status": "ok",
+      "last_error": null,
+      "last_delivery_error": null,
       "deliver": "weixin",
       "origin": {
         "platform": "weixin",
@@ -138,11 +138,8 @@
         "terminal"
       ],
       "workdir": null,
-      "fire_claim": {
-        "at": "2026-07-03T15:15:26.456955+08:00",
-        "by": "PC-20260524NEAI:6380"
-      }
+      "fire_claim": null
     }
   ],
-  "updated_at": "2026-07-03T15:15:26.458956+08:00"
+  "updated_at": "2026-07-03T15:15:32.611009+08:00"
 }
