@@ -4,3 +4,13 @@
 {"ts": "2026-07-02T11:46:03.248896", "task": "contract_xhs_skill_miss", "verdict": "CONDITIONAL", "escalate": true, "fail_count": 0, "cond_count": 5, "total_items": 6}
 {"ts": "2026-07-02T12:13:42.881827", "task": "contract_backup", "verdict": "FAIL", "escalate": true, "fail_count": 2, "cond_count": 2, "total_items": 9}
 {"ts": "2026-07-02T12:14:55.490781", "task": "contract_backup", "verdict": "PASS", "escalate": false, "fail_count": 0, "cond_count": 0, "total_items": 11}
+{"ts": "2026-07-02T14:11:41.424220", "task": "contract_l1_trigger", "verdict": "CONDITIONAL", "escalate": false, "fail_count": 0, "cond_count": 1, "total_items": 6}
+{"ts": "2026-07-03T07:27:59.236076", "task": "contract_planweave_xhs_analysis_2026-07-03", "verdict": "FAIL", "escalate": true, "fail_count": 4, "cond_count": 1, "total_items": 9}
+{"ts": "2026-07-03T07:29:34.018720", "task": "contract_planweave_xhs_analysis_2026-07-03", "verdict": "PASS", "escalate": false, "fail_count": 0, "cond_count": 0, "total_items": 8}
+{"ts": "2026-07-03T08:37:38.306919", "task": "contract_task_wrapup_skill_2026-07-03", "verdict": "PASS", "escalate": false, "fail_count": 0, "cond_count": 0, "total_items": 7}
+{"ts": "2026-07-03T08:52:20.634133", "task": "contract_task_wrapup_skill_2026-07-03", "verdict": "CONDITIONAL", "escalate": false, "fail_count": 0, "cond_count": 1, "total_items": 12}
+{"ts": "2026-07-03T08:53:27.470506", "task": "contract_task_wrapup_skill_2026-07-03", "verdict": "FAIL", "escalate": true, "fail_count": 2, "cond_count": 3, "total_items": 7}
+{"ts": "2026-07-03T08:55:02.940624", "task": "contract_task_wrapup_skill_2026-07-03", "verdict": "PASS", "escalate": false, "fail_count": 0, "cond_count": 0, "total_items": 7}
+{"ts": "2026-07-03T09:16:27.809080", "task": "contract_agentbay_xhs_2026-07-03", "verdict": "CONDITIONAL", "escalate": false, "fail_count": 0, "cond_count": 1, "total_items": 14}
+{"ts": "2026-07-03T09:17:44.325177", "task": "contract_agentbay_xhs_2026-07-03", "verdict": "PASS", "escalate": false, "fail_count": 0, "cond_count": 0, "total_items": 12}
+{"ts": "2026-07-03T10:04:26.597028", "task": "contract_agentbay_xhs_2026-07-03", "verdict": "PASS", "escalate": false, "fail_count": 0, "cond_count": 0, "total_items": 9}

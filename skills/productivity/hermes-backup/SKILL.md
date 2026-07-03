@@ -85,11 +85,11 @@ git remote add origin git@github.com:<用户名>/hermes-backup.git
 git push -u origin main
 ```
 
-**首推前必做：** 让 Hermes 扫描要备份的内容，确认没有 API key / token / 密码 / 手机号后，再 push。
+**首次 push 前注意：** 如果从 Agent（非交互终端）操作，`git push` 会卡在认证步骤——Git Credential Manager 弹窗无法在 Agent 的终端环境里出现。首次 push 需要用户**自己在桌面终端里手动执行一次**，弹出 GitHub 登录窗口授权。之后 Git Credential Manager 会记住凭证，后续 cron 自动 push 无需再认证。
 
 ### 3. 日常备份脚本（带失败通知 ⚠️ Opus 要求）
 
-**不能用裸 cron 一行命令**——push 失败是静默的，用户不会知道。写 `scripts/backup.sh`：
+**不能用裸 cron 一行命令**——push 失败是静默的，用户不会知道。写 `scripts/backup_git.sh`：
 
 ```bash
 #!/bin/bash
@@ -133,7 +133,19 @@ hermes auth add <provider>
 
 > **额外需要手动重建的：** cron 任务定义（不在 ~/.hermes 目录里）、.env 中的 API key、Python 运行环境依赖。
 
-## 已验证
+## 已落地实例（2026.7.2）
+
+实际部署配置参考（Windows, WeChat 用户）：
+
+| 配置项 | 值 |
+|:---|:---|
+| 数据目录 | `%LOCALAPPDATA%\hermes\` (= `C:\Users\<用户>\AppData\Local\hermes\`) |
+| GitHub 仓库 | `Cyrus1993729/cyhermes_agent`（私有） |
+| 备份脚本 | `scripts/backup_git.sh` |
+| Cron | `5b4b88f1f8bf`，`0 8 * * *`，`--no-agent` 模式 |
+| 推送认证 | Windows Git Credential Manager（首次手动弹窗授权） |
+
+**no_agent 模式** — cron 不跑 LLM agent，直接执行脚本。脚本 stdout 非空时送微信给用户。成功→静默，失败→用户收到 "❌ Hermes 备份失败！"。
 
 | 来源 | 说明 |
 |:---|:---|

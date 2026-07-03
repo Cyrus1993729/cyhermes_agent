@@ -52,10 +52,26 @@ tags: [workflow, contract, acceptance, review, methodology]
 违反任一条 = 立即停止，向用户报告。
 ```
 
+## Pitfalls
+
+### 边界措辞过窄 → L1 误判 FAIL（2026.7.3 PlanWeave 实踩）
+
+写边界条款时，注意**信息载体多样性**：帖子/文章的内容可能同时分布在文本（desc/正文）和图片（配图/截图）中。写成「除非配图明确显示 URL」会把文本 URL 排除在外，即使帖子正文里已明确列出链接，L1 仍会判定越界。
+
+**正确写法**：用概括性措辞覆盖所有信息载体，例如「除非帖子内容（正文或配图）中已直接提供的外部链接」，而非只限定一种载体。
+
+**真实案例**：PlanWeave 分析时，契约写「不搜索 GitHub 仓库（除非帖子配图明确显示 URL）」→ 帖子 desc 文本中列出了 `GitHub: https://github.com/GaosCode/PlanWeave` → Agent 基于文本 URL 搜索仓库 → L1 判 FAIL → 修正契约为「帖子内容中明确列出了 URL，允许搜索」→ 重审 PASS。问题不在 Agent 行为，在契约措辞。
+
+### 契约太窄导致低价值交付
+
+如果边界写得太死（如完全禁止搜索外部资源），即使帖子内容已提供了线索，分析报告也只能基于极少的信息片段拼凑，质量大打折扣。写边界时应允许**基于帖子已提供线索的合理延伸搜索**，只禁止无线索的漫无目的搜索。
+
 ## Handoff
-契约文件路径（`hermes/contracts/contract_<任务名>_<日期>.md`）传给收尾阶段的 **l1-review**（`--contract`）。
+契约文件路径（`hermes/contracts/contract_<任务名>_<日期>.md`）传给收尾阶段的 **task-wrapup**（第 3 步自动调 `l1-review --contract`）。
 
 ## See Also
+- `task-wrapup` — 收尾自检清单（含 L1 审查触发、来源区分、产物存档、微信分段）
+- `l1-review` — 千问固定审查层
 - `skills/productivity/l1-review/references/review-pipeline.md` — 完整审查管线架构
 
 ## 🔗 完整管线
