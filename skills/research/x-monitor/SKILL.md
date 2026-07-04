@@ -1,6 +1,6 @@
 ---
 name: x-monitor
-description: "【定时监控 X 账号+推送到微信】部署 cron 每天拉最新推文、中文摘要、推送到微信。| 跟 x-twitter-data-extraction 的区别：那个是「怎么抓数据」（Guest API/Auth/Playwright/twscrape 四档方案），本 skill 是「怎么定时抓+自动推送」——只关注 cron 部署和交付流程，不重复讲抓取技术。"
+description: "【定时监控 X 账号+推送到 Telegram】部署 cron 每天拉最新推文、中文摘要、推送到 Telegram。| 跟 x-twitter-data-extraction 的区别：那个是「怎么抓数据」（Guest API/Auth/Playwright/twscrape 四档方案），本 skill 是「怎么定时抓+自动推送」——只关注 cron 部署和交付流程，不重复讲抓取技术。"
 version: 2.0.0
 platforms: [windows]
 metadata:
@@ -180,7 +180,7 @@ cronjob(
     prompt='用 scripts/fetch_tweets.py 拉取 @{screen_name} 最新推文。
              和 ~/x_history_{screen_name}.json 对比，只处理新增的。
              每条推文用中文提取：核心观点、涉及的股票代码、情绪方向。
-             用 send_message 分段发送到微信。',
+             用 send_message 分段发送到当前会话。',
     skills=['x-monitor'],
     enabled_toolsets=['terminal'],
     model={provider='deepseek', model='deepseek-v4-pro'}

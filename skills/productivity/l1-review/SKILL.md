@@ -51,7 +51,13 @@ tags: [review, qa, qwen, verification, methodology]
 ## 适用范围（重要）
 - **所有交付物型任务都走 L1**：投资分析、内容分析、系统操作，一律审查。
 - 用户觉得必要时才手动升 Opus，L1 不自触发 Opus。
-## 纵向评估
+## 已验证效果（案例库）
+
+### 2026.7.3 — 捕获 compaction 修复的边缘条件
+- **背景**：Agent 修复了 compaction 摘要注入用户消息的 bug（死锁时将摘要 prepend 到 `compressed[-1]`）
+- **L1 发现**：当 `head=user, tail=assistant` 时也会死锁，但此时 `compressed[-1]` 是 user 消息——摘要又被注入用户消息，违反了"必须 prepend 到 assistant"的合约
+- **结果**：Agent 补加了向后遍历找 assistant 的逻辑，二轮审查 PASS
+- **教训**：边缘条件审查是 L1 的强项——模型擅长发现"你只考虑了情况 A，没考虑情况 B"
 
 每次审查自动存档到 `reviews/review_log.jsonl`。查看趋势：
 ```

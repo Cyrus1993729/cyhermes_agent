@@ -78,7 +78,7 @@
       "last_status": null,
       "last_error": null,
       "last_delivery_error": null,
-      "deliver": "weixin",
+      "deliver": "origin",
       "origin": {
         "platform": "weixin",
         "chat_id": "o9cq805UpPVgaMB-v0amSgCvP1GY@im.wechat",
@@ -121,12 +121,12 @@
       "paused_at": null,
       "paused_reason": null,
       "created_at": "2026-07-02T12:38:24.038222+08:00",
-      "next_run_at": "2026-07-04T08:00:00+08:00",
+      "next_run_at": "2026-07-05T08:00:00+08:00",
       "last_run_at": "2026-07-03T15:15:32.609007+08:00",
       "last_status": "ok",
       "last_error": null,
       "last_delivery_error": null,
-      "deliver": "weixin",
+      "deliver": "origin",
       "origin": {
         "platform": "weixin",
         "chat_id": "o9cq805UpPVgaMB-v0amSgCvP1GY@im.wechat",
@@ -141,5 +141,5 @@
       "fire_claim": null
     }
   ],
-  "updated_at": "2026-07-03T15:15:32.611009+08:00"
+  "updated_at": "2026-07-04T08:00:21.708932+08:00"
 }

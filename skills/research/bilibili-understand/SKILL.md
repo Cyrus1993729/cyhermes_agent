@@ -157,5 +157,5 @@ If the pipeline fails:
 2. `bilibili-understand` — 本 skill：B站特定逻辑（API 限流/字幕/BV号解析）
 3. 视频涉及金融/投资/产业链主题 → 叠加 `deep-analysis-workflow` 做框架审视
 4. 视频涉及 AI/技术/新工具 → 无现成框架时触发 `deep-analysis-workflow`（先向 Claude 借框架再审视）
-**交付**：微信分段 + MEDIA 文件（格式见 xiaohongshu-analysis「输出与交付」章节）
+**交付**：平台分段 + MEDIA 文件（格式见 task-wrapup「分段交付」章节）
 **收尾**：检查 `post-task-review`

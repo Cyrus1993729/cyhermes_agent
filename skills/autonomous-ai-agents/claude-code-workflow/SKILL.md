@@ -7,8 +7,8 @@ compatibility: Hermes Agent → Claude Code CLI
 metadata:
   author: user-custom
   version: "1.8.0"
-  last_updated: "2026-07-01"
-  changelog: "Rule 9 pitfalls 加固：Claude Code CLI -p 模式下 Opus 无本地文件系统访问权限，必须预先提取 PDF/文档文本并嵌入提示词，不能只给文件路径（2026-07-01 踩坑）。"
+  last_updated: "2026-07-03"
+  changelog: "新增 Rule 0 401 诊断（claudeCodeFirstTokenDate: null）。新增 references/opus-code-review-workflow.md（Opus 红队审查 + 出 diff 四步流程）。"
 ---
 
 # Claude Code Workflow Rules
@@ -65,6 +65,12 @@ claude -p "完整任务" --model opus --max-turns N --output-format text
 
 ### 故障排查速查
 
+**🔵 401 排查（2026-07-03 新增）：** 代理正常但返回 401 → OAuth token 过期。诊断：
+```bash
+python -c "import json,os; d=json.load(open(os.path.expanduser('~/.claude.json'))); print('claudeCodeFirstTokenDate:', d.get('claudeCodeFirstTokenDate'))"
+```
+`claudeCodeFirstTokenDate: null` → CLI 从未成功获取 token 或已完全过期，需刷新。修复：`claude auth login`（需 PTY 模式，会打开浏览器授权页，用户手动完成授权后自动恢复）。
+
 403 时按顺序排查：① 代理是否 export？② 代理是否存活？③ 端口是否正确？→ 参见 `references/claude-code-auth-diagnosis.md`
 
 ## Rule 1: Model Selection Protocol
@@ -88,6 +94,7 @@ claude -p "完整任务" --model opus --max-turns N --output-format text
   - Changing Claude Code flags or parameters
   - Installing or removing software
   - Modifying project configuration
+- **🔴 基础设施改动专项规则**：当 Opus 完成红队审查并推荐了代码/配置改动方案后，必须走完整六步管线（sprint-contract → 分析文档 → Opus 审查 → 用户确认 → diff+改 → 千问 L1），不可跳过任何一步。详见 `references/opus-code-review-workflow.md`。
 - The only exception is when the user explicitly says "just do it" or equivalent.
 
 ## Rule 3: Progress Reporting During Long Tasks
@@ -219,4 +226,4 @@ See `references/skill-drift-pink-elephant.md` for the full case study.
 - `references/skill-drift-pink-elephant.md` — real-world case study (2026-06-23): skill drift root cause analysis + three-part fix
 - `references/tool-preinstall-checklist.md` — 4-step checklist before installing new tools
 - `references/opus-source-debugging.md` — Opus 4.8 源码只读排查模式 (2026-06-27)
-- `references/multi-round-design-refinement.md` — 多轮 Opus 设计迭代模式：文件拼接、后台模式、截断输出取回 (2026-07-02)
+- `references/opus-code-review-workflow.md` — Opus 红队审查 + 出代码 diff 四步流程（2026-07-03 实战验证）

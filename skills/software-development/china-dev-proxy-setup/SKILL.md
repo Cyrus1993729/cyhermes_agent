@@ -97,6 +97,7 @@ exec "$@"
 - **System proxy ≠ TUN.** System proxy mode (PAC/手动) is weaker — env vars CAN override it. TUN mode creates a virtual NIC that's lower in the network stack.
 - **Git-bash on Windows uses MSYS.** Some env vars (`http_proxy` lowercase) may need to be set in addition to uppercase.
 - **requests library caches proxy settings.** If a connection was made with proxy, subsequent connections may reuse it. Use `session.close()` or create fresh sessions.
+- **NO_PROXY kills Telegram.** `resolve_proxy_url()` checks `NO_PROXY` before falling through to `HTTP_PROXY`. If `api.telegram.org` is in `NO_PROXY`, all Telegram connections fail with timeout — even if `proxy_url` is set in config.yaml or `TELEGRAM_PROXY` env var is populated. In China, `api.telegram.org` MUST NOT be in NO_PROXY.
 
 ## Search Engine Availability
 

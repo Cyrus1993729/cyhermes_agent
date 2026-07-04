@@ -197,5 +197,5 @@ Opus 识别的高价值公开信号（按领先时间排列）：
 2. `supply-chain-ripple-analysis` — 本 skill：涟漪分析→信号分层→找到受益公司
 3. 分析结果涉及具体公司/股票时，叠加 `investment-analysis` 做量化框架审视
 4. 涉及投资建议时，触发 `decision-gate`
-**交付**：微信分段 + MEDIA 文件
+**交付**：平台分段 + MEDIA 文件（格式见 task-wrapup「分段交付」章节）
 **收尾**：检查 `post-task-review`

@@ -1,7 +1,7 @@
 ---
 name: sprint-contract
 description: "【任务启动契约】接到交付物型任务（报告/分析/脚本产物）时，先与用户敲定一份可验收的『任务契约』：交付物清单、每项验收标准、口径定义、边界(不做什么)、来源要求。产出 contract_<任务名>_<日期>.md 供收尾时 l1-review 逐条比对。讨论/取数/只读类任务不触发。与 l1-review 配对使用。"
-version: 1.0.0
+version: 1.1.0
 category: productivity
 tags: [workflow, contract, acceptance, review, methodology]
 ---
@@ -16,14 +16,67 @@ tags: [workflow, contract, acceptance, review, methodology]
 先定义"什么算做完 + 用什么口径"，收尾时 L1（qwen）才能逐条比对，而不是主观判断。
 符合用户方法论：出方案→确认→执行；口径归一、拒绝混比；按结论拆条。
 
+## 任务模式与流程触发
+
+### 两种任务模式
+
+| | 计划型 | 涌现型 |
+|:---|:---|:---|
+| 例子 | "分析这篇小红书" | "备份为啥失败了？" |
+| 开局 | 目标明确 | 只知道症状 |
+| 5步闭环时机 | 开工前 | **诊断完成、准备动手时** |
+
+**涌现型任务**：从诊断→搜索→读代码→发现根因→再启动完整闭环。诊断阶段免契约（只读、只分析、不动手），找到可执行方案后才触发 5 步流程。
+
+### 流程追踪文件（防遗忘）
+
+Agent 存在"执行惯性"——反复修改多轮后容易忘记最初要走的完整闭环。文件追踪解耦"走到哪了"与上下文记忆。
+
+**用户说"走流程"时**，Agent 在 `hermes/contracts/` 下创建追踪文件：
+
+```markdown
+# 流程追踪: <任务名> (<日期>)
+
+- [ ] ① sprint-contract → contract_<任务名>_<日期>.md
+- [ ] ② decision-gate → 方案已确认
+- [ ] ③ 执行
+- [ ] ④ task-wrapup → 审查+存档+交付
+- [ ] ⑤ post-task-review → 复盘+写入 lessons.md
+```
+
+**走到哪勾到哪**。中间改三四轮无所谓，追踪文件里的勾不动。
+
+**生命周期**：追踪文件以 `workflow_<任务名>_<日期>.md` 命名。同一会话同一任务多次"走流程"时覆盖前一份。task-wrapup 第⑤步（post-task-review）完成后必须删除追踪文件。
+
+   > **文件治理规则**（详见 `hermes/contracts/file_governance_standard.md`）：
+   > - 创建途径：`hermes/contracts/workflow_<任务名>_<日期>.md`（根目录）
+   > - 删除时机：post-task-review 全部完成后，确认复盘已写入 lessons.md，立即 `rm workflow_*.md`
+   > - 孤儿预防：每次 sprint-contract 创建新追踪文件前，先检查并删除任何残留的孤儿 workflow 文件
+
+### 双哨兵模式
+
+| 哨兵 | 触发词 | 作用 |
+|:---|:---|:---|
+| 前半段 | "走流程" | 建追踪文件 → ①出契约 → ②确认方案 |
+| 后半段 | "看文档走完" | 读追踪文件 → 从第一个未勾步骤继续 |
+
+用户改满意了只需说"看文档走完"，Agent 打开追踪文件发现有步骤还空着，接着走。无需用户记忆还剩几步。
+
 ## Steps
-0. **起草前读 `hermes/lessons.md`**：检查本次任务类型是否有历史经验教训可复用，有则融入契约的验收标准。
-1. 从任务里抽取交付物，列成清单（每项一行，可独立验收）。
-2. 为每项写**验收标准**（可判定的、非模糊的）。
-3. 写**口径定义**：涉及的数据/指标用哪个标准，禁止不同标准混比。
-4. 写**边界**：明确不做什么，防止范围蔓延。
-5. 写**来源要求**：需权威来源的项标注；禁编造数据/引用。
-6. 把契约存成文件 `hermes/contracts/contract_<任务名>_<YYYY-MM-DD>.md`，**给用户确认后**再开工。
+0. **清理孤儿 workflow 文件**：在 `hermes/contracts/` 下执行 `rm -f workflow_*.md`（残留的未清理追踪文件），确保只保留本任务的追踪文件。
+1. **起草前读 `hermes/lessons.md`**：检查本次任务类型是否有历史经验教训可复用，有则融入契约的验收标准。
+2. 从任务里抽取交付物，列成清单（每项一行，可独立验收）。
+3. 为每项写**验收标准**（可判定的、非模糊的）。
+4. 写**口径定义**：涉及的数据/指标用哪个标准，禁止不同标准混比。
+5. 写**边界**：明确不做什么，防止范围蔓延。
+6. 写**来源要求**：需权威来源的项标注；禁编造数据/引用。
+7. 把契约存成文件 `hermes/contracts/contract_<任务名>_<YYYY-MM-DD>.md`，**给用户确认后**再开工。
+8. 确认契约文件在 `hermes/contracts/` 根目录下（非 archive/）。追踪文件同理。
+
+   > **文件治理规则**（详见 `hermes/contracts/file_governance_standard.md`）：
+   > - 契约文件创建在 contracts/ 根目录，收尾时自动归档到 `archive/<任务名>_<日期>/`
+   > - 追踪文件在 post-task-review 后自动删除
+   > - 若发现孤儿 workflow 文件（上次未清理），先删除再创建本次的
 
 ## Contract Template
 ```markdown
@@ -46,6 +99,7 @@ tags: [workflow, contract, acceptance, review, methodology]
 
 ## 升级规则
 - L1(qwen) FAIL 或 CONDITIONAL≥3 → 停下，由用户决定是否升级 Opus
+- **用户非技术背景时**：decision-gate 阶段提供"问 Opus 评估"选项，不直接让用户做技术选择
 
 ## ⚠️ 安全不变量（所有任务通用，不可协商）
 本任务必须遵守 `hermes/safety_invariants.md` 中的全部底线规则。
@@ -66,13 +120,39 @@ tags: [workflow, contract, acceptance, review, methodology]
 
 如果边界写得太死（如完全禁止搜索外部资源），即使帖子内容已提供了线索，分析报告也只能基于极少的信息片段拼凑，质量大打折扣。写边界时应允许**基于帖子已提供线索的合理延伸搜索**，只禁止无线索的漫无目的搜索。
 
+### 交付物分类必须与契约严格对齐（L1 审查 2026.7.4 实战）
+
+交付物中 D1/D2/D3 的分类和数量必须与契约**完全对应**。常见错：
+
+- 甲类(8)+丙类(1) 混写成"9 个 skill" → L1 判定数量不符
+- 额外展示未改动的数据作为证据，但未显式标注"未改动" → L1 判定越界
+- 新增数值参数（如分段阈值）未附推导依据 → L1 判定来源不明
+
+**正确做法**：交付物结构与契约 D1/D2/D3 一一对应；任何额外佐证数据必须标注"未改动/仅供参考"；任何新增阈值必须附第一性原理推导和 API 来源。
+
+### 新增参数必须附推导依据（L1 审查 2026.7.4 实战）
+
+在任何交付物中新增数值参数（分段字数上限、超时秒数、阈值百分比等），必须包含：
+1. API/协议上限的来源引用（官方文档 URL 或章节号）
+2. 第一性原理推导：上限 → 扣除格式化开销 → 净空间
+3. Safety margin 的量化理由
+
+单纯写"3500 字"而不给推导，L1 会判 CONDITIONAL。
+
+### Compaction 摘要注入导致 Agent 误读历史指令
+
+当 context_compressor 的角色交替逻辑死锁（head 尾 = assistant, tail 首 = user），压缩摘要被合并到用户当前消息中。摘要中的历史指令字面会被 Agent 误读为当前任务，导致启动不该执行的任务。
+
+详见 [`references/compaction-message-injection-bug.md`](references/compaction-message-injection-bug.md)。
+
 ## Handoff
 契约文件路径（`hermes/contracts/contract_<任务名>_<日期>.md`）传给收尾阶段的 **task-wrapup**（第 3 步自动调 `l1-review --contract`）。
 
 ## See Also
-- `task-wrapup` — 收尾自检清单（含 L1 审查触发、来源区分、产物存档、微信分段）
+- `task-wrapup` — 收尾自检清单（含 L1 审查触发、来源区分、产物存档、平台分段）
 - `l1-review` — 千问固定审查层
 - `skills/productivity/l1-review/references/review-pipeline.md` — 完整审查管线架构
+- `references/gateway-log-diagnosis.md` — 涌现型任务网关日志诊断技法
 
 ## 🔗 完整管线
 审查系统完整参考见 l1-review skill 的 [`references/review-pipeline.md`](../l1-review/references/review-pipeline.md)（组件清单、数据文件、流程、技术决策）。

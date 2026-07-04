@@ -73,6 +73,15 @@ hermes gateway restart
 Hermes connects to personal WeChat accounts via Tencent's iLink Bot API.
 Uses long-polling — no public endpoint or webhook needed.
 
+### ⚠️ 平台硬限制：10 条回复额度
+
+微信 iLink 有**每条用户消息只能回复 10 条**的 context_token 配额限制。
+超 10 条后所有发送失败，直到用户发下一条新消息刷新 token。
+这是平台硬限制，无代码层面绕过方法。
+
+**推荐**：重度使用场景建议接入 Telegram（无此限制，Hermes 支持最成熟）。
+详见 `hermes-wechat-delivery` skill。
+
 ### Dependencies
 
 ```bash
@@ -121,7 +130,131 @@ fetches a QR code, polls for scan, saves credentials, and updates config.
 
 ---
 
-## Windows-Specific Pitfalls
+## Telegram (Bot API)
+
+Hermes connects to Telegram via the Bot API. **In China, Telegram is blocked —
+the bot MUST connect through a proxy.** The adapter auto-detects proxy from
+`TELEGRAM_PROXY` env var or `HTTP_PROXY`/`HTTPS_PROXY`, but setting it in
+`config.yaml` is more reliable across gateway restarts.
+
+### Config
+
+```yaml
+# Both sections are needed — adapter reads from platforms.telegram
+telegram:
+  enabled: true
+  token: "1234567890:ABCdef..."
+  proxy_url: "http://127.0.0.1:7897"    # ← critical for China users
+  reactions: false
+
+platforms:
+  telegram:
+    enabled: true
+    token: "1234567890:ABCdef..."
+    proxy_url: "http://127.0.0.1:7897"    # ← critical for China users
+```
+
+The adapter reads `proxy_url` from the telegram config section and internally
+sets `TELEGRAM_PROXY` before connecting. The `resolve_proxy_url` check order:
+`TELEGRAM_PROXY` env var → `HTTP_PROXY`/`HTTPS_PROXY` → macOS proxy.
+
+### Prerequisites
+
+```bash
+uv pip install python-telegram-bot httpx --python "$HERMES_HOME/hermes-agent/venv/Scripts/python.exe"
+```
+
+No additional dependencies needed — the Telegram adapter is bundled.
+
+### Creating a Bot
+
+1. Open Telegram, find @BotFather
+2. Send `/newbot`
+3. Follow prompts (name can be Chinese, username must end in `bot`)
+4. Copy the token (format: `1234567890:ABCdef...`)
+5. Never share the token — anyone with it controls your bot
+
+### Pairing Approval (First-Time User)
+
+When an unrecognized user sends a message, the bot replies with:
+
+> "Hi~ I don't recognize you yet! Here's your pairing code: XXXXXXXX
+> Ask the bot owner to run: hermes pairing approve telegram XXXXXXXX"
+
+The bot owner runs:
+```bash
+hermes pairing approve telegram <pairing_code>
+```
+
+After approval, the user is recognized on their next message. This prevents
+unauthorized access to your Hermes agent.
+
+### Troubleshooting
+
+#### Token rejected by server (`InvalidToken: Not Found`)
+
+Log shows: `The token was rejected by the server.`
+
+This is NOT a network/proxy issue — the request reached Telegram's servers
+but the token is invalid. Causes:
+- Token was copied incorrectly from @BotFather
+- Token was revoked
+- Token was never valid
+
+**Fix**: Go to @BotFather → `/mybots` → select bot → `API Token` → copy
+the fresh token → update both telegram sections in config.yaml.
+
+#### Connection timeout (`httpx.ConnectError`)
+
+Log shows: `Primary api.telegram.org connection failed` + `Fallback IP ... failed`
+
+This IS a proxy issue — Telegram's servers are unreachable directly from
+China. Check:
+1. `proxy_url` is set in BOTH telegram config sections
+2. Clash Verge is running and proxy port is listening (`netstat -ano | grep :7897`)
+3. `api.telegram.org` is NOT in NO_PROXY list
+
+#### Proxy detected on one restart but not another
+
+The adapter reads `HTTP_PROXY`/`HTTPS_PROXY` from environment at startup.
+If the gateway was started from a terminal that had these set, but the
+desktop app restarts without them, the proxy disappears.
+
+**Fix**: Don't rely on environment variables. Set `proxy_url` explicitly in
+config.yaml under both `telegram:` and `platforms.telegram:`.
+
+#### Proxy configured but not used — check NO_PROXY first
+
+`resolve_proxy_url()` checks `NO_PROXY` / `no_proxy` **before** falling
+through to `HTTP_PROXY`/`HTTPS_PROXY`. If `api.telegram.org` appears in
+`NO_PROXY`, the adapter returns `None` immediately — no proxy, no matter
+what `proxy_url` is in config.yaml or what `HTTP_PROXY` is set to.
+
+Diagnostic signal: log shows `Auto-discovered Telegram fallback IPs` but
+NO `Proxy detected` line. The proxy is being bypassed. Check `.env` for
+`NO_PROXY=...,api.telegram.org,...` and remove it.
+
+This is the most common misdiagnosis: config looks correct, proxy is running,
+but NO_PROXY silently kills it before `proxy_url` or `TELEGRAM_PROXY` are
+ever consulted.
+
+**Quick diagnostic: verify reachability before changing config**
+
+Before asserting that a host "should" be direct-reachable from China,
+always test empirically with curl:
+
+```bash
+# Test WITH proxy (should succeed for blocked hosts)
+curl -s -o /dev/null -w "HTTP %{http_code} | %{time_total}s" --max-time 10 \
+  --proxy http://127.0.0.1:7897 "https://api.telegram.org"
+
+# Test WITHOUT proxy (timeout = blocked in China)
+curl -s -o /dev/null -w "HTTP %{http_code} | %{time_total}s" --max-time 10 \
+  --noproxy '*' "https://api.telegram.org"
+```
+
+**Never** change NO_PROXY, proxy_url, or gateway config based on assumptions
+about Chinese network reachability. Test first, configure second.
 
 ### PTY Encoding Failures
 
@@ -244,17 +377,26 @@ wmic process where "name='clash-verge.exe'" get ProcessId,Name,ExecutablePath
 
 ### Fix (Defense in Depth — apply both)
 
-**A. Gateway-side: NO_PROXY bypass**
+**A. Gateway-side: NO_PROXY bypass (China-specific)**
 
-Add to `~/.hermes/.env` (use `echo >>` or `terminal` with `cat`, NOT `read_file`
-— `.env` is marked as secret-bearing and blocked by read_file):
+The `NO_PROXY` list should include hosts that are **directly reachable from
+China without a proxy**. Critical rule:
+
+| Host | Proxy? | Reason |
+|:---|:---|:---|
+| `ilinkai.weixin.qq.com` | **直连** (NO_PROXY) | 微信 iLink，国内 CDN |
+| `api.telegram.org` | **必须走代理** | Telegram 在中国被封锁 |
+| `localhost, 127.0.0.1` | **直连** (NO_PROXY) | 本机回环 |
 
 ```bash
+# ⚠️ 不要把 api.telegram.org 放进 NO_PROXY — 它在中国必须走代理！
 echo "NO_PROXY=ilinkai.weixin.qq.com,novac2c.cdn.weixin.qq.com,localhost,127.0.0.1" >> ~/AppData/Local/hermes/.env
 ```
 
-This ensures the gateway's iLink client bypasses the system proxy, so Clash
-outages don't affect WeChat delivery. Also blocks the iLink CDN domain.
+The Telegram adapter uses `resolve_proxy_url("TELEGRAM_PROXY", ...)` which
+checks in order: `TELEGRAM_PROXY` env var → `HTTP_PROXY`/`HTTPS_PROXY` →
+macOS system proxy. For reliable proxy detection after gateway restarts,
+prefer setting `proxy_url` in config.yaml (see Telegram section below).
 
 **B. Clash-side: DIRECT rule**
 
@@ -308,3 +450,10 @@ to confirm bidirectional communication.
   reference, QR expiration timing (~4-5s), poll statuses, credential storage
   paths, context token persistence, retry logic, and AES-128-ECB encryption
   details.
+- `references/gateway-proxy-delay-diagnosis.md` — Diagnosing gateway response
+  delays caused by platform APIs routed through proxy unnecessarily. Covers
+  log analysis, NO_PROXY gaps, and the diagnostic recipe for identifying
+  which platform host is missing from the bypass list.
+- `references/telegram-noproxy-diagnostic-trace.md` — Full diagnostic timeline
+  from 2026-07-04: InvalidToken → ConnectError → NO_PROXY silent bypass →
+  fix. Step-by-step with exact log patterns and resolution order.

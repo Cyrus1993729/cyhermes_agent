@@ -6,13 +6,11 @@
 §
 网络：代理127.0.0.1:7897通X+Startpage；Google需CAPTCHA。Bing直连。Claude Code→Opus(CLI非Nous API)，Sonnet筛选。每命令必设代理禁直连。
 §
-产业链早信号框架（6-25）：涟漪三问+确认器三层交叉(设备/环评/下游)+时间序列自洽。alpha=抓取难度，环评/备案爬虫ROI最高。雷达层已放弃。详见references/
+微信交付见task-wrapup skill，>1500字拆段。
 §
-微信:Agent一次回复=网关一次投递,无法逐条控节奏。超长分段方案:一条回复只发一段,结论放第一条,不自检不塞额外,MEDIA单独发,丢失即重发。三需求超单条容量时物理死结→task-wrapup skill。
+用户33岁男，无子女。税后年入¥20万，日常¥8万，年结余¥9万+应急金¥5万。投资：工作日定投纳指(20-30年)。分析：权威来源+可拆分口径+第一性原理。中文沟通。
 §
-用户33岁男性，无生育计划。税后年收入¥20万，日常¥8万，保险¥3万，年结余¥9万。手头¥5万应急金。房交付4年，车买2年。投资：仅工作日（250天/年）定投纳指场外基金，20-30年长期。分析偏好：要求权威来源+可拆分口径，不接受不同标准混比；坚持从第一性原理推导，不接受预设立场结论；被质疑时要求重新验证而非辩解。沟通：对所有输出和报告统一用中文。
-§
-Opus调用=Claude Code CLI(`claude -p --model opus`)+代理127.0.0.1:7897。禁delegate_task调Opus。调前smoke test。代理export必做。
+Opus=Claude Code CLI(`claude -p --model opus`,默认claude-opus-4-20250514/4.8)+代理127.0.0.1:7897。禁delegate_task。调前smoke test。pitfall:prompt长→hit max-turns,--bare需ANTHROPIC_API_KEY(不可用),OAuth token会过期(Google Play订阅)。
 §
 delegate_task不支持per-call provider，子代理继承父模型。L1审查走execute_code直连qwen-bailian API。审查脚本: scripts/qwen_review.py，skill: l1-review+sprint-contract。memory: MEMORY.md/USER.md，§分隔。
 §
@@ -29,3 +27,15 @@ L1审查触发：交付物收尾→contract→qwen_review.py→呈报。FAIL/CON
 架构:务实最小化,先跑通再加复杂度。task-wrapup(收尾自检:步骤/来源/审查/存档/分段,短路质量门不过不进投递,自检摘要不发微信)。×hs视频帖四步→xiaohongshu-analysis skill。
 §
 主动汇报：任务进行中和完成时都必须主动告诉用户进展或结果，不能沉默等用户问。
+§
+流程触发词："走流程"=5步闭环(sprint-contract→decision-gate→执行→task-wrapup→post-task-review)，自动建workflow追踪文件；"看文档走完"=读追踪文件从未勾步骤继续。涌现型任务诊断完触发。
+§
+微信 iLink 限制真相：context_token 每轮仅 10 条回复额度（非速率限流），超过全丢。用户发新消息刷新 token。weixin.py 已有退避重试+3s发送间隔，但不能突破 10 条硬限。修复在 context_compressor.py 等待重启。
+§
+用户偏好：技术方案选择时先问 Opus（Claude）获取建议，不自己做架构决策。技术小白但理解概念。
+§
+Telegram 已是主通信平台(token:8839546337:***)，替代微信(iLink限10条)。hermes-backup+x-monitor cron已迁至telegram。
+§
+Telegram Bot API(api.telegram.org)被墙证实(curl直连超时/代理2.5s通)。Hermes网关收发TG必须走代理。手机端TG App也需代理。.env的NO_PROXY禁止含api.telegram.org。
+§
+网络诊断铁律：禁止凭'常识'断言国内网络可达性。做任何网络配置改动前，先curl直连+代理对比测试确认。

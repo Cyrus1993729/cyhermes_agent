@@ -55,7 +55,7 @@ requires: [serenity-search]
 
 ## 输出格式规范
 
-- 使用微信分段格式 `（1/N）`
+- 使用分段格式 `（1/N）`
 - 每段 ≤1500 字
 - 表格用简洁的 Markdown
 - 估值数据标注获取时间
@@ -95,7 +95,7 @@ Tavily 多轮搜索 (6-8 次，覆盖不同关键词)
 
 ## 示例
 
-参见 2026-06-24 对 OpenLight 推文的完整分析（6 段微信消息）。
+参见 2026-06-24 对 OpenLight 推文的完整分析（6 段分段消息）。
 
 ## 🧩 工作流配方
 
@@ -105,5 +105,5 @@ Tavily 多轮搜索 (6-8 次，覆盖不同关键词)
 2. `serenity-tweet-analysis` — 本 skill：翻译→大白话→产业链/金融深度分析
 3. 涉及产业链关系时，叠加 `supply-chain-ripple-analysis` 做供应链验证
 4. 涉及投资建议/调仓判断时，触发 `decision-gate`（汇报发现→征得同意→再给建议）
-**交付**：微信分段（格式见 xiaohongshu-analysis「输出与交付」章节）
+**交付**：平台分段（格式见 task-wrapup「分段交付」章节）
 **收尾**：任务完成后检查 `post-task-review` 触发条件，满足则生成复盘

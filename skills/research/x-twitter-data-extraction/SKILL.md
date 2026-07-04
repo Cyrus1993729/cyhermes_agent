@@ -5,7 +5,7 @@ description: >-
   Guest API（97条快照）→ Auth Token（3200条+分页）→ Playwright（无认证全量）→ twscrape（自动登录池）。
   覆盖搜索、监控、token管理、代理穿透、X MCP 官方方案。
   | 跟 x-monitor 的区别：本 skill 是「怎么抓数据」，
-  x-monitor 是「怎么定时监控+推送到微信」；
+  x-monitor 是「怎么定时监控+推送到 Telegram」；
   跟 serenity-search 的区别：本 skill 是通用抓取，
   serenity-search 是 Serenity 专用的搜索+缓存工具。
 triggers:
@@ -339,7 +339,7 @@ curl -sL --connect-timeout 10 \
 
 ## 其他 X 相关 skill 的区别
 
-- **`x-monitor`**：定时监控 + cron + 推送到微信。本 skill 解决「怎么抓」，x-monitor 解决「怎么定时抓+推送」
+- **`x-monitor`**：定时监控 + cron + 推送到 Telegram。本 skill 解决「怎么抓」，x-monitor 解决「怎么定时抓+推送」
 - **`serenity-search`**：Serenity 专用的搜索+缓存工具（`serenity_search/search.py`），不是通用抓取
 - **`serenity-tweet-analysis`**：Serenity 推文分析工作流（翻译→大白话→金融分析）
 
