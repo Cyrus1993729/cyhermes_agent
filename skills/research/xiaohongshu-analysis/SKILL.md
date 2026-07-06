@@ -396,6 +396,21 @@ python -c "import imageio_ffmpeg; print(imageio_ffmpeg.get_ffmpeg_exe())"
 
 **对策**：此问题无完全解法（LLM agent 天然不会逐条比对 memory/skill）。lessons.md 已记录为 L2 规则，memory 也已硬化。最有效的防御是**用户主动提醒**。这不是 bug，是当前架构的已知局限。Agent 应当接受自己在这类情况下需要用户提醒。
 
+## 博主全量帖子抓取（与单帖分析的区别）
+
+> 📎 完整技术方案见 [`references/batch-user-scraping.md`](references/batch-user-scraping.md)（2026-07-05 Opus 分析）
+
+本 skill 目前只做单帖分析。如果需要**抓取博主所有帖子**，核心差异：
+
+| 维度 | 单帖（本 skill） | 博主全量（未实现） |
+|:---|:---|:---|
+| 入口 | 分享短链 | 博主主页 URL |
+| 数据源 | `__INITIAL_STATE__` | 需走 Web API + 游标翻页 |
+| 登录态 | 不需要 | **必须**（Cookie: `a1`/`web_session`） |
+| 核心难点 | 内容提取 | **请求签名（x-s/x-t）** |
+
+推荐混合方案：用 **MediaCrawler** 或 **ReaJason/xhs**（开源）做列表采集，再喂给本 skill 做深度分析。详见参考文件。
+
 ## 已知限制
 
 | 限制 | 说明 |
