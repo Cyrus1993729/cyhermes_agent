@@ -1,7 +1,7 @@
 ---
 name: xiaohongshu-analysis
 description: 小红书内容理解流水线 — 用户发分享链接，自动提取图文/视频内容并生成结构化分析报告。支持零人工介入的 ad-hoc 分析。
-version: 1.5.1
+version: 1.6.0
 platforms: [windows]
 metadata:
   hermes:
@@ -15,7 +15,7 @@ metadata:
 > 2026-07-02 实踩：Agent 收到 xhslink.com 链接后先尝试 browser_navigate（失败）→ curl 抓取（多轮）→ 用户提醒才走 skill。根因不是 skill 内容有错，是 Agent 没把 skill 当成第一步。
 
 **禁止行为**：收到链接后先试 browser_* / curl / execute_code 裸抓 → 全错，浪费 3-4 轮交互。
-**正确行为**：收到链接 → 直接走本 skill 流水线（短链重定向 → __INITIAL_STATE__ → ASR/OCR/Vision）。
+**正确行为**：收到链接 → 直接走本 skill 流水线（短链重定向 → __SETUP_SERVER_STATE__（优先）或 __INITIAL_STATE__（回退）→ ASR/OCR/Vision）。
 
 ---
 
@@ -151,7 +151,10 @@ metadata:
 [xhslink.com 短链]
     ↓ HTTP GET + dump headers 获取 Location（⚠️ HEAD 返回 404！）
 [xiaohongshu.com 真实笔记页]
-    ↓ HTML 解析 __INITIAL_STATE__（修复 JS undefined→null）
+    ↓ HTML 解析：
+      ├── 优先：__SETUP_SERVER_STATE__ → LAUNCHER_SSR_STORE_PAGE_DATA.noteData（新版 SPA 页面）
+      └── 回退：__INITIAL_STATE__ → note.noteDetailMap（旧版 / SSR 页面）
+      均需修复 JS undefined→null
 [标题 / 正文 / 图片URL / 视频URL / 互动数据]
     ↓
     ├── 图文帖 → 下载图片 → Vision 识图 → DeepSeek 总结
@@ -284,6 +287,42 @@ for note_id, nd in note_data.items():
 
 **原因**：小红书页面版本不同，`__INITIAL_STATE__` 的结构会变。旧版可能 `noteDetailMap` 在顶层，新版在 `note` 下。**优先尝试 `data['note']['noteDetailMap']`**。
 
+### __SETUP_SERVER_STATE__ 新页面结构（2026.7.8 hermes-journey 帖子实踩）
+
+**新版小红书 SPA 页面（~120KB HTML）将帖子数据放在 `__SETUP_SERVER_STATE__` 而非 `__INITIAL_STATE__`**。`__INITIAL_STATE__` 中 `noteDetailMap` 为空，但 `__SETUP_SERVER_STATE__` 的 `LAUNCHER_SSR_STORE_PAGE_DATA.noteData` 直接包含帖子对象（非 `noteDetailMap` 嵌套）。
+
+**症状**：按原有流程解析 `__INITIAL_STATE__` → `noteDetailMap` 为空 → 误判为登录墙/数据缺失。实际数据在另一个 state 变量中。
+
+**正确做法：两级回退**
+```python
+import re, json
+
+# Level 1: 优先尝试 __SETUP_SERVER_STATE__（新版 SPA）
+m = re.search(r'window\.__SETUP_SERVER_STATE__\s*=\s*', html)
+if m:
+    start = m.end()
+    # ...花括号计数器提取 JSON...
+    data = json.loads(json_str)
+    page = data.get('LAUNCHER_SSR_STORE_PAGE_DATA', {})
+    nd = page.get('noteData', {})  # 直接是帖子对象，含 title/desc/video/imageList 等
+    if nd.get('noteId'):
+        return nd  # ✅ 拿到数据，跳过 __INITIAL_STATE__
+
+# Level 2: 回退 __INITIAL_STATE__ → noteDetailMap（旧版/SSR）
+m = re.search(r'window\.__INITIAL_STATE__\s*=\s*', html)
+# ...原有流程...
+```
+
+**关键差异**：
+| | `__INITIAL_STATE__`（旧） | `__SETUP_SERVER_STATE__`（新） |
+|:---|:---|:---|
+| 帖子数据路径 | `data.note.noteDetailMap[note_id].note` | `data.LAUNCHER_SSR_STORE_PAGE_DATA.noteData` |
+| 结构 | 嵌套 wrapper (`{note: {...}}`) | 直接帖子对象（`title`, `desc`, `video` 等顶级字段） |
+| 典型 HTML 大小 | 800KB+ | ~120KB |
+| 图片 URL 字段 | `infoList[].imageScene=WB_DFT` | 同，但 `infoList[].imageScene=H5_DTL/H5_PRV` |
+
+> **注意**：`__SETUP_SERVER_STATE__` 中的图片 CDN URL 字段可能用 `H5_DTL`/`H5_PRV` 而非 `WB_DFT`/`WB_PRV`，提取时需同时尝试两种 scene 值。
+
 ### OCR 依赖缺失时优雅降级
 
 `rapidocr_onnxruntime` 可能未安装。ASR 提取帧后 OCR 调用应做存在性检查，而非直接 import 报错：
@@ -371,10 +410,10 @@ img = image_list[0]
 
 ### 媒体 CDN URL 过期 → 重取页面刷新
 
-`__INITIAL_STATE__` 中提取的图片/视频 CDN URL 带有时效性 `sign` 参数。如果下载返回 0 字节或 403：
+`__INITIAL_STATE__` 或 `__SETUP_SERVER_STATE__` 中提取的图片/视频 CDN URL 带有时效性 `sign` 参数。如果下载返回 0 字节或 403：
 
 1. **不要反复重试同一 URL**——签名已过期
-2. **用完整 URL 重新请求页面**（见上一条）→ 解析新的 `__INITIAL_STATE__` → 获取新签名的媒体 URL
+2. **用完整 URL 重新请求页面**（见上一条）→ 解析 `__SETUP_SERVER_STATE__`（优先）或 `__INITIAL_STATE__`（回退）→ 获取新签名的媒体 URL
 3. 立即下载（新签名也有时效，尽快完成）
 
 ### ffmpeg 路径（Windows）

@@ -251,13 +251,13 @@
     "created_at": "2026-06-21T06:06:11.634840+00:00",
     "created_by": null,
     "last_patched_at": "2026-06-21T06:06:37.859678+00:00",
-    "last_used_at": "2026-07-03T16:58:39.047538+00:00",
-    "last_viewed_at": "2026-07-03T16:58:39.040502+00:00",
+    "last_used_at": "2026-07-08T03:29:21.052848+00:00",
+    "last_viewed_at": "2026-07-08T03:29:21.046848+00:00",
     "patch_count": 1,
     "pinned": false,
     "state": "active",
-    "use_count": 11,
-    "view_count": 11
+    "use_count": 12,
+    "view_count": 12
   },
   "hermes-backup": {
     "archived_at": null,
@@ -524,13 +524,13 @@
     "created_at": "2026-07-01T16:17:38.869728+00:00",
     "created_by": null,
     "last_patched_at": "2026-07-03T14:19:44.366691+00:00",
-    "last_used_at": "2026-07-03T17:29:54.369770+00:00",
-    "last_viewed_at": "2026-07-03T17:29:54.361782+00:00",
+    "last_used_at": "2026-07-08T08:20:15.865169+00:00",
+    "last_viewed_at": "2026-07-08T08:20:15.857171+00:00",
     "patch_count": 8,
     "pinned": false,
     "state": "active",
-    "use_count": 10,
-    "view_count": 10
+    "use_count": 11,
+    "view_count": 11
   },
   "research-report-analysis": {
     "archived_at": null,
@@ -731,13 +731,13 @@
     "archived_at": null,
     "created_at": "2026-06-17T07:20:54.552354+00:00",
     "created_by": null,
-    "last_patched_at": "2026-07-05T11:44:05.203889+00:00",
-    "last_used_at": "2026-07-05T11:50:16.172312+00:00",
-    "last_viewed_at": "2026-07-05T11:50:16.166314+00:00",
-    "patch_count": 61,
+    "last_patched_at": "2026-07-08T03:52:05.747721+00:00",
+    "last_used_at": "2026-07-08T08:21:33.933038+00:00",
+    "last_viewed_at": "2026-07-08T08:21:33.925038+00:00",
+    "patch_count": 66,
     "pinned": false,
     "state": "active",
-    "use_count": 58,
-    "view_count": 58
+    "use_count": 62,
+    "view_count": 62
   }
 }
