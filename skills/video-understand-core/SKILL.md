@@ -1,11 +1,11 @@
 ---
 name: video-understand-core
-description: Shared video understanding pipeline engine — download, ASR, OCR, AI summary for B站/小红书.
-version: 1.4.0
+description: Shared video understanding pipeline engine — download, ASR, OCR, AI summary for B站/小红书/YouTube.
+version: 1.4.1
 platforms: [windows]
 metadata:
   hermes:
-    tags: [video, pipeline, bilibili, xiaohongshu, asr, ocr, multimodal]
+    tags: [video, pipeline, bilibili, xiaohongshu, youtube, asr, ocr, multimodal]
 ---
 
 # Video Understanding Core
@@ -34,6 +34,18 @@ bilibili-api-python → audio(WAV) → faster-whisper ASR (tiny+auto+VAD, ≥3mi
 
 See `references/xiaohongshu-architecture.md` for full technical design (Claude Code Opus review, 2026-06-16).
 See `references/xiaohongshu-implementation.md` for concrete code patterns, verified test, and pitfalls discovered during implementation.
+
+### YouTube (authentication-gated)
+
+```
+YouTube links → oembed API (metadata fallback, no auth needed)
+             → yt-dlp --cookies (full access: download → ASR pipeline)
+             → Otherwise: title-based analysis with DeepSeek
+```
+
+YouTube now requires authentication for ALL video data access (even public metadata beyond oembed). Without cookies/OAuth, only the oembed API works (title + author + thumbnail). For full pipeline (download → ASR → OCR → summary), user must provide cookies or manually download.
+
+See `references/youtube-limitations.md` for the full breakdown of what works and what doesn't (verified 2026-07-09).
 
 ## Two paths
 
@@ -127,6 +139,7 @@ DeepSeek API key priority:
 | **`__INITIAL_STATE__` JSON parse fails** (小红书) | JSON contains JS `undefined` values. Replace `:undefined` → `:null` before `json.loads()`. Also use brace-counting (not regex) to extract the full nested JSON. |
 | **faster-whisper `start` param fails** (小红书) | `transcribe()` doesn't support `start`/`duration`. Use ffmpeg physical split: `ffmpeg -f segment -segment_time 120`. Then transcribe each chunk with manual time offset. |
 | **小红书视频 CDN 403** | Must include `Referer: https://www.xiaohongshu.com/` header when downloading. CDN URL has limited TTL — download immediately after extraction. |
+| **YouTube LOGIN_REQUIRED** | All unauthenticated access blocked as of 2026-07. oembed API still works for metadata (title/author). Full access needs cookies/OAuth. See `references/youtube-limitations.md`. |
 
 ## Output
 
