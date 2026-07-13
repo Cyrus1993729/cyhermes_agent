@@ -287,6 +287,30 @@ for note_id, nd in note_data.items():
 
 **原因**：小红书页面版本不同，`__INITIAL_STATE__` 的结构会变。旧版可能 `noteDetailMap` 在顶层，新版在 `note` 下。**优先尝试 `data['note']['noteDetailMap']`**。
 
+### ⚠️ `__INITIAL_STATE__` 的 noteDetailMap 包含多个帖子——必须按 noteId 精确匹配（2026.7.12 Harness综述实踩）
+
+**小红书页面 `noteDetailMap` 可能包含多个帖子**（目标帖 + 推荐/关联帖），**不能取第一个条目**。必须先从页面 URL 中提取目标 `noteId`，再精确匹配：
+
+```python
+# ❌ 错误：取第一个条目 → 拿到的是随机推荐帖，不是用户分享的帖子
+for nid, nd in note_map.items():
+    note_data = nd.get('note', {})
+    if note_data:
+        break  # ← 可能是其他帖子！
+
+# ✅ 正确：从URL提取noteId，精确匹配
+note_id = re.search(r'/item/([a-f0-9]+)', url).group(1)
+note_data = note_map.get(note_id, {}).get('note', {})
+if not note_data:
+    # fallback: 遍历搜索
+    for nid, nd in note_map.items():
+        if nd.get('note', {}).get('noteId') == note_id:
+            note_data = nd.get('note', {})
+            break
+```
+
+**症状**：第一次解析拿到 PlanWeave 帖子（noteId=6a460a47...），而用户分享的是 Harness 综述帖子（noteId=6a50bbbf...）。两者完全不同。第二次用精确匹配才正确获取。
+
 ### __SETUP_SERVER_STATE__ 新页面结构（2026.7.8 hermes-journey 帖子实踩）
 
 **新版小红书 SPA 页面（~120KB HTML）将帖子数据放在 `__SETUP_SERVER_STATE__` 而非 `__INITIAL_STATE__`**。`__INITIAL_STATE__` 中 `noteDetailMap` 为空，但 `__SETUP_SERVER_STATE__` 的 `LAUNCHER_SSR_STORE_PAGE_DATA.noteData` 直接包含帖子对象（非 `noteDetailMap` 嵌套）。
