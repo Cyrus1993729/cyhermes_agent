@@ -223,6 +223,38 @@ desktop app restarts without them, the proxy disappears.
 **Fix**: Don't rely on environment variables. Set `proxy_url` explicitly in
 config.yaml under both `telegram:` and `platforms.telegram:`.
 
+#### Pool timeout — connection pool exhausted
+
+Log shows: `Pool timeout: All connections in the connection pool are occupied.`
+
+The Telegram adapter's internal httpx connection pool filled up and new send
+requests can't get a slot within `pool_timeout` (default 8 seconds). All
+retries fail with the same error because they compete for the same pool.
+
+**Root cause:** The default pool size (512) isn't always enough when the
+proxy introduces connection churn, or CLOSE_WAIT sockets from the aggressive
+`keepalive_expiry=2s` accumulate faster than the OS reclaims them.
+
+**Fix — tune pool via .env:**
+
+```bash
+# Increase pool size and timeout
+echo "HERMES_TELEGRAM_HTTP_POOL_TIMEOUT=30" >> ~/AppData/Local/hermes/.env
+echo "HERMES_TELEGRAM_HTTP_POOL_SIZE=1024" >> ~/AppData/Local/hermes/.env
+```
+
+Then restart the gateway: `hermes gateway restart`
+
+Optional fine-tuning env vars (with defaults shown):
+- `HERMES_TELEGRAM_HTTP_CONNECT_TIMEOUT` (10s)
+- `HERMES_TELEGRAM_HTTP_READ_TIMEOUT` (20s)
+- `HERMES_TELEGRAM_HTTP_WRITE_TIMEOUT` (20s)
+- `HERMES_GATEWAY_HTTPX_KEEPALIVE_EXPIRY` (2.0s)
+- `HERMES_GATEWAY_HTTPX_MAX_KEEPALIVE` (10)
+
+These are read in `plugins/platforms/telegram/adapter.py` → `request_kwargs`
+and `gateway/platforms/_http_client_limits.py` → `platform_httpx_limits()`.
+
 #### Proxy configured but not used — check NO_PROXY first
 
 `resolve_proxy_url()` checks `NO_PROXY` / `no_proxy` **before** falling

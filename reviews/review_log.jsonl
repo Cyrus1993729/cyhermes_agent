@@ -29,3 +29,13 @@
 {"ts": "2026-07-04T01:52:09.897709", "task": "contract_file_governance_2026-07-04", "verdict": "FAIL", "escalate": true, "fail_count": 2, "cond_count": 3, "total_items": 10}
 {"ts": "2026-07-04T01:53:11.199776", "task": "contract_file_governance_2026-07-04", "verdict": "FAIL", "escalate": true, "fail_count": 1, "cond_count": 2, "total_items": 7}
 {"ts": "2026-07-04T01:54:24.020499", "task": "contract_file_governance_2026-07-04", "verdict": "FAIL", "escalate": true, "fail_count": 1, "cond_count": 3, "total_items": 10}
+{"ts": "2026-07-13T21:21:52.104276", "task": "contract_gold_weekly_2026-07-13", "verdict": "FAIL", "escalate": true, "fail_count": 7, "cond_count": 2, "total_items": 10}
+{"ts": "2026-07-13T21:28:57.547458", "task": "test_contract", "verdict": "FAIL", "escalate": true, "fail_count": 3, "cond_count": 0, "total_items": 3}
+{"ts": "2026-07-13T21:31:24.141293", "task": "contract_gold_weekly_2026-07-13", "verdict": "FAIL", "escalate": true, "fail_count": 6, "cond_count": 3, "total_items": 11}
+{"ts": "2026-07-13T21:34:58.697136", "task": "contract_gold_weekly_2026-07-13", "verdict": "FAIL", "escalate": true, "fail_count": 1, "cond_count": 3, "total_items": 15}
+{"ts": "2026-07-13T21:37:53.006068", "task": "contract_gold_weekly_2026-07-13", "verdict": "CONDITIONAL", "escalate": true, "fail_count": 0, "cond_count": 3, "total_items": 26}
+{"ts": "2026-07-13T21:42:12.067962", "task": "contract_gold_weekly_2026-07-13", "verdict": "CONDITIONAL", "escalate": true, "fail_count": 0, "cond_count": 3, "total_items": 7}
+{"ts": "2026-07-13T21:44:44.046313", "task": "contract_gold_weekly_2026-07-13", "verdict": "CONDITIONAL", "escalate": false, "fail_count": 0, "cond_count": 2, "total_items": 27}
+{"ts": "2026-07-13T21:51:44.916002", "task": "contract_gold_weekly_2026-07-13", "verdict": "CONDITIONAL", "escalate": false, "fail_count": 0, "cond_count": 1, "total_items": 20}
+{"ts": "2026-07-13T22:03:08.565792", "task": "test_contract", "verdict": "FAIL", "escalate": true, "fail_count": 3, "cond_count": 1, "total_items": 6}
+{"ts": "2026-07-13T22:04:09.281878", "task": "test_contract", "verdict": "FAIL", "escalate": true, "fail_count": 4, "cond_count": 0, "total_items": 6}

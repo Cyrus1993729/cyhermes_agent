@@ -18,17 +18,22 @@ REVIEWS_DIR = Path(r"C:\Users\Administrator\AppData\Local\hermes\reviews")
 REVIEW_LOG = REVIEWS_DIR / "review_log.jsonl"
 
 RUBRIC = """你是 L1 固定审查层。对照【任务契约】逐条审查【交付物】，只审交付物不审过程。
-审查三维度，每条结论单独裁决，禁止打包：
+审查四维度，每条结论单独裁决，禁止打包：
 1. 任务完成度：契约里每个交付项/验收标准是否达成。
 2. 论证质量：把关键论断按【事实 / 推理 / 判断】三分类，检查——
-   - 事实：有无权威来源？口径是否统一（拒绝不同标准混比）？有无编造数据/引用？
+   - 事实：有无权威来源？有无编造数据/引用？
    - 推理：是否从第一性原理推导？有无预设立场？
    - 判断：边界条件是否成立？
-3. 风险合规：越界、遗漏边界条件、凭证/安全红线。
+3. 数据逻辑（⚠️ 必须逐项核验，不得跳过）：
+   a) 符号方向：偏差/变化的±号是否与比较关系一致（A<B→差为负；A>B→差为正）。但凡出现百分比数值，倒推原始值验算符号。
+   b) 跨小节勾稽：同一组数据在报告不同小节出现时，数值和单位是否一致（如 D4.2 的人民币平价也出现在 D4.3 中，两边数字必须相同）。
+   c) 口径一致性：同一概念在全文中是否使用统一术语（如不能一处叫"折价"另一处叫"估值偏离"指同一件事）。若发现术语混用，指出并给出统一建议。
+   d) 基本算术：涉及四则运算的数据点，用近似心算验证数量级是否合理（如基差+0.64%与价差-0.14%相加是否与现货基准价差+0.50%自洽）。
+4. 风险合规：越界、遗漏边界条件、凭证/安全红线。
 对每条给：结论(PASS/CONDITIONAL/FAIL) + 依据 + 修复建议。
 最后给总裁决：全 PASS→PASS；有 CONDITIONAL 无 FAIL→CONDITIONAL；任一 FAIL→FAIL。
 CONDITIONAL≥3 条或任一 FAIL → 建议升级 Opus（人工手动）。
-严格输出 JSON: {"verdict":"...","escalate":bool,"items":[{"claim":"","type":"事实|推理|判断|完成度|合规","result":"","reason":"","fix":""}],"summary":""}"""
+严格输出 JSON: {"verdict":"...","escalate":bool,"items":[{"claim":"","type":"事实|推理|判断|完成度|数据逻辑|合规","result":"","reason":"","fix":""}],"summary":""}"""
 
 
 def read_qwen_cfg():
@@ -56,7 +61,7 @@ def call_qwen(contract: str, deliverable: str):
         headers={"Authorization": f"Bearer {key}",
                  "Content-Type": "application/json"})
     try:
-        with urllib.request.urlopen(req, timeout=90) as resp:
+        with urllib.request.urlopen(req, timeout=300) as resp:
             raw = json.loads(resp.read())
         return raw["choices"][0]["message"]["content"]
     except urllib.error.HTTPError as e:

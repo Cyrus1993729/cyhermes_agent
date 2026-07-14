@@ -1,7 +1,7 @@
 ---
 name: task-wrapup
 description: "【收尾自检清单】所有干活类 skill（产出分析报告/文件/方案的）最后一步强制引用。自动触发审查、区分来源、存档产物、平台分段交付。不等用户喊「审」。"
-version: 1.2.0
+version: 1.3.0
 platforms: [windows]
 metadata:
   hermes:
@@ -51,29 +51,34 @@ metadata:
 
 ---
 
-## 控制流（⚠️ 短路逻辑）
+## 控制流（⚠️ 短路逻辑 + 自动审查循环）
 
-自检分两段，中间有短路：
+自检分两段，中间有自动循环：
 
 ```
-┌─ 质量门 ─────────────────────┐
-│ 1. 步骤完整性                 │
-│ 2. 来源区分                   │
-│ 3. 自动审查（L1）             │
-│    ├── PASS → 进入投递        │
-│    ├── CONDITIONAL → 呈报后进入投递 │
-│    └── FAIL → 重试(最多2次)    │
-│         ├── 重试后 PASS → 投递 │
-│         └── 2次仍 FAIL → 停下，通知用户，不投递 │
-└──────────────────────────────┘
-         ↓ (通过后才走)
+┌─ 质量门 ──────────────────────────────────────┐
+│ 1. 步骤完整性                                  │
+│ 2. 来源区分                                    │
+│ 3. 自动审查（L1 → Opus）                       │
+│    ├── PASS → 进入 Opus（若有）→ PASS → 投递   │
+│    ├── FAIL/CONDITIONAL → 自动修复 → 重审      │
+│    │    ├── L1 层最多 3 轮（含 CONDITIONAL）   │
+│    │    │   ├── 3轮内 PASS → 进入 Opus 层      │
+│    │    │   └── 第4轮启动前 → 停下，通知用户   │
+│    │    ├── Opus 层最多 3 轮（独立计数）        │
+│    │    │   ├── 3轮内 PASS → 进入投递          │
+│    │    │   └── 第4轮启动前 → 停下，通知用户   │
+│    │    └── 全程 Agent 自动修复，不询问用户     │
+└──────────────────────────────────────────────┘
+         ↓ (L1 + Opus 全部通过后才走)
 ┌─ 投递动作 ───────────────────┐
 │ 4. 产物存档（含失败留痕）     │
-│ 5. 分段交付                  │
+│ 5. 将交付物作为回复正文发送   │
 └──────────────────────────────┘
 ```
 
-**任一质量门不过 → 不进入投递。** FAIL 的东西不会存档更不会发送。
+**任一质量门不过 → 不进入投递。**
+审查循环全程自动——Agent 发现问题后自己修、重审，不打断用户。仅当同一层连续 3 轮未 PASS 时才停下（详见 sprint-contract v1.2 升级规则）。
 
 ---
 
@@ -118,24 +123,41 @@ metadata:
 
 **输出**：`来源清晰 ✅` 或 `未标注 X 处 ⚠️ → 补充标注`
 
-### ✅ 3. 自动审查（不等用户喊）
+### ✅ 3. 自动审查（不等用户喊，全程自动修复）
+
+**审查循环规则**（详见 sprint-contract v1.2 升级规则）：
+- L1 发现问题 → Agent 自动修复 → 重审 → 循环至 PASS（最多 3 轮）
+- L1 PASS 后 → 发 Opus 审查（投资分析类强制，其他类可选）
+- Opus 发现问题 → Agent 自动修复 → 重审 → 循环至 PASS（最多 3 轮，独立计数）
+- Agent 全程**不询问用户**是否修复或升级，自动修复+重审
+- 仅当同一审查层第 4 轮启动前（即 3 轮未 PASS）才停下询问用户
+- CONDITIONAL 算审查轮次，修完必须重审
 
 **路径规则**：
 - 契约文件：`~/AppData/Local/hermes/contracts/contract_<任务名>_<YYYY-MM-DD>.md`
 - 交付物文件：`~/AppData/Local/hermes/output/<任务名>_<YYYY-MM-DD>.md`
 - 审查脚本：`~/AppData/Local/hermes/scripts/qwen_review.py`
-- 若找不到对应契约文件 → 以任务原始要求作为代替，传给审查命令时用 `--standard "<原始要求>"`
 
+L1 审查步骤：
 ```
-1. 定位契约文件路径（按上述命名规则）
+1. 定位契约文件路径
 2. 定位交付物文件路径
 3. 运行 python <审查脚本> --contract <契约> --deliverable <交付物>
-4. 向用户呈报审查结果
-5. FAIL → 按审查反馈修改 → 重审（最多 2 次）
-6. 2 次后仍 FAIL → 停下，写清楚卡在哪，通知用户
+4. 若脚本超时（API不可达）→ 降级为人工自检（见 L8 规则）
+5. PASS → 进入 Opus 审查（若需要）
+6. FAIL/CONDITIONAL → 自动修复 → 回到步骤 3 重审
+7. 累计 3 轮未 PASS → 停下告知用户（第 4 轮不启动）
 ```
 
-**输出**：`审查 ✅ PASS（N/N）` 或 `审查 ⚠️ CONDITIONAL（N条）` 或 `审查 ❌ FAIL（已重试2次，停下）`
+Opus 审查步骤（投资分析类强制，见 sprint-contract）：
+```
+8. 用 claude -p --model opus 审查交付物
+9. PASS → 进入投递
+10. FAIL/CONDITIONAL → 自动修复 → 回到步骤 8 重审
+11. 累计 3 轮未 PASS → 停下告知用户
+```
+
+**输出**：`审查 ✅ L1 PASS (N/N) + Opus PASS` 或 `审查 ⚠️ CONDITIONAL（已修N轮）` 或 `审查 ❌ FAIL（已重试3轮，停下）`
 
 > ⚠️ PASS 后的 N/N **必须从审查脚本实际输出中抄录**，不得凭印象填写。
 
@@ -184,7 +206,9 @@ mv deliverable_<任务名>_<YYYY-MM-DD>.md archive/<任务名>_<YYYY-MM-DD>/
 
 **输出**：`已归档 ✅ → contracts/archive/<任务名>_<日期>/`
 
-### ✅ 5. 分段交付
+### ✅ 5. 将交付物作为回复正文发送
+
+**⚠️ 硬性规则**：最终交付物必须作为回复正文发送给用户，不可仅说"已存到文件"或只贴文件路径。用户应在对话中直接看到完整报告。
 
 **⚠️ 平台差异：**
 - **Telegram（主平台）**：单条消息 ~3500 字合理上限，Markdown 渲染良好，无回复条数限制。超长自动分段。
@@ -215,6 +239,14 @@ mv deliverable_<任务名>_<YYYY-MM-DD>.md archive/<任务名>_<YYYY-MM-DD>/
 **输出**：`已交付 ✅ 报告(N段) + MEDIA + 自检` 或 `≤3500字，已交付 ✅ 报告 + MEDIA + 自检`
 
 > 若用户反馈「没收到完整报告」→ 立即重发缺失部分
+
+### ⚠️ Pitfall：只存档文件路径，没把正文发给用户（2026.7.13 黄金周报实踩）
+
+Agent 完成审查+存档后回复："报告已存档至 hermes_output/2026-07-13_gold_weekly.md"——但没有发报告正文。用户追问："最终版的周报你没有发给我呀。"
+
+**根因**：Agent 误以为"指个路径就够了"，但用户要在对话中直接看到完整内容。存档是备份，正文才是交付。
+
+**正确做法**：存档后必须把交付物全文作为回复发送。`read_file` 读取文件内容 → 作为回复正文逐段发出。
 
 ---
 
@@ -269,4 +301,5 @@ mv deliverable_<任务名>_<YYYY-MM-DD>.md archive/<任务名>_<YYYY-MM-DD>/
 ## 参考
 
 - **文件治理规范**：`走流程` 产生的所有文件（contract/deliverable/workflow）的命名、生命周期、归档规则。详见 `hermes/contracts/file_governance_standard.md`。
+- **Cron 自治 5 步闭环适配**：交互式「走流程」适配为 cron 无人值守执行的完整模式（decision-gate→自检闸门、task-wrapup→嵌入 prompt）。详见 [`references/cron-5step-autonomous-adaptation.md`](references/cron-5step-autonomous-adaptation.md)。
 - **Cron no_agent 脚本格式**：no_agent 模式用 Python 执行脚本（非 bash/cmd）。`.py` 可用，`.sh`/`.bat` 不可用。详见 [`references/cron-no-agent-script-format.md`](references/cron-no-agent-script-format.md)。

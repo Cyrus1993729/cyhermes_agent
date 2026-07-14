@@ -1,7 +1,7 @@
 ---
 name: gold-investment-analysis
 description: "【黄金积存金七因子打分系统】已落地的黄金专属评分+周报+cron 自动推送。| 跟 investment-analysis 的区别：那个是「怎么搭一个框架」的通用方法论，这个是已经做好的黄金专用系统。跟 gold-macro-framework 的区别：那个是宏观定价公式和传导机制分析，这个是量化打分+自动化报告。"
-version: 3.2.0
+version: 3.3.0
 author: Hermes Agent
 license: MIT
 platforms: [linux, macos, windows]
@@ -166,6 +166,19 @@ Old daily reports polluted 40% of the composite score with month-old data preten
 - Monthly dimensions explicitly labeled with age and decay-weighted
 - No daily reports — they create false certainty
 
+### ⚠️ 交付前审查要求（2026.7.13 确立）
+
+黄金周报属于投资分析类报告，**必须经过双审才能交付**：
+
+1. **L1（千问 3.7 Max）**：形式审查 + 数据逻辑审查。当前 RUBRIC 已升级为四维度（含符号方向/跨小节勾稽/口径一致性/基本算术），脚本 `qwen_review.py` timeout=300s。CONDITIONAL < 3 且无 FAIL 时通过。
+2. **Opus（Claude Code）**：实质准确性的最终 sign-off。L1 擅长形式和数据逻辑，但数值深度自洽（三数互洽、多口径交叉验证）是 Opus 的强项。**投资分析类报告不经 Opus PASS 不交付。**
+
+典型审查分工：
+- L1：符号方向（他写的+0.14%对吗？）、术语一致性（两处同概念用词统一吗？）、完成度（缺URL吗？）
+- Opus：数据逻辑深度自洽（GC=F基准的价差和XAU基准的价差勾稽吗？）、投资逻辑合理性（估值便宜为什么不加码？）
+
+> 教训来源：2026.7.13 黄金周报 L1 审查 6 轮未发现 +0.14%→−0.14% 符号错误和"折价"vs"估值偏离"术语混用，Opus 第 1 轮即发现。详见 `lessons.md` L9。
+
 ## Data Source Patterns
 
 ### yfinance: ALWAYS use Ticker API with Session
@@ -264,8 +277,10 @@ HTTP_PROXY=http://127.0.0.1:7897 HTTPS_PROXY=http://127.0.0.1:7897 python main.p
 Cron job for automated weekly delivery:
 - Job ID: `54117ed8a949`
 - Schedule: `0 8 * * 1` (Monday 8:00 AM CST)
-- Delivers to: origin (WeChat DM)
-- Workflow: news search → quantitative analysis → integrated report
+- Delivers to: **Telegram**（2026.7.13 已从微信迁移，原因：微信 iLink 10条/轮硬限制导致长报告被吞）
+- Workflow: 5-step sprint (sprint-contract → decision-gate → execute → task-wrapup+L1 → post-task-review)
+- Skills loaded: sprint-contract, task-wrapup, post-task-review, l1-review
+- Toolsets: terminal, file, web
 
 **CRITICAL for Cron**: Never use `execute_code` or `delegate_task` in the cron prompt — both are blocked in cron context ("Cron jobs run without a user present to approve"). Use `web_search` for news and `terminal` for all commands. The cron job's prompt must explicitly say "不要用 execute_code" and "不要用 delegate_task".
 
@@ -354,7 +369,7 @@ Claude Code is used for: framework design, model review, analytical logic critiq
 
 28. **Manual CNH CSV rows MUST use yfinance's multi-column format**: When `CNH=X` fetch fails (common from China), the model falls back to `data/usdcnh.csv`. If you manually add a row, the format must match yfinance's output exactly: `Date,Open,High,Low,Close,Volume,Dividends,Stock Splits` with values like `2026-06-22 00:00:00+00:00,6.78,6.78,6.78,6.78,0,0.0,0.0`. A plain 2-column `Date,Close` row will cause the Close column to be mis-parsed as NaN, producing wildly incorrect Shanghai premium values (e.g. -7.2% instead of ~0%). Always verify with `tail -3 data/usdcnh.csv` after editing. Use the external CNH rate from `https://api.exchangerate-api.com/v4/latest/USD` (field `rates.CNH`, not `rates.CNY`) — the model uses offshore CNH for premium calculation.
 
-29. **gold-api.com is blocked in China — do NOT use it for automated data fetching**: The API `https://api.gold-api.com/price/XAU` times out (Read timeout) from mainland China networks. It MAY work with a proxy, but is unreliable for cron jobs. The Shanghai gold conversion in `data_fetcher.py` uses yfinance GC=F + USDCNH cache instead — zero external API dependencies. Only use gold-api.com for manual spot-checks when you're actively debugging, never in automated code paths.
+29. **gold-api.com has SSL certificate issues — use `curl -k` for manual validation**: The API `https://api.gold-api.com/price/XAU` returns SSL errors (exit code 35) from mainland China networks with standard curl. However, it works with `curl -k` (insecure SSL). The gold analyzer's `data_fetcher.py` uses yfinance GC=F + USDCNH cache instead, which has zero external API dependencies for automated paths. **For manual D4 validation only**: use `curl -k -x http://127.0.0.1:7897 -s "https://api.gold-api.com/price/XAU"` to get XAU spot for basis calculation. Never use gold-api.com in automated code paths — only for D4 spot-checks during manual report runs.
 
 30. **fredapi package may not be installed even when .env has the key**: The FRED_API_KEY in `.env` is loaded by `config.py`, but `from fredapi import Fred` requires the `fredapi` PyPI package (`pip install fredapi`). If FRED data shows "不可用" in the report, run `python -c "from fredapi import Fred"` first — a `ModuleNotFoundError` means the package needs installation, not a key problem. The key alone is not sufficient.
 
@@ -365,6 +380,17 @@ Claude Code is used for: framework design, model review, analytical logic critiq
    curl -s "https://news.google.com/rss/search?q=gold+price+June+2026&hl=en-US&gl=US&ceid=US:en"
    ```
    This returns real RSS with `<pubDate>` tags — verifiable, dated, and filterable. The output is verbose (100K+ chars); pipe through grep or Python for extraction. Always extract `<pubDate>` from each `<item>` before building a timeline (see pitfall 25/26). The pattern works from cron with proxy set.
+
+33. **SGE折价有两个不同含义，不可混用（2026.7.13 L1审查实踩）**：
+    main.py 终端输出中"上海金折价 -6.5%"与契约定义的"境内外价差"不是同一个指标：
+    - **境内外价差**（契约口径 D4.3）：AU9999实盘价 − 理论平价（GC=F÷31.1035×USDCNH）。正常值在 ±1% 以内，反映汇率传导效率。
+    - **公允价值偏离**（main.py 输出）：AU9999 vs 模型公允价值¥953.2。这是估值模块信号，反映境内需求强弱，可达 ±10%。
+    - **两者完全不同**：本例中境内外价差仅 -0.14%（正常），但公允价值偏离达 -6.5%（散户看空）。在 D4 校验和 D3 研判中必须区分这两个概念，不能用"上海金折价"一个词同时指代两者。L1 审查会严格检查口径一致性。
+    - **加仓条件中也需口径对齐**：若契约定义加仓条件为"上海金折价收窄至-3%"，应明确指向公允价值偏离而非境内外价差。推荐使用"公允价值偏离从-6.5%收窄至-3%以内"的表述，避免歧义。
+    - **本周报告：COMEX期货 vs XAU现货基差 +0.64%，境内外价差 -0.14%（汇率传导正常），AU9999公允价值偏离 -6.5%**。三者互洽：GC=F基准价差 -0.14% + 基差 0.64% ≈ XAU现货基准 +0.50%。D4 校验应同时报告三个口径：①期现基差（COMEX vs XAU）、②境内外价差（AU9999 vs GC=F平价）、③公允价值偏离（AU9999 vs 模型公允价值）。境内外价差和公允价值偏离是两个不同的概念，不能混用\"上海金折价\"一个词指代。
+
+34. **main.py 终端输出文本不可信——以数值评分为准（2026.7.13 黄金周报实踩）**：
+    main.py 最终行的文本建议与数值评分逻辑可能出现矛盾。见本次案例：数值评分 38.4/100 → 30% 定投，但终端文本输出\"建议在¥886-925/克暂停，等待回落至该区间\"——当前价 ¥891 已在该区间内，\"等待回落\"自相矛盾。这是模型文本生成的典型幻觉，评分模块和文本建议模块使用不同的生成路径。**处理**：交付报告中以数值评分（module_scores → composite_100 → 定投映射）为准，终端文本输出仅作为辅助参考。若存在矛盾，在研判章节显式标注冲突并说明以数值为准（见 `lessons.md` L9）。契约 D2 已注明\"终端输出文本仅作为原始数据\"。
 
 ## 🧩 工作流配方
 

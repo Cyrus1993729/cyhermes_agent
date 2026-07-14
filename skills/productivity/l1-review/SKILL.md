@@ -1,7 +1,7 @@
 ---
 name: l1-review
 description: "【L1 固定审查层】交付物完成、任务收尾时触发。用 qwen-bailian(千问3.7Max) 对照 sprint-contract 的契约逐条审查交付物，输出 PASS/CONDITIONAL/FAIL + 逐条裁决。走 execute_code 直连 API（不经 delegate_task，锁定 provider）。FAIL 或 CONDITIONAL≥3 建议手动升级 Opus。只报告不改文件。审交付物不审过程。"
-version: 1.0.0
+version: 1.1.0
 category: productivity
 tags: [review, qa, qwen, verification, methodology]
 ---
@@ -31,20 +31,31 @@ tags: [review, qa, qwen, verification, methodology]
    （通过 execute_code / terminal 执行；脚本从 config.yaml 读 qwen key。）
 3. 读回 JSON 裁决，向用户呈现：总裁决 + 逐条(结论/依据/修复)。
 
-## Review Rubric（脚本内固化，三维度）
+## Review Rubric（脚本内固化，四维度 ⚠️ v1.1 从三维升级）
+
+> 2026.7.13 升级：新增第 3 维度「数据逻辑」。原三维只做形式审查（完成度/论证质量/合规），遗漏了符号错误（+0.14%→−0.14%）和术语混用（"折价"vs"估值偏离"）等低级错误。新四维度已在测试用例中验证能发现此类问题。
+
 1. **任务完成度**：契约每项验收标准是否达成。
 2. **论证质量**：关键论断按【事实/推理/判断】三分类——
-   - 事实：权威来源？口径统一（拒绝混比）？无编造？
-   - 推理：第一性原理？无预设立场？
+   - 事实：权威来源？有无编造？
+   - 推理：第一性原理？有无预设立场？
    - 判断：边界条件成立？
-3. **风险合规**：越界、遗漏边界、凭证/安全红线。
+3. **数据逻辑**（⚠️ 2026.7.13 新增，必须逐项核验）：
+   - a) 符号方向：偏差±号是否与比较关系一致（A<B→差为负）
+   - b) 跨小节勾稽：同一组数在报告不同小节是否数值一致
+   - c) 口径一致性：同一概念全文是否使用统一术语（不可一处叫"折价"一处叫"估值偏离"）
+   - d) 基本算术：四则运算结果数量级和勾稽关系是否自洽
+4. **风险合规**：越界、遗漏边界、凭证/安全红线。
 > 逐条裁决，禁止打包。
 
 ## Verdict & Escalation
 - 全 PASS → PASS
 - 有 CONDITIONAL 无 FAIL → CONDITIONAL
 - 任一 FAIL → FAIL
-- **FAIL 或 CONDITIONAL≥3 → 停下，报告后由用户手动决定是否升级 Opus**（Opus 仅手动，走 Claude Code CLI）。
+- **审查阶段全程自动**：L1/Opus 发现问题 → Agent 自动修复 → 重审 → 循环至 PASS（每层最多 3 轮）
+- **第 4 轮启动前停下**：同一审查层连续 3 轮未 PASS（含 FAIL 和 CONDITIONAL），第 4 轮启动前停下询问用户
+- CONDITIONAL 算审查轮次，修完必须重审
+- 详见 sprint-contract v1.2 升级规则
 
 > ⚠️ verdict/escalate 由脚本从 items 数组**确定性重算**，不信任 LLM JSON 里的自报字段。原理：任一条 FAIL→FAIL，CONDITIONAL≥3→escalate。防止千问在 verdict 字段里"放水"（self-completion bias）。
 
@@ -68,7 +79,20 @@ python scripts/review_trend.py --last 5  # 最近5条
 
 ## Pitfalls
 
-## Pitfalls
+### L1 API 超时的降级方案（2026.7.13 黄金周报 实踩）
+
+qwen-bailian API 可能在直连和代理下都超时。根因通常是两层的：
+
+**第一层：脚本超时太短**。`qwen_review.py` 原先 `timeout=90`，qwen3.7-max 是推理模型（有 reasoning_content），大 payload（契约+交付物 3-8K chars）时推理 tokens 可达 1000+，90s 不够。**已修复为 `timeout=300`**。如果以后再超时，先检查脚本 timeout 值。
+
+**第二层：API 真的不可达**。此时不应无限重试，也不能静默跳过审查。
+
+**降级流程**：
+1. 先确认脚本 timeout≥300（已修）
+2. 重试 2 次（直连 + 代理各一次）
+3. 2 次均失败 → 执行人工自检：对照契约逐条检查 D1-D4，标注"L1 API不可达，人工自检替代"
+4. 自检结果写进 task-wrapup 收尾摘要，裁决标 CONDITIONAL
+5. 生成复盘时写入 lessons.md（L8 规则）
 
 - **触发太软（已由 task-wrapup 解决）**：原先审查靠用户喊"审"或末尾提示，Agent 经常漏。现在 `task-wrapup` skill 将审查焊死在所有干活类 skill 的最后一步——审查不靠人喊，流程自己审。只要干活类 skill 正确引用了 task-wrapup，审查就不会漏。详见 task-wrapup skill。
 - **架构局限（2026.7.2 验证）**：问题本质是 LLM agent 天然不会逐条比对 memory。task-wrapup 通过在 skill SOP 结构层面固化审查步骤（而非依赖 memory/末尾提示）来缓解——这比「记得提醒」更强，因为它是流程结构的一部分，不靠记忆。
