@@ -23,3 +23,7 @@ Telegram主平台(token:8839546337:***)，微信已弃(iLink限10条)。TG Bot A
 用户画像：33岁男无子女，税后¥20万/年日常¥8万，工作日定投纳指(20-30年)。技术小白懂概念。中文沟通。故障先诊断根因不绕过。技术方案先问Opus。主动汇报进展不沉默。
 §
 5步闭环：①契约(Opus审)→②闸门(自检)→③执行→④审查(L1形式+Opus实质)→⑤复盘。审查阶段全程自动：发现问题→自动修→重审→循环至PASS，不打断用户。仅3轮仍FAIL才停下。用户只在契约确认+最终交付两个节点介入。涌现型诊断完触发。投资分析类须Opus final sign-off。审查问题全修完才交付。
+§
+Tavily已配为Hermes搜索后端(web.backend=tavily, web.search_backend=tavily)。Key在Desktop/各类api key/Tavily API key.txt。需网关重启后web_search工具才出现。后备:Bing直连(curl --noproxy '*')+grep。
+§
+高德MCP已配置(amap-maps-mcp-server, npm包@amap/amap-maps-mcp-server), API Key: 0e0e...b4, 存储: Desktop/各类api key/amap api key.txt。静态地图API参数名是location不是center——曾因用错参数名误以为权限不足。Python staticmap库(OSM瓦片)被墙不可用，fallback方案: Pillow手绘示意图 或 高德静态地图API直接生成PNG。

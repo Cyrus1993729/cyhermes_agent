@@ -255,6 +255,53 @@ Optional fine-tuning env vars (with defaults shown):
 These are read in `plugins/platforms/telegram/adapter.py` → `request_kwargs`
 and `gateway/platforms/_http_client_limits.py` → `platform_httpx_limits()`.
 
+#### Proxy Running But All Connections Failing (502 / HTTP 000) — Airport Node Down
+
+**Symptom:** The proxy port (e.g. 7897) is listening, Clash/verge-mihomo
+process is running, but ALL outbound connections through the proxy return
+HTTP 502 or HTTP 000 (connection refused / timeout). Gateway logs show
+repeated `httpx.ConnectError` for Telegram.
+
+**This is NOT a Hermes/gateway issue — the proxy's upstream nodes are dead.**
+
+**Diagnostic recipe (do all in parallel if possible):**
+
+```bash
+# 1. Gateway status — confirms Telegram is configured, gateway running
+hermes status
+
+# 2. Gateway logs — look for ConnectError pattern
+grep -i "telegram\|ConnectError\|Reconnect" ~/AppData/Local/hermes/logs/gateway.log | tail -20
+
+# 3. Proxy reachability — test external targets through proxy
+curl -s -o /dev/null -w "HTTP %{http_code}\n" --max-time 5 \
+  --proxy http://127.0.0.1:7897 "https://www.google.com"
+
+# 4. Clash process check
+wmic process where "name like '%clash%' or name like '%verge%' or name like '%mihomo%'" get ProcessId,Name
+
+# 5. 🔑 THE KEY STEP — Clash sidecar logs (mihomo core)
+# This is the definitive source of truth for proxy health.
+# Path: %APPDATA%/io.github.clash-verge-rev.clash-verge-rev/logs/sidecar/sidecar_latest.log
+cat "$APPDATA/io.github.clash-verge-rev.clash-verge-rev/logs/sidecar/sidecar_latest.log"
+```
+
+**Reading the sidecar log:**
+
+- `match GeoIP(cn) using DIRECT` → domestic traffic bypassing proxy (GOOD)
+- `error: dial tcp ... connectex: No connection could be made because the target machine actively refused it` → node is dead
+- `error: dial tcp ... i/o timeout` → node is unreachable (GFW or node down)
+
+If sidecar shows ALL external connections failing but direct ones
+succeeding, the proxy nodes are the problem. The user needs to:
+1. Open Clash Verge → switch to a different node
+2. Or update subscription (airport maintenance / expired)
+3. Or wait for airport recovery
+
+**This is categorically different from pool timeout or NO_PROXY issues.**
+Pool timeout = proxy works but Hermes can't get a connection slot.
+Node down = proxy accepts connections but can't route anywhere.
+
 #### Proxy configured but not used — check NO_PROXY first
 
 `resolve_proxy_url()` checks `NO_PROXY` / `no_proxy` **before** falling
@@ -489,3 +536,6 @@ to confirm bidirectional communication.
 - `references/telegram-noproxy-diagnostic-trace.md` — Full diagnostic timeline
   from 2026-07-04: InvalidToken → ConnectError → NO_PROXY silent bypass →
   fix. Step-by-step with exact log patterns and resolution order.
+- `references/proxy-health-check.md` — Proxy health diagnostic recipe:
+  three failure modes (pool timeout / NO_PROXY bypass / airport nodes down),
+  parallel diagnostic flow, and Clash sidecar log interpretation.

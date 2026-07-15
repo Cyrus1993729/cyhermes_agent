@@ -58,8 +58,8 @@ terminal:
   docker_run_as_host_user: false
   persistent_shell: true
 web:
-  backend: ''
-  search_backend: ''
+  backend: tavily
+  search_backend: tavily
   extract_backend: ''
 browser:
   inactivity_timeout: 120
@@ -510,15 +510,15 @@ discord:
       - On it.
 whatsapp: {}
 telegram:
-  enabled: true
-  token: "8839546337:***"
-  proxy_url: "http://127.0.0.1:7897"
   reactions: false
   channel_prompts: {}
   allowed_chats: ''
   extra:
     rich_messages: false
     rich_drafts: false
+  enabled: true
+  token: 8839546337:***
+  proxy_url: http://127.0.0.1:7897
 mattermost:
   require_mention: true
   free_response_channels: ''
@@ -652,11 +652,12 @@ paste_collapse_threshold_fallback: 5
 paste_collapse_char_threshold: 2000
 computer_use:
   cua_telemetry: false
+_config_version: 30
 platforms:
   telegram:
-    enabled: true
-    token: "8839546337:***"
-    proxy_url: "http://127.0.0.1:7897"
+    enabled: false
+    token: 8839546337:***
+    proxy_url: http://127.0.0.1:7897
     reactions: false
     channel_prompts: {}
     allowed_chats: ''
@@ -680,6 +681,13 @@ mcp_servers:
       CLIENT_ID: NXVEa0hnOUNhbE1xdHBfOTlnLW86MTpjaQ
       CLIENT_SECRET: nAhLlXCCWMfVS9xTV2RUbQJmg1hJBq0sz6RiDVqIHA2oCAdxAN
     enabled: true
+  amap:
+    command: npx
+    args:
+      - -y
+      - '@amap/amap-maps-mcp-server'
+    env:
+      AMAP_MAPS_API_KEY: 0e0e0ebabf4fd5d94b1129c7791fb5b4
 
 # ── Fallback Model ────────────────────────────────────────────────────
 # Automatic provider failover when primary is unavailable.

@@ -21,11 +21,26 @@ Google blocks datacenter IPs at the **IP-reputation layer** — not at the HTTP 
 | **Google** all search endpoints | ❌ Timeout | ❌ CAPTCHA block | Unusable |
 | **Google Custom Search API** | ❌ | ✅ API reachable | ❌ Do NOT recommend — limited to CSE index, not full web |
 | **Bing** `cn.bing.com` | ✅ | — | China-filtered results |
-| **Bing** `www.bing.com` | ✅ | — | **Best free direct** — international results |
+| **Bing** `www.bing.com` | ✅ | — | **Best free direct** — international results (~1.2s) |
+| **DuckDuckGo** `duckduckgo.com` | ❌ | ✅ (JS-heavy, not curl-friendly) | Main site JS-SPA, hard to parse |
+| **DuckDuckGo Lite** `lite.duckduckgo.com` | ❌ | ✅ (~1.3s) | **Plain HTML, curl-friendly** — use this, not main DDG |
 | **Startpage** `startpage.com` | ❌ | ⚠️ JS-only SPA | Unusable via curl |
 | **Tavily API** | ✅ | ✅ | **Recommended** — free 1000/mo, agent-native |
 | **ValueSERP API** | ✅ (proxy) | ✅ | Real Google results, $5/mo 5000 queries |
 | **Perplexity API** | ✅ (proxy) | ✅ | Deep Research mode ~$5/query |
+
+## Diagnostic Workflow
+
+When web search fails (tool missing, browser timeout, API depleted), test systematically before concluding nothing works:
+
+```bash
+# Test ONE AT A TIME — batching causes cascading timeouts
+curl -s -o /dev/null -w "%{http_code} %{time_total}s" --max-time 5 --noproxy '*' "https://www.bing.com" && echo " Bing直连"
+curl -s -o /dev/null -w "%{http_code} %{time_total}s" --max-time 5 -x http://127.0.0.1:7897 "https://duckduckgo.com" && echo " DDG代理"
+curl -s -o /dev/null -w "%{http_code} %{time_total}s" --max-time 5 -x http://127.0.0.1:7897 "https://lite.duckduckgo.com/lite/?q=test" && echo " DDGLite搜索"
+```
+
+Pick the fastest engine with HTTP 2xx/3xx, then construct the actual search query. Bing 直连 is almost always the winner.
 
 ## Bing: International vs China
 

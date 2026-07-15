@@ -133,7 +133,7 @@ For MCP endpoints behind the Great Firewall (api.x.com, api.twitter.com, etc.):
 | Server | Transport | Auth | Reference |
 |:---|:---|:---|:---|
 | X / Twitter | stdio via xurl | OAuth 2.0 PKCE | [`references/x-mcp-setup.md`](references/x-mcp-setup.md), [`scripts/xurl_oauth_complete.py`](scripts/xurl_oauth_complete.py) |
-
+| 高德地图 (AMap) | stdio via npx | API Key (Web服务) | [`references/amap-mcp-setup.md`](references/amap-mcp-setup.md) |
 ## Troubleshooting
 
 ### "Connection closed" on `hermes mcp add`
@@ -143,6 +143,26 @@ For MCP endpoints behind the Great Firewall (api.x.com, api.twitter.com, etc.):
 - **Config IS saved even when the test fails** — `hermes mcp add` prompts "Save config anyway (you can test later)? [y/N]". Answer Yes (`y` + Enter), then use `/reload-mcp` (in-session) or restart Hermes to pick up the config. The tools won't work until OAuth is completed, but the config entry persists.
 - After pre-authenticating (e.g. `xurl auth oauth2 --app ...`), run `hermes mcp test <name>` to verify, or use `/reload-mcp` to reconnect live without restarting the session.
 - OR use `hermes mcp configure <name>` — an interactive command that re-enables the server and lets you select which tools to expose.
+
+### Amap Static Map Returns 20003 (UNKNOWN_ERROR)
+
+Symptom: All other Amap MCP tools work (weather, geocode, directions) but static map API returns `{"status":"0","info":"UNKNOWN_ERROR","infocode":"20003"}`. Key works, HTTP and HTTPS both fail.
+
+🔑 **Root cause #1 (most common): Wrong parameter name.** Amap static map uses `location` for the center point, NOT `center`. Using `center=` triggers a generic 20003 error that looks like a permission problem but is actually a parameter validation failure. ALWAYS double-check the param name first — it's usually this.
+
+```
+# ❌ WRONG — generic 20003 error
+https://restapi.amap.com/v3/staticmap?key=...&center=116.40,39.90
+
+# ✅ RIGHT — works immediately
+https://restapi.amap.com/v3/staticmap?key=...&location=116.40,39.90
+```
+
+Other required params: `zoom` (1-17), `size` (W*H, use `*` not `x`), `key`. Optional: `markers`, `labels`, `paths`, `traffic`.
+
+Root cause #2: 静态地图 not activated. Go to https://lbs.amap.com/api/staticmap-official/summary → click **"立即开通"**.
+
+Fallback: Use Pillow (`from PIL import Image, ImageDraw`) to generate schematic diagrams. See [`references/amap-mcp-setup.md`](references/amap-mcp-setup.md).
 
 ### Authorization Code Expiry (~60s)
 

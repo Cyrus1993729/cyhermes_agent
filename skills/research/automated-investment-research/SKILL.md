@@ -92,6 +92,58 @@ Perplexity sonar-deep-research → 自动多轮搜索 + 综合报告
 - 免费层: 1000 次/月，直连可用（无需代理）
 - 环境变量（可选）: `export TAVILY_API_KEY=$(cat /c/Users/Administrator/Desktop/Tavily\ API\ key.txt)`
 
+## Zero-Dependency Curl Fallback
+
+When Tavily API key is not configured, SerpAPI is not set up, or the `web_search` tool is missing from the agent's toolset, fall back to **curl-based HTML search**. Zero API keys, zero Python packages — just `curl` + `grep`.
+
+### Diagnostic Workflow — Always Test Before Searching
+
+When web search fails, do NOT assume nothing works. Test each engine individually on both routes:
+
+```bash
+# Test engines ONE AT A TIME (batching causes cascading timeouts)
+curl -s -o /dev/null -w "%{http_code} %{time_total}s" --max-time 5 --noproxy '*' "https://www.bing.com" && echo " Bing直连"
+curl -s -o /dev/null -w "%{http_code} %{time_total}s" --max-time 5 -x http://127.0.0.1:7897 "https://duckduckgo.com" && echo " DDG代理"
+curl -s -o /dev/null -w "%{http_code} %{time_total}s" --max-time 5 -x http://127.0.0.1:7897 "https://lite.duckduckgo.com/lite/?q=test" && echo " DDGLite搜索"
+```
+
+Pick the fastest engine with HTTP 2xx/3xx before constructing the actual search query.
+
+### Working Curl Methods
+
+#### Bing 直连 (~1.2s, no proxy needed)
+
+```bash
+curl -sL --max-time 10 --noproxy '*' \
+  "https://www.bing.com/search?q=URL_ENCODED_QUERY" \
+  -H "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36" \
+  | sed 's/<[^>]*>//g' | grep -iP "keyword1|keyword2" | head -50
+```
+
+- Use `www.bing.com` (not `cn.bing.com`) for international results
+- Append `&setlang=en&cc=us&mkt=en-US` for English results
+- The `User-Agent` header prevents mobile redirect
+
+#### DuckDuckGo Lite via Proxy (~1.3s)
+
+```bash
+curl -sL --max-time 10 -x http://127.0.0.1:7897 \
+  "https://lite.duckduckgo.com/lite/?q=URL_ENCODED_QUERY" \
+  | sed 's/<[^>]*>//g' | grep -iP "pattern" | head -30
+```
+
+- `lite.duckduckgo.com` returns plain HTML — easy to parse with grep
+- The JS-heavy `duckduckgo.com` main site is NOT usable via curl
+
+### When to Use Fallback vs API
+
+| Scenario | Use |
+|----------|-----|
+| Quick fact-check, news lookup, conference info | curl + Bing 直连 |
+| Investment research needing structured results | Tavily API |
+| Need Google-quality results | ValueSERP |
+| Deep multi-turn research | Perplexity sonar-deep-research |
+
 ## Execution Template
 
 ```python
