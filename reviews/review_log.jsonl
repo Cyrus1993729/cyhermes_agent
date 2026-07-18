@@ -39,3 +39,10 @@
 {"ts": "2026-07-13T21:51:44.916002", "task": "contract_gold_weekly_2026-07-13", "verdict": "CONDITIONAL", "escalate": false, "fail_count": 0, "cond_count": 1, "total_items": 20}
 {"ts": "2026-07-13T22:03:08.565792", "task": "test_contract", "verdict": "FAIL", "escalate": true, "fail_count": 3, "cond_count": 1, "total_items": 6}
 {"ts": "2026-07-13T22:04:09.281878", "task": "test_contract", "verdict": "FAIL", "escalate": true, "fail_count": 4, "cond_count": 0, "total_items": 6}
+{"ts": "2026-07-17T11:18:07.737065", "task": "contract_waic_travel_map_2026-07-17", "verdict": "FAIL", "escalate": true, "fail_count": 12, "cond_count": 3, "total_items": 15}
+{"ts": "2026-07-17T11:21:17.483072", "task": "contract_waic_travel_map_2026-07-17", "verdict": "FAIL", "escalate": true, "fail_count": 8, "cond_count": 0, "total_items": 10}
+{"ts": "2026-07-17T11:24:15.897016", "task": "contract_waic_travel_map_2026-07-17", "verdict": "PASS", "escalate": false, "fail_count": 0, "cond_count": 0, "total_items": 12}
+{"ts": "2026-07-17T11:48:13.725646", "task": "contract_waic_organizer_view_2026-07-17", "verdict": "FAIL", "escalate": true, "fail_count": 6, "cond_count": 6, "total_items": 22}
+{"ts": "2026-07-17T11:50:28.907415", "task": "contract_waic_organizer_view_2026-07-17", "verdict": "CONDITIONAL", "escalate": true, "fail_count": 0, "cond_count": 3, "total_items": 18}
+{"ts": "2026-07-17T11:53:20.474027", "task": "contract_waic_organizer_view_2026-07-17", "verdict": "FAIL", "escalate": true, "fail_count": 1, "cond_count": 1, "total_items": 25}
+{"ts": "2026-07-17T11:56:01.816147", "task": "contract_waic_organizer_view_2026-07-17", "verdict": "CONDITIONAL", "escalate": true, "fail_count": 0, "cond_count": 3, "total_items": 23}
