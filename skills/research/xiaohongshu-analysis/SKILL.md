@@ -222,6 +222,22 @@ data = json.loads(json_str)
 - 请求必须带 `Referer: https://www.xiaohongshu.com/`
 - 住宅 IP 无需 cookie，数据中心 IP 可能触发验证码
 
+### 音频提取：必须用 `-map 0:a`，不能用 `-vn` 代替
+
+`-vn` 只剥离视频轨，不保证选中音频轨——对某些编码（如 HE-AAC）可能产生静默输出（几 KB 的 WAV，实际音频数据丢失）。
+
+```bash
+# ❌ 错误：-vn 不保证音频轨选中
+ffmpeg -i video.mp4 -vn -acodec pcm_s16le -ar 16000 -ac 1 audio.wav
+# → 可能产生 ~1KB 的无效 WAV
+
+# ✅ 正确：显式映射音频流
+ffmpeg -i video.mp4 -map 0:a -acodec pcm_s16le -ar 16000 -ac 1 audio.wav
+# → 正常大小 ≈ duration × 16000 × 2 bytes
+```
+
+> **验证**：正常 WAV 大小 = 时长(秒) × 16000 × 2（16kHz 16-bit mono）。27 秒约 860KB。若输出远小于此，说明音频轨未被正确选中。
+
 ### 音频分块
 - faster-whisper 不支持 `start`/`duration` 参数
 - 需用 ffmpeg `-f segment -segment_time 120` 物理切片，再逐段转录
@@ -439,6 +455,20 @@ img = image_list[0]
 1. **不要反复重试同一 URL**——签名已过期
 2. **用完整 URL 重新请求页面**（见上一条）→ 解析 `__SETUP_SERVER_STATE__`（优先）或 `__INITIAL_STATE__`（回退）→ 获取新签名的媒体 URL
 3. 立即下载（新签名也有时效，尽快完成）
+
+### 音频提取：ffmpeg 必须加 `-map 0:a`（⚠️ HE-AAC 无声提取）
+
+直接用 `ffmpeg -i video.mp4 -vn -acodec pcm_s16le ...` 提取音频时，对 HE-AAC 编码的音频流可能静默失败——生成的文件只有几百字节而非正常的 ~860KB（27s 视频）。**必须显式指定 `-map 0:a`** 选择音频流：
+
+```bash
+# ❌ 可能失败（HE-AAC 静默产生微小文件）
+ffmpeg -i video.mp4 -vn -acodec pcm_s16le -ar 16000 -ac 1 audio.wav
+
+# ✅ 正确：显式映射音频流
+ffmpeg -i video.mp4 -map 0:a -acodec pcm_s16le -ar 16000 -ac 1 audio.wav
+```
+
+**验证**：WAV 文件大小应约 = 时长(秒) × 16000 × 2 字节（16kHz 16-bit mono），如 27s → ~864KB。小于 1KB 说明提取失败。
 
 ### ffmpeg 路径（Windows）
 
