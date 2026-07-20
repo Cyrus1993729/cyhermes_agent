@@ -615,12 +615,12 @@
     "created_at": "2026-07-01T23:27:50.641601+00:00",
     "created_by": null,
     "last_patched_at": "2026-07-17T03:08:54.264927+00:00",
-    "last_used_at": "2026-07-17T03:08:34.402322+00:00",
+    "last_used_at": "2026-07-20T00:00:31.522496+00:00",
     "last_viewed_at": "2026-07-17T03:08:34.395321+00:00",
     "patch_count": 20,
     "pinned": false,
     "state": "active",
-    "use_count": 12,
+    "use_count": 13,
     "view_count": 12
   },
   "subagent-driven-development": {
@@ -654,12 +654,12 @@
     "created_at": "2026-07-03T00:39:05.920452+00:00",
     "created_by": null,
     "last_patched_at": "2026-07-13T14:26:27.788096+00:00",
-    "last_used_at": "2026-07-17T03:03:08.334185+00:00",
+    "last_used_at": "2026-07-20T00:00:31.890458+00:00",
     "last_viewed_at": "2026-07-17T03:03:08.295603+00:00",
     "patch_count": 28,
     "pinned": false,
     "state": "active",
-    "use_count": 13,
+    "use_count": 14,
     "view_count": 13
   },
   "video-understand-core": {
