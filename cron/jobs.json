@@ -25,7 +25,7 @@
       "schedule_display": "0 8 * * 1",
       "repeat": {
         "times": null,
-        "completed": 8
+        "completed": 9
       },
       "enabled": true,
       "state": "scheduled",
@@ -33,10 +33,10 @@
       "paused_reason": null,
       "created_at": "2026-06-03T21:26:26.911653+08:00",
       "next_run_at": "2026-07-27T08:00:00+08:00",
-      "last_run_at": "2026-07-13T08:10:41.283443+08:00",
+      "last_run_at": "2026-07-20T08:29:15.226096+08:00",
       "last_status": "ok",
       "last_error": null,
-      "last_delivery_error": "live adapter send failed: iLink sendmessage rate limited; cooldown active for 30.0s; live adapter delivery to weixin:o9cq805UpPVgaMB-v0amSgCvP1GY@im.wechat failed: iLink sendmessage rate limited; cooldown active for 30.0s; delivery error: Weixin send failed: iLink sendmessage rate limited; cooldown active for 30.0s",
+      "last_delivery_error": null,
       "deliver": "telegram",
       "origin": {
         "platform": "weixin",
@@ -75,18 +75,18 @@
       "schedule_display": "0 10 * * 1",
       "repeat": {
         "times": null,
-        "completed": 2
+        "completed": 3
       },
       "enabled": true,
       "state": "scheduled",
       "paused_at": null,
       "paused_reason": null,
       "created_at": "2026-07-02T09:34:09.294712+08:00",
-      "next_run_at": "2026-07-20T10:00:00+08:00",
-      "last_run_at": "2026-07-13T10:03:24.015677+08:00",
-      "last_status": "error",
-      "last_error": "RuntimeError: Connection error.",
-      "last_delivery_error": "live adapter send to weixin:o9cq805UpPVgaMB-v0amSgCvP1GY@im.wechat timed out before the coroutine was dispatched; delivery error: Weixin send failed: Cannot connect to host ilinkai.weixin.qq.com:443 ssl:default [getaddrinfo failed]",
+      "next_run_at": "2026-07-27T10:00:00+08:00",
+      "last_run_at": "2026-07-20T10:09:59.144354+08:00",
+      "last_status": "ok",
+      "last_error": null,
+      "last_delivery_error": "live adapter send failed: iLink sendmessage rate limited; cooldown active for 30.0s; live adapter delivery to weixin:o9cq805UpPVgaMB-v0amSgCvP1GY@im.wechat failed: iLink sendmessage rate limited; cooldown active for 30.0s; delivery error: Weixin send failed: iLink sendmessage rate limited; cooldown active for 30.0s",
       "deliver": "origin",
       "origin": {
         "platform": "weixin",
@@ -124,15 +124,15 @@
       "schedule_display": "0 8 * * *",
       "repeat": {
         "times": null,
-        "completed": 22
+        "completed": 23
       },
       "enabled": true,
       "state": "scheduled",
       "paused_at": null,
       "paused_reason": null,
       "created_at": "2026-07-02T12:38:24.038222+08:00",
-      "next_run_at": "2026-07-21T08:00:00+08:00",
-      "last_run_at": "2026-07-19T08:00:15.431748+08:00",
+      "next_run_at": "2026-07-22T08:00:00+08:00",
+      "last_run_at": "2026-07-20T08:00:39.521213+08:00",
       "last_status": "ok",
       "last_error": null,
       "last_delivery_error": null,
@@ -151,5 +151,5 @@
       "fire_claim": null
     }
   ],
-  "updated_at": "2026-07-20T08:00:31.219823+08:00"
+  "updated_at": "2026-07-21T08:00:39.545350+08:00"
 }

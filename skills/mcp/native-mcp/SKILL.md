@@ -1,6 +1,6 @@
 ---
 name: native-mcp
-description: "【MCP 客户端原理】Hermes 如何连接 MCP 服务器、自动发现工具、注册为一级工具。| 跟 mcp-server-setup 的区别：那个是「怎么配具体第三方服务器」（config.yaml/OAuth/故障排除），这个是 MCP 客户端本身的架构和工作原理。"
+description: "MCP client: connect servers, register tools (stdio/HTTP)."
 version: 1.0.0
 author: Hermes Agent
 license: MIT
