@@ -1,6 +1,6 @@
 ---
 name: claude-code
-description: "【Claude Code CLI 使用方法】通过终端调用 Claude Code 写代码/改文件/跑命令/git 操作。| 跟 claude-code-workflow 的区别：那个是用户自定义的模型选择规则（用哪个模型、怎么上报进度、什么时候确认），本 skill 是 Claude Code CLI 本身的安装/命令/权限/陷阱。两者需同时加载。"
+description: "Delegate coding to Claude Code CLI (features, PRs)."
 version: 2.2.0
 author: Hermes Agent + Teknium
 license: MIT
@@ -25,23 +25,6 @@ Delegate coding tasks to [Claude Code](https://code.claude.com/docs/en/cli-refer
 - **Health check:** `claude doctor` — checks auto-updater and installation health
 - **Version check:** `claude --version` (requires v2.x+)
 - **Update:** `claude update` or `claude upgrade`
-
-### 🔑 Proxy Configuration (China / Restricted Networks)
-
-Claude Code's OAuth flow (`claude auth login`) contacts `platform.claude.com` and `claude.com`, which may be unreachable from China without a proxy. The CLI does NOT inherit system proxy settings — you MUST set HTTP_PROXY and HTTPS_PROXY environment variables in the shell where you run `claude`.
-
-```bash
-# Typical Clash Verge / v2ray setup
-export HTTP_PROXY="http://127.0.0.1:7897"
-export HTTPS_PROXY="http://127.0.0.1:7897"
-
-# Then authenticate
-claude auth login
-```
-
-**Common proxy ports:** Clash Verge (7897), Clash (7890), v2ray (10809), SSR (1080).
-
-**Pitfall:** `claude auth login` hangs or returns 403 / ECONNREFUSED without the proxy vars. The error message says "Opening browser to sign in…" but the OAuth callback over localhost will also fail. If auth succeeds in the browser but the CLI still shows "Not logged in" (`claude auth status --text`), the callback wasn't routed through the proxy — retry with proxy vars set.
 
 ## Two Orchestration Modes
 
@@ -443,36 +426,6 @@ When asked to create or modify database migrations:
 3. Test migrations against a local database copy
 ```
 
-### Installing Third-Party Skills from GitHub
-
-Many Agent Skills are standalone GitHub repos (tagged `agent-skills`, containing `SKILL.md`). To install:
-
-1. Clone the repo shallow (`--depth 1`) to a temp location
-2. Copy runtime files to `~/.claude/skills/<skill-name>/`
-3. Skip repo-only files: README, CHANGELOG, CONTRIBUTING, SECURITY, .gitignore
-
-```bash
-git clone --depth 1 https://github.com/owner/skill-name /tmp/skill-name
-SKILL_DIR="$HOME/.claude/skills/skill-name"
-mkdir -p "$SKILL_DIR"
-cd /tmp/skill-name && cp -R SKILL.md LICENSE references assets scripts examples agents "$SKILL_DIR"/
-rm -rf /tmp/skill-name
-```
-
-Validate with (if the skill bundles `scripts/validate_skill.py`):
-```bash
-cd "$SKILL_DIR" && python scripts/validate_skill.py .
-```
-
-The skill activates immediately — Claude matches it to tasks via the `description` field in SKILL.md frontmatter. No restart or config change needed.
-
-**Researching skills before installing:** When `web_search` is unavailable, use GitHub's REST API via curl to inspect repos:
-- `curl -s "https://api.github.com/search/repositories?q=<name>"` — find the repo
-- `curl -s "https://api.github.com/repos/<owner>/<repo>/contents/"` — list files
-- `curl -s "https://raw.githubusercontent.com/<owner>/<repo>/main/README.md"` — read the README
-- `curl -s "https://api.github.com/repos/<owner>/<repo>/issues"` — check open issues
-- `curl -s "https://api.github.com/repos/<owner>/<repo>/commits?per_page=5"` — recent activity
-
 ## Interactive Session: Keyboard Shortcuts
 
 ### General Controls
@@ -758,7 +711,7 @@ Use `/context` in interactive mode to see a colored grid of context usage. Key t
 5. **Use `--allowedTools`** to restrict to only what's needed (e.g., `Read` only for reviews).
 6. **Use `/compact`** in interactive sessions when context gets large.
 7. **Pipe input** instead of having Claude read files when you just need analysis of known content.
-8. **Opus in print mode requires patience** — Opus print-mode can take 2-5 minutes for the first response, and for deep research tasks even longer. Always run a quick smoke test first (`timeout 60 claude -p "回复OK" --model opus --max-turns 1`), use `--verbose` for progress visibility, and keep the user informed with periodic status updates. Never silently switch models if Opus is slow — ask the user first.
+8. **Use `--model haiku`** for simple tasks (cheaper) and `--model opus` for complex multi-step work.
 9. **Use `--fallback-model haiku`** in print mode to gracefully handle model overload.
 10. **Start new sessions for distinct tasks** — sessions last 5 hours; fresh context is more efficient.
 11. **Use `--no-session-persistence`** in CI to avoid accumulating saved sessions on disk.
@@ -777,83 +730,16 @@ Use `/context` in interactive mode to see a colored grid of context usage. Key t
 10. **Slash commands (like `/commit`) only work in interactive mode** — in `-p` mode, describe the task in natural language instead.
 11. **`--bare` skips OAuth** — requires `ANTHROPIC_API_KEY` env var or an `apiKeyHelper` in settings.
 12. **Context degradation is real** — AI output quality measurably degrades above 70% context window usage. Monitor with `/context` and proactively `/compact`.
-13. **Proxy required in China** — `claude auth login` and all API calls need HTTP_PROXY/HTTPS_PROXY set. See `references/claude-code-proxy-cn-windows.md` for full diagnostics and port discovery.
-13. **Windows PATH: `claude` may not be found from bash/git-bash** — npm global installs to `%APPDATA%/npm/` which may not be on bash's `$PATH`. Probe both `claude --version` AND `cmd.exe /c "claude --version"` before concluding it's absent. If the user says "I have Claude Code" but bash can't find it, try the cmd.exe path, the npm global prefix (`npm prefix -g`), or `%APPDATA%/npm/claude.cmd`.
-14. **OAuth login fails with 403 from China / restricted networks** — `claude auth login` and `claude auth login --console` both make HTTPS calls to `platform.claude.com` which may be blocked. The browser-based OAuth flow can succeed (browser may use a system proxy/VPN) while the CLI can't receive the callback. When this happens: (a) try `claude auth login --console` in case the manual code-paste path works; (b) ask the user if they have an `ANTHROPIC_API_KEY` instead; (c) if all OAuth paths fail and no API key is available, fall back to Hermes's own subagents for code review/tasks — do not loop on auth retries.
-15. **`--model opus` can silently hang in print mode** — observed on v2.1.161: `claude -p "..." --model opus` may produce zero stdout for 8+ minutes while the process appears running. Even with `--verbose`, no output. Proxy is set correctly and Sonnet works fine from the same shell. Likely caused by Opus capacity queuing or slow cold-start. **Workflow:** (a) Run a quick smoke test first: `timeout 60 claude -p "回复OK" --model opus --max-turns 1` — if it returns within 60s, proceed with the full task; (b) if the smoke test also hangs, Opus is currently unavailable — tell the user and ask whether to wait/retry or switch models with their consent; (c) use `--verbose` for the full task so the user sees turn-by-turn progress via process log polling. Note: the user explicitly prefers Opus and does NOT want silent model switches — always ask before changing.
-
-16. **NEVER modify upstream/third-party skills without explicit user consent** — Claude Code skills installed from GitHub (like `serenity-skill`) have a known-good author who is more expert than you in that domain. The user cannot verify whether your modification is a genuine improvement. If you want to extend a skill, **create a separate overlay skill** (like `serenity-value` alongside `serenity-skill`) and present the plan to the user for approval before creating any files. If you accidentally modify a protected skill, revert immediately from the original source. The general rule: **confirm the plan with the user before taking any modification action** — switching models, editing skills, or changing project configuration all require a quick "方案是这样的…可以动手吗？" first.
-
-## Reports → PNG for WeChat Sharing
-
-When Claude Code produces a long research report and the user wants it as a shareable image:
-
-1. Create a polished HTML with dark theme, card-based layout, and color-coded valuation tags (green=cheap, yellow=fair, red=expensive)
-2. Render to PNG via Playwright + system Edge browser (see `references/playwright-edge-windows-cn.md`)
-3. Send via WeChat with `MEDIA:` path
-
-Install: `pip install playwright` (Chromium download NOT needed — use `channel="msedge"`)
-
-## Non-Coding Uses
-
-Claude Code print mode also excels at design review. See `references/red-team-design-review.md` for the red-team pattern (two-round: attack-then-fix), prompt templates, and validated results.
-
-### Research Report Summarization → WeChat Delivery
-
-When the user sends a financial research PDF and wants Claude to produce a structured Chinese summary for WeChat sharing:
-
-1. **Extract PDF text** → save to `~/tmp/<name>.txt`
-2. **Pipe to Claude Opus** with the structured prompt template
-3. **Save result** as `.md` on Desktop
-4. **Deliver as WeChat segments** in `(1/N)` format + MEDIA backup
-
-Full workflow: `references/research-report-summarization.md` (prompt template, segment format, pitfalls).
-
-### Framework-First Analysis Pattern (NEW)
-
-When facing a complex analytical task where you lack a solid framework, use this two-step pattern instead of asking Claude for the full answer:
-
-**Step 1 — Get the framework (cheap, ~50-200 tokens):**
-```bash
-claude -p "分析[问题领域]应该用什么框架？列出关键维度和传导机制，不要展开细节。" --model opus --max-turns 3 --output-format text
-```
-
-**Step 2 — Execute with data (your job):**
-Take the framework Claude returns, then:
-- Search for relevant data/news yourself
-- Verify timestamps before constructing narrative
-- Apply the framework dimensions to the data
-- Cross-validate with multiple assets/indicators
-- Write the final analysis
-
-**Why this works:**
-- Framework design is Claude's strength and costs almost nothing
-- Data gathering, verification, and execution is your strength
-- Full-analysis delegation costs 5-10x more tokens and you learn nothing
-- Each framework you collect becomes a reusable skill asset
-
-**Pitfall:** Do NOT skip Step 1 and improvise a framework yourself. The most common failure mode is applying a shallow "label-based" framework (e.g., "geopolitics = safe haven = gold up") when the real transmission mechanism is completely different (e.g., rates channel). See the gold analysis case study for a concrete example of this failure.
 
 ## Rules for Hermes Agents
 
 1. **Prefer print mode (`-p`) for single tasks** — cleaner, no dialog handling, structured output
 2. **Use tmux for multi-turn interactive work** — the only reliable way to orchestrate the TUI
 3. **Always set `workdir`** — keep Claude focused on the right project directory
-4. **Set `--max-turns` in print mode** — prevents infinite loops and runaway costs. Start with 5 for reviews, 10-15 for complex code generation.
+4. **Set `--max-turns` in print mode** — prevents infinite loops and runaway costs
 5. **Monitor tmux sessions** — use `tmux capture-pane -t <session> -p -S -50` to check progress
 6. **Look for the `❯` prompt** — indicates Claude is waiting for input (done or asking a question)
 7. **Clean up tmux sessions** — kill them when done to avoid resource leaks
 8. **Report results to user** — after completion, summarize what Claude did and what changed
 9. **Don't kill slow sessions** — Claude may be doing multi-step work; check progress instead
 10. **Use `--allowedTools`** — restrict capabilities to what the task actually needs
-11. **Division of labor**: Claude Code excels at thinking, framework design, code review, and finding problems. For actual code implementation, use your primary model (DeepSeek etc.) — it's faster, doesn't consume Claude credits, and avoids the OAuth session overhead. Pattern: Claude designs → you code → Claude reviews.
-12. **Always report progress**: If a task is still in progress, tell the user what you're doing and what's left. Silence during multi-step work causes the user to wonder if you crashed. Summarize status after each major step.
-13. **NEVER change the model without asking the user first** — if the user said "用 opus", you use opus. If the task hangs or the model seems unresponsive, tell the user what's happening and ASK before switching. Do NOT silently fall back to Sonnet, Haiku, or any other model. The same rule applies to tool choices: if the user said "用 Claude Code 跑", don't silently substitute Hermes subagents as a fallback.
-14. **Opus connectivity pre-check**: when the user requests `--model opus`, run a quick smoke test first to confirm the API is responsive before launching the full task:
-    ```bash
-    export HTTP_PROXY="http://127.0.0.1:7897" HTTPS_PROXY="http://127.0.0.1:7897"
-    timeout 60 claude -p "回复OK" --model opus --max-turns 1 --output-format text
-    ```
-    If this returns "OK" within 60s, proceed with the full task. If it hangs or times out, tell the user Opus is currently unresponsive and offer options (wait, retry, or switch model with their consent).
-
-15. **Confirm the plan before taking action** — when the user asks you to do something non-trivial (modify a skill, switch a model, change project config, create files, or pick a technical approach), present a brief plan first: "方案是这样的…可以动手吗？" Do NOT just do it silently. This prevents you from making irreversible changes the user didn't want, and gives them a chance to course-correct. The user's explicit instruction was: "以后要做动作请跟我确认方案！" — this applies to ALL action types, not just model switching.

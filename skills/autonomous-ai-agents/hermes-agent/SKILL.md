@@ -100,10 +100,8 @@ hermes config path          Print config.yaml path
 hermes config env-path      Print .env path
 hermes config check         Check for missing/outdated config
 hermes config migrate       Update config with new options
-hermes auth                 Interactive credential manager
-hermes auth add PROVIDER    Add OAuth or API-key credential (e.g. nous, openai-codex, qwen-oauth)
-hermes auth list            List stored credentials
-hermes auth remove PROVIDER Remove a stored credential
+hermes login [--provider P] OAuth login (nous, openai-codex)
+hermes logout               Clear stored auth
 hermes doctor [--fix]       Check dependencies and config
 hermes status [--all]       Show component status
 ```
@@ -389,9 +387,10 @@ Full config reference: https://hermes-agent.nousresearch.com/docs/user-guide/con
 | Alibaba / DashScope | API key | `DASHSCOPE_API_KEY` |
 | Xiaomi MiMo | API key | `XIAOMI_API_KEY` |
 | Kilo Code | API key | `KILOCODE_API_KEY` |
+| AI Gateway (Vercel) | API key | `AI_GATEWAY_API_KEY` |
 | OpenCode Zen | API key | `OPENCODE_ZEN_API_KEY` |
 | OpenCode Go | API key | `OPENCODE_GO_API_KEY` |
-| Qwen OAuth | OAuth | `hermes auth add qwen-oauth` |
+| Qwen OAuth | OAuth | `hermes login --provider qwen-oauth` |
 | Custom endpoint | Config | `model.base_url` + `model.api_key` in config.yaml |
 | GitHub Copilot ACP | External | `COPILOT_CLI_PATH` or Copilot CLI |
 
@@ -797,59 +796,6 @@ let editors auto-convert committed POSIX-newline files to CRLF.
 every Hermes tool and most Windows APIs. Prefer forward slashes in code
 and logs — avoids shell-escaping backslashes in bash.
 
-### Batch Files & Encoding (cmd.exe)
-
-**cmd.exe default code page is GBK/ANSI on Chinese Windows, NOT UTF-8.**
-Batch files written with Chinese characters will display as garbled text
-and may cause syntax errors if the garbled output is interpreted as a
-command. Two fixes:
-
-1. **Add `chcp 65001 >nul` at the very top of the .bat file** — switches
-   the console to UTF-8 before any output is printed.
-2. **Prefer English-only scripts for critical operations.** Comments and
-   `echo` statements in English eliminate the encoding problem entirely.
-
-**Double-check version strings in rewritten scripts.** When regenerating a
-script via `execute_code` or `write_file`, verify that version labels in
-the body match the current revision — it's easy to leave a stale `v4` in
-a newly-written `v5` script. Read back the file after writing.
-
-### Safe Operations That Restart the Gateway
-
-**Never execute `hermes gateway stop/start` via `terminal()` from within
-a messaging-platform session (WeChat, Telegram, etc.).** The gateway stop
-kills the communication channel mid-turn. If the subsequent start command
-fails, the agent is alive but unreachable. The round-trip "confirm then
-execute" pattern also creates a window where a gateway interruption can
-reset context and lose the execution intent.
-
-**Pattern: batch script with auto-rollback.** Write a Windows `.bat` file
-to the Desktop that the user double-clicks manually:
-
-- Step 1: Full backup (robocopy, not xcopy — robocopy handles edge cases
-  better and exit codes 0-7 are success, >=8 is failure).
-- Step 2: Stop gateway (use `Get-CimInstance Win32_Process` in PowerShell,
-  NOT `Get-Process` — the latter has no `CommandLine` property on some
-  Windows versions).
-- Step 3-N: Perform the maintenance steps.
-- Rollback label (`:rollback`): `goto :rollback` on any failure. Restore
-  from backup, reinstall dependencies, restart gateway.
-- After `start` command with nested paths, avoid nested double quotes —
-  use `%AGENT_DIR%` directly since the variable was `set "VAR=..."` and
-  contains no embedded spaces in the typical `%LOCALAPPDATA%` path.
-
-**Claude review before execution.** For scripts that perform destructive
-or disruptive operations, pipe the script through Claude Code (`--model
-sonnet`) for a second pair of eyes. Claude has caught real bugs including
-incorrect PowerShell cmdlets, `%date%` breaking git commands on Chinese
-Windows, and `start` command quote-nesting issues.
-
-**Use `%LOCALAPPDATA%` not hardcoded usernames.** `C:\Users\Administrator`
-breaks if the script is shared or the user profile is relocated.
-
-Full upgrade script template and review checklist:
-[`references/upgrade-batch-script.md`](references/upgrade-batch-script.md)
-
 ---
 
 ## Troubleshooting
@@ -866,7 +812,7 @@ Full upgrade script template and review checklist:
 
 ### Model/provider issues
 1. `hermes doctor` — check config and dependencies
-2. `hermes auth` — re-authenticate OAuth providers (or `hermes auth add <provider>`)
+2. `hermes login` — re-authenticate OAuth providers
 3. Check `.env` has the right API key
 4. **Copilot 403**: `gh auth login` tokens do NOT work for Copilot API. You must use the Copilot-specific OAuth device code flow via `hermes model` → GitHub Copilot.
 
@@ -1047,7 +993,7 @@ See `tests/agent/test_prompt_builder.py::TestEnvironmentHints` for a worked exam
 Factual guidance about the host OS, user home, cwd, terminal backend, and shell (bash vs. PowerShell on Windows) is emitted from `agent/prompt_builder.py::build_environment_hints()`. This is also where the WSL hint and per-backend probe logic live. The convention:
 
 - **Local terminal backend** → emit host info (OS, `$HOME`, cwd) + Windows-specific notes (hostname ≠ username, `terminal` uses bash not PowerShell).
-- **Remote terminal backend** (anything in `_REMOTE_TERMINAL_BACKENDS`: `docker, singularity, modal, daytona, ssh, managed_modal`) → **suppress** host info entirely and describe only the backend. A live `uname`/`whoami`/`pwd` probe runs inside the backend via `tools.environments.get_environment(...).execute(...)`, cached per process in `_BACKEND_PROBE_CACHE`, with a static fallback if the probe times out.
+- **Remote terminal backend** (anything in `_REMOTE_TERMINAL_BACKENDS`: `docker, singularity, modal, daytona, ssh, vercel_sandbox, managed_modal`) → **suppress** host info entirely and describe only the backend. A live `uname`/`whoami`/`pwd` probe runs inside the backend via `tools.environments.get_environment(...).execute(...)`, cached per process in `_BACKEND_PROBE_CACHE`, with a static fallback if the probe times out.
 - **Key fact for prompt authoring:** when `TERMINAL_ENV != "local"`, *every* file tool (`read_file`, `write_file`, `patch`, `search_files`) runs inside the backend container, not on the host. The system prompt must never describe the host in that case — the agent can't touch it.
 
 Full design notes, the exact emitted strings, and testing pitfalls:

@@ -1,6 +1,6 @@
 ---
 name: writing-plans
-description: "【写实施方案】把大任务拆成小步骤，每个步骤带文件路径和代码骨架。| 跟 subagent-driven-development 的区别：那个是用子代理执行计划，这个是写计划本身。"
+description: "Write implementation plans: bite-sized tasks, paths, code."
 version: 1.1.0
 author: Hermes Agent (adapted from obra/superpowers)
 license: MIT

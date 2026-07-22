@@ -132,10 +132,10 @@
       "paused_reason": null,
       "created_at": "2026-07-02T12:38:24.038222+08:00",
       "next_run_at": "2026-07-23T08:00:00+08:00",
-      "last_run_at": "2026-07-21T08:00:59.054236+08:00",
-      "last_status": "ok",
-      "last_error": null,
-      "last_delivery_error": null,
+      "last_run_at": "2026-07-21T08:01:01.594315+08:00",
+      "last_status": "error",
+      "last_error": "Script exited with code 1\nstdout:\nBACKUP FAILED: git push error\nTo https://github.com/Cyrus1993729/cyhermes_agent.git\n ! [remote rejected] main -> main (cannot lock ref 'refs/heads/main': is at 32c61c4cd02518c0156893022f337b0a2a799540 but expected b32ff67d12cdb380b242c1e4f4401685dee32c9d)\nerror: failed to push some refs to 'https://github.com/Cyrus1993729/cyhermes_agent.git'\n\nManual: cd %LOCALAPPDATA%\\hermes && git push",
+      "last_delivery_error": "platform 'weixin' not configured/enabled",
       "deliver": "origin",
       "origin": {
         "platform": "weixin",
@@ -151,5 +151,5 @@
       "fire_claim": null
     }
   ],
-  "updated_at": "2026-07-22T08:00:16.838094+08:00"
+  "updated_at": "2026-07-22T08:00:52.370300+08:00"
 }

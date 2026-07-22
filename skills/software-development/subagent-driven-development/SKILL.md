@@ -1,6 +1,6 @@
 ---
 name: subagent-driven-development
-description: "【子代理分阶段执行开发任务】用 delegate_task 子代理执行实现计划，2 阶段审查。| 跟 simplify-code 的区别：那个是代码写完后并行清理/重构，这个是编写新代码的分阶段执行流程。跟 writing-plans 的区别：那个是写实施计划，这个是执行计划。"
+description: "Execute plans via delegate_task subagents (2-stage review)."
 version: 1.1.0
 author: Hermes Agent (adapted from obra/superpowers)
 license: MIT
@@ -9,7 +9,6 @@ metadata:
   hermes:
     tags: [delegation, subagent, implementation, workflow, parallel]
     related_skills: [writing-plans, requesting-code-review, test-driven-development]
-    requires: [writing-plans]
 ---
 
 # Subagent-Driven Development
