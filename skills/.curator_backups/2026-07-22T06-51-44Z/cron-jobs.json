@@ -131,8 +131,8 @@
       "paused_at": null,
       "paused_reason": null,
       "created_at": "2026-07-02T12:38:24.038222+08:00",
-      "next_run_at": "2026-07-24T08:00:00+08:00",
-      "last_run_at": "2026-07-22T08:01:02.393534+08:00",
+      "next_run_at": "2026-07-23T08:00:00+08:00",
+      "last_run_at": "2026-07-22T08:00:24.256509+08:00",
       "last_status": "ok",
       "last_error": null,
       "last_delivery_error": null,
@@ -151,5 +151,5 @@
       "fire_claim": null
     }
   ],
-  "updated_at": "2026-07-23T10:31:25.796967+08:00"
+  "updated_at": "2026-07-22T08:00:24.258512+08:00"
 }
