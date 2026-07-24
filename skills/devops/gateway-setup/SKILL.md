@@ -132,12 +132,46 @@ fetches a QR code, polls for scan, saves credentials, and updates config.
 
 ## Telegram (Bot API)
 
-Hermes connects to Telegram via the Bot API. **In China, Telegram is blocked —
-the bot MUST connect through a proxy.** The adapter auto-detects proxy from
-`TELEGRAM_PROXY` env var or `HTTP_PROXY`/`HTTPS_PROXY`, but setting it in
-`config.yaml` is more reliable across gateway restarts.
+Hermes connects to Telegram via the Bot API. **In China, Telegram is blocked —\nthe bot MUST connect through a proxy.** The adapter auto-detects proxy from\n`TELEGRAM_PROXY` env var or `HTTP_PROXY`/`HTTPS_PROXY`, but setting it in\n`config.yaml` is more reliable across gateway restarts.
 
-### Config
+### Quick Setup (`.env` method, 2026-07-23 verified)
+
+The simplest path — token and allowed users in `.env`, platform already enabled
+in `config.yaml`:
+
+```bash
+# .env
+TELEGRAM_BOT_TOKEN=8839546337:AAH...
+TELEGRAM_ALLOWED_USERS=8938729264
+```
+
+In `config.yaml`:
+```yaml
+platforms:
+  telegram:
+    enabled: true
+```
+
+No `proxy_url` needed — v0.19.0 auto-discovers proxy from `HTTP_PROXY`/`HTTPS_PROXY`
+and uses DNS-over-HTTPS to find Telegram API fallback IPs, bypassing DNS pollution.
+
+Then install as auto-start:
+```bash
+hermes gateway install   # Creates Windows Scheduled Task 'Hermes_Gateway'
+```
+
+Log verification (should show proxy detection + connection):
+```
+[Telegram] Discovering Telegram API fallback IPs via DNS-over-HTTPS…
+[Telegram] Auto-discovered Telegram fallback IPs: 149.154.166.110
+[Telegram] Proxy detected; passing explicitly to HTTPXRequest: http://127.0.0.1:7897
+[Telegram] Connected to Telegram (polling mode)
+✓ telegram connected
+```
+
+### Full Config (config.yaml method, more explicit)
+
+For explicit proxy control:
 
 ```yaml
 # Both sections are needed — adapter reads from platforms.telegram
