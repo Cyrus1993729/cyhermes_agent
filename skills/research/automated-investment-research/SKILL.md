@@ -92,6 +92,32 @@ Perplexity sonar-deep-research → 自动多轮搜索 + 综合报告
 - 免费层: 1000 次/月，直连可用（无需代理）
 - 环境变量（可选）: `export TAVILY_API_KEY=$(cat /c/Users/Administrator/Desktop/Tavily\ API\ key.txt)`
 
+## China Official Macro Data — Skip Search, Fetch Primary Sources
+
+For China official statistics (GDP, CPI, PPI, 社零, 固投, 工业增加值), do NOT fight search engines — the NBS publishes everything with **headline numbers in the release titles**:
+
+```bash
+# 最新发布列表（UTF-8，curl 直连可用，无需代理）
+curl -s -L "https://www.stats.gov.cn/sj/zxfb/" -H "User-Agent: Mozilla/5.0" \
+  | python -c "import sys,re; [print(t,u) for u,t in re.findall(r'href=\"([^\"]+)\"[^>]*>([^<]{6,80})</a>', sys.stdin.read()) if 'GDP' in t or '价格' in t]"
+# 翻存档页找更早月份：index_1.html, index_2.html ...
+# 发布稿 URL 规律：./YYYYMM/tYYYYMMDD_<id>.html，标题即含同比数字
+```
+
+- CPI/PPI 月度稿标题直接写「2026年6月份居民消费价格同比上涨1.0%」—— 标题即可引用，正文再核验细节（环比、分类、上半年平均）。
+- GDP 季度稿（季度结束后 ~15 日发）含同比 + 环比 + 历史季度对照表。
+- 全年预测/官方目标：NBS 不给预测。用 AP News（`apnews.com/hub/china` 可达，正文常含 IMF 最新预测和两会增长目标）或 TradingEconomics `/china/forecast` 页。
+- 详见 `references/china-macro-primary-sources.md`（URL 规律、解析脚本、各源可达性实测）。
+
+## Search-Engine Degradation Signals — When to Pivot
+
+Don't trust result sets silently. Pivot to primary sources when you see:
+
+- **Query mangling**: Bing returns generic dictionary/country-profile results for a specific multi-word query — it dropped/mangled your terms (seen with CJK queries; e.g. a GDP query returning results about the character 「上」).
+- **Bing RSS endpoint** (`&format=rss`): tokenizes CJK queries badly (may search a single character). Not a reliable shortcut.
+- **Captcha walls**: browser path hitting Cloudflare/「请验证您是真人」on a datacenter IP; even after passing the checkbox, results can stay degraded/generic.
+- **Stale aggregators**: DBnomics `IMF/WEO:latest` can resolve to an old edition (e.g. WEO:2025-04 in mid-2026). Always check the resolved dataset version before citing forecasts.
+
 ## Zero-Dependency Curl Fallback
 
 When Tavily API key is not configured, SerpAPI is not set up, or the `web_search` tool is missing from the agent's toolset, fall back to **curl-based HTML search**. Zero API keys, zero Python packages — just `curl` + `grep`.
@@ -176,3 +202,4 @@ with open("C:/Users/Administrator/tmp/research_results.json", "w", encoding="utf
 ## References
 
 - `references/search-api-landscape.md` — 搜索引擎 API 全面对比（2026-06 实测，含 Claude 评估）
+- `references/china-macro-primary-sources.md` — 中国宏观数据一手源直抓指南（NBS URL 规律、解析脚本、AP/TE/DBnomics 可达性实测）

@@ -1,0 +1,11 @@
+# Template for missing web search provider plugin.yaml
+# Copy to: <hermes-agent>/plugins/web/<vendor>/plugin.yaml
+# Example: plugins/web/tavily/plugin.yaml
+---
+name: <vendor>         # e.g. tavily, firecrawl, exa, parallel, brave-free, ddgs, searxng
+version: 1.0.0
+description: "<vendor> web search and content extraction"
+author: <vendor>
+kind: backend
+requires_env:
+  - <VENDOR>_API_KEY   # e.g. TAVILY_API_KEY, FIRECRAWL_API_KEY, EXA_API_KEY

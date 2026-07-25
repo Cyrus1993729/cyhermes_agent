@@ -153,3 +153,19 @@ curl -sL --max-time 10 --noproxy '*' \
 4. **Google 有 CAPTCHA** → 即使代理通，Google 搜索也会弹验证码，不适合做程序化搜索。
 5. **config.yaml 不能直接 patch** → Hermes 保护，必须用 `hermes config set`。
 6. **.env 不能 read_file** → Hermes 保护，必须用 terminal/python 读写。
+7. **`plugins/web/<vendor>/plugin.yaml` 缺失** → 即使 backend 配置正确、key 已设，`web_search` 仍报 "No web search provider configured"。Plugin scanner 只扫描两级目录（`plugins/` → `plugins/web/`），`plugins/web/tavily/` 下必须有 `plugin.yaml` 否则 scanner 达到深度上限直接跳过，provider 永远不会注册。症状：`hermes plugins list` 中不出现 `web/tavily`。修复：参考 `plugins/image_gen/deepinfra/plugin.yaml` 格式，在缺失的 web vendor 目录下手动创建 `plugin.yaml`（kind: backend, requires_env: TAVILY_API_KEY）。
+
+## 诊断：「No web search provider configured」三步排查
+
+当 `web_search` 报此错误，按以下顺序排查：
+
+```
+① hermes config get web              → 必须有 backend 和 search_backend
+② python -c "from hermes_cli.config import get_env_value; print(get_env_value('TAVILY_API_KEY') or 'MISSING')"  → 必须返回 key
+③ python -c "from hermes_cli.plugins import _ensure_plugins_discovered, get_plugin_manager; _ensure_plugins_discovered(force=True); pm=get_plugin_manager(); print([k for k in pm._plugins if 'web/' in k])"  → 必须包含 web/tavily
+```
+
+- ① 失败 → `hermes config set web.backend tavily` + `web.search_backend tavily`
+- ② 失败 → 写入 TAVILY_API_KEY 到 .env
+- ③ 失败 → `plugins/web/tavily/plugin.yaml` 缺失，需手动创建（参考 references/plugin-yaml-template.yaml）
+- 三步全过 → 重启网关 + `/reset`

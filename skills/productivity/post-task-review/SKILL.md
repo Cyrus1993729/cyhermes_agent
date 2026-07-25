@@ -66,17 +66,23 @@ triggers:
 **可复用的 → 写入 `hermes/lessons.md`**：
 - 格式：ID(L+序号) + 来源(日期+任务) + 规则 + 证据(复现次数)
 - 按任务类型归类（内容分析/投资分析/系统操作/通用方法论）
-- 如果同一条规则已在 lessons.md 中存在 → **复现次数 +1**，不新增
-- 复现次数 = lessons.md 里的累计命中次数（非 review_log）
 
-**一次性的 → 不加**：
-- 只在这一次复盘里记录，不进 lessons.md
+**一次性的 → 不加。**
 
-**写入后检查**：
+### 🆕 学习回路：审查发现 → 契约默认值（v1.4 新增）
+
+复盘不仅要记"这次做错了什么"，还要判断"这件事会不会改变我应该怎么分配任务"。三条回写规则：
+
+| 审查反复出现 | 复盘行动 |
+|:---|:---|
+| Kanban 交付反复出现接缝/信息丢失（dim6） | 调高契约"可拆性"门槛 → 同类任务下次默认优先单模型 |
+| L2（Opus）频繁被某类疑点触发 | 把该类检查写进 lessons.md → 下次契约自动引用为验收标准 |
+| 某类审查维度反复被跳过 | 写进 lessons.md + 检查 sprint-contract 是否漏了相关步骤 |
+
+**写入前检查**：
 - 这条规则和 lessons.md 里已有的规则冲突吗？
 - 有没有同类旧规则可以被它替代？（替代 → retire 旧的）
-- 这条规则有没有引用证据？（没有证据不能加）
-
+- 有没有引用证据？（没有证据不能加）
 ## 反例（本次出错的原因）
 
 - ❌ 规则存在 Memory 中，被 20+ 条记忆稀释
@@ -85,12 +91,19 @@ triggers:
 
 ## 🔗 审查管线 + 自改进闭环（已落地 2026-07-02）
 
-- `scripts/qwen_review.py` — L1 千问审查，直连 API
-- `skills/productivity/l1-review/SKILL.md` — L1 审查调用指南
-- `skills/productivity/sprint-contract/SKILL.md` — 任务启动契约
-- `hermes/lessons.md` — 经验教训库，复盘可复用规则写回此处
-- `scripts/review_trend.py` — 纵向评估趋势
-- `hermes/safety_invariants.md` — 安全不变量
-- `hermes/model_routing.md` — 模型路由规则（L1→Opus 升级路径）
+- `scripts/qwen_review.py` — L1 千问审查
+- `scripts/workflow_check.py` — 🆕 P2 自动打勾
+- `skills/productivity/l1-review/SKILL.md`
+- `skills/productivity/sprint-contract/SKILL.md`
+- `hermes/lessons.md`
+
+## 🆕 P2 自动收尾（复盘完成 → 自动打勾 + 删除追踪文件）
+
+复盘写入 lessons.md 后，运行：
+```
+python C:\Users\Administrator\AppData\Local\hermes\scripts\workflow_check.py --step "⑤" --delete
+```
+
+这会自动打勾⑤并删除追踪文件，不再依赖 Agent 手动操作。
 
 原始设计方案见 [`references/review-pipeline-design.md`](references/review-pipeline-design.md)。

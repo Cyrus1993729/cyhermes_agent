@@ -53,3 +53,10 @@
 {"ts": "2026-07-21T13:03:52.537105", "task": "contract_gold_weekly_2026-07-21", "verdict": "FAIL", "escalate": true, "fail_count": 7, "cond_count": 1, "total_items": 16}
 {"ts": "2026-07-21T13:07:57.957491", "task": "contract_gold_weekly_2026-07-21", "verdict": "FAIL", "escalate": true, "fail_count": 3, "cond_count": 2, "total_items": 12}
 {"ts": "2026-07-21T13:10:18.567088", "task": "contract_gold_weekly_2026-07-21", "verdict": "FAIL", "escalate": true, "fail_count": 5, "cond_count": 3, "total_items": 16}
+{"ts": "2026-07-24T20:16:54.353739", "task": "contract_金价3月走势_2026-07-24", "verdict": "FAIL", "escalate": true, "fail_count": 3, "cond_count": 6, "total_items": 22}
+{"ts": "2026-07-24T21:19:39.956653", "task": "contract_纳指半年走势_2026-07-24", "verdict": "FAIL", "escalate": true, "fail_count": 3, "cond_count": 3, "total_items": 21}
+{"ts": "2026-07-24T23:08:44.229807", "task": "contract_中国宏观一年_2026-07-24", "verdict": "FAIL", "escalate": true, "fail_count": 3, "cond_count": 7, "total_items": 18}
+{"ts": "2026-07-24T23:14:12.352135", "task": "contract_中国宏观一年_2026-07-24", "verdict": "FAIL", "escalate": true, "fail_count": 2, "cond_count": 4, "total_items": 11}
+{"ts": "2026-07-24T23:17:56.437695", "task": "contract_中国宏观一年_2026-07-24", "verdict": "FAIL", "escalate": true, "fail_count": 4, "cond_count": 5, "total_items": 19}
+{"ts": "2026-07-24T23:33:24.607962", "task": "contract_中国宏观一年_2026-07-24", "verdict": "FAIL", "escalate": true, "fail_count": 3, "cond_count": 6, "total_items": 17}
+{"ts": "2026-07-24T23:35:50.625485", "task": "contract_中国宏观一年_2026-07-24", "verdict": "FAIL", "escalate": true, "fail_count": 4, "cond_count": 5, "total_items": 15}
