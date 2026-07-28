@@ -148,7 +148,11 @@ Step 2.5: Data Validation (see references/data-validation.md)
   ├─ 3.1 COMEX vs spot: gold-api.com may be blocked in China — skip if timeout. GC=F is reliable.
   ├─ 3.2 CNY conversion: formula is COMEX/31.1035 × USDCNH. System auto-computes in fetch_shanghai_gold().
   ├─ 3.3 Shanghai gold freshness: auto-handled by data_fetcher.py (see references/shanghai-gold-conversion.md)
-  └─ 3.4 If FRED missing: check `pip list | grep fredapi` — package may not be installed even with .env key
+  ├─ 3.4 If FRED missing: check `pip list | grep fredapi` — package may not be installed even with .env key
+  └─ 3.5 Composite verification: manually recompute Σ(score×weight) and compare to main.py output.
+      If |manual - main.py| > 0.01, use manual value. See references/composite-verification.md.
+
+Step 2.6: ③.5 自检闸门（🆕 2026.7.27 — 硬闸门，exit≠0 阻断，禁止进入审查）
 
 Step 3: Integrated Report
   ├─ 本周要闻 (3-5 events, dated, factual only — from Step 1 headlines)
@@ -166,16 +170,18 @@ Old daily reports polluted 40% of the composite score with month-old data preten
 - Monthly dimensions explicitly labeled with age and decay-weighted
 - No daily reports — they create false certainty
 
-### ⚠️ 交付前审查要求（2026.7.13 确立）
+### ⚠️ 交付前审查要求（2026.7.13 确立，🆕 2026.7.27 升级为 L1‖Opus 并行）
 
-黄金周报属于投资分析类报告，**必须经过双审才能交付**：
+黄金周报属于投资分析类报告，**必须经过双审才能交付**。审查采用 **L1 ‖ Opus 并行扇出**模式（详见 `task-wrapup` skill）：
 
-1. **L1（千问 3.7 Max）**：形式审查 + 数据逻辑审查。当前 RUBRIC 已升级为四维度（含符号方向/跨小节勾稽/口径一致性/基本算术），脚本 `qwen_review.py` timeout=300s。CONDITIONAL < 3 且无 FAIL 时通过。
-2. **Opus（Claude Code）**：实质准确性的最终 sign-off。L1 擅长形式和数据逻辑，但数值深度自洽（三数互洽、多口径交叉验证）是 Opus 的强项。**投资分析类报告不经 Opus PASS 不交付。**
+1. **L1（千问 3.7 Max）**：形式审查 + 数据逻辑审查。当前 RUBRIC 已升级为四维度（含符号方向/跨小节勾稽/口径一致性/基本算术），脚本 `qwen_review.py` timeout=300s。
+2. **Opus（Claude Code）**：实质准确性的深度审查。L1 擅长形式+算术，但数值深度自洽（三数互洽、多口径交叉验证）和投资逻辑合理性是 Opus 的强项。
+3. **合并修复**：两者结果合并后统一修复，按冲突规则判定（形式/算术→L1权威，深度逻辑→Opus权威，解读歧义→上抛人工）。
+4. 每层 ≤3 轮，`qwen_review.py` 内置轮次计数器（8h 窗，exit 3 阻断）。
 
-典型审查分工：
-- L1：符号方向（他写的+0.14%对吗？）、术语一致性（两处同概念用词统一吗？）、完成度（缺URL吗？）
-- Opus：数据逻辑深度自洽（GC=F基准的价差和XAU基准的价差勾稽吗？）、投资逻辑合理性（估值便宜为什么不加码？）
+**典型审查分工：**
+- L1：符号方向、术语一致性、完成度、跨小节勾稽
+- Opus：数据逻辑深度自洽、投资逻辑合理性（如"估值便宜为何不加码"）
 
 > 教训来源：2026.7.13 黄金周报 L1 审查 6 轮未发现 +0.14%→−0.14% 符号错误和"折价"vs"估值偏离"术语混用，Opus 第 1 轮即发现。详见 `lessons.md` L9。
 
@@ -285,7 +291,7 @@ Cron job for automated weekly delivery:
 - Job ID: `54117ed8a949`
 - Schedule: `0 8 * * 1` (Monday 8:00 AM CST)
 - Delivers to: **Telegram**（2026.7.13 已从微信迁移，原因：微信 iLink 10条/轮硬限制导致长报告被吞）
-- Workflow: 5-step sprint (sprint-contract → decision-gate → execute → task-wrapup+L1 → post-task-review)
+- Workflow: 5-step sprint（sprint-contract → decision-gate → execute → ③.5自检闸门 → task-wrapup+L1‖Opus → post-task-review）
 - Skills loaded: sprint-contract, task-wrapup, post-task-review, l1-review
 - Toolsets: terminal, file, web
 
@@ -302,6 +308,8 @@ claude --dangerously-skip-permissions -p "设计问题描述（中文）"
 ```
 
 Claude Code is used for: framework design, model review, analytical logic critique, report frequency analysis. It is NOT used for writing implementation code — Hermes Agent handles all code changes.
+
+⚠️ **Opus 进程管理**：调用 Claude Code 时使用非 PTY 模式 + `timeout` 包装 + `stdin < /dev/null`，防止 PTY stdin 永不 EOF 导致进程挂起。详见 [`references/opus-pty-fix.md`](references/opus-pty-fix.md)。
 
 ## Pitfalls
 
@@ -406,7 +414,19 @@ Claude Code is used for: framework design, model review, analytical logic critiq
     gold-api.com 的 `/price/XAU` 端点返回的价格与 COMEX GC=F 恰好相同时，不是\"基差为0\"——是取了同一数据源。**真正的基差验证需要 yfinance GC=F vs 独立来源的XAU现货**（如CNBC报道、Reuters报价、Univest报道中引用的现货价）。若跨源不可得，D4.1应标\"⚠️ 无法校验（单源）\"而非\"✅\"。见本次案例：GC=F $4,023 vs Univest报道现货 $4,000.55 = 真实基差 +0.56%。
 
 37. **CNH=X 数据源不可靠时的 D4/D3 降级路径（2026.7.21 Opus审查确立）**：
-    CNH=X 通过 yfinance 经常拉取失败（4次重试全空），回退到15天前的缓存。此时：①D4.2 直接标\"❌ 不可用\"，不使用过期缓存计算任何对外数值；②D4.3 同步标\"❌ 不可用（依赖D4.2）\"；③D3 删除所有人民币价格区间，只给 COMEX 美元区间，注明\"本期不提供人民币折算\"。见本次案例：数值评分 38.4/100 → 30% 定投，但终端文本输出\"建议在¥886-925/克暂停，等待回落至该区间\"——当前价 ¥891 已在该区间内，\"等待回落\"自相矛盾。这是模型文本生成的典型幻觉，评分模块和文本建议模块使用不同的生成路径。**处理**：交付报告中以数值评分（module_scores → composite_100 → 定投映射）为准，终端文本输出仅作为辅助参考。若存在矛盾，在研判章节显式标注冲突并说明以数值为准（见 `lessons.md` L9）。契约 D2 已注明\"终端输出文本仅作为原始数据\"。
+    CNH=X 通过 yfinance 经常拉取失败（4次重试全空），回退到15天前的缓存。此时：①D4.2 直接标"❌ 不可用"，不使用过期缓存计算任何对外数值；②D4.3 同步标"❌ 不可用（依赖D4.2）"；③D3 删除所有人民币价格区间，只给 COMEX 美元区间，注明"本期不提供人民币折算"。
+
+38. **main.py composite 输出与手工加权平均可能不一致（2026.7.27 黄金周报复盘）**：
+    main.py 终端输出 composite=-0.50，但七因子手工加权平均 = Σ(score×weight) = -0.540，偏差 0.040。评分因此从 37.6 变为 36.5。根因：main.py 的终端文本输出和评分模块可能使用不同精度/四舍五入路径。**处理**：每次报告生成后手工验算 composite（见 `references/composite-verification.md`），若偏差 >0.01 以手工值为准。定投映射边界附近（±2 分）时此项校验尤为关键。
+
+39. **SGE 数据滞后 → 境内需求评分基于 COMEX 换算值 → 系统性高估看空程度（2026.7.27 黄金周报复盘）**：
+    SGE 滞后 5 天触发 `_fetch_shanghai_from_xau_conversion()`，境内需求评分 -2.00 基于 COMEX 换算值 ¥893.09（而非真实 SGE ¥897.70）。真实 SGE 数据显示境内外价差 +0.66%（正常——境内并未出现恐慌折价），但 main.py 输出"折价 -6.5%"是公允价值偏离（vs 模型 ¥955），两者是不同口径。**处理**：（a）D4.3/D4.4 必须使用真实 SGE 数据（即使滞后），不可使用 COMEX 换算值做境内外价差校验；（b）D2/D3 中明确区分"公允价值偏离"和"境内外价差"两个概念（pitfall #33）；（c）境内需求评分可能被高估时，在 D3 做敏感性分析（如"境内需求上修至 -1.0 后综合分 39.0 仍 <40，结论不变"）；（d）D4.3 存在 SGE 与 COMEX 时点错配时，标注"定性可用、定量不精准"。
+
+38. **main.py composite 输出与手工加权平均可能不一致（2026.7.27 黄金周报复盘）**：
+    main.py 终端输出 composite=-0.50，但七因子手工加权平均 = Σ(score×weight) = -0.540，偏差 0.040。评分因此从 37.6 变为 36.5。根因：main.py 的终端文本输出和评分模块可能使用不同精度/四舍五入路径。**处理**：每次报告生成后手工验算 composite（`composite = -0.90×0.20 + -1.25×0.15 + 0.20×0.10 + 0.00×0.15 + -0.12×0.20 + -2.00×0.10 + 0.32×0.10`），若偏差 >0.01 以手工值为准。定投映射边界附近（±2 分）时此项校验尤为关键。见 `references/composite-verification.md`。
+
+39. **SGE 数据滞后 → 境内需求评分基于 COMEX 换算值 → 系统性高估看空程度（2026.7.27 黄金周报复盘）**：
+    SGE 滞后 5 天触发 `_fetch_shanghai_from_xau_conversion()`，境内需求评分 -2.00 基于 COMEX 换算值 ¥893.09（而非真实 SGE ¥897.70）。真实 SGE 数据显示境内外价差 +0.66%（正常——境内并未出现恐慌折价），但 main.py 输出"折价 -6.5%"是公允价值偏离（vs 模型 ¥955），两者是不同口径。**处理**：（a）D4.3/D4.4 必须使用真实 SGE 数据（即使滞后），不可使用 COMEX 换算值做境内外价差校验；（b）D2/D3 中明确区分"公允价值偏离"和"境内外价差"两个概念（pitfall #33）；（c）境内需求评分可能被高估时，在 D3 做敏感性分析（如"境内需求上修至 -1.0 后综合分 39.0 仍 <40，结论不变"）；（d）D4.3 存在 SGE 与 COMEX 时点错配时，标注"定性可用、定量不精准"。
 
 ## 🧩 工作流配方
 

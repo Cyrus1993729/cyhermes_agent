@@ -55,26 +55,24 @@ python C:\Users\Administrator\AppData\Local\hermes\scripts\workflow_check.py --s
 
 ---
 
-## 控制流（⚠️ 短路逻辑 + 自动审查循环）
+## 控制流（⚠️ 短路逻辑 + 自动审查循环 🆕 L1‖Opus 并行）
 
 自检分两段，中间有自动循环：
 
 ```
-┌─ 质量门 ──────────────────────────────────────┐
-│ 1. 步骤完整性                                  │
-│ 2. 来源区分                                    │
-│ 3. 自动审查（L1 → Opus）                       │
-│    ├── PASS → 进入 Opus（若有）→ PASS → 投递   │
-│    ├── FAIL/CONDITIONAL → 自动修复 → 重审      │
-│    │    ├── L1 层最多 3 轮（含 CONDITIONAL）   │
-│    │    │   ├── 3轮内 PASS → 进入 Opus 层      │
-│    │    │   └── 第4轮启动前 → 停下，通知用户   │
-│    │    ├── Opus 层最多 3 轮（独立计数）        │
-│    │    │   ├── 3轮内 PASS → 进入投递          │
-│    │    │   └── 第4轮启动前 → 停下，通知用户   │
-│    │    └── 全程 Agent 自动修复，不询问用户     │
-└──────────────────────────────────────────────┘
-         ↓ (L1 + Opus 全部通过后才走)
+┌─ 质量门 ──────────────────────────────────────────┐
+│ 1. 步骤完整性                                     │
+│ 2. 来源区分                                       │
+│ 3. 自动审查（🆕 L1 ‖ Opus 并行扇出）               │
+│    ├── 投资分析类：同时启动 L1 + Opus              │
+│    │    L1 (qwen_review.py) ‖ Opus (claude -p)     │
+│    │    → 合并结果 → 统一修复 → 重审               │
+│    │    ├── 每层最多 3 轮（独立计数）              │
+│    │    └── 第4轮启动前 → 停下，通知用户           │
+│    ├── 其他类：L1 先行，Opus 可选                  │
+│    └── 全程 Agent 自动修复，不询问用户             │
+└──────────────────────────────────────────────────┘
+         ↓ (审查全部通过后才走)
 ┌─ 投递动作 ───────────────────┐
 │ 4. 产物存档（含失败留痕）     │
 │ 5. 将交付物作为回复正文发送   │
@@ -127,39 +125,44 @@ python C:\Users\Administrator\AppData\Local\hermes\scripts\workflow_check.py --s
 
 **输出**：`来源清晰 ✅` 或 `未标注 X 处 ⚠️ → 补充标注`
 
-### ✅ 3. 自动审查（不等用户喊，全程自动修复）
+### ✅ 3. 自动审查（🆕 投资分析类 L1 ‖ Opus 并行，不等用户喊，全程自动修复）
 
 **审查循环规则**（详见 sprint-contract v1.2 升级规则）：
-- L1 发现问题 → Agent 自动修复 → 重审 → 循环至 PASS（最多 3 轮）
-- L1 PASS 后 → 发 Opus 审查（投资分析类强制，其他类可选）
-- Opus 发现问题 → Agent 自动修复 → 重审 → 循环至 PASS（最多 3 轮，独立计数）
-- Agent 全程**不询问用户**是否修复或升级，自动修复+重审
-- 仅当同一审查层第 4 轮启动前（即 3 轮未 PASS）才停下询问用户
-- CONDITIONAL 算审查轮次，修完必须重审
 
-**路径规则**：
-- 契约文件：`~/AppData/Local/hermes/contracts/contract_<任务名>_<YYYY-MM-DD>.md`
-- 交付物文件：`~/AppData/Local/hermes/output/<任务名>_<YYYY-MM-DD>.md`
-- 审查脚本：`~/AppData/Local/hermes/scripts/qwen_review.py`
+**🆕 并行模式（投资分析类强制）：**
+- 同时启动 L1（qwen_review.py）和 Opus（claude -p --model opus）
+- 两者同时看到初版交付物，防止串行修补的信息损耗
+- Opus 补 L1 的结构性盲区：L1 rubric 明写"逻辑跳跃不属于 L1 范围"，深度逻辑矛盾只有 Opus 能发现
+- 合并审查结果后统一修复 → 重审（每层 ≤3 轮，独立计数）
 
-L1 审查步骤：
+**🆕 L1‖Opus 冲突规则：**
+| 冲突类型 | 以谁为准 | 原因 |
+|:--|:--|:--|
+| 形式/算术/跨节勾稽 | **L1 权威** | L1 rubric dim1-3 主场 |
+| 深度逻辑/自洽/承重假设 | **Opus 权威** | L1 结构上无判定权（dim5 只标记疑似） |
+| 事实 vs 解读歧义 | **上抛人工** | 不自动取并集，由 Agent/用户裁 |
+
+**非投资分析类：**
+- L1 先行，Opus 可选
+- 规则同 sprint-contract v1.2
+
+**审查步骤（🆕 并行扇出流）：**
 ```
 1. 定位契约文件路径
 2. 定位交付物文件路径
-3. 运行 python <审查脚本> --contract <契约> --deliverable <交付物>
-4. 若脚本超时（API不可达）→ 降级为人工自检（见 L8 规则）
-5. PASS → 进入 Opus 审查（若需要）
-6. FAIL/CONDITIONAL → 自动修复 → 回到步骤 3 重审
-7. 累计 3 轮未 PASS → 停下告知用户（第 4 轮不启动）
+3a. 同时启动 L1 和 Opus（投资分析类）:
+    - python qwen_review.py --contract <契约> --deliverable <交付物>
+    - timeout 900 claude --dangerously-skip-permissions -p --model opus < /dev/null "审查交付物..."  (非PTY+stdin EOF，进程写完自动退出；仅限 Bash/Git Bash 执行)
+    ⚠ Opus prompt 应聚焦深度逻辑（投资合理性/多口径交叉/三数互洽），跳过 ③.5 已验证的算术重算（composite/D4阈值）
+3b. 合并两者的审查结果，按冲突规则判定:
+    - 形式/算术冲突 → L1 权威
+    - 深度逻辑冲突 → Opus 权威
+    - 事实 vs 解读歧义 → 上抛人工裁决
+4. 统一修复所有 FAIL/CONDITIONAL 项 → 重审
+5. 每层独立计数，≤3 轮
+6. 累计 3 轮未 PASS → 停下告知用户（第 4 轮不启动）
 ```
-
-Opus 审查步骤（投资分析类强制，见 sprint-contract）：
-```
-8. 用 claude -p --model opus 审查交付物
-9. PASS → 进入投递
-10. FAIL/CONDITIONAL → 自动修复 → 回到步骤 8 重审
-11. 累计 3 轮未 PASS → 停下告知用户
-```
+其他类：L1 先行，Opus 可选（传统串行流）。
 
 **输出**：`审查 ✅ L1 PASS (N/N) + Opus PASS` 或 `审查 ⚠️ CONDITIONAL（已修N轮）` 或 `审查 ❌ FAIL（已重试3轮，停下）`
 

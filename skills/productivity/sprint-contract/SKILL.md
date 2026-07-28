@@ -41,9 +41,10 @@ Agent 存在"执行惯性"——反复修改多轮后容易忘记最初要走的
 # 流程追踪: <任务名> (<日期>)
 
 - [ ] ① sprint-contract → contract_<任务名>_<日期>.md
-- [ ] ② decision-gate → 方案已确认
+- [ ] ② decision-gate → 契约经 Opus 审查 + 用户确认
 - [ ] ③ 执行
-- [ ] ④ task-wrapup → 审查+存档+交付
+- [ ] ③.5 自检闸门 → pre_review_check.py（exit=0 才进审查）
+- [ ] ④ task-wrapup → L1‖Opus审查 + 存档 + 交付
 - [ ] ⑤ post-task-review → 复盘+写入 lessons.md
 ```
 
@@ -94,9 +95,18 @@ Agent 存在"执行惯性"——反复修改多轮后容易忘记最初要走的
 9. 确认契约文件在 `hermes/contracts/` 根目录下（非 archive/）。追踪文件同理。
 10. **🆕 P2 自动打勾（本步骤完成 → 自动记录，不靠记忆）**：
    ```
-   python C:\Users\Administrator\AppData\Local\hermes\scripts\workflow_check.py --step "①"
-   python C:\Users\Administrator\AppData\Local\hermes\scripts\workflow_check.py --step "②"
+   python C:\\Users\\Administrator\\AppData\\Local\\hermes\\scripts\\workflow_check.py --step "①"
+   python C:\\Users\\Administrator\\AppData\\Local\\hermes\\scripts\\workflow_check.py --step "②"
    ```
+
+11. **③.5 自检闸门（🆕 2026.7.27 — 硬闸门，脚本阻断）**：
+   在进入 ④ 审查之前，必须先通过自检闸门：
+   ```
+   python C:\\Users\\Administrator\\AppData\\Local\\hermes\\scripts\\pre_review_check.py --contract <契约> --deliverable <交付物>
+   ```
+   退出码 ≠0 = 闸门未过，**禁止进入审查**。脚本化强制，不靠 Agent 自觉打勾。
+   检查项：composite 加权重算、定投映射口径、D4 阈值对照、术语一致性告警、新闻振幅自洽。
+   其中 composite/D4阈值/振幅矛盾/暂停缺失为硬阻断，术语一致性与定投非暂停档为告警（不阻断）。
 
    > **文件治理规则**（详见 `hermes/contracts/file_governance_standard.md`）：
    > - 契约文件创建在 contracts/ 根目录，收尾时自动归档到 `archive/<任务名>_<日期>/`
@@ -110,6 +120,7 @@ Agent 存在"执行惯性"——反复修改多轮后容易忘记最初要走的
 ## 交付物清单
 - D1: <交付物> — 验收标准: <可判定条件>
 - D2: ...
+- D5: 投递确认 — **投递后验证项（审查阶段跳过）**。投递时确认消息发送回执；投递失败须重试并向用户报告。验收时机：⑤ 复盘前强制 gate 核验回执。
 
 ## 口径定义
 - <指标A>: 采用 <标准/来源>，单位/时间范围 <...>
@@ -129,16 +140,22 @@ Agent 存在"执行惯性"——反复修改多轮后容易忘记最初要走的
 
 ## 升级规则
 - 审查阶段（L1/Opus）全程自动。Agent 发现问题 → 自动修复 → 重审 → 循环至 PASS
+- **🆕 投资分析类 L1 ‖ Opus 并行扇出**（同时启动，合并结果后统一修复；详见 task-wrapup skill）
 - **每层最多 3 轮审查**（L1 层 3 轮 + Opus 层 3 轮 = 合计最多 6 轮）。第 4 轮启动前停下询问用户
 - **CONDITIONAL 算审查轮次**，只有 PASS 不算。CONDITIONAL 也要修完后重审
 - **每层独立计数**（L1 和 Opus 各自计算轮次，不跨层累计）
 - **停下条件**：同一审查层连续 3 轮未 PASS（含 FAIL 和 CONDITIONAL），第 4 轮启动前停下
+  - qwen_review.py 内置轮次计数器（8h 时间窗，exit 3 阻断），--force 可跳过
 - 不代表用户需要介入每次审查结果——正常情况 Agent 自动修复、重审、通过，用户只在最终交付时看到结果
 
 ## ⚠️ 安全不变量（所有任务通用，不可协商）
-本任务必须遵守 `hermes/safety_invariants.md` 中的全部底线规则。
-违反任一条 = 立即停止，向用户报告。
-```
+本任务必须遵守 `hermes/safety_invariants.md` 中的全部底线规则。违反任一条 = 立即停止，向用户报告。
+
+## 🆕 硬闸门原则（2026.7.27 确立）
+所有流程闸门必须由脚本强制（exit≠0 阻断），不得依赖 Agent 自觉打勾。包括但不限于：
+- ② decision-gate：用户确认 ≠ 自动打勾，须显式调用 workflow_check.py
+- ③.5 自检闸门：pre_review_check.py，exit≠0 禁止进入审查
+- ④ 轮次上限：qwen_review.py 内置计数器，≥3 拒绝执行
 
 ## Pitfalls
 

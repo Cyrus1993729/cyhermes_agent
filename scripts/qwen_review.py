@@ -7,15 +7,25 @@ qwen_review.py — L1 固定审查层（千问 3.7 Max）
 用法:
   python qwen_review.py --contract contract.md --deliverable report.md
   echo "<交付物文本>" | python qwen_review.py --contract contract.md --deliverable -
-输出: PASS / CONDITIONAL / FAIL + 逐条裁决（JSON + 人读摘要），只报告不改文件。
+  python qwen_review.py --contract ... --deliverable ... --force   # 跳过轮次检查
+
+退出码:
+  0 = 审查完成（PASS/CONDITIONAL/FAIL 见输出）
+  2 = API 错误（网络/认证/格式）
+  3 = 达轮次上限（≥3 轮 FAIL，拒绝执行；用 --force 跳过）
 """
 import re, sys, json, argparse, urllib.request, urllib.error
 from pathlib import Path
-from datetime import datetime
+from datetime import datetime, timedelta
 
 CONFIG = Path(r"C:\Users\Administrator\AppData\Local\hermes\config.yaml")
 REVIEWS_DIR = Path(r"C:\Users\Administrator\AppData\Local\hermes\reviews")
 REVIEW_LOG = REVIEWS_DIR / "review_log.jsonl"
+
+# 轮次上限：同一任务在最近 ROUND_WINDOW_HOURS 小时内最多 FAIL_ROUND_LIMIT 轮
+# 计数包括 FAIL 和 CONDITIONAL（与 sprint-contract "CONDITIONAL 算审查轮次"一致）
+ROUND_WINDOW_HOURS = 8
+FAIL_ROUND_LIMIT = 3
 
 RUBRIC = """你是 L1 固定审查层。对照【任务契约】逐条审查【交付物】，只审交付物不审过程。
 审查六维度，每条结论单独裁决，禁止打包：
@@ -103,11 +113,46 @@ def load(arg):
     return Path(arg).read_text(encoding="utf-8", errors="replace")
 
 
+def check_round_limit(task_id: str, force: bool = False) -> bool:
+    """检查轮次上限。返回 True = 可以继续，False = 已达上限拒绝执行。"""
+    if force:
+        return True
+    if not REVIEW_LOG.exists():
+        return True
+    
+    cutoff = datetime.now() - timedelta(hours=ROUND_WINDOW_HOURS)
+    fail_rounds = 0
+    with open(REVIEW_LOG, "r", encoding="utf-8") as f:
+        for line in f:
+            try:
+                entry = json.loads(line)
+                ts = datetime.fromisoformat(entry.get("ts", ""))
+                if (entry.get("task") == task_id and
+                    entry.get("verdict") in ("FAIL", "CONDITIONAL") and
+                    ts >= cutoff):
+                    fail_rounds += 1
+            except (json.JSONDecodeError, ValueError):
+                continue
+    if fail_rounds >= FAIL_ROUND_LIMIT:
+        print(f"[L1 闸门] 任务 '{task_id}' 在最近 {ROUND_WINDOW_HOURS}h 内已达 "
+              f"{fail_rounds} 轮 FAIL/CONDITIONAL（上限 {FAIL_ROUND_LIMIT}）。"
+              f"请升级 Opus 或使用 --force 强制重跑。", file=sys.stderr)
+        return False
+    return True
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--contract", required=True)
     ap.add_argument("--deliverable", required=True)
+    ap.add_argument("--force", action="store_true",
+                    help="跳过轮次上限检查，强制执行审查")
     a = ap.parse_args()
+    
+    task_id = Path(a.contract).stem
+    if not check_round_limit(task_id, a.force):
+        sys.exit(3)
+    
     out = call_qwen(load(a.contract), load(a.deliverable))
     try:
         obj = json.loads(out)

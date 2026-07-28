@@ -4,7 +4,7 @@
 §
 网络：代理127.0.0.1:7897通X+Startpage；Google需CAPTCHA。Bing直连。Claude Code→Opus(CLI非Nous API)，Sonnet筛选。每命令必设代理禁直连。
 §
-Opus=Claude Code CLI(claude -p --model opus)+代理7897。禁delegate_task。调前smoke test。prompt长→hit max-turns。
+Opus=Claude Code CLI: 非PTY+timeout 900+stdin</dev/null (防进程挂起)。代理7897。禁delegate_task。详见 gold-investment-analysis references/opus-pty-fix.md
 §
 delegate_task不支持per-call provider，子代理继承父模型。delegation已切qwen3.7-max(custom:qwen-bailian)，比kimi便宜+快(107s vs 570s,15call vs 50call)。L1审查走execute_code直连qwen-bailian API。
 §
@@ -28,14 +28,14 @@ TG已配(token:Desktop/各类api key/telegram bot token.txt)。API走代理7897�
 §
 DS不支持Vision:image_url→400。×hs图文帖→正文密集基于desc，稀疏用Qwen替代。
 §
-核心决策(Opus共识):①先判可拆性——缝合代价>切分收益不拆，整块交一个脑子。②流程抬地板非天花板——怕翻车用流程，求惊艳直干Opus。③handoff有损压缩传what丢why，损耗超线性。④审查深度<执行深度，Opus别只当终审——核心难题Opus主导执行。⑤迭代有值前提:新信息注入。
-§
 流程边界:①连贯判断密集需全局一致→Opus直干。②可干净切分规格明确→Kanban+流程。③探索性边界不清→先Opus再流程化。④拆前问:缝合<切分?
-§
-审查短板(2026.7.24):L1只查形式不查质量。需增L2实质审查(异构模型查逻辑/证据链/盲区/推理深度)。更新l1-review或新建l2-review skill。
 §
 用户理解偏好:需要全局视角才安心——喜欢在动手前看到完整流程图或结构化总览。对复杂系统先问"整体是什么样的"再深入细节。流程设计类讨论必请Opus给第二意见。
 §
 纳指定投渠道：人民币QDII基金（非美元直投QQQ）。QDII有限购/溢价/折价，分析纳指时须含QDII特有因素。
 §
 并行检索:delegate_task 3路扇出+综合单模型。kimi-k3 50+calls/agent易欠费。估计值方向可能全反(PPI估-2%实+4.1%)。直接抓官网(stats.gov.cn/pbc.gov.cn)>搜Bing。子代理HTML是二次宝藏。
+§
+流程改进必须Opus审(2026.7.27确立):任何5步流程/skill/架构级别的改进方案，出方案后必须先发Opus审查再落地。包括但不限于:流程重构、审查规则变更、闸门设计、skill拆分合并。复盘后的修改方案也要Opus审。
+§
+审查架构(2026.7.27):③.5自检闸门(pre_review_check.py exit≠0阻断)→L1‖Opus并行→冲突(形式→L1/深度→Opus/歧义→上抛)。硬闸门原则:所有流程闸门必须脚本强制。D5=投递后验证(审查阶段跳过)。Opus=非PTY+timeout 900+stdin</dev/null。

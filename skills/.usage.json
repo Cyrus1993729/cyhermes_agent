@@ -172,14 +172,14 @@
     "archived_at": null,
     "created_at": "2026-06-20T13:02:37.664021+00:00",
     "created_by": "agent",
-    "last_patched_at": "2026-07-03T15:39:09.927099+00:00",
-    "last_used_at": "2026-07-24T11:23:43.354561+00:00",
-    "last_viewed_at": "2026-07-24T11:23:43.345562+00:00",
-    "patch_count": 7,
+    "last_patched_at": "2026-07-27T02:32:14.537936+00:00",
+    "last_used_at": "2026-07-27T09:21:34.423622+00:00",
+    "last_viewed_at": "2026-07-27T09:21:34.409905+00:00",
+    "patch_count": 8,
     "pinned": false,
     "state": "active",
-    "use_count": 14,
-    "view_count": 14
+    "use_count": 18,
+    "view_count": 18
   },
   "deep-analysis-workflow": {
     "archived_at": null,
@@ -263,27 +263,27 @@
     "archived_at": null,
     "created_at": "2026-06-03T07:30:17.716294+00:00",
     "created_by": "agent",
-    "last_patched_at": "2026-07-21T05:24:47.504510+00:00",
-    "last_used_at": "2026-07-24T15:01:57.071960+00:00",
-    "last_viewed_at": "2026-07-24T15:01:57.059918+00:00",
-    "patch_count": 62,
+    "last_patched_at": "2026-07-27T09:22:06.226527+00:00",
+    "last_used_at": "2026-07-27T14:55:18.828457+00:00",
+    "last_viewed_at": "2026-07-27T14:55:18.807435+00:00",
+    "patch_count": 71,
     "pinned": false,
     "state": "active",
-    "use_count": 62,
-    "view_count": 62
+    "use_count": 75,
+    "view_count": 75
   },
   "gold-macro-framework": {
     "archived_at": null,
     "created_at": "2026-06-19T00:44:00.802400+00:00",
     "created_by": null,
     "last_patched_at": "2026-06-19T01:16:26.804002+00:00",
-    "last_used_at": "2026-07-24T15:01:56.055391+00:00",
-    "last_viewed_at": "2026-07-24T15:01:56.045176+00:00",
+    "last_used_at": "2026-07-27T00:06:31.967841+00:00",
+    "last_viewed_at": "2026-07-27T00:06:31.941917+00:00",
     "patch_count": 2,
     "pinned": false,
     "state": "active",
-    "use_count": 1,
-    "view_count": 1
+    "use_count": 2,
+    "view_count": 2
   },
   "hermes-agent": {
     "archived_at": null,
@@ -472,13 +472,13 @@
     "created_at": "2026-07-02T00:10:37.479388+00:00",
     "created_by": null,
     "last_patched_at": "2026-07-13T15:04:10.994437+00:00",
-    "last_used_at": "2026-07-24T10:41:21.868103+00:00",
-    "last_viewed_at": "2026-07-24T10:41:21.852606+00:00",
+    "last_used_at": "2026-07-27T09:10:04.437928+00:00",
+    "last_viewed_at": "2026-07-27T09:10:04.430828+00:00",
     "patch_count": 23,
     "pinned": false,
     "state": "active",
-    "use_count": 23,
-    "view_count": 22
+    "use_count": 26,
+    "view_count": 24
   },
   "linear": {
     "archived_at": null,
@@ -615,13 +615,13 @@
     "created_at": "2026-07-01T16:17:38.869728+00:00",
     "created_by": null,
     "last_patched_at": "2026-07-03T14:19:44.366691+00:00",
-    "last_used_at": "2026-07-24T11:23:44.381147+00:00",
-    "last_viewed_at": "2026-07-24T11:23:44.369172+00:00",
+    "last_used_at": "2026-07-27T02:31:50.159224+00:00",
+    "last_viewed_at": "2026-07-27T02:31:50.138667+00:00",
     "patch_count": 8,
     "pinned": false,
     "state": "active",
-    "use_count": 15,
-    "view_count": 14
+    "use_count": 18,
+    "view_count": 16
   },
   "research-report-analysis": {
     "archived_at": null,
@@ -693,13 +693,13 @@
     "created_at": "2026-07-01T23:27:50.641601+00:00",
     "created_by": null,
     "last_patched_at": "2026-07-21T04:58:37.342413+00:00",
-    "last_used_at": "2026-07-24T10:41:20.839550+00:00",
-    "last_viewed_at": "2026-07-24T10:41:20.832556+00:00",
+    "last_used_at": "2026-07-27T09:10:05.454529+00:00",
+    "last_viewed_at": "2026-07-27T09:10:05.437797+00:00",
     "patch_count": 21,
     "pinned": false,
     "state": "active",
-    "use_count": 15,
-    "view_count": 14
+    "use_count": 21,
+    "view_count": 19
   },
   "subagent-driven-development": {
     "archived_at": null,
@@ -732,13 +732,13 @@
     "created_at": "2026-07-03T00:39:05.920452+00:00",
     "created_by": null,
     "last_patched_at": "2026-07-13T14:26:27.788096+00:00",
-    "last_used_at": "2026-07-24T11:21:40.578840+00:00",
-    "last_viewed_at": "2026-07-24T11:21:40.569787+00:00",
+    "last_used_at": "2026-07-27T09:10:04.399607+00:00",
+    "last_viewed_at": "2026-07-27T09:10:04.389612+00:00",
     "patch_count": 28,
     "pinned": false,
     "state": "active",
-    "use_count": 16,
-    "view_count": 15
+    "use_count": 21,
+    "view_count": 19
   },
   "video-understand-core": {
     "archived_at": null,
