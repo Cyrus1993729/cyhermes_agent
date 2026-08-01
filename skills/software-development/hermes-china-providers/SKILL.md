@@ -14,6 +14,11 @@ triggers:
   - "key 刚申请但报 Invalid Authentication"
   - Configuring moonshot/kimi/minimax as main or auxiliary provider
   - Switching between China and international providers
+  - 阿里云百炼 pricing comparison vs direct API
+  - 百炼 deepseek 价格对比
+  - ChatGPT Codex subscription quota usage in Hermes
+  - Claude Pro vs Max subscription model strategy
+  - subscription quota as primary model evaluation
 ---
 
 # Hermes China Providers
@@ -121,6 +126,8 @@ for endpoint, label in [
 | Moonshot 端点不匹配 | 国际站 key 用在中国站 provider 会 401 | 见上方 Troubleshooting |
 | Kimi 模型不在下拉框 | `kimi-coding`(国际站)用中国 key → fetch_models 静默失败 | 见下方「Kimi 模型选择下拉框不可见」 |
 | WeChat iLink 限流 | 多段消息触发 429，导致部分消息丢失 | [`references/ilink-rate-limiting.md`](references/ilink-rate-limiting.md) |
+| 百炼第三方模型定价虚高 | DeepSeek/Kimi 百炼标价 4x 官网实付价，商务折扣难以打平 | [`references/bailian-pricing-comparison.md`](references/bailian-pricing-comparison.md) |
+| 订阅 CLI 集成架构 | 通过官方 CLI 合规使用 Claude/ChatGPT 订阅额度，OAuth 行为差异，模型分配决策框架 | [`references/subscription-cli-integration.md`](references/subscription-cli-integration.md) |
 
 ### Kimi 模型选择下拉框不可见（2026-07-23 实踩）
 
@@ -331,6 +338,92 @@ For current pricing comparison of major Chinese LLM providers (DeepSeek, Kimi, G
 [`references/chinese-llm-pricing.md`](references/chinese-llm-pricing.md)
 
 Last updated 2026-06-29. Includes scraping methodology (Chrome CDP for JS-rendered pages), DeepSeek peak/off-peak pricing (July 2026), and per-provider accessibility notes.
+
+### 阿里云百炼 vs 官网直连定价对比
+
+百炼上的第三方模型（DeepSeek、Kimi）标价通常显著高于官网直连实付价——
+DeepSeek V4 Pro 百炼标价 12/24 元 vs 官网实付 3/6 元（贵 4 倍）。
+即使销售人员提供 5-6 折商务折扣，也只能与 DeepSeek 高峰价打平，非高峰时段仍贵 1 倍。
+百炼销售人员引用的"原价"可能是已废弃的老标价，不代表实际竞争力。
+
+详细数据与逐模型对比：**[`references/bailian-pricing-comparison.md`](references/bailian-pricing-comparison.md)**（2026-07-31）
+
+## Subscription Quota Strategy
+
+When the user has monthly AI subscriptions with idle quota (e.g. Claude Pro $20, ChatGPT Plus $20),
+Hermes can leverage them via their **official CLI tools** — not via the built-in Hermes provider plugins.
+The official-CLI path is vendor-sanctioned (same as a human typing in their terminal), while
+third-party OAuth provider plugins exist in a gray zone.
+
+### Architecture Principle: API Tokens vs Subscription CLIs
+
+| | API Token (DeepSeek, Qwen, Kimi) | Subscription CLI (Claude Code, Codex) |
+|---|---|---|
+| Billing unit | Per token (smooth, predictable) | Per message (hard cap per 5h window) |
+| Failure mode | Gradual cost increase | Sudden quota wall — agent stops mid-task |
+| Agent loop fit | ✅ No artificial ceiling | ❌ 5-25 turns drains quota |
+| OAuth maintenance | None (API key never expires) | Varies by vendor (see below) |
+| **Best role** | **High-frequency: main loop, fallback, delegation** | **Low-frequency: review, code-gen bursts** |
+
+**Core rule**: Never put a message-count-billed subscription model in any role that runs
+on every turn (primary, fallback, delegation). Subscription CLIs are for low-frequency,
+high-value tasks where the human explicitly decides to invoke them.
+
+### Codex CLI (ChatGPT Plus/Pro quota) — SANCTIONED PATH
+
+**Do NOT use `openai-codex` provider** (Hermes built-in OAuth plugin). It has known bugs
+(#5883 empty response, #5736 malformed output) and its OAuth refresh tokens expire after
+10-30 days with NO rolling renewal. Instead, use the **official OpenAI Codex CLI**:
+
+```bash
+# Install (once)
+npm install -g @openai/codex
+
+# Non-interactive invocation (same pattern as Claude Code CLI)
+timeout 900 codex exec "write a Python script that..." --json < /dev/null
+```
+
+- **Auth**: `codex` login uses ChatGPT OAuth — same subscription quota as Codex web/IDE
+- **Quota**: Plus $20 → GPT-5.4: 20-100 msgs/5h, GPT-5.4-mini: 60-350 msgs/5h
+- **Billing model**: Per **message**, not per token. Every tool call = 1 message.
+- **Coding-optimized**: Codex is a programming model (RLHF'd for code tasks). Weak on
+  general reasoning, analysis, or non-code tasks.
+- **OAuth**: access token ~1h (auto-refreshed), refresh token 10-30 days (MUST manually
+  re-login after expiry — unlike Claude's rolling refresh). Add a health-check probe
+  and Telegram alert on 401.
+
+**Best roles for Codex CLI:**
+- Code-class L1 review (引入 OpenAI 第三家血统异构审查)
+- Code-class delegation sub-agent (results verifiable by parent agent)
+- Explicitly human-triggered, NOT automatic per-turn
+
+### Claude Code CLI (Claude Pro/Max quota) — SANCTIONED PATH
+
+Already used for Opus L2 review. Anthropic's OAuth uses **rolling refresh tokens** —
+each token refresh issues a new refresh token, so active users NEVER need to re-login.
+This is a fundamental design advantage over OpenAI's fixed-cycle refresh.
+
+- Claude Pro ($20): ~10-45 Sonnet msgs/5h, fewer for Opus. Weekly limits.
+- Claude Max 5x ($100): ~5x Pro. 20x ($200): ~20x.
+- Opus L2 review on Pro: adequate for occasional reviews. Triggers rate limits only
+  under heavy sustained loads (e.g. debugging Hermes upgrades).
+
+### Recommended Model Allocation (as of 2026-07-31)
+
+| Role | Model | Billing | Why |
+|---|---|---|---|
+| **Primary agent** | **DeepSeek V4 Flash** | API token | Token billing, no message limits, fast, cheap (1/2 元) |
+| Manual upgrade | DeepSeek V4 Pro | API token | `/model` switch for complex tasks — human decides, not model |
+| Fallback | Kimi K3 | API token | Must be reliable; subscription CLIs are wrong for this |
+| L1 review (general) | Qwen 3.7 Max | API token | Cheap, structured Chinese, stays on API |
+| L1 review (code) | Codex CLI | Subscription | Low-frequency, plays to Codex's strength, adds OpenAI bloodline heterogeneity |
+| L2 review | Claude Opus / Claude Code CLI | Subscription | Low-frequency high-value, sanctioned, rolling OAuth = zero maintenance |
+| Delegation (code) | Codex CLI | Subscription | Low-frequency, parent verifies output, burst-limited |
+| Delegation (general) | Qwen 3.7 Max | API token | Codex is weak on general tasks |
+
+**Key**: Human is the decision gate for complexity. Flash handles 80% of daily tasks.
+When the user judges a task requires deep reasoning, they manually `/model deepseek-v4-pro`.
+Do NOT rely on Flash's self-assessment ("I can't handle this") — small models lack metacognition.
 
 ## delegate_task Provider Limitation (2026-07-02)
 
