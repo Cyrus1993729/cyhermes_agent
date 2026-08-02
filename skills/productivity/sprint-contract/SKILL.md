@@ -135,6 +135,15 @@ Agent 存在"执行惯性"——反复修改多轮后容易忘记最初要走的
 - 执行方式：<单模型连贯完成 / Kanban多Agent>
 - 理由：<一句话；选 Kanban 必填，选单模型可略>
 
+## 审查策略（🆕 新5步流程专用，用户说"走新5步流程"时启用）
+- 流程版本：<legacy / v2>
+- review_policy:
+  - mode：<dual_full / single / none>
+  - risk_tier：<high / medium / low>
+  - required_dimensions：[D1, D2, D3, D4, D5, D6]
+  - max_repair_rounds：<1-3>
+- 追踪文件：workflow_v2_<任务名>_<日期>.md（区别于旧流程 workflow_*.md）
+
 ## 适用的历史教训
 - L1 <规则名> → 已转为验收标准 D#   （无则写"本类型无历史教训"）
 

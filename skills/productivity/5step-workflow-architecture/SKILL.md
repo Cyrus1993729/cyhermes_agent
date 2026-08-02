@@ -12,14 +12,28 @@ tags: [workflow, architecture, methodology, meta]
 
 | 层 | 组件 | 职责 |
 |:---|:---|:---|
-| ①契约 | sprint-contract | 写契约 + 执行策略判断 + Opus审契约 |
+| ①契约 | sprint-contract | 写契约 + 执行策略判断 + Opus审契约（v2模式含review_policy字段） |
 | ②闸门 | decision-gate | 汇报→征得同意→才能动手 |
 | ③执行 | 无专门skill | 按契约策略：单模型 or Kanban |
-| ④审查 | l1-review + task-wrapup | L1千问6维 + L2 Opus条件触发 + 存档 + 交付 |
+| ④审查（旧） | l1-review + task-wrapup | 千问L1 + Opus L2分层审查。触发：用户说"走流程" |
+| ④审查（新 v2） | **dual-review** | Codex正向+Opus反向全量并行+千问盲审。触发：用户说"走新5步流程" |
 | ⑤复盘 | post-task-review | 记lessons + 学习回路（审查发现→回写契约默认值） |
 | 提醒层 | workflow-tracker 插件 | pre_llm_call hook 每轮注入流程状态 |
-| 打勾层 | workflow_check.py | P2 脚本：skill完成时自动打勾（圈码匹配） |
-| 追踪文件 | workflow_*.md | 状态文件：创建于①，删除于⑤ |
+| 打勾层 | workflow_check.py | 支持 --mode legacy 和 --mode dual 两种模式 |
+| 追踪文件（旧） | workflow_*.md | 触发词"走流程" |
+| 追踪文件（新） | workflow_v2_*.md | 触发词"走新5步流程" |
+
+### 新旧流程双轨并行
+
+| | 旧流程 | 新流程 v2 |
+|:---|:---|:---|
+| 触发词 | "走流程" | "走新5步流程" |
+| 追踪文件 | workflow_*.md | workflow_v2_*.md |
+| 审查层 | 千问L1 + Opus L2（分层） | Codex+Opus双引擎全量并行 + 千问盲审 |
+| 审查skill | l1-review + task-wrapup | dual-review |
+| 状态 | 稳定运行 | 影子模式（审查不阻断） |
+
+> **审查层重构设计（2026-08）：** 见 `references/v3.2-summary.md`——双引擎全量审查、仲裁规则、影子模式三阶段、复盘闭环。Codex 和 Claude 均为 $20/月会员，成本对等。**Codex exec 模式不需要 pty=true**（2026-08-01 实测：pty 导致进程挂起）。
 
 ## 防御分层（P0-P3）
 
@@ -55,8 +69,9 @@ Hermes v0.19 的 `pre_llm_call` 回调传6个位置参数。函数签名只声�
 
 ## 参见
 - `sprint-contract` — ①+②契约+闸门SOP
-- `l1-review` — ④审查SOP（6维+L2触发）
-- `task-wrapup` — ④收尾调度SOP
+- `l1-review` — ④审查SOP ⚠️ 待重构为双引擎编排器（见下）
+- `task-wrapup` — ④收尾调度SOP ⚠️ 待加审查hook
 - `post-task-review` — ⑤复盘SOP
-- `scripts/workflow_check.py` — P2自动打勾脚本
+- `scripts/workflow_check.py` — P2自动打勾脚本 ⚠️ 待升级确定性控制器
 - `plugins/workflow-tracker/` — P0提醒层插件
+- 🔥 `references/review-layer-redesign-v3.md` — 审查层重构方案v3.0（Codex+Opus双引擎+千问盲审，82-84分，待确认实施）
