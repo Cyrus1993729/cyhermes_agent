@@ -311,6 +311,8 @@ Claude Code is used for: framework design, model review, analytical logic critiq
 
 ⚠️ **Opus 进程管理**：调用 Claude Code 时使用非 PTY 模式 + `timeout` 包装 + `stdin < /dev/null`，防止 PTY stdin 永不 EOF 导致进程挂起。详见 [`references/opus-pty-fix.md`](references/opus-pty-fix.md)。
 
+⚠️ **Opus OAuth 认证**：Claude Code CLI 的 OAuth token 会过期。若 `claude -p` 报 `OAuth session expired`，检查 `~/.claude/.credentials.json`——如果 token 为空则须 **先删除该文件** 再 `claude login`（直接 login 会因尝试刷新坏 token 而死锁）。详见 [`references/claude-code-oauth-troubleshooting.md`](references/claude-code-oauth-troubleshooting.md)。
+
 ## Pitfalls
 
 1. **yfinance rate limiting**: `yf.download()` fails silently. Always use `Ticker(session=...).history()` with retry.

@@ -71,6 +71,12 @@ python -c "import json,os; d=json.load(open(os.path.expanduser('~/.claude.json')
 ```
 `claudeCodeFirstTokenDate: null` → CLI 从未成功获取 token 或已完全过期，需刷新。修复：`claude auth login`（需 PTY 模式，会打开浏览器授权页，用户手动完成授权后自动恢复）。
 
+**🟠 OAuth 凭证清空排查（2026-08-03 新增）：** `claude --version` 正常但 `claude -p` 报 `"OAuth session expired and could not be refreshed"` → 凭证文件被清空（非 403/401）。
+```bash
+cat ~/.claude/.credentials.json
+```
+若 `"accessToken":"","refreshToken":"","expiresAt":0` → token 完全为空，refresh token 也不存在，无法自动续期。修复：`claude login`（**必须交互式**——需要浏览器手动授权，无法 headless）。此故障直接影响 cron 任务中的 Opus 审查：凭证过期 → 审查静默失败。
+
 403 时按顺序排查：① 代理是否 export？② 代理是否存活？③ 端口是否正确？→ 参见 `references/claude-code-auth-diagnosis.md`
 
 ## Rule 1: Model Selection Protocol
@@ -220,7 +226,7 @@ See `references/skill-drift-pink-elephant.md` for the full case study.
 
 ## Bundled Resources
 
-- `references/claude-code-auth-diagnosis.md` — full step-by-step protocol for diagnosing Claude Code CLI auth failures (403, eligibility, OAuth token state)
+- `references/claude-code-auth-diagnosis.md` — full step-by-step protocol for diagnosing Claude Code CLI auth failures (403 eligibility, OAuth credential wipe, token state)
 - `references/cyclical-valuation-pitfalls.md` — valuation methodology pitfalls for cyclical stocks
 - `references/l2-independent-review-pattern.md` — template for asking Claude Sonnet to independently review a technical decision
 - `references/skill-drift-pink-elephant.md` — real-world case study (2026-06-23): skill drift root cause analysis + three-part fix

@@ -25,7 +25,7 @@
       "schedule_display": "0 8 * * 1",
       "repeat": {
         "times": null,
-        "completed": 10
+        "completed": 9
       },
       "enabled": true,
       "state": "scheduled",
@@ -33,7 +33,7 @@
       "paused_reason": null,
       "created_at": "2026-06-03T21:26:26.911653+08:00",
       "next_run_at": "2026-08-10T08:00:00+08:00",
-      "last_run_at": "2026-07-27T08:26:29.802436+08:00",
+      "last_run_at": "2026-07-20T08:29:15.226096+08:00",
       "last_status": "ok",
       "last_error": null,
       "last_delivery_error": null,
@@ -75,18 +75,18 @@
       "schedule_display": "0 10 * * 1",
       "repeat": {
         "times": null,
-        "completed": 4
+        "completed": 3
       },
       "enabled": true,
       "state": "scheduled",
       "paused_at": null,
       "paused_reason": null,
       "created_at": "2026-07-02T09:34:09.294712+08:00",
-      "next_run_at": "2026-08-03T10:00:00+08:00",
-      "last_run_at": "2026-07-27T10:12:37.878547+08:00",
+      "next_run_at": "2026-08-10T10:00:00+08:00",
+      "last_run_at": "2026-07-20T10:09:59.144354+08:00",
       "last_status": "ok",
       "last_error": null,
-      "last_delivery_error": null,
+      "last_delivery_error": "live adapter send failed: iLink sendmessage rate limited; cooldown active for 30.0s; live adapter delivery to weixin:o9cq805UpPVgaMB-v0amSgCvP1GY@im.wechat failed: iLink sendmessage rate limited; cooldown active for 30.0s; delivery error: Weixin send failed: iLink sendmessage rate limited; cooldown active for 30.0s",
       "deliver": "origin",
       "origin": {
         "platform": "weixin",
@@ -124,7 +124,7 @@
       "schedule_display": "0 8 * * *",
       "repeat": {
         "times": null,
-        "completed": 36
+        "completed": 25
       },
       "enabled": true,
       "state": "scheduled",
@@ -132,7 +132,7 @@
       "paused_reason": null,
       "created_at": "2026-07-02T12:38:24.038222+08:00",
       "next_run_at": "2026-08-04T08:00:00+08:00",
-      "last_run_at": "2026-08-02T08:00:40.458024+08:00",
+      "last_run_at": "2026-07-22T08:00:24.256509+08:00",
       "last_status": "ok",
       "last_error": null,
       "last_delivery_error": null,
@@ -151,5 +151,5 @@
       "fire_claim": null
     }
   ],
-  "updated_at": "2026-08-03T08:00:52.236427+08:00"
+  "updated_at": "2026-08-03T18:05:16.632017+08:00"
 }

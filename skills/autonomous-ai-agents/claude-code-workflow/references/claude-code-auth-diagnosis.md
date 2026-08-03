@@ -2,13 +2,33 @@
 
 Full diagnosis path developed 2026-06-29 when `claude -p` suddenly returned 403 after working for 11 straight days.
 
-## Symptom
+## Two Failure Modes
+
+### Mode A: 403 — API Access Denied (eligibility issue)
+
 ```
 $ claude -p "hello" --model opus
 Failed to authenticate. API Error: 403 Request not allowed
 ```
 
-Even `claude config list` and `claude status` return 403.
+Even `claude config list` and `claude status` return 403. The subscription may not include API access, or a backend policy change revoked it.
+
+### Mode B: OAuth Session Expired — Empty Credentials (token issue)
+
+```
+$ claude -p "hello" --model opus
+Failed to authenticate: OAuth session expired and could not be refreshed
+```
+
+`claude --version` still works (v2.x), but any command requiring auth fails. This is a **credential wipe** — NOT an eligibility issue.
+
+**Quick check:**
+```bash
+cat ~/.claude/.credentials.json
+```
+If you see `"accessToken":"","refreshToken":"","expiresAt":0` — tokens are completely empty. Claude Code cannot auto-refresh because there's no refresh token to use.
+
+**Fix:** `claude login` (interactive — opens browser for OAuth re-authorization). This requires a GUI session; cannot be done headlessly.
 
 ## Step-by-Step Diagnosis
 
@@ -83,7 +103,8 @@ If this returns "account balance too low" → OAuth works but needs credits at p
 | Cause | Symptoms | Fix |
 |-------|----------|-----|
 | **Google Play sub ≠ API access** | Worked before, suddenly 403. `passesEligibilityCache: forbidden` | Run `claude login` to refresh OAuth token |
-| **OAuth token expired** | Worked for days, suddenly 403. No config changes. | Run `claude login` |
+| **OAuth token expired (403)** | Worked for days, suddenly 403. No config changes. | Run `claude login` |
+| **OAuth credentials wiped (Mode B)** | "OAuth session expired and could not be refreshed". `.credentials.json` has empty tokens (`accessToken:"",refreshToken:"",expiresAt:0`). `claude --version` still works. | Run `claude login` (interactive, browser OAuth) |
 | **Anthropic backend policy change** | 403 appears without any local changes. `passesEligibilityCache` updated recently. | May need to wait or contact Anthropic support |
 | **Proxy not set** | `claude auth login` hangs or ECONNREFUSED | `export HTTP_PROXY="http://127.0.0.1:7897" HTTPS_PROXY="..."` |
 

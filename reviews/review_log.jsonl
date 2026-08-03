@@ -68,3 +68,7 @@
 {"ts": "2026-07-27T08:24:18.009985", "task": "contract_黄金周报_2026-07-27", "verdict": "FAIL", "escalate": true, "fail_count": 2, "cond_count": 3, "total_items": 16}
 {"ts": "2026-07-27T08:24:55.451231", "task": "contract_gold_weekly_2026-07-27", "verdict": "CONDITIONAL", "escalate": true, "fail_count": 0, "cond_count": 4, "total_items": 19}
 {"ts": "2026-07-27T15:19:46.698083", "task": "contract_黄金周报_2026-07-27-v2", "verdict": "FAIL", "escalate": true, "fail_count": 3, "cond_count": 3, "total_items": 24}
+{"ts": "2026-08-03T08:19:09.718915", "task": "contract_gold_weekly_2026-08-03", "verdict": "FAIL", "escalate": true, "fail_count": 1, "cond_count": 5, "total_items": 29}
+{"ts": "2026-08-03T08:22:37.863005", "task": "contract_gold_weekly_2026-08-03", "verdict": "CONDITIONAL", "escalate": true, "fail_count": 0, "cond_count": 4, "total_items": 24}
+{"ts": "2026-08-03T08:25:23.776273", "task": "contract_gold_weekly_2026-08-03", "verdict": "FAIL", "escalate": true, "fail_count": 4, "cond_count": 3, "total_items": 17}
+{"ts": "2026-08-03T08:28:26.818999", "task": "contract_gold_weekly_2026-08-03", "verdict": "CONDITIONAL", "escalate": false, "fail_count": 0, "cond_count": 2, "total_items": 23}
