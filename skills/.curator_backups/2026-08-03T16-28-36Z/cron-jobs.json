@@ -131,7 +131,7 @@
       "paused_at": null,
       "paused_reason": null,
       "created_at": "2026-07-02T12:38:24.038222+08:00",
-      "next_run_at": "2026-08-05T08:00:00+08:00",
+      "next_run_at": "2026-08-04T08:00:00+08:00",
       "last_run_at": "2026-08-03T18:07:05.701426+08:00",
       "last_status": "error",
       "last_error": "Script exited with code 1\nstdout:\nBACKUP FAILED: git push error\nfatal: unable to access 'https://github.com/Cyrus1993729/cyhermes_agent.git/': TLS connect error: error:0A000126:SSL routines::unexpected eof while reading\n\nManual: cd %LOCALAPPDATA%\\hermes && git push",
@@ -151,5 +151,5 @@
       "fire_claim": null
     }
   ],
-  "updated_at": "2026-08-04T08:00:05.094943+08:00"
+  "updated_at": "2026-08-03T18:07:06.321410+08:00"
 }
