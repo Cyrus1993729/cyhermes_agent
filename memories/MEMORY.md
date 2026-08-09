@@ -2,32 +2,38 @@
 §
 行为红线：未经同意禁止①换模型②改文件/skill/配置。流程：出方案→确认→执行。
 §
-网络：代理127.0.0.1:7897通X+Startpage；Google需CAPTCHA。Bing直连。Claude Code→Opus(CLI非Nous API)，Sonnet筛选。每命令必设代理禁直连。
+网络：代理127.0.0.1:7897通X+Startpage；Google需CAPTCHA。Bing直连。
 §
-Opus=Claude Code CLI(claude -p --model opus)+代理7897。OAuth过期→`claude auth login`(非`claude login`),需background+pty保本地服务器收回调。PS找不到npm全局命令用CMD/git-bash。WinStore Desktop覆盖CLI→npm重装。
+长prompt用stdin重定向<file(勿用引号disallowedTools+$(cat f)组合→Permission deny rule崩)
 §
 delegate_task不支持per-call provider，子代理继承父模型。L1审查走execute_code直连qwen-bailian API。审查脚本: scripts/qwen_review.py，skill: l1-review+sprint-contract。memory: MEMORY.md/USER.md，§分隔。
 §
-引用索引：references/(26文件+工作方法论+个人偏好+美股投资+产业链框架+Scrapling)；yiweijun_kb/articles/(15篇一味君)；API key→Desktop/各类api key/；归档规则:YYYY-MM-DD_主题.md
+引用:references/;yiweijun_kb/articles/;API key→Desktop/各类api key/;归档:YYYY-MM-DD_主题.md
 §
-MoA=Opus前置筛选器。不确定值不值得找Opus时先用MoA探路。不看参考模型一致性(无完整上下文)。/moa一次性用完回DeepSeek。
+MoA=Opus前置筛选器,不确定先探路。/moa用完回DeepSeek。
 §
-矛盾检测规则：当 Agent 在任务中遇到与 memory 里某条记录明显矛盾的事实（比如 memory 说某服务已关闭但实际在运行，或记录的工具版本与当前不符），必须主动告知用户"我发现一条记忆跟现实不符：[矛盾内容]。要更新吗？"——不要默默忽略，也不要自作主张直接改。
+矛盾检测:发现与memory矛盾主动问用户是否更新,不默默忽略不自作主张改。
 §
-备份恢复：Cyrus1993729/cyhermes_agent(私有)，恢复=clone+hermes auth+改代理。
+备份:Cyrus1993729/cyhermes_agent(私有),恢复=clone+hermes auth+改代理。
 §
-架构:务实最小化,先跑通再加复杂度。task-wrapup(收尾自检:步骤/来源/审查/存档/分段,短路质量门不过不进投递,自检摘要不发微信)。×hs视频帖四步→xiaohongshu-analysis skill。
+×hs→xiaohongshu-analysis skill(链接域xhslink.com/.cn同法;未登录站内搜索空searchFeedsWrapper=None+搜索引擎不收录,找帖只能靠分享链接)。
 §
-Telegram主平台(token:8839546337:***)，微信已弃(iLink限10条)。TG Bot API被墙须走代理，NO_PROXY禁含api.telegram.org。备份+x-monitor cron已迁TG。网络诊断：先curl直连+代理对比，禁凭常识断言可达性。TG池耗尽修复：_drain_send_connections清_request[1]，pool timeout时自动触发不再需重启。
+TG池耗尽:_drain_send_connections清_request[1],pool timeout自动触发无需重启。
 §
-用户画像：33岁男无子女，税后¥20万/年日常¥8万，工作日定投纳指(20-30年)。技术小白懂概念。中文沟通。故障先诊断根因不绕过。技术方案先问Opus。主动汇报进展不沉默。
+用户画像：33岁男无子女，税后¥20万/年日常¥8万，工作日定投纳指(20-30年)。技术小白懂概念。中文沟通，英文阅读弱(外文需翻译)。故障先诊断根因不绕过。技术方案先问Opus。主动汇报进展不沉默。交付只发成品不裹多余说明。
 §
 5步闭环:①契约(Opus审)→②闸门→③执行→④审查(L1+Opus)→⑤复盘。审查全自动≤3轮修复。用户只在契约确认+交付时介入。投资分析须Opus sign-off。
 §
-Tavily已配为Hermes搜索后端(web.backend=tavily, web.search_backend=tavily)。Key在Desktop/各类api key/Tavily API key.txt。需网关重启后web_search工具才出现。后备:Bing直连(curl --noproxy '*')+grep。
+Tavily已配为Hermes搜索后端(web.backend=tavily)。Key在Desktop/各类api key/Tavily API key.txt。后备:Bing直连curl --noproxy '*'。
 §
-高德MCP已配置(amap-maps-mcp-server, npm包@amap/amap-maps-mcp-server), API Key: 0e0e...b4, 存储: Desktop/各类api key/amap api key.txt。静态地图API参数名是location不是center——曾因用错参数名误以为权限不足。Python staticmap库(OSM瓦片)被墙不可用，fallback方案: Pillow手绘示意图 或 高德静态地图API直接生成PNG。
+高德MCP已配(amap-maps-mcp-server)，Key在Desktop/各类api key/amap api key.txt。静态地图API参数是location非center。
 §
-向日葵(AweSun)路径: /c/Program Files/Oray/AweSun/AweSun.exe。启动: background=true 运行该exe即可。
+复盘vs memory分开：关键经验精简进memory，完整过程写复盘文件到D:\Workspace\Projects\Hermes运维\。用户不要skill，复盘写文件即可。桌面：日常脚本保留桌面，项目文件按主题归D:\Workspace\。
 §
-复盘vs memory分开：关键经验精简进memory，完整过程写复盘文件到D:\Workspace\Projects\Hermes运维\。桌面：日常脚本保留桌面，项目文件按主题归D:\Workspace\。
+两台电脑:高配=WorkBuddy(A2A)+Codex;本机=Hermes+ClaudeCode+Codex。EigenFlux CLI装D:\eigenflux(邮箱335751596@qq.com),只DM不订阅广播;CLI用PowerShell包装防guard误判。多agent愿景:同步讨论非文件接力,Claude/Codex啃难+Hermes啃易;成本敏感按需勿常驻;三agent暂缓。
+§
+TrendRadar双日报(跨境16:00+5类9:30 hot-only)→TG。管线:crossborder_fetcher+fetch_summaries+prepare_candidates(--crossborder-only/--hot-only,url防重复)。关键词v1.1。子进程unset PYTHONPATH。调度:采集=Windows计划任务TrendRadarHourly/TrendRadarCrossborder跑bat,Hermes cron只读库编辑。坑(08-08):bat必须ASCII+mkdir,UTF-8中文注释被cmd GBK误解析致任务全失败;watchdog run.log缺失曾静默→已改告警+触发。详见复盘2026-08-07
+§
+用户常要"助手答一次+Opus答一次"双方案对比后拍板；先实测给数据再答复。多帖分析后的"如何应用"思考→逐帖独立Opus prompt并行，不打包成大prompt(08-08纠正)。
+§
+深度分析交付：逐帖独立思考（每帖一个Opus prompt并行跑），不搞多帖大杂烩（用户原话：挨个思考，不要一股脑塞给opus）。

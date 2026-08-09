@@ -72,3 +72,7 @@
 {"ts": "2026-08-03T08:22:37.863005", "task": "contract_gold_weekly_2026-08-03", "verdict": "CONDITIONAL", "escalate": true, "fail_count": 0, "cond_count": 4, "total_items": 24}
 {"ts": "2026-08-03T08:25:23.776273", "task": "contract_gold_weekly_2026-08-03", "verdict": "FAIL", "escalate": true, "fail_count": 4, "cond_count": 3, "total_items": 17}
 {"ts": "2026-08-03T08:28:26.818999", "task": "contract_gold_weekly_2026-08-03", "verdict": "CONDITIONAL", "escalate": false, "fail_count": 0, "cond_count": 2, "total_items": 23}
+{"ts": "2026-08-07T17:12:49.836069", "task": "contract_eigenflux_xhs_2026-08-07", "verdict": "FAIL", "escalate": true, "fail_count": 1, "cond_count": 5, "total_items": 14}
+{"ts": "2026-08-07T17:14:38.184231", "task": "contract_eigenflux_xhs_2026-08-07", "verdict": "CONDITIONAL", "escalate": false, "fail_count": 0, "cond_count": 1, "total_items": 9}
+{"ts": "2026-08-07T17:16:34.515430", "task": "contract_eigenflux_xhs_2026-08-07", "verdict": "CONDITIONAL", "escalate": false, "fail_count": 0, "cond_count": 2, "total_items": 20}
+{"ts": "2026-08-07T17:19:13.587803", "task": "contract_eigenflux_xhs_2026-08-07", "verdict": "PASS", "escalate": false, "fail_count": 0, "cond_count": 0, "total_items": 19}

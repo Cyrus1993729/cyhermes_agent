@@ -446,6 +446,57 @@ The `.env` file supports uppercase env vars like `WEIXIN_TOKEN`,
 
 ---
 
+## Troubleshooting: Gateway Process Died / 网关进程异常停止
+
+Symptom: messages stop arriving entirely; user says "网关异常停止" / "消息没人回".
+This is the gateway PROCESS itself being gone — different from a platform
+disconnect (Telegram/Weixin poll errors) where the process survives.
+
+### Evidence chain (run in parallel)
+
+1. **Lifecycle ledger — the smoking gun** (`logs/errors.log`):
+   ```bash
+   grep "lifecycle_ledger" ~/AppData/Local/hermes/logs/errors.log | tail
+   ```
+   - `exited UNCLEANLY (no exit path ran — SIGKILL / OOM / VM death)` + `last_heartbeat_at=...` + `suspected_oom=...`
+   - **UNCLEANLY + no exit path = process was killed externally** (shutdown/reboot/power loss), NOT a crash. A clean stop logs `gateway.exit_clean` instead (see exit-diag log).
+
+2. **Exit diagnostics log** (`logs/gateway-exit-diag.log`) — JSON lines per lifecycle event:
+   `gateway.start` / `asyncio.run.returned` / `gateway.exit_clean` / `atexit.hook` /
+   `gateway.previous_unclean_exit` (carries `prior_pid` + `last_heartbeat_at`). Tail it
+   to see whether the previous gateway life exited cleanly.
+
+3. **Start timestamps** (`gateway-starts.log`): epoch seconds per start. Two entries =
+   gateway ran, died, restarted. Convert: `python -c "import datetime; print(datetime.datetime.fromtimestamp(<ts>))"`.
+
+4. **Current state** (`gateway_state.json`): per-platform `connected` / `fatal` with
+   `error_code` (e.g. `api_server_key_invalid`).
+
+5. **Correlate with the Windows System event log** — the key cross-check:
+   ```bash
+   powershell.exe -NoProfile -Command "Get-WinEvent -FilterHashtable @{LogName='System'; StartTime='2026-08-04'; EndTime='2026-08-06'} | Where-Object {\$_.Id -in 1074,6005,6006,6008,41} | Select-Object TimeCreated,Id,ProviderName | Format-Table -AutoSize"
+   ```
+   - 1074 (User32/RuntimeBroker) = shutdown/restart requested; 计划外 (unplanned) = manual/remote user action, not scheduled
+   - 6006 = clean shutdown · 6005/6013 = booted · 6008 = unexpected power loss · 41 = kernel power
+   - If `last_heartbeat_at` ≈ a 1074 timestamp (seconds apart) → **the gateway was killed by that shutdown, not a bug**.
+   - Note: on Chinese Windows the 1074 message body is GBK-garbled in bash — read Id + timestamp, not the text.
+
+6. **Autostart check** — why it didn't come back after reboot:
+   ```bash
+   schtasks //Query //FO LIST | grep -i hermes   # Scheduled Task 'Hermes_Gateway' created by `hermes gateway install`
+   reg query "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Run"
+   ```
+   No entry = gateway is manually started only; a shutdown leaves it dead until someone
+   restarts it. Fix: `hermes gateway install` (creates the Windows Scheduled Task).
+
+### Verdict pattern
+- UNCLEANLY exit + matching shutdown event + no Python traceback + `suspected_oom=False` → **external kill (user shutdown), not a defect** — report the timeline, don't chase a gateway bug.
+- Gateway log's last entries may be hours before death: heartbeat probes keep running even while Telegram polling is degraded — trust `last_heartbeat_at` over log tail.
+
+Worked case (2026-08-05 manual-shutdown kill, full timeline + api_server fatal explanation): `references/gateway-exit-diagnosis.md`
+
+---
+
 ## Troubleshooting: WeChat iLink Disconnections (Windows + Clash Verge)
 
 ### Symptom
@@ -573,3 +624,9 @@ to confirm bidirectional communication.
 - `references/proxy-health-check.md` — Proxy health diagnostic recipe:
   three failure modes (pool timeout / NO_PROXY bypass / airport nodes down),
   parallel diagnostic flow, and Clash sidecar log interpretation.
+- `references/gateway-exit-diagnosis.md` — Gateway process death diagnosis:
+  worked case (2026-08 manual shutdown killed the gateway), evidence-chain
+  commands, verdict pattern, autostart check, and the `--version` lifecycle-guard pitfall.
+- `references/a2a-platform-notes.md` — v0.20 A2A v1.0 (agent-to-agent) platform:
+  enable config, inbound/outbound tools, security defaults, env vars, plus the
+  GitHub-API recipe for pulling Hermes release notes when release pages 404.

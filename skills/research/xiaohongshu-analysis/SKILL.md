@@ -402,6 +402,16 @@ except (ImportError, ModuleNotFoundError):
 
 这比用乱码 ASR 文本去模糊搜索 GitHub 快得多，且准确率更高。帧 Vision 和 ASR 可以并行进行，不必等 ASR 完成。
 
+### 🆕 三步产品名确认法（2026.8.7 EigenFlux 实踩，推荐流程）
+
+tiny 模型对英文专有名词转录误差极大（EigenFlux 被听成「A10Flex」/「A.M.Hack子」/「Agon Flux」多个版本）。**不要只靠 tiny ASR 猜拼写**。推荐三步：
+
+1. **small 模型重转关键片段**：用 ffmpeg 切出产品名出现的音频段（`-ss <start> -t <dur>`），用 `WhisperModel("small")` 重转——small 对英文专有名词准确率高一个量级（本次听出「Agon Flux」）
+2. **帧 Vision 确认拼写**：抽帧看界面/官网截图，Vision 逐字读出真实拼写（本次确认「EigenFlux」）——**这是最终权威**
+3. **外部搜索验证**：搜到的官网/GitHub/媒体信息与视频内容交叉印证（数据、团队、功能全对上）
+
+> 注意：small 模型 CPU int8 速度约 5-10x 实时，切片段（30-60s）重转约 10-30 秒，成本可接受。发音接近但拼写不同的坑（Agon vs Eigen）只有 Vision 能解。
+
 > 📎 详细外部项目发现策略见 [`references/github-repo-discovery.md`](references/github-repo-discovery.md)
 
 ### xhslink.com 重定向：HEAD 返回 404，必须用 GET
