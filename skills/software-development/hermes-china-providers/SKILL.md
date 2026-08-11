@@ -551,6 +551,39 @@ fallback_model:
   model: kimi-k3
 ```
 
+### ⚠️ fallback 只救"挂"不救"慢"（2026-08-10 实踩）
+
+`fallback_model` 只在 4xx/5xx/断连时切换。**API 服务端过载变慢（HTTP 200 但生成 latency 90-460s）不会触发 fallback**——主模型慢到 cron 任务超时/中断也不切换。这是"日报没内容"和"cron error"的隐蔽根因。
+
+**诊断法**（区分网络问题 vs 服务端过载）：
+- 网络层：`curl -o /dev/null -w "%{time_total}" https://api.deepseek.com/v1/models`（401 也说明连通；~0.1s = 网络正常）
+- 真实生成：`curl -X POST .../chat/completions` 带 key 计时——连接快 + 生成慢 = **服务端过载**（fallback 不触发）
+
+**Plan B：cron 级模型覆盖（不依赖主模型状态）**
+关键定时任务（日报/周报等）**独立指定模型**——主模型再慢/再挂，cron 任务照常跑。
+
+⚠️ **方法修正（2026-08-10 实测）**：`cronjob update <id> model=... provider=...` **不生效**——cronjob 工具（create/update）**不暴露 model/provider 参数**（会报 `No updates provided`）。正确做法是 config.yaml 的 `cron` 段（cron-fleet 默认，对所有 cron 任务生效）：
+
+```yaml
+cron:
+  model: qwen3.7-max
+  model_provider: qwen-bailian
+```
+
+- 模型解析优先级（scheduler.py `run_job`）：per-job override（jobs.json 的 `model` 字段）> `cron.model` > 环境变量 > config.yaml `model.default`
+- **scheduler 每次运行任务时重读 config.yaml → 改完立即生效，无需重启 gateway**
+- 改 config.yaml 用 `hermes config set cron.model <model>` / `hermes config set cron.model_provider <provider>`（patch 工具 / write_file 会被 Hermes 安全保护拒绝写 config.yaml）
+
+实测候选延迟（2026-08-10）：
+
+| Provider/Model | 生成延迟 | 适用 |
+|:--|:--|:--|
+| deepseek-v4-flash | 正常 8-30s；过载 90-460s | 主模型 |
+| **kimi-coding-cn / kimi-k3** | **1.7-5.6s（稳）** | 高频 cron（日报）首选 |
+| qwen-bailian / qwen3.7-max | 30-37s（可用偏慢） | 低频重分析（周报） |
+
+分层防御：① cron 任务独立模型（治标立即生效）② fallback_model=kimi（兜底日常 4xx/5xx/断连）③ API 延迟健康监控 cron（>30s 告警，早发现）。慢响应还会压垮长跑任务：70 分钟长任务在慢 API 下出现 `Session DB append_message failed: 'NoneType' object has no attribute 'execute'` → `interrupted_during_api_call` 中断无产出。
+
 Works alongside `delegation` — both can use the same provider without conflict:
 
 ```yaml

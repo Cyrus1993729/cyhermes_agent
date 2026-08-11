@@ -343,6 +343,26 @@ Claude Code is used for: framework design, model review, analytical logic critiq
 
 18. **USDCNH must be fetched fresh alongside COMEX for conversion**: When computing the synthetic Shanghai price, always fetch the latest USDCNH (via `CNH=X` from yfinance) at the same time as COMEX gold. Do not use a stale cached rate or a hardcoded value. The conversion formula is `COMEX_USD / 31.1035 × USDCNH` — a 0.1 CNY error in the rate translates to ~¥14/克 error in the price. **When yfinance CNH=X fetch fails** (returns empty data), the model falls back to stale `data/usdcnh.csv` cache. After fixing SGE data with external-rate conversion, the re-run premium may still be wrong for two reasons: (a) CNH rate mismatch between external API and model's internal cache, or (b) 5-day premium average contaminated by residual stale SGE data. See data-validation.md Gate 2b for the full diagnostic workflow, including how to distinguish the two root causes and when a fix is actually needed vs. when it self-corrects.
 
+   **🔴 结构性根因（2026-08-10 实踩，周报人民币金价 ¥960 vs 用户实看 ¥938）**：
+   - **`_yf_download` 缓存存在即返回**（data_fetcher.py:147-151）：有缓存文件就直接 `return cached`，从不检查新鲜度 → `data/usdcnh.csv` 停更 1 个月（汇率 6.78 vs 实际 6.74）仍被一直使用。改这里时注意：`_load_cache` 只查 mtime（<1 天才新鲜），过期返回 None 后调用方却"直接读 CSV 旧数据"（`_fetch_shanghai_from_xau_conversion` 548-555 行）——**设计上接受过期汇率**。
+   - **换算值缓存污染**：`fetch_shanghai_gold` 465 行"缓存数据最后日期 ≤2 天就 return cached"——用旧汇率算的换算值（¥960.41）被持久化进 `data/shanghai_gold.csv`（含当天行 = 数据"新鲜"），修好汇率后重跑 main.py **仍命中污染缓存输出 960**。修复：删 `data/shanghai_gold.csv` 让系统重走 akshare→换算路径，再重跑验证（换算日志应显示新汇率）。
+   - **用户口径是上海金/现货**：用户报"现在金价只有 938"——XAU 现货 $4,321.3 × 6.7458 ÷ 31.1035 = ¥937.4 吻合；COMEX 期货 $4,405.9（contango 1.9%）换算 = ¥955.6 偏高。**用户-facing 人民币金价必须用现货基准**（gold-api.com XAU 或真实 SGE），不能用 COMEX 期货（见 Pitfall 25）。修复分两层：汇率新鲜度（960→956）+ 换算基准现货（956→938）。
+   - 汇率手工刷新：yfinance CNH=X 抓 1y 易被限流（实测 5d 成功、1y 失败），可用 5d 数据 + 手写当天行（列格式必须 yfinance 全 8 列 `Date,Open,High,Low,Close,Volume,Dividends,Stock Splits`，见 Pitfall 28）；或 exchangerate-api.com `rates.CNH`（不是 CNY）。
+
+18.5. **人民币金价最终修复方案（2026-08-10 Opus 评审定稿，取代 Pitfall 18 初版"换算基准改现货"）**：
+    初版方案被 Opus 否决：隐含假设 `SGE ≈ XAU×USDCNY/31.1035` 不成立——中国黄金有内外价差（历史 -5 到 +30 元/克），937.4 vs 938 只是当天价差恰好≈0，**单点验证不构成结构性证据**。最终方案：
+    - **口径**：银行积存金报价 = 上海金基准价 + 点差 → **决策锚必须是真实 SGE**（akshare AU9999），不是 XAU 现货，更不是 COMEX 期货
+    - **SGE 锚 + 现货外推（比率法）**：`SGE_est = SGE_actual(last) × (GLD_now/GLD_then) × (FX_now/FX_then)`——真实价差留在锚里，只搬增量；**用 GLD 变动率而非绝对美元值**（GLD 份额比不是整 1/10 oz，实测 4327/398.5≈10.86 份/oz，×10 会差 8%）；外推结果**不持久化缓存**（派生值一律不缓存，防污染），带 `attrs: source=sge_extrapolated, as_of(锚日期), basis_note`
+    - **GC=F contango 变动污染**：非农后期货涨 163.9 美元（4242→4405.9）而现货只涨 ~81——用期货增量外推会把 contango 扩大（2→84 美元）也搬进去（误差 17.8 元/克）。**外推/换算增量必须用现货基准**（GLD/gold-api XAU），期货只用于评分（趋势/MA/MACD 一致性）
+    - **隐含汇率哨兵（最高性价比防御，一条抓三个 bug）**：`人民币价 × 31.1035 ÷ 美元价` 必须落在真实汇率 ±2% 内，否则**拒绝出报**（exit 2）；±1% 软提示。分母用**实时现货**（gold-api XAU，`xau_spot_now`）而非 GC=F——用期货做分母会因 contango 系统性偏 -1.5% 误报。实测：外推数据出错（+6.19%）当场拦截，机制有效
+    - **汇率用 USDCNY（在岸，CNY=X）优先**（SGE 结算口径），CNH=X 仅 fallback；fetch_usdcnh 先试 CNY=X 再 CNH=X
+    - **FRED 黄金定盘系列已下架**（2026 实测 `GOLDAMGBD228NLBM`/`GOLDPMGBD228NLBM` 均报 "The series does not exist"）——现货历史用 GLD ETF 替代，别再加 FRED 黄金系列
+    - **禁止静默 fallback**：`_yf_download` 下载失败时 fallback 旧缓存必须 `logger.warning("⚠️ ... STALE ...")` 可见；任何降级（汇率滞后/数据过期）在周报正文标注
+    - **标注三路径**：`sge_actual`（真实上海金交所价）/ `sge_extrapolated`（锚+外推）/ `xau_conversion`（纯换算，标注"仅供参考"）——**绝不允许换算值冒充 SGE**；输出行带 USDCNY + basis_note；数据健康度段加上海金来源行
+    - 修复实测：¥960.41 → **¥941.41**（用户实际 938，差 0.4% = 内外价差，合理）；25 项 ad-hoc 验证全绿（哨兵 3 分支/外推公式/三路径标注/缓存策略/USDCNY 切换）
+    - 修改文件：`data_fetcher.py`（_yf_download fallback、fetch_usdcnh 改 CNY 优先、新增 _extrapolate_shanghai、换算路径带 attrs）/ `scorer.py`（result 带 source/as_of/fx_current/xau_spot_now）/ `main.py`（fx_sentinel_check + 输出标注 + 数据健康度行）
+    - 完整复盘：`D:\Workspace\Projects\Hermes运维\复盘_2026-08-10_日报投递与金价修复.md`
+
 19. **PBOC reserves scoring must combine MoM + YoY, not binary recent-vs-prev**: The original `score_pboc_reserves()` in `central_bank.py` used a naive binary: `recent > prev ? +1.0 : -1.0`. A -0.99% MoM dip in a +40% YoY uptrend was scored identically to a genuine trend reversal. The fix uses the `黄金储备-同比` column (available from `ak.macro_china_fx_gold()`) to contextualize the MoM change. **The user explicitly rejected classifying a -0.99% MoM dip in a +40% YoY trend as negative** — such small monthly fluctuations are noise, not signals. Final thresholds:
     - MoM decrease + YoY > 20% + |MoM| < 1.5% → **+0.3** (strong uptrend, monthly noise — STILL POSITIVE)
     - MoM decrease + YoY > 20% + |MoM| < 3.0% → **0.0** (dip in uptrend, neutral)

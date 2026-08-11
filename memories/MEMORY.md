@@ -8,25 +8,23 @@
 §
 delegate_task不支持per-call provider，子代理继承父模型。L1审查走execute_code直连qwen-bailian API。审查脚本: scripts/qwen_review.py，skill: l1-review+sprint-contract。memory: MEMORY.md/USER.md，§分隔。
 §
-引用:references/;yiweijun_kb/articles/;API key→Desktop/各类api key/;归档:YYYY-MM-DD_主题.md
+引用references/;API key→Desktop/各类api key/;归档:YYYY-MM-DD_主题.md
 §
 MoA=Opus前置筛选器,不确定先探路。/moa用完回DeepSeek。
-§
-矛盾检测:发现与memory矛盾主动问用户是否更新,不默默忽略不自作主张改。
 §
 备份:Cyrus1993729/cyhermes_agent(私有),恢复=clone+hermes auth+改代理。
 §
 ×hs→xiaohongshu-analysis skill(链接域xhslink.com/.cn同法;未登录站内搜索空searchFeedsWrapper=None+搜索引擎不收录,找帖只能靠分享链接)。
 §
-TG池耗尽:_drain_send_connections清_request[1],pool timeout自动触发无需重启。
+TG投递:池耗尽_drain_send_connections清_request[1];Clash固定单节点禁自动切换(Claude Code防封号),现用美国111-OVH;cron投递assume-delivered静默丢,补发用文本+echo ok分段且声明补发日期。
 §
 用户画像：33岁男无子女，税后¥20万/年日常¥8万，工作日定投纳指(20-30年)。技术小白懂概念。中文沟通，英文阅读弱(外文需翻译)。故障先诊断根因不绕过。技术方案先问Opus。主动汇报进展不沉默。交付只发成品不裹多余说明。
 §
 5步闭环:①契约(Opus审)→②闸门→③执行→④审查(L1+Opus)→⑤复盘。审查全自动≤3轮修复。用户只在契约确认+交付时介入。投资分析须Opus sign-off。
 §
-Tavily已配为Hermes搜索后端(web.backend=tavily)。Key在Desktop/各类api key/Tavily API key.txt。后备:Bing直连curl --noproxy '*'。
+Tavily=Hermes搜索后端(web.backend=tavily),key在Desktop/各类api key/。后备Bing直连curl --noproxy '*'。
 §
-高德MCP已配(amap-maps-mcp-server)，Key在Desktop/各类api key/amap api key.txt。静态地图API参数是location非center。
+高德MCP已配,key在Desktop/各类api key/,静态地图参数location非center。
 §
 复盘vs memory分开：关键经验精简进memory，完整过程写复盘文件到D:\Workspace\Projects\Hermes运维\。用户不要skill，复盘写文件即可。桌面：日常脚本保留桌面，项目文件按主题归D:\Workspace\。
 §
@@ -37,3 +35,5 @@ TrendRadar双日报(跨境16:00+5类9:30 hot-only)→TG。管线:crossborder_fet
 用户常要"助手答一次+Opus答一次"双方案对比后拍板；先实测给数据再答复。多帖分析后的"如何应用"思考→逐帖独立Opus prompt并行，不打包成大prompt(08-08纠正)。
 §
 深度分析交付：逐帖独立思考（每帖一个Opus prompt并行跑），不搞多帖大杂烩（用户原话：挨个思考，不要一股脑塞给opus）。
+§
+cron报错/告警触发须立即排查汇报,不等用户问(08-10批评)。日报cron统一qwen3.7-max(不用kimi),fallback_model同;DeepSeek过载=生成慢(91-463s),fallback只救挂不救慢。金价口径认上海金/现货非COMEX期货。

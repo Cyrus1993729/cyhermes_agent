@@ -25,15 +25,15 @@
       "schedule_display": "0 8 * * 1",
       "repeat": {
         "times": null,
-        "completed": 9
+        "completed": 11
       },
       "enabled": true,
       "state": "scheduled",
       "paused_at": null,
       "paused_reason": null,
       "created_at": "2026-06-03T21:26:26.911653+08:00",
-      "next_run_at": "2026-08-10T08:00:00+08:00",
-      "last_run_at": "2026-07-20T08:29:15.226096+08:00",
+      "next_run_at": "2026-08-17T08:00:00+08:00",
+      "last_run_at": "2026-08-10T10:34:12.934351+08:00",
       "last_status": "ok",
       "last_error": null,
       "last_delivery_error": null,
@@ -75,17 +75,17 @@
       "schedule_display": "0 10 * * 1",
       "repeat": {
         "times": null,
-        "completed": 3
+        "completed": 4
       },
       "enabled": true,
       "state": "scheduled",
       "paused_at": null,
       "paused_reason": null,
       "created_at": "2026-07-02T09:34:09.294712+08:00",
-      "next_run_at": "2026-08-10T10:00:00+08:00",
-      "last_run_at": "2026-07-20T10:09:59.144354+08:00",
-      "last_status": "ok",
-      "last_error": null,
+      "next_run_at": "2026-08-17T10:00:00+08:00",
+      "last_run_at": "2026-08-10T10:00:43.159632+08:00",
+      "last_status": "error",
+      "last_error": "RuntimeError: Skipped to prevent unintended spend: global inference config drifted since this job was created (model 'deepseek-v4-pro' -> 'deepseek-v4-flash'), and this job is unpinned. No inference call was made. To run on the new config, pin it explicitly: `cronjob action=update job_id=39bef06ff753 provider=<provider> model=<model>` (or pin the original values to keep them). See #44585.",
       "last_delivery_error": "live adapter send failed: iLink sendmessage rate limited; cooldown active for 30.0s; live adapter delivery to weixin:o9cq805UpPVgaMB-v0amSgCvP1GY@im.wechat failed: iLink sendmessage rate limited; cooldown active for 30.0s; delivery error: Weixin send failed: iLink sendmessage rate limited; cooldown active for 30.0s",
       "deliver": "origin",
       "origin": {
@@ -124,15 +124,15 @@
       "schedule_display": "0 8 * * *",
       "repeat": {
         "times": null,
-        "completed": 31
+        "completed": 33
       },
       "enabled": true,
       "state": "scheduled",
       "paused_at": null,
       "paused_reason": null,
       "created_at": "2026-07-02T12:38:24.038222+08:00",
-      "next_run_at": "2026-08-10T08:00:00+08:00",
-      "last_run_at": "2026-08-08T08:00:30.254592+08:00",
+      "next_run_at": "2026-08-12T08:00:00+08:00",
+      "last_run_at": "2026-08-10T08:00:36.906059+08:00",
       "last_status": "ok",
       "last_error": null,
       "last_delivery_error": null,
@@ -172,15 +172,15 @@
       "schedule_display": "*/30 * * * *",
       "repeat": {
         "times": null,
-        "completed": 113
+        "completed": 209
       },
       "enabled": true,
       "state": "scheduled",
       "paused_at": null,
       "paused_reason": null,
       "created_at": "2026-08-06T23:38:21.017914+08:00",
-      "next_run_at": "2026-08-09T08:30:00+08:00",
-      "last_run_at": "2026-08-09T08:00:32.683967+08:00",
+      "next_run_at": "2026-08-11T08:30:00+08:00",
+      "last_run_at": "2026-08-11T08:00:39.960803+08:00",
       "last_status": "ok",
       "last_error": null,
       "last_delivery_error": null,
@@ -218,16 +218,16 @@
       "schedule_display": "0 4 * * 1",
       "repeat": {
         "times": null,
-        "completed": 0
+        "completed": 1
       },
       "enabled": true,
       "state": "scheduled",
       "paused_at": null,
       "paused_reason": null,
       "created_at": "2026-08-06T23:38:21.062272+08:00",
-      "next_run_at": "2026-08-10T04:00:00+08:00",
-      "last_run_at": null,
-      "last_status": null,
+      "next_run_at": "2026-08-17T04:00:00+08:00",
+      "last_run_at": "2026-08-10T04:00:29.803486+08:00",
+      "last_status": "ok",
       "last_error": null,
       "last_delivery_error": null,
       "deliver": "origin",
@@ -239,7 +239,8 @@
         "user_id": "8938729624"
       },
       "enabled_toolsets": null,
-      "workdir": null
+      "workdir": null,
+      "fire_claim": null
     },
     {
       "id": "f4506e87cc69",
@@ -263,15 +264,15 @@
       "schedule_display": "0 16 * * *",
       "repeat": {
         "times": null,
-        "completed": 2
+        "completed": 4
       },
       "enabled": true,
       "state": "scheduled",
       "paused_at": null,
       "paused_reason": null,
       "created_at": "2026-08-07T10:21:21.624046+08:00",
-      "next_run_at": "2026-08-09T16:00:00+08:00",
-      "last_run_at": "2026-08-08T16:21:18.135388+08:00",
+      "next_run_at": "2026-08-11T16:00:00+08:00",
+      "last_run_at": "2026-08-10T16:15:00.330241+08:00",
       "last_status": "ok",
       "last_error": null,
       "last_delivery_error": null,
@@ -312,15 +313,15 @@
       "schedule_display": "30 9 * * *",
       "repeat": {
         "times": null,
-        "completed": 2
+        "completed": 4
       },
       "enabled": true,
       "state": "scheduled",
       "paused_at": null,
       "paused_reason": null,
       "created_at": "2026-08-07T11:42:39.642261+08:00",
-      "next_run_at": "2026-08-09T09:30:00+08:00",
-      "last_run_at": "2026-08-08T12:16:52.810004+08:00",
+      "next_run_at": "2026-08-11T09:30:00+08:00",
+      "last_run_at": "2026-08-10T10:19:20.463693+08:00",
       "last_status": "ok",
       "last_error": null,
       "last_delivery_error": null,
@@ -338,7 +339,145 @@
       ],
       "workdir": null,
       "fire_claim": null
+    },
+    {
+      "id": "658d98613585",
+      "name": "\u65e5\u62a5\u6295\u9012\u68c0\u67e5-\u4e94\u7c7b",
+      "prompt": "\u4e94\u7c7b\u65e5\u62a5\u6295\u9012\u5065\u5eb7\u68c0\u67e5\uff08no_agent \u811a\u672c\u6a21\u5f0f\uff0cstdout \u975e\u7a7a\u624d\u6295\u9012\uff09",
+      "skills": [],
+      "skill": null,
+      "model": null,
+      "provider": null,
+      "provider_snapshot": null,
+      "model_snapshot": null,
+      "base_url": null,
+      "script": "healthcheck_five.py",
+      "no_agent": true,
+      "context_from": null,
+      "schedule": {
+        "kind": "cron",
+        "expr": "45 9 * * *",
+        "display": "45 9 * * *"
+      },
+      "schedule_display": "45 9 * * *",
+      "repeat": {
+        "times": null,
+        "completed": 1
+      },
+      "enabled": true,
+      "state": "scheduled",
+      "paused_at": null,
+      "paused_reason": null,
+      "created_at": "2026-08-10T08:44:38.851263+08:00",
+      "next_run_at": "2026-08-11T09:45:00+08:00",
+      "last_run_at": "2026-08-10T09:45:46.103441+08:00",
+      "last_status": "ok",
+      "last_error": null,
+      "last_delivery_error": null,
+      "deliver": "origin",
+      "origin": {
+        "platform": "telegram",
+        "chat_id": "8938729624",
+        "chat_name": "Yu Cui",
+        "thread_id": null,
+        "user_id": "8938729624"
+      },
+      "enabled_toolsets": null,
+      "workdir": null,
+      "fire_claim": null
+    },
+    {
+      "id": "4267ecb32b42",
+      "name": "\u65e5\u62a5\u6295\u9012\u68c0\u67e5-\u8de8\u5883",
+      "prompt": "\u8de8\u5883\u65e5\u62a5\u6295\u9012\u5065\u5eb7\u68c0\u67e5\uff08no_agent \u811a\u672c\u6a21\u5f0f\uff0cstdout \u975e\u7a7a\u624d\u6295\u9012\uff09",
+      "skills": [],
+      "skill": null,
+      "model": null,
+      "provider": null,
+      "provider_snapshot": null,
+      "model_snapshot": null,
+      "base_url": null,
+      "script": "healthcheck_cb.py",
+      "no_agent": true,
+      "context_from": null,
+      "schedule": {
+        "kind": "cron",
+        "expr": "45 16 * * *",
+        "display": "45 16 * * *"
+      },
+      "schedule_display": "45 16 * * *",
+      "repeat": {
+        "times": null,
+        "completed": 1
+      },
+      "enabled": true,
+      "state": "scheduled",
+      "paused_at": null,
+      "paused_reason": null,
+      "created_at": "2026-08-10T08:44:38.873706+08:00",
+      "next_run_at": "2026-08-11T16:45:00+08:00",
+      "last_run_at": "2026-08-10T16:45:10.487041+08:00",
+      "last_status": "ok",
+      "last_error": null,
+      "last_delivery_error": null,
+      "deliver": "origin",
+      "origin": {
+        "platform": "telegram",
+        "chat_id": "8938729624",
+        "chat_name": "Yu Cui",
+        "thread_id": null,
+        "user_id": "8938729624"
+      },
+      "enabled_toolsets": null,
+      "workdir": null,
+      "fire_claim": null
+    },
+    {
+      "id": "6970b7628505",
+      "name": "API\u5065\u5eb7\u68c0\u67e5-DeepSeek",
+      "prompt": "DeepSeek API \u5ef6\u8fdf\u5065\u5eb7\u68c0\u67e5\uff08no_agent \u811a\u672c\u6a21\u5f0f\uff0c\u6162/\u5931\u8d25\u624d\u544a\u8b66\uff09",
+      "skills": [],
+      "skill": null,
+      "model": null,
+      "provider": null,
+      "provider_snapshot": null,
+      "model_snapshot": null,
+      "base_url": null,
+      "script": "api_healthcheck.py",
+      "no_agent": true,
+      "context_from": null,
+      "schedule": {
+        "kind": "cron",
+        "expr": "*/30 * * * *",
+        "display": "*/30 * * * *"
+      },
+      "schedule_display": "*/30 * * * *",
+      "repeat": {
+        "times": null,
+        "completed": 43
+      },
+      "enabled": true,
+      "state": "scheduled",
+      "paused_at": null,
+      "paused_reason": null,
+      "created_at": "2026-08-10T10:20:34.277336+08:00",
+      "next_run_at": "2026-08-11T08:30:00+08:00",
+      "last_run_at": "2026-08-11T07:30:38.967536+08:00",
+      "last_status": "ok",
+      "last_error": null,
+      "last_delivery_error": null,
+      "deliver": "origin",
+      "origin": {
+        "platform": "telegram",
+        "chat_id": "8938729624",
+        "chat_name": "Yu Cui",
+        "thread_id": null,
+        "user_id": "8938729624"
+      },
+      "enabled_toolsets": null,
+      "workdir": null,
+      "fire_claim": null
     }
   ],
-  "updated_at": "2026-08-09T08:00:32.687963+08:00"
+  "updated_at": "2026-08-11T08:00:39.965985+08:00"
 }

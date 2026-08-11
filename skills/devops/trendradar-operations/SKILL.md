@@ -109,6 +109,7 @@ TrendRadar 自身无数量门槛（fetcher 全收，仅域名安全检查 `expec
 12. **中文媒体原生 RSS 大面积废弃**：雨果跨境 `/rss` 返回 HTML 订阅页（HTTP 200 但 content-type text/html）——不能只看状态码，要验证响应是 XML；中文通道靠公众号转 RSS。
 13. **Google News RSS 限频**：多 query 必须错峰（间隔 ~10s），同 IP 高频会被 429；全部走代理。
 14. **cron 排查：`last_run_at: null` ≠ 没触发**：cronjob list 的 last_run_at 要等任务**结束后**才写入——运行中显示 null（next_run 已跳下一天属正常排程）。排查先看 `~/AppData/Local/hermes/logs/agent.log` 里 `cron.scheduler: Job 'xxx'` 与 `session=cron_<jobid>_...` 的 API call/工具调用记录，确认是否在跑。DeepSeek 下午高峰期单次 API 可慢至 180s（正常 8-30s），一次日报 cron 从 5-8 分钟拖到 18 分钟属正常波动
+   - 🔴 **严重过载案例（2026-08-10 实踩）**：DeepSeek 服务端过载时 latency 可达 **91-463s/请求**（agent.log API call latency 字段），五类日报 9:30 触发 45+ 分钟仍未完成（16 次调用），黄金周报 8:00 触发跑 70 分钟/37 次调用后 **`Session DB append_message failed: 'NoneType' object has no attribute 'execute'` → `Turn ended: reason=interrupted_during_api_call`** 被中断、无产出。区分"网络问题 vs 服务端过载"：curl 网络层快（连接 0.1s）+ 真实 chat completion 生成慢 = 服务端过载（fallback 不触发，见 hermes-china-providers）。慢响应会压垮长跑任务（DB 连接在长时间运行后失效）——**关键 cron 任务应独立指定备用模型**，不依赖主模型状态。⚠️ 方法（2026-08-10 实测）：cronjob 工具**不暴露** model/provider 参数（`cronjob update ... model=...` 报 `No updates provided`）——正确做法是 config.yaml `cron:` 段加 `model: qwen3.7-max` + `model_provider: qwen-bailian`（cron-fleet 默认，scheduler 每次运行重读 config.yaml → 改完立即生效；用 `hermes config set cron.model ...` 修改）。详见 hermes-china-providers「Cron-Fleet 模型覆盖」
 15. **AI 分析硬规则（用户纠正，第一优先级）**：**禁止任何"把读者推回原文"的空话**——"原文未说明/详见原文/原文给出应对策略/值得关注/有待观察/建议跟进"一律删除。候选摘要缺失或单薄时，用行业背景知识补"这是什么/影响谁/怎么办"（标注"背景："前缀），不得编造新闻中未出现的具体数字（可以说"成本上升、模式要变"这类确定性影响，不能编"8月29日生效"这种细节）。用户原话："这种话无法让我获取信息"
 16. 🔴 **计划任务 bat 编码坑（2026-08-08 实踩，停摆 24h）**：`start_trendradar.bat`/`crossborder_fetch.bat` 是 **UTF-8 无 BOM + 中文 REM 注释** → cmd 按 GBK 解析乱码 → 报 `'ndRadar' 不是内部或外部命令`（乱码吞掉 "Trend" 前缀）→ bat 在 mkdir/抓取前中断。后果：**计划任务每小时跑但每次都失败（schtasks 上次结果=1），任务仍显示"就绪"** → 数据静默停摆。症状：日报"无新动态"但漏斗尾部是"唯一候选=已推送重复"；`output/news/` 无今日 db。定位法：bash 手动 `unset PYTHONPATH VIRTUAL_ENV && uv run python crossborder_fetcher.py` **成功** + cmd 复现 bat **失败** → 锁定 bat 层。修复：bat 全英文（中文注释删净）。**任何新建 bat 必须全英文**。
    - 🔴 **第二层坑（同次实踩）**：`crossborder_fetch.bat` 原版**缺 `mkdir output\logs`**——`uv run python ... >> output\logs\crossborder.log 2>&1` 重定向目标目录不存在 → cmd 报 **`The system cannot find the path specified`**（英文错误，区别于编码坑的 `'ndRadar' 不是命令`）。编码坑修好后这个坑才暴露。**凡 bat 里 `>> output\logs\xxx.log` 重定向，必须先 `if not exist "output\logs" mkdir "output\logs"`**（start_trendradar.bat 有、crossborder_fetch.bat 没有——两个都要检查）。
@@ -134,10 +135,22 @@ TrendRadar 自身无数量门槛（fetcher 全收，仅域名安全检查 `expec
 - **别信 last_status/last_delivery_error**——投递失败可能是静默的
 - `grep "2026-08-08 1[45]:" gateway.log | grep -i telegram` 看投递时刻前后有无 TG 网络错误（如 15:51 的 ConnectError 就是 16:00 日报的预警）
 - 对比"cron 输出文件有内容" vs "gateway 无投递记录"即锁定投递环节
+- **TG 间歇故障的深层根因定位（2026-08-09 实踩）**：TG 流量走 Clash Verge（7897）**固定单一节点**——sidecar 日志 `AppData/Roaming/io.github.clash-verge-rev.clash-verge-rev/logs/sidecar/sidecar_latest.log` 每行可见 `[TCP] ... api.telegram.org:443 match DomainSuffix(telegram.org) using mm[美国1130-KING]`（节点名固定）。节点抖动特征：每 2-4 小时故障几秒-十几秒（RemoteProtocolError 后接 ConnectError），**当前时刻测试往往正常**（20 次连续 curl 全通也排除不了间歇故障）。修复方向（2026-08-09 用户拍板，已落地）：
+- 🔴 **用户硬性约束：固定单一节点，禁止自动切换**——Claude Code 需稳定 IP，切换会被判定封号。B 方案（Clash 规则自动切换）被用户否决。
+- **A 已执行**：用户手动切「美国1130-KING」→「美国111-OVH」（mm 组 select 模式 23 节点含 11 个美国节点；候选优先级 OVH/GCORE/JUST > PRO/GEFENG > 避开 MEL 系（1130 同机房已证抖）与 ipv6 节点）
+- **验证节点生效**：① sidecar 日志 `grep "api.telegram.org.*using mm\[" logs/sidecar/sidecar_latest.log`——切换后新连接节点名即更新 ② 连续 15-20 次 `curl -x http://127.0.0.1:7897 api.telegram.org/bot<token>/getMe` 0 失败 ③ gateway.log 断连计数归零（观察期 ≥12h，111-OVH 实测 12h 零断连）
+- **换节点时机**：Claude Code 空闲时切（切换瞬间 IP 变化）；**低频切换原则**：固定观察 ≥1 天还抖再换下一个，不频繁切
+- **C 已落地（2026-08-10）投递健康检查 cron**：`~/AppData/Local/hermes/scripts/healthcheck_daily.py`（`--five`/`--cb` 两模式）+ 包装脚本 `healthcheck_five.py`/`healthcheck_cb.py`（cron script 参数不带参，用包装注入 argv）+ cron `日报投递检查-五类`(45 9 * * *)/`日报投递检查-跨境`(45 16 * * *) 均 no_agent（stdout 空=静默，非空=告警投递）。检查项：cron 输出/存档存在性+新鲜度、news_count=0、数据源 db 新鲜度（26h）、投递窗口 TG 断连计数。9 场景分支覆盖验证 PASS（正常静默/缺失告警/过旧告警/断连告警/包装参数传递）
+- **D 已落地（2026-08-10）API 健康监控 cron**：`~/AppData/Local/hermes/scripts/api_healthcheck.py` + cron `API健康检查-DeepSeek`(*/30 * * * *) no_agent——**真实 chat completion 生成延迟测试**（>30s 或失败才告警；网络层 curl 快 ≠ 服务端正常，必须发真实请求计时）。5 分支验证 PASS（正常静默/慢45s/HTTP500/网络异常/key缺失）。与 C 合并 16 场景验证全绿
+- **healthcheck 类脚本的验证姿势**：告警逻辑分支（静默/缺失/过旧/断连）用 mock 文件系统+subprocess 模拟场景断言 stdout（`mock.patch('os.path.exists', side_effect=...)` 注意 `os.path.exists` 要用字符串路径形式 `mock.patch('os.path.exists', ...)` 而非 `mock.patch.object(os.path, 'exists', ...)`（后者报 ntpath 无 listdir）；datetime 用真实时间戳控制新鲜/过旧，不要 mock datetime 类）
 补投递（**不重跑 cron**——重跑走 20 分钟全流程且可能重复推）：
 - 跨境日报已存档：读 `archives/crossborder/YYYY-MM-DD.md` 全文，按 4096 字符/条分 3-4 段直接补发（标注"补发 1/N"）
 - 5 类日报无存档：从 `~/AppData/Local/hermes/cron/output/<jobid>/YYYY-MM-DD_HH-MM-SS.md` 的 `## Response` 段提取日报全文补发
 - 补充：cron 输出文件 Response 若是"验证总结"而非日报本体（agent 声称"已在上面分 N 段交付"）——说明日报在 agent 中间输出里，投递的只是最终响应；用户视角=没收到日报
+- 🔴 **补发分段姿势（2026-08-09 实踩，两版对比）**：
+  - ❌ 失败模式：在**用户消息触发的 run 结束后**（response ready 之后）再输出补发文本——**run 结束后的 agent 输出不进投递通道**（gateway.log 无 Sending/Flush 记录，用户收不到，且无任何报错）。MEDIA 文件也不可靠（用户可能不看文件，明确要求"直接在消息里发"）
+  - ✅ 正确模式：补发必须发生**在用户消息触发的 run 内**——**分段文本 + 每段后跟一个工具调用**（如 `terminal echo ok`）维持 run 循环，run 内的文本随工具调用 flush 投递（帖 1-6 交付模式验证有效）。每段 ≤3800 字符
+  - ✅ **补发开头必须先声明日期**：`今天 X 月 X 日，这是补发 Y 月 Y 日丢失的日报`——用户曾因补发 8月8日 日报被误认"今天发的怎么是昨天的内容"（实为补发昨天丢失的，用户提醒"今天不是8月9号吗"）
 
 ## Opus 关键词审查工作流（可复用）
 配置文件/关键词库要外部模型审查时：
@@ -161,6 +174,7 @@ TrendRadar 自身无数量门槛（fetcher 全收，仅域名安全检查 `expec
 - 改配置/改代码前必须征得同意（红线）；部署前先核实仓库身份与内容（用户曾纠正"这是刚 fork 的空仓库"）
 - **用户要求"看某个文件"时给全文**：贴完整内容（代码块）或 MEDIA 发文件，结构导读/摘要表不够（用户曾明确"我要看完整的关键词库"）
 - **卡在决策点时主动说明**：用户问"没进展了？"= 在等我拍板。停在等待点时要明说"卡在需要你确认的 X"，并给出可点的选项（clarify），不要让用户猜
+- 🔴 **告警即处理（2026-08-10 用户批评）**：投递健康检查/看门狗等自动告警**触发后必须立即排查根因并汇报解决进展**，不能等用户来问"报错了但你没有后续解决操作"。告警消息发出 ≠ 任务完成，收到告警 = 进入排查流程（按日报排查 SOP 走），并主动说明当前状态和下一步
 - **双方案对比偏好**：用户会要求"你先给方案，再把需求发 Opus 独立出一份方案"来对比。两版都要给，且用实测数据诚实指出对方方案的乐观/错误处（如 Opus"8 源半天零成本"被连通性实测推翻为 5+4+3 三档工作量）——用户重视交叉验证，不盲信单一来源
 - **交付只发成品**（用户原话："只发完整的跨境日报，别的多余的话不要发"）：日报类推送的最终回复=日报本体，不加解释/总结/前后缀；实现/排障说明在日报之外另行简短汇报
 - **分析风格按受众区分**（用户明确区分两类）：跨境日报=小白教学风（读者未入场，通俗、术语即解释、给行动）；5 类日报=投资视角（读者是纳指定投+黄金积存的投资者，划重点不教学，**不喊单不给买卖建议**）。两者不得混用

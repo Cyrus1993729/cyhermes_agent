@@ -573,6 +573,8 @@ cron:
   mirror_delivery: false
   max_parallel_jobs: null
   output_retention: 50
+  model: qwen3.7-max
+  model_provider: qwen-bailian
 code_execution:
   mode: project
 tools:
@@ -688,3 +690,6 @@ mcp_servers:
       - '@amap/amap-maps-mcp-server'
     env:
       AMAP_MAPS_API_KEY: 0e0e0ebabf4fd5d94b1129c7791fb5b4
+fallback_model:
+  model: qwen3.7-max
+  provider: qwen-bailian
