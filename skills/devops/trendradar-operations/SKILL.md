@@ -94,6 +94,15 @@ TrendRadar 自身无数量门槛（fetcher 全收，仅域名安全检查 `expec
 - **canonical 回归验证**：`verify_crossborder_pipeline.py`（26 项：语法/提取/垃圾拒收/hot-only/crossborder 回归/pushed_five 隔离/摘要覆盖）——改管线必跑。🔴 **验证状态机自激循环的解法**：Hermes 把 Temp 下 `hermes-verify-*.py` 的创建/删除计入 changed paths → 每次"写验证脚本→验证→删除"都触发新一轮验证要求，无限循环。**解法：验证逻辑固化为项目内持久脚本**（gitignore 覆盖），不再用一次性 Temp 脚本
 - **跨境知识库存档**（用户要求"每次日报都要存档"）：`archives/crossborder/YYYY-MM-DD.md`（人读完整日报）+ `YYYY-MM-DD.json`（机读：`{date, pushed_at, mode, news_count, analysis, news:[{section,title,source,url,summary}]}`）+ `index.json`（archives 数组索引）。cron prompt 第 5.5 步硬性步骤：推送前 write_file 三写存档（md/json/index），同日不重复追加。**补档方法**：cron 实际推送内容可从 session_search 查 cron 会话（`session_id = cron_<jobid>_<日期>_<时间>`）拿最终输出重建
 
+## 投递前自动审查（2026-08-11 上线，日报 cron 第 4.5 步）
+所有日报发出前必须过一轮轻量质检（用户拍板：不走完整 5 步流程，日报高频）。脚本：`~/AppData/Local/hermes/scripts/daily_report_review.py`：
+- **L0 硬规则**（本地正则零成本）：禁止词/喊单词/链接缺失/背景行标记/模块完整性
+- **L1 模型审查**：默认 **GPT-5.6（Codex CLI）** 单模型（用户定调，qwen 暂不参与）；`--model gpt|qwen|both` 可切换，`both` 恢复双模型互补
+- **L2 用户兜底**：日报保留来源标注，"背景："内容删或明示
+- cron prompt 集成：草稿落盘 `output/_draft_five.txt`/`_draft_cb.txt` → 跑脚本 → hard findings 自动修复（≤1 轮不重审：删条/删背景行/改写）→ 投递；审查异常 → 降级照发 + 末尾标注"⚠️ 今日未经模型审查"
+- 跨境日报第 1 步已改为 `prepare_candidates.py --crossborder-only > output/candidates_cb.json`（候选落盘供审查比对）
+- 设计/调用姿势/验证方法/坑：`references/daily-report-review-2026-08.md`
+
 ## Pitfalls（实测踩坑）
 1. **PYTHONPATH 污染（Hermes 环境）**：Hermes 注入 `PYTHONPATH` 指向自己的 venv → TrendRadar 的 litellm 导入 Hermes 的 pydantic → `ModuleNotFoundError: pydantic_core._pydantic_core`。解法：运行前 `unset PYTHONPATH VIRTUAL_ENV`，启动脚本 bat 里 `set PYTHONPATH=`。任何在本机跑第三方 Python 项目都会遇到。
 2. **AI 分析"返回空响应"**：deepseek-v4-flash 是推理模型，分析全量新闻（255 条）>120s 超时 → `ai.timeout: 300` + `num_retries: 2`。
@@ -114,6 +123,8 @@ TrendRadar 自身无数量门槛（fetcher 全收，仅域名安全检查 `expec
 16. 🔴 **计划任务 bat 编码坑（2026-08-08 实踩，停摆 24h）**：`start_trendradar.bat`/`crossborder_fetch.bat` 是 **UTF-8 无 BOM + 中文 REM 注释** → cmd 按 GBK 解析乱码 → 报 `'ndRadar' 不是内部或外部命令`（乱码吞掉 "Trend" 前缀）→ bat 在 mkdir/抓取前中断。后果：**计划任务每小时跑但每次都失败（schtasks 上次结果=1），任务仍显示"就绪"** → 数据静默停摆。症状：日报"无新动态"但漏斗尾部是"唯一候选=已推送重复"；`output/news/` 无今日 db。定位法：bash 手动 `unset PYTHONPATH VIRTUAL_ENV && uv run python crossborder_fetcher.py` **成功** + cmd 复现 bat **失败** → 锁定 bat 层。修复：bat 全英文（中文注释删净）。**任何新建 bat 必须全英文**。
    - 🔴 **第二层坑（同次实踩）**：`crossborder_fetch.bat` 原版**缺 `mkdir output\logs`**——`uv run python ... >> output\logs\crossborder.log 2>&1` 重定向目标目录不存在 → cmd 报 **`The system cannot find the path specified`**（英文错误，区别于编码坑的 `'ndRadar' 不是命令`）。编码坑修好后这个坑才暴露。**凡 bat 里 `>> output\logs\xxx.log` 重定向，必须先 `if not exist "output\logs" mkdir "output\logs"`**（start_trendradar.bat 有、crossborder_fetch.bat 没有——两个都要检查）。
 17. 🔴 **看门狗盲区：run.log 不存在时静默（已修复 2026-08-08）**：原逻辑 `if not os.path.exists(LOG): return` 把"日志从未生成"当"部署初期"——bat 编码挂掉时 run.log 永远不存在 → 看门狗每 30 分钟静默退出 → 24h 无人发现（2026-08-08 实踩）。若用户报"日报没内容"，不能信看门狗"ok"，直接查数据时间戳。**修复后逻辑**：run.log 不存在 → 无 FLAG 则 `_trigger()` 重启一次 + 输出"已自动触发一次重启"；已有 FLAG（上次触发过仍无日志）→ 输出 🚨 告警（含"检查 bat 是否 ASCII-only/计划任务是否禁用"提示）。行为验证 4 场景：无日志无标记→触发+建标记 / 无日志有标记→告警不重复触发 / 日志新鲜→静默 / 日志陈旧→触发（ad-hoc 脚本 monkeypatch 路径+Popen 验证，PASS）。
+
+18. 🔴 **日报 prompt"背景补全"规则=幻觉窗口（2026-08-11 实踩）**：5 类日报 cron prompt 第 3 步硬性规则 3"候选摘要缺失时用背景知识补'这是什么'，标注'背景：'前缀"——候选只有标题无摘要（热榜常态）时，**该规则强制模型凭参数化记忆做事实性断言** → qwen3.7-max 在"DeepSeek重启融资"（B站热搜仅标题）补出"DeepSeek是字节旗下大模型团队"（实为幻方量化旗下，梁文锋创立）。**事实性背景（公司归属/人事/历史沿革）标题与摘要未提供时禁止凭记忆填充**；背景补充只允许确定无疑的常识。诱因链：8/10 API 过载切 cron 到 qwen3.7-max → 换模型引入知识偏差（deepseek 写自身归属正确，qwen 踩"DeepSeek×字节"共现混淆）→ 8/11 首跑即错。8/11 已切回 deepseek-v4-flash（用户定调：qwen 仅 DeepSeek 拥堵且短期无法恢复时应急，见 hermes-china-providers「cron 模型选择策略」）。**内容管线换模型后首轮输出必须盯事实性断言质量**。防御已落地：cron prompt 背景行规则收紧 + 投递前自动审查（见「投递前自动审查」章节）。
 
 ## 日报无内容/未触发排查 SOP（2026-08-08 实踩定型）
 用户报"日报没推送/没触发"时，**大概率是"触发了但候选为空"**，按序排查（每步都有本次实测依据）：
@@ -143,6 +154,14 @@ TrendRadar 自身无数量门槛（fetcher 全收，仅域名安全检查 `expec
 - **C 已落地（2026-08-10）投递健康检查 cron**：`~/AppData/Local/hermes/scripts/healthcheck_daily.py`（`--five`/`--cb` 两模式）+ 包装脚本 `healthcheck_five.py`/`healthcheck_cb.py`（cron script 参数不带参，用包装注入 argv）+ cron `日报投递检查-五类`(45 9 * * *)/`日报投递检查-跨境`(45 16 * * *) 均 no_agent（stdout 空=静默，非空=告警投递）。检查项：cron 输出/存档存在性+新鲜度、news_count=0、数据源 db 新鲜度（26h）、投递窗口 TG 断连计数。9 场景分支覆盖验证 PASS（正常静默/缺失告警/过旧告警/断连告警/包装参数传递）
 - **D 已落地（2026-08-10）API 健康监控 cron**：`~/AppData/Local/hermes/scripts/api_healthcheck.py` + cron `API健康检查-DeepSeek`(*/30 * * * *) no_agent——**真实 chat completion 生成延迟测试**（>30s 或失败才告警；网络层 curl 快 ≠ 服务端正常，必须发真实请求计时）。5 分支验证 PASS（正常静默/慢45s/HTTP500/网络异常/key缺失）。与 C 合并 16 场景验证全绿
 - **healthcheck 类脚本的验证姿势**：告警逻辑分支（静默/缺失/过旧/断连）用 mock 文件系统+subprocess 模拟场景断言 stdout（`mock.patch('os.path.exists', side_effect=...)` 注意 `os.path.exists` 要用字符串路径形式 `mock.patch('os.path.exists', ...)` 而非 `mock.patch.object(os.path, 'exists', ...)`（后者报 ntpath 无 listdir）；datetime 用真实时间戳控制新鲜/过旧，不要 mock datetime 类）
+- 🔴 **agent 自行分段 = 只发第一段（2026-08-11 实踩，用户只收到 1/3）**：日报完整生成（存档 14.5KB，agent 拆分日志 S1:3736/S2:3689/S3:1321 正常）但用户只收到前 1/3——cron prompt 第 4 步写了"Telegram 消息限制 4096 字符/条：超过时拆成多条消息分段发送，每条消息末尾标注（1/N）"，agent 照做把日报拆 3 段，但 **cron 机制只投递 final response（最后一次文本回复）一条消息**——agent 只输出了第 1 段（3736 字符带"（1/3）"）就 turn ended，第 2/3 段从未发出。排查信号：`agent.log` 的 `Turn ended: reason=text_response ... response_len=3738` 远小于存档大小（14.5KB）+ cron 会话最后一条 assistant 消息带"（1/N）"标记。**修复：cron prompt 严禁指示 agent 自行分段**——第 4/6 步统一改为"最终回复 = 完整日报全文（不自行分段、绝不要只发第一段），系统会自动按 Telegram 限制拆分投递"（8/10 跨境日报 15.5KB 完整送达正是系统层拆条的例证）。两个日报 cron 已改
+- 🔴 **同一内容收到两遍（双投递，2026-08-11 实踩）**：症状 = 用户收到完整日报两次。场景是 **DM 会话内手动补发长回复**（非 cron 投递——cron 是独立单通道不受影响）。根因链：
+  1. config.yaml `display.platforms.telegram.streaming: true`（Telegram 平台显式开流式）**覆盖**顶层 `streaming.enabled: false` → 回复走 streaming（边生成边发）+ final send（完成后兜底）双通道
+  2. 短回复靠 `content_delivered` 去重正常抑制（gateway.log 见 `Suppressing normal final send ... content_delivered=True`，310 字符回复只发一遍）
+  3. **>4096 字符触发拆条时去重失效**：`gateway/stream_consumer.py` 的 `delivered_final_matches` 对 `_turn_split_delivery` 直接 `return None` → `gateway/run.py` 25599 行去重判定不成立 → streaming 和 final send 都投递 → 用户收到两遍
+  - 排查信号：gateway.log **只有一条** `Sending response (8828 chars)` 但用户收到两遍（拆条 3 条 ×2）；对比同会话短回复日志有 `Suppressing normal final send`
+  - 修复：`hermes config set display.platforms.telegram.streaming false`（回复生成完一次性发出，系统自动拆条，无双通道；cron 投递不受影响；微信本来就没开 streaming）。改后需重启 gateway 生效（从 messaging 会话内重启有断连风险，用桌面 bat 或挑空档）
+  - 相关文件：`gateway/run.py` ~25555-25607（去重判定）、`gateway/stream_consumer.py` ~408-470（delivered_final_matches / has_delivered_text）
 补投递（**不重跑 cron**——重跑走 20 分钟全流程且可能重复推）：
 - 跨境日报已存档：读 `archives/crossborder/YYYY-MM-DD.md` 全文，按 4096 字符/条分 3-4 段直接补发（标注"补发 1/N"）
 - 5 类日报无存档：从 `~/AppData/Local/hermes/cron/output/<jobid>/YYYY-MM-DD_HH-MM-SS.md` 的 `## Response` 段提取日报全文补发
@@ -151,6 +170,7 @@ TrendRadar 自身无数量门槛（fetcher 全收，仅域名安全检查 `expec
   - ❌ 失败模式：在**用户消息触发的 run 结束后**（response ready 之后）再输出补发文本——**run 结束后的 agent 输出不进投递通道**（gateway.log 无 Sending/Flush 记录，用户收不到，且无任何报错）。MEDIA 文件也不可靠（用户可能不看文件，明确要求"直接在消息里发"）
   - ✅ 正确模式：补发必须发生**在用户消息触发的 run 内**——**分段文本 + 每段后跟一个工具调用**（如 `terminal echo ok`）维持 run 循环，run 内的文本随工具调用 flush 投递（帖 1-6 交付模式验证有效）。每段 ≤3800 字符
   - ✅ **补发开头必须先声明日期**：`今天 X 月 X 日，这是补发 Y 月 Y 日丢失的日报`——用户曾因补发 8月8日 日报被误认"今天发的怎么是昨天的内容"（实为补发昨天丢失的，用户提醒"今天不是8月9号吗"）
+  - 🔴 **补发前先核对已送达清单（2026-08-11 用户批评"又发两遍"）**：用户已收到第 1 段 + 首轮补发的 2/3、3/3 后，说"完整的发我一份"时误判为"全量重发"，把 2/3、3/3 又发了一遍被批。**任何补发/重发前：先确认用户已收到哪些（查 cron 会话最终输出 + 本轮已补发记录），只补缺口**；用户要"完整一份"时优先发文件（md）让用户存档，不重复刷文本消息
 
 ## Opus 关键词审查工作流（可复用）
 配置文件/关键词库要外部模型审查时：
@@ -186,4 +206,5 @@ TrendRadar 自身无数量门槛（fetcher 全收，仅域名安全检查 `expec
 - `references/funnel-baseline.md` — 漏斗统计方法与数量级基线
 - `references/keywords-v11-opus-review.md` — 关键词 v1.1 全量修订明细 + Opus 审查发现 + 行为测试用例集
 - `references/crossborder-sourcing-plan.md` — 跨境电商垂直数据源方案（Opus 出品：源清单/双通道架构/三级告警/运维/路线图）
+- `references/daily-report-review-2026-08.md` — 日报投递前自动审查机制（三层质检/L1 模型选择/cron 第 4.5 步/Codex CLI 调用姿势/extract_json 陷阱/验证方法）
 - `references/daily-report-cron-spec-2026-08.md` — 双日报 cron prompt 规范精炼版（跨境 16:00 + 5 类 9:30 的完整步骤/模块结构/硬规则/存档格式）——改日报格式以此为准并同步更新

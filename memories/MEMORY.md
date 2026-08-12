@@ -16,7 +16,7 @@ MoA=Opus前置筛选器,不确定先探路。/moa用完回DeepSeek。
 §
 ×hs→xiaohongshu-analysis skill(链接域xhslink.com/.cn同法;未登录站内搜索空searchFeedsWrapper=None+搜索引擎不收录,找帖只能靠分享链接)。
 §
-TG投递:池耗尽_drain_send_connections清_request[1];Clash固定单节点禁自动切换(Claude Code防封号),现用美国111-OVH;cron投递assume-delivered静默丢,补发用文本+echo ok分段且声明补发日期。
+TG投递:池耗尽清_request[1];Clash节点111-OVH;cron assume-delivered静默丢;DM超长回复(>4096)双投递=TG流式+拆条去重bug未修;长文仍发消息不优先发文件。
 §
 用户画像：33岁男无子女，税后¥20万/年日常¥8万，工作日定投纳指(20-30年)。技术小白懂概念。中文沟通，英文阅读弱(外文需翻译)。故障先诊断根因不绕过。技术方案先问Opus。主动汇报进展不沉默。交付只发成品不裹多余说明。
 §
@@ -26,7 +26,7 @@ Tavily=Hermes搜索后端(web.backend=tavily),key在Desktop/各类api key/。后
 §
 高德MCP已配,key在Desktop/各类api key/,静态地图参数location非center。
 §
-复盘vs memory分开：关键经验精简进memory，完整过程写复盘文件到D:\Workspace\Projects\Hermes运维\。用户不要skill，复盘写文件即可。桌面：日常脚本保留桌面，项目文件按主题归D:\Workspace\。
+复盘vs memory分开:关键经验进memory,完整过程写文件D:\Workspace\Projects\Hermes运维\。用户不要skill,复盘写文件。归档:日常脚本桌面,项目归D:\Workspace\。
 §
 两台电脑:高配=WorkBuddy(A2A)+Codex;本机=Hermes+ClaudeCode+Codex。EigenFlux CLI装D:\eigenflux(邮箱335751596@qq.com),只DM不订阅广播;CLI用PowerShell包装防guard误判。多agent愿景:同步讨论非文件接力,Claude/Codex啃难+Hermes啃易;成本敏感按需勿常驻;三agent暂缓。
 §
@@ -36,4 +36,4 @@ TrendRadar双日报(跨境16:00+5类9:30 hot-only)→TG。管线:crossborder_fet
 §
 深度分析交付：逐帖独立思考（每帖一个Opus prompt并行跑），不搞多帖大杂烩（用户原话：挨个思考，不要一股脑塞给opus）。
 §
-cron报错/告警触发须立即排查汇报,不等用户问(08-10批评)。日报cron统一qwen3.7-max(不用kimi),fallback_model同;DeepSeek过载=生成慢(91-463s),fallback只救挂不救慢。金价口径认上海金/现货非COMEX期货。
+cron模型(8/11):默认deepseek-v4-flash,qwen仅DeepSeek拥堵难恢复时临时切;fallback只救挂不救慢。日报审查=daily_report_review.py(L0+GPT5.6/CodexCLI,--model gpt默认)。投递铁律:最终回复输出完整日报勿自行分段(系统自动拆条,08-11致丢2/3)。金价认上海金非COMEX。

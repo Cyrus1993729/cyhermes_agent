@@ -570,6 +570,8 @@ cron:
   model_provider: qwen-bailian
 ```
 
+🔴 **cron 模型选择策略（2026-08-11 用户定调）**：cron 默认模型 = **deepseek-v4-flash / deepseek**；qwen3.7-max **仅当 DeepSeek 拥堵且短期无法恢复时**临时应急切换，恢复后切回。改法：`hermes config set cron.model deepseek-v4-flash` + `hermes config set cron.model_provider deepseek`（fallback_model 保持 qwen3.7-max 救"挂"，"慢"靠 API 健康监控告警 + 手动切）。⚠️ **换模型防"慢"会引入"知识偏差"**：8/10 因过载切 qwen → 8/11 日报首跑即幻觉"DeepSeek是字节旗下大模型团队"（deepseek 写自身归属正确，qwen 踩"DeepSeek×字节"共现混淆，详见 trendradar-operations Pitfall 18）——**内容管线换模型后，首轮输出必须盯一轮事实性断言质量**。
+
 - 模型解析优先级（scheduler.py `run_job`）：per-job override（jobs.json 的 `model` 字段）> `cron.model` > 环境变量 > config.yaml `model.default`
 - **scheduler 每次运行任务时重读 config.yaml → 改完立即生效，无需重启 gateway**
 - 改 config.yaml 用 `hermes config set cron.model <model>` / `hermes config set cron.model_provider <provider>`（patch 工具 / write_file 会被 Hermes 安全保护拒绝写 config.yaml）

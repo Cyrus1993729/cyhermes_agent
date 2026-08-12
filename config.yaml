@@ -573,8 +573,8 @@ cron:
   mirror_delivery: false
   max_parallel_jobs: null
   output_retention: 50
-  model: qwen3.7-max
-  model_provider: qwen-bailian
+  model: deepseek-v4-flash
+  model_provider: deepseek
 code_execution:
   mode: project
 tools:
