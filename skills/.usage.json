@@ -108,13 +108,13 @@
     "created_at": "2026-06-22T01:43:39.053452+00:00",
     "created_by": null,
     "last_patched_at": "2026-06-26T01:13:48.826355+00:00",
-    "last_used_at": "2026-08-10T03:01:18.330902+00:00",
-    "last_viewed_at": "2026-08-10T03:01:18.323781+00:00",
+    "last_used_at": "2026-08-12T07:37:51.719385+00:00",
+    "last_viewed_at": "2026-08-12T07:37:51.699402+00:00",
     "patch_count": 2,
     "pinned": false,
     "state": "active",
-    "use_count": 23,
-    "view_count": 23
+    "use_count": 24,
+    "view_count": 24
   },
   "claude-code-troubleshooting": {
     "archived_at": null,
@@ -134,13 +134,13 @@
     "created_at": "2026-06-15T03:11:23.699309+00:00",
     "created_by": "agent",
     "last_patched_at": "2026-07-03T12:08:33.056896+00:00",
-    "last_used_at": "2026-08-08T01:37:34.330563+00:00",
-    "last_viewed_at": "2026-08-08T01:37:34.307630+00:00",
+    "last_used_at": "2026-08-12T07:37:50.692241+00:00",
+    "last_viewed_at": "2026-08-12T07:37:50.684012+00:00",
     "patch_count": 49,
     "pinned": false,
     "state": "active",
-    "use_count": 41,
-    "view_count": 41
+    "use_count": 42,
+    "view_count": 42
   },
   "codex-cli": {
     "archived_at": null,
@@ -861,14 +861,14 @@
     "archived_at": null,
     "created_at": "2026-08-07T01:10:27.064653+00:00",
     "created_by": "agent",
-    "last_patched_at": "2026-08-11T09:06:26.959979+00:00",
-    "last_used_at": "2026-08-11T09:06:21.774342+00:00",
-    "last_viewed_at": "2026-08-11T09:06:21.765826+00:00",
-    "patch_count": 55,
+    "last_patched_at": "2026-08-12T09:35:27.159542+00:00",
+    "last_used_at": "2026-08-12T09:35:05.914283+00:00",
+    "last_viewed_at": "2026-08-12T09:35:05.905418+00:00",
+    "patch_count": 69,
     "pinned": false,
     "state": "active",
-    "use_count": 30,
-    "view_count": 30
+    "use_count": 34,
+    "view_count": 34
   },
   "video-understand-core": {
     "archived_at": null,
@@ -953,13 +953,13 @@
     "created_at": "2026-06-17T07:20:54.552354+00:00",
     "created_by": null,
     "last_patched_at": "2026-08-07T09:19:28.962865+00:00",
-    "last_used_at": "2026-08-08T04:18:51.916127+00:00",
-    "last_viewed_at": "2026-08-08T04:18:51.908083+00:00",
+    "last_used_at": "2026-08-12T07:34:12.921433+00:00",
+    "last_viewed_at": "2026-08-12T07:34:12.912432+00:00",
     "patch_count": 70,
     "pinned": false,
     "state": "active",
-    "use_count": 69,
-    "view_count": 69
+    "use_count": 70,
+    "view_count": 70
   },
   "xlsx": {
     "archived_at": null,

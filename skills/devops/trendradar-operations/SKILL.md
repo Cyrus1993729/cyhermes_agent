@@ -103,13 +103,25 @@ TrendRadar 自身无数量门槛（fetcher 全收，仅域名安全检查 `expec
 - 跨境日报第 1 步已改为 `prepare_candidates.py --crossborder-only > output/candidates_cb.json`（候选落盘供审查比对）
 - 设计/调用姿势/验证方法/坑：`references/daily-report-review-2026-08.md`
 
+## DeepSeek 过载避峰 + 引擎切换（2026-08-12 用户定调：避峰优先、切换兜底）
+用户拍板原则：**qwen API 比 DeepSeek 贵，切换是最后兜底不是默认**——先监测 DeepSeek 延迟的时间段分布、调日报时间避开高峰；调整后仍遇偶发卡顿才切 qwen。
+- **延迟时间模式**（2026-08-10/11/12 agent.log latency 521 条实测）：**早高峰 09:00-10:00 最严重**（平均 34-182s、最大 463s、>30s 占比 50-100%）；08:00-08:30 也偏高（平均 138s）；**10:30 后正常**（6-12s）；**下午 16:00-16:30 高峰**（平均 25-53s），16:30 后正常（8-12s）。结论：五类 9:30 档正踩早高峰、跨境 16:00 档踩下午高峰
+- ✅ **已执行（2026-08-12 用户拍板）**：五类 9:30→**11:00**、跨境 16:00→**17:00**。用户否决了 8:30 方案（08:00-08:30 实测也偏高、平均 138s——"你都说了8.30也卡"），改选 11:00/17:00（11:00-11:30 平均 9s 0 慢、17:00-17:30 平均 8s 0 慢，均在有数据验证的舒适区）。投递检查 cron 同步：五类 11:15、跨境 17:15
+- 脚本（`~/AppData/Local/hermes/scripts/`）：
+  - `api_probe.py` — DeepSeek 真实 chat completion 延迟探测（25s 超时），输出 `OK <秒>`/`SLOW <秒>`/`ERROR <原因>`（阈值 30s：正常 2-15s、过载 60-265s）
+  - `report_gen_qwen.py` — qwen3.7-max 日报生成引擎（`--candidates <json> --mode five|cb --out <file>`），编辑规则内嵌（与 cron prompt 第 2/3 步一致），读 config.yaml qwen-bailian key 直连；生成文件为 UTF-8 但含 CRLF，read_file 可能误判 binary，用 python 读
+- **cron prompt 集成（✅ 已上线 2026-08-12 晚，两个日报 cron 均更新）**：第 0 步跑 api_probe → SLOW/ERROR 时取候选后跑 report_gen_qwen 生成草稿 → 核对完整性（非空/含速览/含清单）→ 跳过人工编辑从审查步骤继续 → 末尾标注"⚠️ 今日 DeepSeek 过载，日报由 qwen3.7-max 生成"；脚本失败则退回当前模型（慢总比没有强）。🔴 prompt 内脚本路径一律用正斜杠 `C:/Users/...`（agent 生成的 `C:\Users\...` 命令在 bash 下反斜杠会被吞，报 "can't open file 'C:\UsersAdministrator...'"，2026-08-12 实踩，agent 重试才成功）
+- 详细延迟数据表/脚本验证（12/12 断言）/调用姿势：`references/deepseek-overload-avoidance-2026-08.md`
+- 🔴 **读 cron jobs.json 用字段 `id` 不是 `job_id`**（2026-08-12 实踩 StopIteration）：`~/AppData/Local/hermes/cron/jobs.json` 结构 `{"jobs":[...],"updated_at":...}`，job 对象主键字段名是 `id`（cronjob list API 显示为 job_id）
+- ⚠️ **避峰非万能 + 体检单次采样局限（2026-08-12 17:00 首跑实测）**：跨境日报改 17:00 首跑时 DeepSeek 依然 50-120s/次（前一天同段实测 8s——过载形态是**全天波动**而非固定高峰，8/12 全天都慢）；api_probe 启动时探测 1.66s 返回 OK，但后续每次调用 50-120s。**单次采样抓不住波动过载**——体检只能抓住\"稳定持续过载\"（如 8/12 早上的 60-265s 不回落形态），对\"探测瞬间快、随后慢\"无效。待改进方向（用户未拍板）：取候选后二次探测（间隔几分钟，能抓住持续过载）、或探测 3 次快速采样取最差。结论：时间调整降低慢的概率但不保证；体检是粗筛不是保险
+
 ## Pitfalls（实测踩坑）
 1. **PYTHONPATH 污染（Hermes 环境）**：Hermes 注入 `PYTHONPATH` 指向自己的 venv → TrendRadar 的 litellm 导入 Hermes 的 pydantic → `ModuleNotFoundError: pydantic_core._pydantic_core`。解法：运行前 `unset PYTHONPATH VIRTUAL_ENV`，启动脚本 bat 里 `set PYTHONPATH=`。任何在本机跑第三方 Python 项目都会遇到。
 2. **AI 分析"返回空响应"**：deepseek-v4-flash 是推理模型，分析全量新闻（255 条）>120s 超时 → `ai.timeout: 300` + `num_retries: 2`。
 3. **newsnow API 403**：默认 curl UA 被 Cloudflare 拦；**带浏览器 UA 直连 200，走代理反而 403**（国内直连即可）。项目 fetcher 自带 Chrome UA 无此问题。
 4. **数据库时间 HH-MM**：跨天窗口过滤必须拼日期，字符串比较 `YYYY-MM-DD HH-MM`。
 5. **read_file 误判 binary**：CRLF 文件或含框线字符（═ ─ ═ 等装饰符，如 frequency_words.txt/timeline.yaml）会被 read_file 判为 binary——用 `python -c "open(...).read()"` 或 uv run python 读。
-6. **Windows Python 不认 MSYS /tmp**：临时文件用项目目录或 %TEMP%。
+6. **Windows Python 不认 MSYS /tmp；bash 传参 MSYS 路径被错误转换**：`python "$HOME/scripts/x.py"` 中 `$HOME`（=/c/Users/...）传给 Windows 原生 Python 会变成 `C:\c\Users\...` 报 "can't open file"（2026-08-12 实踩）。**调 Windows 程序一律用原生正斜杠路径 `C:/Users/...`**（bash 不转换），或先 `cd` 到目标目录用相对路径。临时文件用项目目录或 %TEMP%。
 7. **杀进程红线**：`taskkill /F /IM python.exe` 会杀死 Hermes 自身，必须 `/PID`。
 8. **关键词文件改动后必须验证**：用 `load_frequency_words` + 代表性标题测 `matches_word_groups`（防串用例：亚马逊 AWS 不命中[亚马逊卖家]但命中[AI半导体]）。
 9. **Federal Register API 全文搜索噪音**：`conditions[term]` 命中大量无关法规（airspace 修正案等）→ 源头宽松正则过滤（`FEDREG_FILTER`：tariff/duty/trade/import/export/customs/china/de minimis/section 30[12]/antidumping 等），标题不命中即丢弃；剩余贸易救济文档属边缘相关，交 LLM 精选判断。
@@ -151,7 +163,7 @@ TrendRadar 自身无数量门槛（fetcher 全收，仅域名安全检查 `expec
 - **A 已执行**：用户手动切「美国1130-KING」→「美国111-OVH」（mm 组 select 模式 23 节点含 11 个美国节点；候选优先级 OVH/GCORE/JUST > PRO/GEFENG > 避开 MEL 系（1130 同机房已证抖）与 ipv6 节点）
 - **验证节点生效**：① sidecar 日志 `grep "api.telegram.org.*using mm\[" logs/sidecar/sidecar_latest.log`——切换后新连接节点名即更新 ② 连续 15-20 次 `curl -x http://127.0.0.1:7897 api.telegram.org/bot<token>/getMe` 0 失败 ③ gateway.log 断连计数归零（观察期 ≥12h，111-OVH 实测 12h 零断连）
 - **换节点时机**：Claude Code 空闲时切（切换瞬间 IP 变化）；**低频切换原则**：固定观察 ≥1 天还抖再换下一个，不频繁切
-- **C 已落地（2026-08-10）投递健康检查 cron**：`~/AppData/Local/hermes/scripts/healthcheck_daily.py`（`--five`/`--cb` 两模式）+ 包装脚本 `healthcheck_five.py`/`healthcheck_cb.py`（cron script 参数不带参，用包装注入 argv）+ cron `日报投递检查-五类`(45 9 * * *)/`日报投递检查-跨境`(45 16 * * *) 均 no_agent（stdout 空=静默，非空=告警投递）。检查项：cron 输出/存档存在性+新鲜度、news_count=0、数据源 db 新鲜度（26h）、投递窗口 TG 断连计数。9 场景分支覆盖验证 PASS（正常静默/缺失告警/过旧告警/断连告警/包装参数传递）
+- **C 已落地（2026-08-10）投递健康检查 cron**：`~/AppData/Local/hermes/scripts/healthcheck_daily.py`（`--five`/`--cb` 两模式）+ 包装脚本 `healthcheck_five.py`/`healthcheck_cb.py`（cron script 参数不带参，用包装注入 argv）+ cron `日报投递检查-五类`(15 11 * * *)/`日报投递检查-跨境`(15 17 * * *) 均 no_agent（stdout 空=静默，非空=告警投递）。检查项：cron 输出/存档存在性+新鲜度、news_count=0、数据源 db 新鲜度（26h）、投递窗口 TG 断连计数。9 场景分支覆盖验证 PASS（正常静默/缺失告警/过旧告警/断连告警/包装参数传递）
 - **D 已落地（2026-08-10）API 健康监控 cron**：`~/AppData/Local/hermes/scripts/api_healthcheck.py` + cron `API健康检查-DeepSeek`(*/30 * * * *) no_agent——**真实 chat completion 生成延迟测试**（>30s 或失败才告警；网络层 curl 快 ≠ 服务端正常，必须发真实请求计时）。5 分支验证 PASS（正常静默/慢45s/HTTP500/网络异常/key缺失）。与 C 合并 16 场景验证全绿
 - **healthcheck 类脚本的验证姿势**：告警逻辑分支（静默/缺失/过旧/断连）用 mock 文件系统+subprocess 模拟场景断言 stdout（`mock.patch('os.path.exists', side_effect=...)` 注意 `os.path.exists` 要用字符串路径形式 `mock.patch('os.path.exists', ...)` 而非 `mock.patch.object(os.path, 'exists', ...)`（后者报 ntpath 无 listdir）；datetime 用真实时间戳控制新鲜/过旧，不要 mock datetime 类）
 - 🔴 **agent 自行分段 = 只发第一段（2026-08-11 实踩，用户只收到 1/3）**：日报完整生成（存档 14.5KB，agent 拆分日志 S1:3736/S2:3689/S3:1321 正常）但用户只收到前 1/3——cron prompt 第 4 步写了"Telegram 消息限制 4096 字符/条：超过时拆成多条消息分段发送，每条消息末尾标注（1/N）"，agent 照做把日报拆 3 段，但 **cron 机制只投递 final response（最后一次文本回复）一条消息**——agent 只输出了第 1 段（3736 字符带"（1/3）"）就 turn ended，第 2/3 段从未发出。排查信号：`agent.log` 的 `Turn ended: reason=text_response ... response_len=3738` 远小于存档大小（14.5KB）+ cron 会话最后一条 assistant 消息带"（1/N）"标记。**修复：cron prompt 严禁指示 agent 自行分段**——第 4/6 步统一改为"最终回复 = 完整日报全文（不自行分段、绝不要只发第一段），系统会自动按 Telegram 限制拆分投递"（8/10 跨境日报 15.5KB 完整送达正是系统层拆条的例证）。两个日报 cron 已改
@@ -165,12 +177,12 @@ TrendRadar 自身无数量门槛（fetcher 全收，仅域名安全检查 `expec
 补投递（**不重跑 cron**——重跑走 20 分钟全流程且可能重复推）：
 - 跨境日报已存档：读 `archives/crossborder/YYYY-MM-DD.md` 全文，按 4096 字符/条分 3-4 段直接补发（标注"补发 1/N"）
 - 5 类日报无存档：从 `~/AppData/Local/hermes/cron/output/<jobid>/YYYY-MM-DD_HH-MM-SS.md` 的 `## Response` 段提取日报全文补发
-- 补充：cron 输出文件 Response 若是"验证总结"而非日报本体（agent 声称"已在上面分 N 段交付"）——说明日报在 agent 中间输出里，投递的只是最终响应；用户视角=没收到日报
+- 补充：cron 输出文件 Response 若是"验证总结"而非日报本体（agent 声称"已在上面分 N 段交付"）——说明日报在 agent 中间输出里，投递的只是最终响应；用户视角=没收到日报。**🔴 2026-08-12 17:00 实踩（跨境日报，response_len=529 字符）**：agent 生成完整日报（21 条已存档 ✅）后，最后一步把"20/20 ad-hoc 验证通过总结"输出为最终回复，日报正文被顶掉（cron 只投递 final response）。**修复已落地：cron prompt 第 6 步加铁律——"最终回复必须 ONLY 是日报全文本身；禁止输出任何验证总结/过程报告/步骤清单/测试结果/确认信息（这些写草稿/日志文件即可，绝不进入最终回复）；最终回复只允许出现日报正文"**（两个日报 cron 均已更新）。排查信号：`Turn ended ... response_len` 远小于存档大小 + cron 会话末条是技术性总结而非日报开头
 - 🔴 **补发分段姿势（2026-08-09 实踩，两版对比）**：
   - ❌ 失败模式：在**用户消息触发的 run 结束后**（response ready 之后）再输出补发文本——**run 结束后的 agent 输出不进投递通道**（gateway.log 无 Sending/Flush 记录，用户收不到，且无任何报错）。MEDIA 文件也不可靠（用户可能不看文件，明确要求"直接在消息里发"）
   - ✅ 正确模式：补发必须发生**在用户消息触发的 run 内**——**分段文本 + 每段后跟一个工具调用**（如 `terminal echo ok`）维持 run 循环，run 内的文本随工具调用 flush 投递（帖 1-6 交付模式验证有效）。每段 ≤3800 字符
   - ✅ **补发开头必须先声明日期**：`今天 X 月 X 日，这是补发 Y 月 Y 日丢失的日报`——用户曾因补发 8月8日 日报被误认"今天发的怎么是昨天的内容"（实为补发昨天丢失的，用户提醒"今天不是8月9号吗"）
-  - 🔴 **补发前先核对已送达清单（2026-08-11 用户批评"又发两遍"）**：用户已收到第 1 段 + 首轮补发的 2/3、3/3 后，说"完整的发我一份"时误判为"全量重发"，把 2/3、3/3 又发了一遍被批。**任何补发/重发前：先确认用户已收到哪些（查 cron 会话最终输出 + 本轮已补发记录），只补缺口**；用户要"完整一份"时优先发文件（md）让用户存档，不重复刷文本消息
+  - 🔴 **补发前先核对已送达清单（2026-08-11 用户批评"又发两遍"）**：用户已收到第 1 段 + 首轮补发的 2/3、3/3 后，说"完整的发我一份"时误判为"全量重发"，把 2/3、3/3 又发了一遍被批。**任何补发/重发前：先确认用户已收到哪些（查 cron 会话最终输出 + 本轮已补发记录），只补缺口**。🔴 **用户要"完整一份"= 从头到尾完整重发分段文本——绝不改成"优先发文件"**（2026-08-11 用户明确否决文件优先："不要，长文字还是发消息给我，不要改成优先发文件"）。文件优先方案曾作为双投递规避手段被提出，用户拒绝
 
 ## Opus 关键词审查工作流（可复用）
 配置文件/关键词库要外部模型审查时：
@@ -185,8 +197,8 @@ TrendRadar 自身无数量门槛（fetcher 全收，仅域名安全检查 `expec
 ## 用户偏好（本任务类）
 - 监控系统：事件驱动、平时静默；异常才告警；无新增不推空消息
 - 推送节奏（2026-08-07 定稿，**双日报**）：
-  - **跨境日报 16:00**（cron `TrendRadar跨境日报` f4506e87cc69）：`prepare_candidates.py --crossborder-only`（24h 窗口、三通道、去重后全推、独立消息）。顶部 Opus 设计的**模块化 AI 分析**（⚡今日速览 / 🏛政策风向 / 🛒平台规则 / 📈市场与成本 / 🧰实战参考 / 📖小白词典 / ✅今天该做的一件事，900-1200 字，小白教学风）+ 新闻清单（中文标题 + 2-3 句带数字摘要 + 链接；英文源「中文译名（English original title）」+🔤 标记）
-  - **5 类日报 9:30**（cron `TrendRadar五类日报` 970113abe8a7）：`prepare_candidates.py --hot-only --pushed-file pushed_five.json`（**纯热榜白名单**通道、24h 窗口、去重后全推）。**投资视角分析**（⚡速览 / 🇺🇸美股与纳指 / 🥇黄金 / 🇨🇳中国科技 / 🤖AI半导体 / 🌐宏观与政策 / 📌对投资的提示，700-1000 字，**不喊单不给买卖建议**，非小白教学）+ 新闻清单（5 板块）
+  - **跨境日报 17:00**（cron `TrendRadar跨境日报` f4506e87cc69，2026-08-12 从 16:00 调整避 DeepSeek 下午高峰）：`prepare_candidates.py --crossborder-only`（24h 窗口、三通道、去重后全推、独立消息）。顶部 Opus 设计的**模块化 AI 分析**（⚡今日速览 / 🏛政策风向 / 🛒平台规则 / 📈市场与成本 / 🧰实战参考 / 📖小白词典 / ✅今天该做的一件事，900-1200 字，小白教学风）+ 新闻清单（中文标题 + 2-3 句带数字摘要 + 链接；英文源「中文译名（English original title）」+🔤 标记）
+  - **5 类日报 11:00**（cron `TrendRadar五类日报` 970113abe8a7，2026-08-12 从 9:30 调整避 DeepSeek 早高峰）：`prepare_candidates.py --hot-only --pushed-file pushed_five.json`（**纯热榜白名单**通道、24h 窗口、去重后全推）。**投资视角分析**（⚡速览 / 🇺🇸美股与纳指 / 🥇黄金 / 🇨🇳中国科技 / 🤖AI半导体 / 🌐宏观与政策 / 📌对投资的提示，700-1000 字，**不喊单不给买卖建议**，非小白教学）+ 新闻清单（5 板块）
   - 两日报**独立防重复文件**（pushed_titles.json / pushed_five.json），互不干扰；用户原话："早上9.30推送一次吧 一天只推送这一次"
   - 旧方案"每天 2 次（09:10/18:10）+ 精选 10-20 条"已废弃（用户改要 16:00 单窗口 + 全推）
 - 关注领域 1.0：6 大领域，跨境电商按"市场×平台×环节×政策"四维设计
@@ -197,6 +209,7 @@ TrendRadar 自身无数量门槛（fetcher 全收，仅域名安全检查 `expec
 - 🔴 **告警即处理（2026-08-10 用户批评）**：投递健康检查/看门狗等自动告警**触发后必须立即排查根因并汇报解决进展**，不能等用户来问"报错了但你没有后续解决操作"。告警消息发出 ≠ 任务完成，收到告警 = 进入排查流程（按日报排查 SOP 走），并主动说明当前状态和下一步
 - **双方案对比偏好**：用户会要求"你先给方案，再把需求发 Opus 独立出一份方案"来对比。两版都要给，且用实测数据诚实指出对方方案的乐观/错误处（如 Opus"8 源半天零成本"被连通性实测推翻为 5+4+3 三档工作量）——用户重视交叉验证，不盲信单一来源
 - **交付只发成品**（用户原话："只发完整的跨境日报，别的多余的话不要发"）：日报类推送的最终回复=日报本体，不加解释/总结/前后缀；实现/排障说明在日报之外另行简短汇报
+- **长文字继续发消息，不优先发文件**（2026-08-11 用户明确否决文件优先）：曾提议"长内容改发 MEDIA 文件规避双投递"，用户拒绝——长日报/长报告一律按原形态发文本消息（可分段），文件只用于存档场景。此偏好优先级高于"规避双投递"的工程考量
 - **分析风格按受众区分**（用户明确区分两类）：跨境日报=小白教学风（读者未入场，通俗、术语即解释、给行动）；5 类日报=投资视角（读者是纳指定投+黄金积存的投资者，划重点不教学，**不喊单不给买卖建议**）。两者不得混用
 - **分析迭代流程**（用户需求→Opus 设计→确认→落地）：用户对分析板块的格式需求（分模块/信息密度/中文化）先发给 Opus 出设计稿（prompt 附用户原话+现有日报结构+画像），用户确认后再固化进 cron prompt——设计类问题不自己拍板
 
@@ -208,3 +221,4 @@ TrendRadar 自身无数量门槛（fetcher 全收，仅域名安全检查 `expec
 - `references/crossborder-sourcing-plan.md` — 跨境电商垂直数据源方案（Opus 出品：源清单/双通道架构/三级告警/运维/路线图）
 - `references/daily-report-review-2026-08.md` — 日报投递前自动审查机制（三层质检/L1 模型选择/cron 第 4.5 步/Codex CLI 调用姿势/extract_json 陷阱/验证方法）
 - `references/daily-report-cron-spec-2026-08.md` — 双日报 cron prompt 规范精炼版（跨境 16:00 + 5 类 9:30 的完整步骤/模块结构/硬规则/存档格式）——改日报格式以此为准并同步更新
+- `references/deepseek-overload-avoidance-2026-08.md` — DeepSeek 过载避峰方案（延迟时间模式数据表/api_probe+report_gen_qwen 脚本/验证断言/cron 第 0 步集成设计/待办）
