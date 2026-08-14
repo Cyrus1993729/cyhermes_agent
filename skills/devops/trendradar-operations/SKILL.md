@@ -174,15 +174,34 @@ TrendRadar 自身无数量门槛（fetcher 全收，仅域名安全检查 `expec
   - 排查信号：gateway.log **只有一条** `Sending response (8828 chars)` 但用户收到两遍（拆条 3 条 ×2）；对比同会话短回复日志有 `Suppressing normal final send`
   - 修复：`hermes config set display.platforms.telegram.streaming false`（回复生成完一次性发出，系统自动拆条，无双通道；cron 投递不受影响；微信本来就没开 streaming）。改后需重启 gateway 生效（从 messaging 会话内重启有断连风险，用桌面 bat 或挑空档）
   - 相关文件：`gateway/run.py` ~25555-25607（去重判定）、`gateway/stream_consumer.py` ~408-470（delivered_final_matches / has_delivered_text）
+- 🔴 **DM 手动补发长回复也会静默丢失（2026-08-12 实踩，与 cron 投递同根因）**：补发 8/12 跨境日报（10176 字符）时 gateway.log 显示 `Sending response (10176 chars)` 但**无任何后续 Flushing/segment 确认日志**，用户没收到——前后时段 TG 网络抖动（17:34:00 ConnectError + 17:43:00 Timed out），发送在拆条过程中断，assume-delivered 把"没送出"当"已送"。**与 8/8 cron 投递丢失同一机制，场景扩展到 DM 会话长回复**（>4096 拆条 = 多条发送 = 撞抖动窗口概率更高）。排查信号：gateway.log 只有 Sending 无 sent/flush 确认 + 该时段有 `Telegram network error`/`polling degraded`。补发前先 `curl --proxy http://127.0.0.1:7897 https://api.telegram.org`（302/几秒内 = 网络可用）再发；发送后若用户仍未收到且日志无确认 → 等网络平稳后重发
 补投递（**不重跑 cron**——重跑走 20 分钟全流程且可能重复推）：
 - 跨境日报已存档：读 `archives/crossborder/YYYY-MM-DD.md` 全文，按 4096 字符/条分 3-4 段直接补发（标注"补发 1/N"）
 - 5 类日报无存档：从 `~/AppData/Local/hermes/cron/output/<jobid>/YYYY-MM-DD_HH-MM-SS.md` 的 `## Response` 段提取日报全文补发
 - 补充：cron 输出文件 Response 若是"验证总结"而非日报本体（agent 声称"已在上面分 N 段交付"）——说明日报在 agent 中间输出里，投递的只是最终响应；用户视角=没收到日报。**🔴 2026-08-12 17:00 实踩（跨境日报，response_len=529 字符）**：agent 生成完整日报（21 条已存档 ✅）后，最后一步把"20/20 ad-hoc 验证通过总结"输出为最终回复，日报正文被顶掉（cron 只投递 final response）。**修复已落地：cron prompt 第 6 步加铁律——"最终回复必须 ONLY 是日报全文本身；禁止输出任何验证总结/过程报告/步骤清单/测试结果/确认信息（这些写草稿/日志文件即可，绝不进入最终回复）；最终回复只允许出现日报正文"**（两个日报 cron 均已更新）。排查信号：`Turn ended ... response_len` 远小于存档大小 + cron 会话末条是技术性总结而非日报开头
+   - 🔴 **第一版措辞修复无效（2026-08-13 连续第二天实踩）**：8/12 上线的"禁止验证总结"铁律**没拦住**——8/13 跨境日报 agent 仍自创 `Temp\hermes-verify-bookkeeping.py` 验证脚本（prompt 根本没让它写验证代码）+ 输出"13 项 PASS 验证总结"为最终回复（response_len=573，正文 20 条已存档但被顶掉）。**根因：agent 的"完成即输出"心智——它把中间轮输出日报正文当作步骤完成标志，把验证汇报当作最终交付；措辞级"禁止"打不过这个心智**。**第二版修复（2026-08-13）：第 6 步改为"用 read_file 读取 _draft_cb.txt 内容并**原样输出**为最终回复" + 明示"禁止自行创建或运行任何验证脚本（bookkeeping 脚本内部自带校验）" + 点名"连续两天事故"**。教训：**cron 最终回复要"钉死"为文件内容的原样输出（read_file），不要依赖 agent 自觉；任何让 agent"自行组织最终回复"的指令都会给它自由发挥的空间**。⚠️ 但 Opus 评审（2026-08-13）指出 read_file 方案仍有新坑（模型可能回"文件已读取如上"——tool result≠text response 但模型不区分；max_tokens 截断半截日报；陈旧文件静默；"文件缺失→无新动态"兜底有毒）。**用户拍板采用 Opus 方案 C+D：生成/投递分离架构（见「生成/投递分离架构」章节），8/13 下午已落地，不再依赖 agent 的最终回复**
 - 🔴 **补发分段姿势（2026-08-09 实踩，两版对比）**：
   - ❌ 失败模式：在**用户消息触发的 run 结束后**（response ready 之后）再输出补发文本——**run 结束后的 agent 输出不进投递通道**（gateway.log 无 Sending/Flush 记录，用户收不到，且无任何报错）。MEDIA 文件也不可靠（用户可能不看文件，明确要求"直接在消息里发"）
   - ✅ 正确模式：补发必须发生**在用户消息触发的 run 内**——**分段文本 + 每段后跟一个工具调用**（如 `terminal echo ok`）维持 run 循环，run 内的文本随工具调用 flush 投递（帖 1-6 交付模式验证有效）。每段 ≤3800 字符
   - ✅ **补发开头必须先声明日期**：`今天 X 月 X 日，这是补发 Y 月 Y 日丢失的日报`——用户曾因补发 8月8日 日报被误认"今天发的怎么是昨天的内容"（实为补发昨天丢失的，用户提醒"今天不是8月9号吗"）
+   - 🔴 **补发/排查前先 `date "+%Y-%m-%d %H:%M"` 确认当前日期（2026-08-13 实踩）**：跨天处理"未收到日报"时（8/12 晚补发 → 8/13 用户才看到），容易把昨天的日报当今天的处理，用户困惑"发 8.12 的给我干嘛"。**任何"未收到日报"排查/补发流程第一步：确认当前日期，再对照用户问的是哪天的日报**（8/13 11:00/17:00 双日报均有投递记录，用户问的可能是当天的）
   - 🔴 **补发前先核对已送达清单（2026-08-11 用户批评"又发两遍"）**：用户已收到第 1 段 + 首轮补发的 2/3、3/3 后，说"完整的发我一份"时误判为"全量重发"，把 2/3、3/3 又发了一遍被批。**任何补发/重发前：先确认用户已收到哪些（查 cron 会话最终输出 + 本轮已补发记录），只补缺口**。🔴 **用户要"完整一份"= 从头到尾完整重发分段文本——绝不改成"优先发文件"**（2026-08-11 用户明确否决文件优先："不要，长文字还是发消息给我，不要改成优先发文件"）。文件优先方案曾作为双投递规避手段被提出，用户拒绝
+
+## 生成/投递分离架构（方案 C+D，2026-08-13 落地，跨境日报）
+连续两天"验证总结顶包日报"（8/12、8/13）后用户拍板采纳 Opus 方案 C+D——**根治"LLM 在正确时刻说出正确话"这个脆弱契约**：cron agent 不再负责投递，投递交给独立 no_agent 脚本读文件。核心原则（Opus）：**不要让 LLM 当字节的搬运工**；交付是动作不是话；控制面（对话）与数据面（文件）分离。
+
+**架构**：
+- **Job A 生成任务**（`TrendRadar跨境日报` f4506e87cc69，17:00，**deliver=local 不投递**）：prompt 改——第 4.5 步审查修复后覆盖写 `output/_draft_cb.txt`（投递任务唯一内容来源）；第 6 步=一行完成确认；🔴 铁律：全程禁止中间 text response 输出日报正文（只写文件，中间步骤以 tool call 收尾）、禁止自创验证脚本、无新闻日也写草稿（内容"📦 今日跨境无新动态…"）、生成失败**不更新** _draft_cb.txt（投递任务靠 mtime 检测告警）
+- **Job B 投递任务**（`TrendRadar跨境日报投递` e8e436bbf9b1，**no_agent**，schedule `15,45 17 * * *`，deliver=origin）：跑 `scripts/deliver_cb.py`，**stdout 非空=原样投递、空=静默**。17:15 首投（正常情况）；17:45 重试（Job A 慢时补投，DeepSeek 过载日 Job A 可能 17:30+ 才完成）
+- **`deliver_cb.py` 三个核心机制**：
+  1. **幂等标记**：`output/_cb_delivered.txt` 记录上次投递时草稿的 mtime；草稿 mtime == 标记 → 已投递 → 静默（防 17:15/17:45 双投）
+  2. **投递守卫**：正常日报须 ≥5000 字符且以 `⚡` 开头；"无新动态"短内容（<2000 字含"无新动态"）也放行；内容异常 → 输出告警不投递（防半截日报/格式污染）
+  3. **大声失败**：草稿+存档都缺失且 ≥17:40 → 输出显式告警"跨境日报生成失败…"；17:15 时段静默（Job A 可能还在跑）。**"文件缺失→报错"而非"无新动态"**（Opus 指出原兜底分支有毒：写盘失败伪装成正常无新闻日）
+- 存档兜底：草稿缺失但存档 `archives/crossborder/YYYY-MM-DD.md` 今天存在 → 读存档投递
+- 健康检查 cron（`日报投递检查-跨境` 4267ecb32b42）同步调到 17:45（Job A 17:00-17:30 完成后才查）
+- **cronjob create 坑**：`script` 参数必须是相对 `~/AppData/Local/hermes/scripts/` 的文件名（如 `deliver_cb.py`），绝对路径报错 "Script path must be relative to ~/.hermes/scripts/"
+- 验证：8/8 分支 ad-hoc 验证 PASS（首次投递/幂等/存档兜底/mtime 重投/守卫拒投/无新闻日/缺文件不抛异常）；**执行代码验证脚本时用 execute_code 直接 import 模块 + monkeypatch 路径常量到临时目录，避免 Temp 脚本自激循环**（比写 hermes-verify-*.py 更干净）
+- 完整方案（Opus A/B/C/D 评审原文要点/deliver_cb.py 逻辑/验证断言）：`references/delivery-separation-2026-08.md`
 
 ## Opus 关键词审查工作流（可复用）
 配置文件/关键词库要外部模型审查时：
@@ -197,7 +216,7 @@ TrendRadar 自身无数量门槛（fetcher 全收，仅域名安全检查 `expec
 ## 用户偏好（本任务类）
 - 监控系统：事件驱动、平时静默；异常才告警；无新增不推空消息
 - 推送节奏（2026-08-07 定稿，**双日报**）：
-  - **跨境日报 17:00**（cron `TrendRadar跨境日报` f4506e87cc69，2026-08-12 从 16:00 调整避 DeepSeek 下午高峰）：`prepare_candidates.py --crossborder-only`（24h 窗口、三通道、去重后全推、独立消息）。顶部 Opus 设计的**模块化 AI 分析**（⚡今日速览 / 🏛政策风向 / 🛒平台规则 / 📈市场与成本 / 🧰实战参考 / 📖小白词典 / ✅今天该做的一件事，900-1200 字，小白教学风）+ 新闻清单（中文标题 + 2-3 句带数字摘要 + 链接；英文源「中文译名（English original title）」+🔤 标记）
+  - **跨境日报 17:00**（cron `TrendRadar跨境日报` f4506e87cc69，2026-08-12 从 16:00 调整避 DeepSeek 下午高峰；**2026-08-13 起生成/投递分离**：Job A 17:00 生成不投递 → Job B no_agent 投递 `deliver_cb.py` 17:15/17:45 读文件投递，见「生成/投递分离架构」）：`prepare_candidates.py --crossborder-only`（24h 窗口、三通道、去重后全推、独立消息）。顶部 Opus 设计的**模块化 AI 分析**（⚡今日速览 / 🏛政策风向 / 🛒平台规则 / 📈市场与成本 / 🧰实战参考 / 📖小白词典 / ✅今天该做的一件事，900-1200 字，小白教学风）+ 新闻清单（中文标题 + 2-3 句带数字摘要 + 链接；英文源「中文译名（English original title）」+🔤 标记）
   - **5 类日报 11:00**（cron `TrendRadar五类日报` 970113abe8a7，2026-08-12 从 9:30 调整避 DeepSeek 早高峰）：`prepare_candidates.py --hot-only --pushed-file pushed_five.json`（**纯热榜白名单**通道、24h 窗口、去重后全推）。**投资视角分析**（⚡速览 / 🇺🇸美股与纳指 / 🥇黄金 / 🇨🇳中国科技 / 🤖AI半导体 / 🌐宏观与政策 / 📌对投资的提示，700-1000 字，**不喊单不给买卖建议**，非小白教学）+ 新闻清单（5 板块）
   - 两日报**独立防重复文件**（pushed_titles.json / pushed_five.json），互不干扰；用户原话："早上9.30推送一次吧 一天只推送这一次"
   - 旧方案"每天 2 次（09:10/18:10）+ 精选 10-20 条"已废弃（用户改要 16:00 单窗口 + 全推）
@@ -222,3 +241,4 @@ TrendRadar 自身无数量门槛（fetcher 全收，仅域名安全检查 `expec
 - `references/daily-report-review-2026-08.md` — 日报投递前自动审查机制（三层质检/L1 模型选择/cron 第 4.5 步/Codex CLI 调用姿势/extract_json 陷阱/验证方法）
 - `references/daily-report-cron-spec-2026-08.md` — 双日报 cron prompt 规范精炼版（跨境 16:00 + 5 类 9:30 的完整步骤/模块结构/硬规则/存档格式）——改日报格式以此为准并同步更新
 - `references/deepseek-overload-avoidance-2026-08.md` — DeepSeek 过载避峰方案（延迟时间模式数据表/api_probe+report_gen_qwen 脚本/验证断言/cron 第 0 步集成设计/待办）
+- `references/delivery-separation-2026-08.md` — 生成/投递分离架构（方案 C+D：Opus 四方案评审/deliver_cb.py 逻辑与验证/Job A/B cron 设计/可迁移设计原则）

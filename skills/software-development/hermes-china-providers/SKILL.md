@@ -337,7 +337,9 @@ reference_models:
 For current pricing comparison of major Chinese LLM providers (DeepSeek, Kimi, GLM, Qwen), see:
 [`references/chinese-llm-pricing.md`](references/chinese-llm-pricing.md)
 
-Last updated 2026-06-29. Includes scraping methodology (Chrome CDP for JS-rendered pages), DeepSeek peak/off-peak pricing (July 2026), and per-provider accessibility notes.
+Last updated 2026-08-13. Covers: **DeepSeek 8/17 官方涨价方案**（峰谷新价表：flash 输出 2→4.5 空闲/9 高峰，pro 6→13.5/27；用户 622M/月用量估算 79→~270-320 元，3-4 倍）、qwen3.7/3.8-max、Kimi K3、GLM-5.2 按量价，以及 **Token Plan 对比**（OpenCode Go $10/月 ≈72 元最优候选、百炼 Standard 139 元临界+禁自动化、智谱 GLM 积分公式 Lite 只够 24%、Kimi 会员无法供 Hermes 使用）。
+
+🔴 **DeepSeek 涨价后成本结论（2026-08-13）**：涨价后仍是碾压性最便宜（flash 高峰输出 9 vs 千问 36 vs K3 100）；预算敏感时优先"用量工程"（错峰 -45%、上下文瘦身 -50%）而非换模型/买套餐——错峰依赖用户接受非高峰使用（用户已否决"等非高峰再用"），套餐路径优先试 OpenCode Go（无禁自动化条款 + 官方"可配合任何代理"）。
 
 ### 阿里云百炼 vs 官网直连定价对比
 

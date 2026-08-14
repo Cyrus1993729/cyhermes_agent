@@ -4,7 +4,7 @@
 §
 网络：代理127.0.0.1:7897通X+Startpage；Google需CAPTCHA。Bing直连。
 §
-长prompt用stdin重定向<file(勿用引号disallowedTools+$(cat f)组合→Permission deny rule崩)
+长prompt用stdin重定向<file(勿用disallowedTools+$(cat f)组合)
 §
 delegate_task不支持per-call provider，子代理继承父模型。L1审查走execute_code直连qwen-bailian API。审查脚本: scripts/qwen_review.py，skill: l1-review+sprint-contract。memory: MEMORY.md/USER.md，§分隔。
 §
@@ -22,7 +22,7 @@ TG投递:池耗尽清_request[1];Clash节点111-OVH;cron assume-delivered静默�
 §
 5步闭环:①契约(Opus审)→②闸门→③执行→④审查(L1+Opus)→⑤复盘。审查全自动≤3轮修复。用户只在契约确认+交付时介入。投资分析须Opus sign-off。
 §
-Tavily=Hermes搜索后端(web.backend=tavily),key在Desktop/各类api key/。后备Bing直连curl --noproxy '*'。
+Tavily=Hermes搜索后端,key在Desktop/各类api key/。后备Bing直连curl --noproxy '*'。
 §
 高德MCP已配,key在Desktop/各类api key/,静态地图参数location非center。
 §
@@ -30,10 +30,12 @@ Tavily=Hermes搜索后端(web.backend=tavily),key在Desktop/各类api key/。后
 §
 两台电脑:高配=WorkBuddy(A2A)+Codex;本机=Hermes+ClaudeCode+Codex。EigenFlux CLI装D:\eigenflux(邮箱335751596@qq.com),只DM不订阅广播;CLI用PowerShell包装防guard误判。多agent愿景:同步讨论非文件接力,Claude/Codex啃难+Hermes啃易;成本敏感按需勿常驻;三agent暂缓。
 §
-TrendRadar双日报(跨境16:00+5类9:30 hot-only)→TG。管线:crossborder_fetcher+fetch_summaries+prepare_candidates(--crossborder-only/--hot-only,url防重复)。关键词v1.1。子进程unset PYTHONPATH。调度:采集=Windows计划任务TrendRadarHourly/TrendRadarCrossborder跑bat,Hermes cron只读库编辑。坑(08-08):bat必须ASCII+mkdir,UTF-8中文注释被cmd GBK误解析致任务全失败;watchdog run.log缺失曾静默→已改告警+触发。详见复盘2026-08-07
+TrendRadar双日报→TG:5类11:00(从9:30避DeepSeek早高峰)+跨境17:00生成/17:15&17:45投递(方案C+D分离:Job A写_draft_cb不投递,Job B no_agent deliver_cb.py读文件投递,幂等mtime标记)。管线:crossborder_fetcher+fetch_summaries+prepare_candidates(--crossborder-only/--hot-only)。关键词v1.1。子进程unset PYTHONPATH。bat必须ASCII+mkdir。详见skill trendradar-operations
 §
 用户常要"助手答一次+Opus答一次"双方案对比后拍板；先实测给数据再答复。多帖分析后的"如何应用"思考→逐帖独立Opus prompt并行，不打包成大prompt(08-08纠正)。
 §
 深度分析交付：逐帖独立思考（每帖一个Opus prompt并行跑），不搞多帖大杂烩（用户原话：挨个思考，不要一股脑塞给opus）。
 §
-cron模型(8/11):默认deepseek-v4-flash,qwen仅DeepSeek拥堵难恢复时临时切;fallback只救挂不救慢。日报审查=daily_report_review.py(L0+GPT5.6/CodexCLI,--model gpt默认)。投递铁律:最终回复输出完整日报勿自行分段(系统自动拆条,08-11致丢2/3)。金价认上海金非COMEX。
+cron(8/13):deepseek-v4-flash默认,qwen仅拥堵应急;日报避峰改11:00/17:00+api_probe体检+qwen引擎兜底。审查=daily_report_review.py(GPT5.6)。投递铁律:最终回复=完整日报;跨境第6步read_file钉死(验证总结顶包8/12-13连犯,措辞修复无效)。金价认上海金。
+§
+订阅:GPT 20$/月(Codex)+Claude 20$/月,GPT除双模型评审外可替代Claude,评估停Claude中
