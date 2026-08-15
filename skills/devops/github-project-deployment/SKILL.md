@@ -9,8 +9,7 @@ description: Use when 用户发 GitHub 链接要求了解项目/规划部署。�
 
 ## 评估阶段（部署前，用户说"了解/讨论"时）
 
-1. **抓仓库页**：`web_extract` GitHub 主页。README 超长时输出会被截断（head+tail），**完整文本已存到 `C:\Users\<user>\AppData\Local\hermes\cache\web\<repo>-<hash>.md`**，输出尾部会给出路径。
-2. **缓存文件内定位关键章节**：`search_files` 在缓存 md 里查 section 锚点。
+1. **抓仓库页**：`web_extract` GitHub 主页。README 超长时输出会被截断（head+tail），**完整文本已存到 `C:\Users\<user>\AppData\Local\hermes\cache\web\<repo>-<hash>.md`**，输出尾部会给出路径。2. **缓存文件内定位关键章节**：`search_files` 在缓存 md 里查 section 锚点。
    - 用**简单单词查询**：`快速开始`、`Docker`、`uv`、`部署`、`安装`（区分大小写！）
    - 别用复杂正则（行首锚定 `^#{2,4}` + 中文交替）——转换后的 markdown 不匹配，0 命中白费一轮
    - 命中后 `read_file` 带 offset 翻页精读
@@ -22,6 +21,19 @@ description: Use when 用户发 GitHub 链接要求了解项目/规划部署。�
    本机基线（2026-08）：docker ❌ 未装，uv ✅ 0.11.16，git ✅ 2.54，python ✅ 3.11.15，WSL2+Ubuntu ✅。
 5. **输出结构**：项目一句话定位 + 核心功能列表 + 本机环境现状表 + 部署路线对比表 + 需准备的凭证/配置 + 推荐路线 + 网络提醒（中国网络项目：TG 等墙外 API 要代理，国内 API 直连）。
 6. **闸门**：问用户走哪条路，等拍板。拍板后才出部署契约（参考 sprint-contract：步骤/配置文件/验证点）。
+
+### 功能真实性验证（用户问"这功能是噱头还是真的有用/值不值得用"时）
+
+README 是宣传，判断功能是否真实可靠必须**读源码**，不读 README 卖点。2026-08-15 Hermes Studio 群聊评估实踩出的有效路径：
+
+1. **GitHub API 拉文件树**：`https://api.github.com/repos/<owner>/<repo>/git/trees/<branch>?recursive=1` → 找目标功能的服务端实现文件（`server/src/services/...`）。文件多 + 有 `tests/` 测试目录 + 有变更记录（`docs/changes/`）→ 重度开发模块，非演示玩具。
+2. **读核心服务文件**（用 raw.githubusercontent.com 拉 .ts/.py 源文件）：
+   - **执行器类型**：找 `agent: 'hermes' | 'ekko' | 'codex' | 'claude'` 这类字段——Agent 是真实拉起外部 CLI 干活，还是纯聊天模拟。这是"真协同 vs 噱头"的分水岭。
+   - **状态机/持久化**：有 outbox/inbox/attempt/chain 表、重试、租约、幂等 → 认真实现；只有 UI 层 → 演示。
+   - **上下文传递机制**：多 Agent 间是"独立上下文 + 文本投影"（`[名字]: 内容` 注入）还是共享状态。前者是常见务实架构，不算缺点，但要向用户讲清"不是共享大脑"。
+3. **判断结论给用户时**：功能真 ≠ 对用户有用。对照用户实际工作流给出"值不值得装"的结论——本次结论：群聊对不做软件开发的用户增量有限，Web UI 面板（成本中心/cron/Kanban）才是真实价值。**别让用户为宣传买单。**
+
+> 📎 完整实踩记录（Hermes Studio 评估、源码路径、判定细节）见 [`references/hermes-studio-eval.md`](references/hermes-studio-eval.md)
 
 ## 部署执行阶段（用户确认后）
 
@@ -45,3 +57,4 @@ description: Use when 用户发 GitHub 链接要求了解项目/规划部署。�
 ## 支持文件
 
 - `references/trendradar.md` — TrendRadar 侦察存档：部署三路线/镜像/配置布局/中国网络要点/本机环境，下次直接部署时复用，免重新抓取。
+- `references/hermes-studio-eval.md` — Hermes Studio 评估实踩：功能真实性验证方法（读源码判定噱头 vs 真协同）、群聊模块源码路径、产品名确认坑（封面 OCR 误读 Holmes/Hermes）、对用户的价值结论。

@@ -79,6 +79,28 @@ Protocol for cleaning already-bloated stores:
 4. **`remove` the siblings** — use a unique substring from each (the first 8-10 characters that distinguish it).
 5. **Verify** the result — entries count should shrink, usage% should drop.
 
+## External-Model Review Cleanup (Opus 记忆审计工作流)
+
+当用户要求"把记忆发给 Opus/外部模型审查精简"（非自己直接清理）时，用本流程。2026-08-14 首跑验证，MEMORY 98%→60%、18→12 条。
+
+**用户约束（本次用户原话）**：不是盲目精简——①先删没必要的记忆 ②可合并且不影响未来执行效果的合并/精简。Opus 意见只是建议，用户逐条拍板后才执行。
+
+**步骤**：
+1. 读 `hermes/memories/MEMORY.md` + `USER.md` 全文（read_file）
+2. 组装**自包含** prompt（opus 子进程无会话上下文）：
+   - 背景：Hermes 持久记忆、每轮注入上下文、容量上限（MEMORY 2200 / USER 1375 字符）、**详细流程已固化进 skill 库，记忆只需留指针**、用户"不盲目精简"要求
+   - 材料：两份记忆全文（逐条编号）
+   - 任务：逐条判定「保留/合并（并入哪条）/删除/缩短」+ 一句理由；**跨库重复归属**（一个事实只住一个库：用户属性归 USER、环境实现归 MEMORY）；**矛盾/过时项**指出（如"须 Opus sign-off" vs "评估停 Claude"→改"Opus 优先，降级 GPT5.6/千问3.7Max 不得跳过"）；输出**可直接粘贴的新版全文**（含目标字符数）；最后给精简原则
+3. `claude -p --model opus --disallowedTools Read Write Edit Bash Glob Grep WebFetch WebSearch TodoWrite < prompt.md`（走 7897 代理，姿势见 trendradar-operations「Opus 审查工作流」）
+4. **我的判断对比**（用户习惯双视角）：同意处直接采纳；分歧处指出（如 Opus 按"偏好"写模型分层而实际配置不同，须按实际修正）
+5. 用户拍板 → 执行：`cp MEMORY.md MEMORY.md.bak_<日期>` 备份 → write_file 覆盖 → python 验证（字符数/条数/关键词存在性：删的已无、留的都在）
+6. 注意：**直接 write_file 覆盖 `memories/*.md` 可行**（memory 工具的持久层就是这两个文件）；USER.md 与 MEMORY.md 是独立文件，用户只授权一个时另一个别动
+
+**Opus 三条精简原则（可复用）**：
+1. **指针优于全文**：已固化进 skill/references 的操作步骤，记忆只留「入口 + 该 skill 不会写的踩坑结论」——skill 教怎么做，记忆记"别踩这个坑/这个 bug 还没修"
+2. **一个事实只住一个库**：用户属性/偏好归 USER，环境与实现细节归 MEMORY；跨库重复是最大可回收空间
+3. **时效信息设自毁标记**：带日期的待决项（涨价评估、迁移决策）单独成条并写明"定案后删本条"；已废止方案的否定式记忆直接删——记忆记的是"当前为真"，不是变更史
+
 ## Cleanup Workflow (Step by Step)
 
 Here's the concrete protocol used successfully in practice:

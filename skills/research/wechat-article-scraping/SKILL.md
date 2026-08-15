@@ -130,6 +130,28 @@ getmsg API 循环分页 → 全量文章（可到建号第一篇）
 逐篇加载正文 → 保存到知识库
 ```
 
+## 直接文章链接抓取（最快路径，首选）
+
+用户直接给出 `mp.weixin.qq.com/s/xxx` 文章链接时，**不需要搜狗、不需要 Playwright**：
+
+1. **首选 `web_extract` 直接抓** — 微信文章服务端渲染，正文可完整拿到（含图片链接、小标题层级）。一步到位。
+2. **需要元数据（公众号名/作者/发布时间）时**，curl + 浏览器 UA 下载整页：
+   ```bash
+   curl -s --noproxy '*' 'https://mp.weixin.qq.com/s/xxx' \
+     -H 'User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36' \
+     -o wx_article.html
+   ```
+   ⚠️ **不带 UA 必挂**：返回 2KB 的「未知错误，请稍后再试」页面（标题"未知错误"、含 `WeixinJSBridgeReady` 脚本）。这不是网络问题也不是链接失效，是 UA 校验——带 Chrome UA 才能拿到完整 ~3MB HTML。
+
+**元数据提取**（页面变量与 DOM）：
+- 公众号 ID：`var user_name = "gh_xxxxx"`
+- 发布时间：`var create_time = "1786665721"`（Unix 秒 → 转北京时间，可判断是否新文）
+- 公众号显示名：`<a id="js_name">一味君</a>`（⚠️ **不是** `var nickname`，该变量在部分页面不存在）
+- 作者：`<span id="js_author_name">跨境三人行</span>`
+- biz：部分页面无 `var __biz`；直接链接场景不需要它
+
+一键提取：`python scripts/extract_wechat_meta.py <html文件>`。
+
 ## 文章正文抓取
 
 拿到 `content_url` 后，用 Playwright 加载页面：

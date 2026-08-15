@@ -77,6 +77,8 @@ claude -p --model opus --disallowedTools "Read Write Bash" "$(cat prompt.md)"
 - prompt 里给足背景：子进程没有会话上下文，用户画像+主题内容必须自包含
 - 内容里有"未核实"信息（工具名、GitHub 地址、演示数据）要在 prompt 里明确标注，让 Opus 知道边界
 - 涉及投资/决策建议时，Opus 输出要保留原文免责声明（如 FriesTrader 的"不构成投资建议"），交付时带上
+- 🔴 **`claude -p` 输出文件可能被 read_file 误判 binary（2026-08-14 实踩）**：bash 重定向生成的 out.md 是 UTF-8 文本但含 CRLF 时，read_file 报 `Binary file - cannot display as text`（`file out.md` 仍显示 "Unicode text, UTF-8"）——不是真二进制。用 `python -c "open('out.md', encoding='utf-8').read()"`（terminal）读取即可；不要因此删掉输出重跑（Opus 单次 2-5 分钟成本）
+- 单篇分析（非多主题）同样适用本流程：一个自包含 prompt（用户画像+文章全文+聚焦任务+输出要求）后台跑，期间先交付 Hermes 视角，Opus 完成通知到达后再补对比（2026-08-14 验证）
 
 ## 参考实例
 
