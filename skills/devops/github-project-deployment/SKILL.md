@@ -32,8 +32,10 @@ README 是宣传，判断功能是否真实可靠必须**读源码**，不读 RE
    - **状态机/持久化**：有 outbox/inbox/attempt/chain 表、重试、租约、幂等 → 认真实现；只有 UI 层 → 演示。
    - **上下文传递机制**：多 Agent 间是"独立上下文 + 文本投影"（`[名字]: 内容` 注入）还是共享状态。前者是常见务实架构，不算缺点，但要向用户讲清"不是共享大脑"。
 3. **判断结论给用户时**：功能真 ≠ 对用户有用。对照用户实际工作流给出"值不值得装"的结论——本次结论：群聊对不做软件开发的用户增量有限，Web UI 面板（成本中心/cron/Kanban）才是真实价值。**别让用户为宣传买单。**
+4. **🔴 信任边界优先（2026-08-15 Opus sign-off 沉淀，评估第三方工具第一步就查，别等外部模型提醒）**：功能路径（有没有用）与信任边界（安不安全）是两个独立问题，**后者优先**。Hermes 首次评估只读了功能路径，Opus 提醒后才补信任边界——以后直接查：① listen 绑定（config 里 `BIND_HOST` 默认 0.0.0.0 还是 127.0.0.1；Hermes Studio 实测默认 **0.0.0.0**）；② 默认凭据（admin/123456 类）；③ 认证中间件/auth 模块是否存在；④ 沙箱/权限隔离；⑤ 邀请码/外联机制（能拉真人进"Agent 能执行命令"的房间 = RCE 结构）。Opus 无联网权限、只能转述批判，**Hermes 负责回源验证**（GitHub API 核实仓库/star，读 config.ts/security.ts 证实或证伪担忧），两边都做完再交付。
+5. **双视角 sign-off**：用户对装不装类决策可要求"同样的问题问 Opus"（见 `opus-deep-thinking` skill 单篇变体）。Opus 会抓功能盲点（如并发写冲突、上下文投影有损、token N 倍成本）——交付时明示"一致/分歧"，被说服就认。
 
-> 📎 完整实踩记录（Hermes Studio 评估、源码路径、判定细节）见 [`references/hermes-studio-eval.md`](references/hermes-studio-eval.md)
+> 📎 完整实踩记录（Hermes Studio 评估、源码路径、判定细节、Opus sign-off 全文要点）见 [`references/hermes-studio-eval.md`](references/hermes-studio-eval.md)
 
 ## 部署执行阶段（用户确认后）
 

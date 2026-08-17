@@ -15,11 +15,13 @@ import traceback
 PROXY = "http://127.0.0.1:7897"
 CACHE_ROOT = Path(os.environ.get("VIDEO_CACHE", 
     os.path.expanduser("~/.hermes/cache/video-pipeline")))
-# Read DeepSeek key robustly - try env, then file, then hardcoded path
-DEEPSEEK_KEY = (os.environ.get("DEEPSEEK_API_KEY", "") or "").strip()
+# Read OpenCode Go key robustly - try env, then file, then hardcoded path
+# 2026-08-16 迁移: DeepSeek 官方 API → OpenCode Go 套餐 (https://opencode.ai/zen/go/v1)
+DEEPSEEK_KEY = (os.environ.get("OPENCODE_GO_API_KEY", "") or os.environ.get("DEEPSEEK_API_KEY", "") or "").strip()
 if len(DEEPSEEK_KEY) < 10:  # too short = junk
     # Fallback: try reading from known key file locations
     for kf in [
+        Path(r"C:/Users/Administrator/Desktop/各类api key/opencode go api key.txt"),
         Path.home() / "deepseek_key.txt",
         Path("C:/Users/Administrator/deepseek_key.txt"),
         Path("C:/Users/Administrator/BiliSum/.env"),
@@ -561,15 +563,15 @@ BV号：{bvid}
 
     import requests
     try:
-        print(f"[summary] Sending to DeepSeek ({len(transcript)} chars)...")
+        print(f"[summary] Sending to OpenCode Go deepseek-v4-flash ({len(transcript)} chars)...")
         resp = requests.post(
-            "https://api.deepseek.com/v1/chat/completions",
+            "https://opencode.ai/zen/go/v1/chat/completions",
             headers={
                 "Authorization": f"Bearer {key}",
                 "Content-Type": "application/json",
             },
             json={
-                "model": "deepseek-chat",
+                "model": "deepseek-v4-flash",
                 "messages": [{"role": "user", "content": prompt}],
                 "temperature": 0.3,
                 "max_tokens": 4096,
@@ -589,7 +591,7 @@ BV号：{bvid}
             "_meta": {
                 "tokens": usage.get("total_tokens", 0),
                 "cost_estimate": f"¥{usage.get('total_tokens', 0) * 0.000002:.4f}",
-                "model": "deepseek-chat",
+                "model": "deepseek-v4-flash",
                 "transcript_chars": len(transcript),
                 "ocr_lines": len(ocr_text.split("\n")) if ocr_text else 0,
                 "comments_count": len(comments),

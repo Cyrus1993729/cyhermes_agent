@@ -497,6 +497,50 @@ Worked case (2026-08-05 manual-shutdown kill, full timeline + api_server fatal e
 
 ---
 
+## Troubleshooting: Gateway 计划任务启动失败（VBS 陈旧 PYTHONPATH）
+
+### 症状（2026-08-16 实踩）
+
+`hermes gateway status` 显示 `✓ Scheduled Task registered` + `✗ No gateway process detected`。
+`schtasks /run /TN Hermes_Gateway` 返回 `成功: 尝试运行...`（exit 0），但 gateway 进程就是不出现。
+`logs/gateway-exit-diag.log` 无新的 `gateway.start` 记录（进程根本没进入启动流程）。
+
+### 诊断法（关键区分）
+
+1. **exit-diag 无记录 + schtasks exit 0** = 启动脚本内部失败（VBS 静默），不是 gateway 崩溃。
+2. **复现**：用 VBS 完全相同的环境变量前台跑（python.exe 代替 pythonw.exe 让错误可见）：
+   ```bash
+   cd ~/AppData/Local/hermes && HERMES_HOME='C:\...\hermes' PYTHONIOENCODING=utf-8 \
+     HERMES_GATEWAY_DETACHED=1 VIRTUAL_ENV='C:\...\hermes-agent\venv' \
+     PYTHONPATH='<VBS里第12/14行的PYTHONPATH原样>' \
+     "<uv python>/python.exe" -m hermes_cli.main gateway run
+   ```
+   崩溃点即根因。
+3. **历史启动全部是交互式 tty**（exit-diag `stdin_is_tty: true`）——计划任务/VBS 路径可能从未成功过，之前 gateway 都是手动 `hermes gateway start` 拉起的。
+
+### 根因（2026-08-16 实踩）
+
+`gateway-service/Hermes_Gateway.vbs` 与 `.cmd` 的 `PYTHONPATH` **首位**指向
+`C:\Users\Administrator\AppData\Local\Packages\Claude_pzs8sxrjxfjjc\LocalCache\Local\hermes\hermes-agent`
+——Claude 桌面版沙盒的**陈旧残缺拷贝**（有 `hermes_cli/main.py` 但缺 `hermes_cli/colors.py`）。
+它排在最前遮蔽真源码 → `ModuleNotFoundError: No module named 'hermes_cli.colors'` → pythonw 静默闪退。
+
+### 修复
+
+PYTHONPATH 首位换成真源码目录：
+```
+从: C:\...\Packages\Claude_pzs8sxrjxfjjc\LocalCache\Local\hermes\hermes-agent;...\venv\Lib\site-packages
+到: C:\Users\Administrator\AppData\Local\hermes\hermes-agent;C:\Users\Administrator\AppData\Local\hermes\hermes-agent\venv\Lib\site-packages
+```
+（vbs 有两处，用 patch replace_all；改前先 cp 备份 .bak-日期）。改完 `schtasks /run /TN Hermes_Gateway` 拉起，
+验证 `wmic process ... | grep "gateway run"` + gateway.log 出现 `✓ telegram connected` 三平台全连 + `hermes gateway status` 报 PID。
+
+> 注意：venv 的 editable 安装（`__editable__.hermes_agent-*.pth`）只对 venv python 生效；
+> VBS 用的是 uv python + PYTHONPATH 注入，所以必须显式把真源码目录放 PYTHONPATH 首位，
+> 只留 site-packages 会 `No module named 'hermes_cli'`。
+
+---
+
 ## Troubleshooting: WeChat iLink Disconnections (Windows + Clash Verge)
 
 ### Symptom

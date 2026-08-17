@@ -89,6 +89,19 @@ elif MODE == 'cb':
         except Exception:
             pass
 
+# Fallback 触发检测（费用/链路透明化：fallback 说明主模型当时不可用，触发频繁需排查主链路）
+AG_LOG = r'C:\Users\Administrator\AppData\Local\hermes\logs\agent.log'
+fb_count = 0
+if os.path.exists(AG_LOG):
+    try:
+        r = subprocess.run(['grep', '-c', f'{today}.*Fallback activated', AG_LOG],
+                           capture_output=True, text=True)
+        fb_count = int(r.stdout.strip() or 0)
+    except Exception:
+        pass
+if fb_count > 0:
+    alerts.append(f'⚠️ 今日模型 fallback 触发 {fb_count} 次（主模型当时不可用已切备用渠道；备用渠道可能按量付费，触发频繁请排查主链路）')
+
 # TG 断连通用告警
 if tg_err > 0:
     alerts.append(f'⚠️ 今天 TG 连接出现 {tg_err} 次断连（节点问题）——日报可能投递失败，若没收到请告诉我补发')

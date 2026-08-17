@@ -18,8 +18,12 @@ TG投递:池耗尽清_request[1];Clash节点111-OVH;cron assume-delivered会静�
 §
 TrendRadar双日报→TG:5类11:00+跨境17:00生成,17:15&17:45投递(方案C+D分离:Job A写_draft_cb不投递,Job B no_agent deliver_cb.py读文件投递,mtime幂等)。详见skill trendradar-operations。
 §
-模型分层:交互/生成deepseek-v4-pro,批量日报v4-flash,qwen仅拥堵应急。cron:日报11:00/17:00+双次api_probe体检(候选后二次探测防波动过载);审查daily_report_review.py(GPT5.6)。投递铁律:最终回复=完整日报(read_file钉死)。金价认上海金。
+模型分层:交互/生成deepseek-v4-flash,批量日报v4-flash,MoA聚合deepseek-v4-pro,qwen仅拥堵应急。2026-08-16起DeepSeek官方API已全迁OpenCode Go套餐(.env OPENCODE_GO_API_KEY,内置provider opencode-go,端点opencode.ai/zen/go/v1;qwen走自定义opencode-go-anthropic=Anthropic协议;Go无Opus/GPT,官方key已注释留回滚)。cron:日报11:00/17:00+双次api_probe体检(候选后二次探测防波动过载);审查daily_report_review.py(GPT5.6)。投递铁律:最终回复=完整日报(read_file钉死)。金价认上海金。
 §
 投资分析/技术方案须外部大模型sign-off:Opus优先,停订阅则降级GPT5.6/千问3.7Max,不得跳过。审查全自动≤3轮修复,用户只在契约确认+交付时介入。
 §
 MSYS bash下原生Windows程序(curl/python)不认~/路径参数:curl -o ~/...报exit 23, python ~/script.py报"C:\c\..."路径错。先cd到目标目录用相对路径,或传Windows绝对路径。
+§
+OpenCode Go直连坑:urllib默认UA被403拦截,必须带User-Agent: curl/8.0.0(requests库不受影响,脚本已加)。gateway重启必须用户手动:会话内任何方式(sleep/schtasks包装)都被安全拦截;schtasks /end显示成功但不杀进程;桌面客户端重启≠gateway;最可靠=重启电脑,或用户双击杀PID脚本后schtasks /run。
+§
+API故障处理策略(用户2026-08-16定调):遇故障先排查+自动重试(cron双触发17:00/17:10+幂等SILENT),fallback是最后手段(按量付费增费用)勿轻易触发。fallback链已配:deepseek官方(独立,内联key)→opencode-go-anthropic(同源兜底),主链路仍全走Go订阅。

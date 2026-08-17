@@ -4,7 +4,8 @@
 - 首月 $5，之后 $10/月；支付宝可付；Zen 余额可作超出限额后的回退
 - 全局限制：**$12/5小时（滚动）、$30/周、$60/月**（美元价值，不是次数）
 - 额度两档：便宜模型 **$60/月**、旗舰模型 **$15/月**（**按模型隔离，不共享池**）
-- 支持 OpenAI 兼容 API（`https://opencode.ai/zen/go/v1/chat/completions`），可接 Hermes/OpenClaw/Pi/Codex（bitdoze 实测）
+- 支持 OpenAI 兼容 API（**OpenCode Go base_url: `https://opencode.ai/go/v1`**——2026-08-15 实测确认，非 zen/go 路径；Anthropic 兼容模型走 `https://opencode.ai/go/v1/anthropic`），可接 Hermes/OpenClaw/Pi/Codex（bitdoze 实测）
+- **一 key 多模型**：Go 全部 18 模型共用一个 API key，Hermes 里配一个 provider（base_url+key）即可，切换模型只改 `model` 字段
 - 服务器美国/欧盟/新加坡，国内需代理
 
 ## 18 模型定价表（输入/输出/缓存读取，$/1M tokens）
@@ -43,11 +44,13 @@
 
 OpenCode Go 的 Flash 定价（$0.14/$0.28/$0.0028）≈ 官方人民币价按 7.14 汇率直转，**官方涨价后大概率同步调价**。
 
-## 本机用量画像（2026-08-01~14 实测，agent.log）
-- 总调用 2000 次：**日报 cron 371 次（19%）+ 日常对话 1629 次（81%）**——对话是大头
-- 平均每次输入 198K tokens（含缓存，命中率 98%，未命中 ~4K）
-- 5h 窗口峰值：平时 50-150 次，重活日（8/7）415 次
-- 单次日报会话 21-101 次 API 调用（DeepSeek 过载日更多）
+## 本机用量画像（2026-08-15 实测，state.db session_model_usage 全量 30 天，deepseek provider）
+- **deepseek-v4-flash**（deepseek provider，30 天）：调用 2548 次，输入 6.7M + 输出 2.6M + **缓存读 395M** tokens → Go 定价 $2.77
+- **deepseek-v4-pro**：调用 6608 次，输入 15.0M + 输出 3.5M + **缓存读 822M** → Go 定价 $12.52
+- **合计 $15.28/月，日均 $0.51，峰值单日 $0.88（6-15，680 次调用）**
+- 对照 Go 限额：5h 窗口仅占 ~4-7%（撞墙需 13 倍历史峰值）、周 $3.57（12%）、月（25%）→ **全迁无压力**
+- 缓存读是 input 的 20-50 倍（长上下文 agent 常态）——定价必须按缓存价算，成本主要来自 cache 之外的部分
+- MoA aggregator（deepseek-v4-pro 6608 次调用）是调用次数大头；审查(qwen 百炼直连)和 sign-off(Opus/GPT)本就不走 DeepSeek 账单
 
 ## 分情景测算（整月外推：~800 次日报 / ~4000 次全部）
 | 情景 | Flash | MiMo | Pro | Luna | GLM | Grok/K3/Qwen3.8Max |

@@ -79,6 +79,8 @@ claude -p --model opus --disallowedTools "Read Write Bash" "$(cat prompt.md)"
 - 涉及投资/决策建议时，Opus 输出要保留原文免责声明（如 FriesTrader 的"不构成投资建议"），交付时带上
 - 🔴 **`claude -p` 输出文件可能被 read_file 误判 binary（2026-08-14 实踩）**：bash 重定向生成的 out.md 是 UTF-8 文本但含 CRLF 时，read_file 报 `Binary file - cannot display as text`（`file out.md` 仍显示 "Unicode text, UTF-8"）——不是真二进制。用 `python -c "open('out.md', encoding='utf-8').read()"`（terminal）读取即可；不要因此删掉输出重跑（Opus 单次 2-5 分钟成本）
 - 单篇分析（非多主题）同样适用本流程：一个自包含 prompt（用户画像+文章全文+聚焦任务+输出要求）后台跑，期间先交付 Hermes 视角，Opus 完成通知到达后再补对比（2026-08-14 验证）
+- **触发短语**：用户说"同样的问题，你去问一下opus"/"你问下Opus" = 把当前问题原样交给 Opus 独立评估（单主题变体，用上一条的流程）
+- **事实核查分工（2026-08-15 Hermes Studio 评估实踩，交付前必做）**：Opus 无联网权限，无法核实仓库真实性/star/具体配置默认值，它自己会声明"无法验证"。Hermes 的职责是**回源验证后再交付**：① Opus 声称无法核实的（仓库是否存在、star 是否真实）→ 用 GitHub API 核实；② Opus 提出的具体技术担忧（如"Web 端口默认没绑 127.0.0.1"）→ 直接查源码/config 确认或证伪，把"担忧"升级为"事实"（本次查 config.ts 证实 BIND_HOST 默认 0.0.0.0 + 默认账号 admin/123456，同时发现认证模块其实存在——两边都要报，别只报坏消息）。分工：Opus 负责机制批判，Hermes 负责事实核查，两边做完交付物才可信
 
 ## 参考实例
 

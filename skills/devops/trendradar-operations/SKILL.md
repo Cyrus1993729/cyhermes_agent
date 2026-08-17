@@ -151,6 +151,18 @@ TrendRadar 自身无数量门槛（fetcher 全收，仅域名安全检查 `expec
 6. 修复后**自动化验证**（用户偏好：全自动，不要让他手动操作/验证）：`MSYS_NO_PATHCONV=1 schtasks /run /tn TrendRadarCrossborder`（和 TrendRadarHourly）直接触发计划任务——**等价生产环境**（绕开 bash→cmd 的路径转换问题，比 cmd /c 复现更真实）→ sleep 后检查 `output/logs/crossborder.log` 非空 + `output/news/YYYY-MM-DD.db` 生成 + 漏斗有候选。**不要**用 `--pushed-file` 补推旧数据（会污染防重复记录）；数据恢复后可用 `cronjob run <jobid>` 补推当天错过的日报（候选非空时）
    - 注意：`cmd /c "D:\...\xxx.bat"` 从 bash 调 bat 常报 `The system cannot find the path specified`（重定向目录不存在）或路径转换问题——**验证一律用 schtasks /run**，不要用 cmd /c 复现（其报错与生产环境可能不同，会误导诊断）
 
+## 生成任务失败（Job A error）恢复流程 —— 2026-08-16 实踩（opencode 网关瞬时故障）
+症状：Job A `last_status=error`；cron 输出文件是 `# Cron Job: ... (FAILED)` 报告（read_file 可能判 binary，用 python 读确认）；`_draft_cb.txt` mtime 停在昨天；`archives/crossborder/` 无今日 md。
+定位：agent.log 该 cron 会话（`session=cron_<jobid>_...`）看失败模式——`APIConnectionError` 连接挂起（60s）+ fallback 也 503 `Endpoint is unavailable` = **网关瞬时故障（自愈型）**；401/404/模型名错 = 配置问题。**判断"配置 bug vs 瞬时故障"黄金标准：故障窗口后同配置手动重跑立即成功**（2026-08-16 17:00 故障、17:53 重跑成功）。
+恢复（✅ 2026-08-16 实测有效，全自动零人工）：
+1. `python C:/Users/Administrator/AppData/Local/hermes/scripts/api_probe.py` → 输出 OK 再继续（没恢复就等几分钟）
+2. `cronjob run <JobA id>` 重跑生成——deliver=local 不投递、不污染 pushed 记录，幂等安全
+3. 验证：`_draft_cb.txt` 今天 mtime + ⚡ 开头 + ≥5000 字符；存档今天存在
+4. 已过 17:45 自动投递点 → `cronjob run <JobB id>` 手动投递
+5. 验证投递成功：`_cb_delivered.txt` 内容 == 草稿 mtime + agent.log `Job 'e8e436bbf9b1': delivered to telegram`
+⚠️ **17:45 的 Job B 自动触发会输出"⚠️ 跨境日报生成失败"告警**（deliver_cb.py 大声失败设计：草稿+存档均非今天且 ≥17:40）——**这是设计行为不是二次故障**，修复过程中用户收到该告警属正常；修复完成后手动投递日报即覆盖。
+🔴 **Fallback 同源缺陷（2026-08-16 暴露）**：当时 fallback_model（qwen3.7-max @ opencode-go-anthropic）与主模型同一 opencode.ai 网关 → 网关整体挂时 fallback 形同虚设。修复方案（Opus 审查通过，待用户确认）：fallback_providers 加内置 deepseek 官方 API 作第一层 + Job A schedule 双触发点（`0,10 17 * * *`）+ prompt 幂等 [SILENT] 检查。详见 hermes-china-providers「OpenCode Go fallback 链设计」。
+
 ## 投递环节故障（日报生成成功但用户没收到）—— 2026-08-08 实踩
 症状：cron 输出文件里有**完整日报**、`last_status=ok`、`last_delivery_error=null`，但用户没收到任何消息。与"采集停摆"的区别：候选漏斗正常（几十条）、`archives/crossborder/` 有当日存档。
 根因链：
@@ -194,7 +206,7 @@ TrendRadar 自身无数量门槛（fetcher 全收，仅域名安全检查 `expec
 连续两天"验证总结顶包日报"（8/12、8/13）后用户拍板采纳 Opus 方案 C+D——**根治"LLM 在正确时刻说出正确话"这个脆弱契约**：cron agent 不再负责投递，投递交给独立 no_agent 脚本读文件。核心原则（Opus）：**不要让 LLM 当字节的搬运工**；交付是动作不是话；控制面（对话）与数据面（文件）分离。
 
 **架构**：
-- **Job A 生成任务**（`TrendRadar跨境日报` f4506e87cc69，17:00，**deliver=local 不投递**）：prompt 改——第 4.5 步审查修复后覆盖写 `output/_draft_cb.txt`（投递任务唯一内容来源）；第 6 步=一行完成确认；🔴 铁律：全程禁止中间 text response 输出日报正文（只写文件，中间步骤以 tool call 收尾）、禁止自创验证脚本、无新闻日也写草稿（内容"📦 今日跨境无新动态…"）、生成失败**不更新** _draft_cb.txt（投递任务靠 mtime 检测告警）
+- **Job A 生成任务**（`TrendRadar跨境日报` f4506e87cc69，**schedule `0,10 17 * * *` 双触发**（2026-08-16 加 17:10 重试点：17:00 失败自动重试，幂等靠 prompt 最前面的【前置检查：幂等性】——检查 _draft_cb.txt mtime 是否今天，已生成则回复 [SILENT] 退出），deliver=local 不投递）：prompt 改——第 4.5 步审查修复后覆盖写 `output/_draft_cb.txt`（投递任务唯一内容来源）；第 6 步=一行完成确认；🔴 铁律：全程禁止中间 text response 输出日报正文（只写文件，中间步骤以 tool call 收尾）、禁止自创验证脚本、无新闻日也写草稿（内容"📦 今日跨境无新动态…"）、生成失败**不更新** _draft_cb.txt（投递任务靠 mtime 检测告警）
 - **Job B 投递任务**（`TrendRadar跨境日报投递` e8e436bbf9b1，**no_agent**，schedule `15,45 17 * * *`，deliver=origin）：跑 `scripts/deliver_cb.py`，**stdout 非空=原样投递、空=静默**。17:15 首投（正常情况）；17:45 重试（Job A 慢时补投，DeepSeek 过载日 Job A 可能 17:30+ 才完成）
 - **`deliver_cb.py` 三个核心机制**：
   1. **幂等标记**：`output/_cb_delivered.txt` 记录上次投递时草稿的 mtime；草稿 mtime == 标记 → 已投递 → 静默（防 17:15/17:45 双投）
