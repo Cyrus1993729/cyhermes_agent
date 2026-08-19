@@ -34,7 +34,7 @@
     "last_viewed_at": "2026-07-14T04:29:50.472064+00:00",
     "patch_count": 4,
     "pinned": false,
-    "state": "active",
+    "state": "stale",
     "use_count": 4,
     "view_count": 4
   },
@@ -99,7 +99,7 @@
     "last_viewed_at": "2026-07-14T07:01:36.156930+00:00",
     "patch_count": 11,
     "pinned": false,
-    "state": "active",
+    "state": "stale",
     "use_count": 15,
     "view_count": 15
   },
@@ -315,10 +315,10 @@
     "archived_at": null,
     "created_at": "2026-06-03T07:30:17.716294+00:00",
     "created_by": "agent",
-    "last_patched_at": "2026-08-10T04:06:33.449977+00:00",
+    "last_patched_at": "2026-08-17T05:27:21.083061+00:00",
     "last_used_at": "2026-08-10T04:06:25.055685+00:00",
     "last_viewed_at": "2026-08-10T04:06:25.047884+00:00",
-    "patch_count": 64,
+    "patch_count": 66,
     "pinned": false,
     "state": "active",
     "use_count": 64,
@@ -380,14 +380,14 @@
     "archived_at": null,
     "created_at": "2026-06-16T07:25:31.560785+00:00",
     "created_by": "agent",
-    "last_patched_at": "2026-08-16T23:52:05.937555+00:00",
-    "last_used_at": "2026-08-16T10:21:14.555232+00:00",
-    "last_viewed_at": "2026-08-16T10:21:14.543240+00:00",
-    "patch_count": 53,
+    "last_patched_at": "2026-08-17T22:13:29.873916+00:00",
+    "last_used_at": "2026-08-17T22:13:12.902022+00:00",
+    "last_viewed_at": "2026-08-17T22:13:12.893983+00:00",
+    "patch_count": 59,
     "pinned": false,
     "state": "active",
-    "use_count": 45,
-    "view_count": 45
+    "use_count": 48,
+    "view_count": 48
   },
   "hermes-memory-hygiene": {
     "archived_at": null,
@@ -398,7 +398,7 @@
     "last_viewed_at": "2026-08-14T13:39:19.966393+00:00",
     "patch_count": 20,
     "pinned": false,
-    "state": "stale",
+    "state": "active",
     "use_count": 20,
     "view_count": 20
   },
@@ -437,7 +437,7 @@
     "last_viewed_at": "2026-07-14T04:44:00.449854+00:00",
     "patch_count": 3,
     "pinned": false,
-    "state": "active",
+    "state": "stale",
     "use_count": 3,
     "view_count": 3
   },
@@ -450,7 +450,7 @@
     "last_viewed_at": "2026-07-13T14:52:32.977830+00:00",
     "patch_count": 13,
     "pinned": false,
-    "state": "active",
+    "state": "stale",
     "use_count": 9,
     "view_count": 9
   },
@@ -511,12 +511,12 @@
     "created_at": "2026-07-02T00:10:37.479388+00:00",
     "created_by": null,
     "last_patched_at": "2026-07-13T15:04:10.994437+00:00",
-    "last_used_at": "2026-08-10T02:20:37.785686+00:00",
+    "last_used_at": "2026-08-17T04:30:12.622388+00:00",
     "last_viewed_at": "2026-08-07T09:11:22.274176+00:00",
     "patch_count": 23,
     "pinned": false,
     "state": "active",
-    "use_count": 25,
+    "use_count": 27,
     "view_count": 21
   },
   "linear": {
@@ -554,7 +554,7 @@
     "last_viewed_at": "2026-07-14T08:25:43.749516+00:00",
     "patch_count": 38,
     "pinned": false,
-    "state": "active",
+    "state": "stale",
     "use_count": 34,
     "view_count": 34
   },
@@ -580,7 +580,7 @@
     "last_viewed_at": "2026-08-16T06:35:53.849228+00:00",
     "patch_count": 13,
     "pinned": false,
-    "state": "stale",
+    "state": "active",
     "use_count": 11,
     "view_count": 11
   },
@@ -719,12 +719,12 @@
     "created_at": "2026-07-01T16:17:38.869728+00:00",
     "created_by": null,
     "last_patched_at": "2026-07-03T14:19:44.366691+00:00",
-    "last_used_at": "2026-08-10T02:20:37.662375+00:00",
+    "last_used_at": "2026-08-17T04:30:12.491648+00:00",
     "last_viewed_at": "2026-07-13T13:03:46.273124+00:00",
     "patch_count": 8,
     "pinned": false,
     "state": "active",
-    "use_count": 16,
+    "use_count": 18,
     "view_count": 12
   },
   "research-report-analysis": {
@@ -810,12 +810,12 @@
     "created_at": "2026-07-01T23:27:50.641601+00:00",
     "created_by": null,
     "last_patched_at": "2026-07-21T04:58:37.342413+00:00",
-    "last_used_at": "2026-08-17T00:00:04.545312+00:00",
+    "last_used_at": "2026-08-17T04:30:12.216962+00:00",
     "last_viewed_at": "2026-08-06T15:02:30.774557+00:00",
     "patch_count": 21,
     "pinned": false,
     "state": "active",
-    "use_count": 19,
+    "use_count": 20,
     "view_count": 14
   },
   "subagent-driven-development": {
@@ -849,12 +849,12 @@
     "created_at": "2026-07-03T00:39:05.920452+00:00",
     "created_by": null,
     "last_patched_at": "2026-07-13T14:26:27.788096+00:00",
-    "last_used_at": "2026-08-10T02:20:37.535422+00:00",
+    "last_used_at": "2026-08-17T04:30:12.359768+00:00",
     "last_viewed_at": "2026-08-07T09:11:01.307499+00:00",
     "patch_count": 28,
     "pinned": false,
     "state": "active",
-    "use_count": 19,
+    "use_count": 21,
     "view_count": 15
   },
   "third-party-tool-evaluation": {
@@ -887,14 +887,14 @@
     "archived_at": null,
     "created_at": "2026-08-07T01:10:27.064653+00:00",
     "created_by": "agent",
-    "last_patched_at": "2026-08-16T10:27:44.047423+00:00",
-    "last_used_at": "2026-08-16T10:21:47.506150+00:00",
-    "last_viewed_at": "2026-08-16T10:21:47.498149+00:00",
-    "patch_count": 88,
+    "last_patched_at": "2026-08-17T00:44:06.448182+00:00",
+    "last_used_at": "2026-08-17T00:22:03.870358+00:00",
+    "last_viewed_at": "2026-08-17T00:22:03.860535+00:00",
+    "patch_count": 100,
     "pinned": false,
     "state": "active",
-    "use_count": 50,
-    "view_count": 50
+    "use_count": 52,
+    "view_count": 52
   },
   "video-understand-core": {
     "archived_at": null,
@@ -931,7 +931,7 @@
     "last_viewed_at": "2026-08-14T09:14:59.839939+00:00",
     "patch_count": 12,
     "pinned": false,
-    "state": "stale",
+    "state": "active",
     "use_count": 9,
     "view_count": 9
   },
@@ -979,13 +979,13 @@
     "created_at": "2026-06-17T07:20:54.552354+00:00",
     "created_by": null,
     "last_patched_at": "2026-08-07T09:19:28.962865+00:00",
-    "last_used_at": "2026-08-16T06:54:24.129537+00:00",
-    "last_viewed_at": "2026-08-16T06:54:24.086320+00:00",
+    "last_used_at": "2026-08-17T00:05:05.446867+00:00",
+    "last_viewed_at": "2026-08-17T00:05:05.438958+00:00",
     "patch_count": 70,
     "pinned": false,
     "state": "active",
-    "use_count": 75,
-    "view_count": 75
+    "use_count": 76,
+    "view_count": 76
   },
   "xlsx": {
     "archived_at": null,

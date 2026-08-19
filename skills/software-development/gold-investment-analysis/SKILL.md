@@ -289,11 +289,12 @@ HTTP_PROXY=http://127.0.0.1:7897 HTTPS_PROXY=http://127.0.0.1:7897 python main.p
 
 Cron job for automated weekly delivery:
 - Job ID: `54117ed8a949`
-- Schedule: `0 8 * * 1` (Monday 8:00 AM CST)
+- Schedule: `30 12 * * 1` (Monday 12:30 PM CST; 2026-08-17 从 08:00 调整——避与 5 类日报 08:00 并发 + OpenCode 峰谷 Off-Peak 且避开 12:00 切换点人潮)
 - Delivers to: **Telegram**（2026.7.13 已从微信迁移，原因：微信 iLink 10条/轮硬限制导致长报告被吞）
 - Workflow: 5-step sprint（sprint-contract → decision-gate → execute → ③.5自检闸门 → task-wrapup+L1‖Opus → post-task-review）
 - Skills loaded: sprint-contract, task-wrapup, post-task-review, l1-review
 - Toolsets: terminal, file, web
+- 🔴 **2026-08-17 prompt 加固**（验证总结顶包周报事故，与跨境日报 8/12-13 同款坑）：①前置幂等检查（今天已有 deliverable → [SILENT]，防时间调整过渡期/重复触发）；②最终回复铁律：禁止输出验证总结/修复汇报/过程报告，禁止修改 gold_analyzer 代码（发现问题写复盘，改代码须用户确认），禁止"（1/N）"自行分段，最终回复必须以【本周要闻】开头
 
 **CRITICAL for Cron**: Never use `execute_code` or `delegate_task` in the cron prompt — both are blocked in cron context ("Cron jobs run without a user present to approve"). Use `web_search` for news and `terminal` for all commands. The cron job's prompt must explicitly say "不要用 execute_code" and "不要用 delegate_task".
 

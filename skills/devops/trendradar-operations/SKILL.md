@@ -114,6 +114,7 @@ TrendRadar 自身无数量门槛（fetcher 全收，仅域名安全检查 `expec
 - 详细延迟数据表/脚本验证（12/12 断言）/调用姿势：`references/deepseek-overload-avoidance-2026-08.md`
 - 🔴 **读 cron jobs.json 用字段 `id` 不是 `job_id`**（2026-08-12 实踩 StopIteration）：`~/AppData/Local/hermes/cron/jobs.json` 结构 `{"jobs":[...],"updated_at":...}`，job 对象主键字段名是 `id`（cronjob list API 显示为 job_id）
 - ⚠️ **避峰非万能 + 体检单次采样局限（2026-08-12 17:00 首跑实测）**：跨境日报改 17:00 首跑时 DeepSeek 依然 50-120s/次（前一天同段实测 8s——过载形态是**全天波动**而非固定高峰，8/12 全天都慢）；api_probe 启动时探测 1.66s 返回 OK，但后续每次调用 50-120s。**单次采样抓不住波动过载**——体检只能抓住"稳定持续过载"（如 8/12 早上的 60-265s 不回落形态），对"探测瞬间快、随后慢"无效。✅ **二次探测已实施（2026-08-14 用户拍板）**：cron prompt 新增【第 1.6 步二次探测】——取完候选（耗时 1-2 分钟，天然形成间隔）后再跑一次 api_probe.py；判定改"**任一 SLOW/ERROR → qwen 引擎，两次都 OK → deepseek**"。两个日报 cron prompt 均已更新（详见 `references/deepseek-overload-avoidance-2026-08.md`「二次探测」章）。8/14 当天 11:00 五类日报即遇波动过载（API 78-217s、19 分钟才跑完 9 步），正是此设计要抓的形态。结论：时间调整降低慢的概率但不保证；体检是粗筛不是保险。⚠️ 更新 cron prompt 的姿势：替换前用 execute_code 读 jobs.json（字段 `id` 非 `job_id`）验证目标段落唯一且 qwen 分支保留 → cronjob update 传完整新 prompt → 改后读回 jobs.json 验证落盘（断言新段落 in、旧判定 not in）
+- 🔴 **2026-08-17 价格维度：日报时间撞 OpenCode 峰谷高峰**（DeepSeek 涨价后 OpenCode 同步官方峰谷定价，Peak=北京 9-12/14-18 点价格×2）——11:00/17:00 生成正好在 Peak 内，成本×2；旧"避 DeepSeek 官方 API 延迟高峰"的理由已不适用（走 OpenCode 网关后延迟与官方峰谷无关，缓存命中 97%+）。✅ **已执行（2026-08-17 用户拍板）：跨境日报 17:00→20:30**（20:40 重试 / 20:45 投递 / 21:00 检查），用户理由"避免跟很多人一样卡着峰谷切换点（18:00）否则卡顿"——20:30 完全 Off-Peak 且避开切换点人潮。**5 类日报 11:00 仍撞高峰，待用户拍板是否同样错峰**。额度缩水详情/用量核算：hermes-china-providers「OpenCode Go 同步 DeepSeek 调价」+ `references/opencode-go-price-update-2026-08-17.md`
 
 ## Pitfalls（实测踩坑）
 1. **PYTHONPATH 污染（Hermes 环境）**：Hermes 注入 `PYTHONPATH` 指向自己的 venv → TrendRadar 的 litellm 导入 Hermes 的 pydantic → `ModuleNotFoundError: pydantic_core._pydantic_core`。解法：运行前 `unset PYTHONPATH VIRTUAL_ENV`，启动脚本 bat 里 `set PYTHONPATH=`。任何在本机跑第三方 Python 项目都会遇到。
@@ -121,7 +122,7 @@ TrendRadar 自身无数量门槛（fetcher 全收，仅域名安全检查 `expec
 3. **newsnow API 403**：默认 curl UA 被 Cloudflare 拦；**带浏览器 UA 直连 200，走代理反而 403**（国内直连即可）。项目 fetcher 自带 Chrome UA 无此问题。
 4. **数据库时间 HH-MM**：跨天窗口过滤必须拼日期，字符串比较 `YYYY-MM-DD HH-MM`。
 5. **read_file 误判 binary**：CRLF 文件或含框线字符（═ ─ ═ 等装饰符，如 frequency_words.txt/timeline.yaml）会被 read_file 判为 binary——用 `python -c "open(...).read()"` 或 uv run python 读。
-6. **Windows Python 不认 MSYS /tmp；bash 传参 MSYS 路径被错误转换**：`python "$HOME/scripts/x.py"` 中 `$HOME`（=/c/Users/...）传给 Windows 原生 Python 会变成 `C:\c\Users\...` 报 "can't open file"（2026-08-12 实踩）。**调 Windows 程序一律用原生正斜杠路径 `C:/Users/...`**（bash 不转换），或先 `cd` 到目标目录用相对路径。临时文件用项目目录或 %TEMP%。🔴 **bash 的 `$TEMP` 同样不可直接传 Windows Python**（2026-08-14 实踩：`cat > "$TEMP/verify.py"` 写入成功但 `python "$TEMP/verify.py"` 报 `can't open file 'C:\tmp\verify.py'`——MSYS 把 $TEMP 转换成了 C:\tmp）。**ad-hoc 验证脚本的正确姿势**：`VFILE=$(python -c "import tempfile,os; fd,p=tempfile.mkstemp(suffix='.py',prefix='hermes-verify-xxx-',dir=r'C:/Users/Administrator/AppData/Local/Temp'); os.close(fd); print(p)")` 生成 OS-safe 原生路径 → cat 写入 → python 运行 → rm 清理。
+6. **Windows Python 不认 MSYS /tmp；bash 传参 MSYS 路径被错误转换**：`python "$HOME/scripts/x.py"` 中 `$HOME`（=/c/Users/...）传给 Windows 原生 Python 会变成 `C:\c\Users\...` 报 "can't open file"（2026-08-12 实踩）。**调 Windows 程序一律用原生正斜杠路径 `C:/Users/...`**（bash 不转换），或先 `cd` 到目标目录用相对路径。临时文件用项目目录或 %TEMP%。🔴 **bash 的 `$TEMP` 同样不可直接传 Windows Python**（2026-08-14 实踩：`cat > "$TEMP/verify.py"` 写入成功但 `python "$TEMP/verify.py"` 报 `can't open file 'C:\tmp\verify.py'`——MSYS 把 $TEMP 转换成了 C:\tmp）。**ad-hoc 验证脚本的正确姿势**：`VFILE=$(python -c "import tempfile,os; fd,p=tempfile.mkstemp(suffix='.py',prefix='hermes-verify-xxx-',dir=r'C:/Users/Administrator/AppData/Local/Temp'); os.close(fd); print(p)")` 生成 OS-safe 原生路径 → cat 写入 → python 运行 → rm 清理。⚠️ **跑完先保留脚本，等验证被确认后再清理**（2026-08-17 实踩：验证 9/9 PASS + 立刻 rm 清理后，系统仍连续 3 轮标记 unverified 要求重验；改为保留 `hermes-verify-*.py` 在 Temp 才被认可）。另注意验证脚本自身的断言 bug 会造成误 FAIL（S2 秒数四舍五入、S4 需真 `urllib.error.HTTPError` 类而非自定义 Exception 子类、S6 断言字符串需匹配脚本文案）——FAIL 先怀疑 mock/断言，用真实脚本调试输出对比。
 7. **杀进程红线**：`taskkill /F /IM python.exe` 会杀死 Hermes 自身，必须 `/PID`。
 8. **关键词文件改动后必须验证**：用 `load_frequency_words` + 代表性标题测 `matches_word_groups`（防串用例：亚马逊 AWS 不命中[亚马逊卖家]但命中[AI半导体]）。
 9. **Federal Register API 全文搜索噪音**：`conditions[term]` 命中大量无关法规（airspace 修正案等）→ 源头宽松正则过滤（`FEDREG_FILTER`：tariff/duty/trade/import/export/customs/china/de minimis/section 30[12]/antidumping 等），标题不命中即丢弃；剩余贸易救济文档属边缘相关，交 LLM 精选判断。
@@ -158,9 +159,9 @@ TrendRadar 自身无数量门槛（fetcher 全收，仅域名安全检查 `expec
 1. `python C:/Users/Administrator/AppData/Local/hermes/scripts/api_probe.py` → 输出 OK 再继续（没恢复就等几分钟）
 2. `cronjob run <JobA id>` 重跑生成——deliver=local 不投递、不污染 pushed 记录，幂等安全
 3. 验证：`_draft_cb.txt` 今天 mtime + ⚡ 开头 + ≥5000 字符；存档今天存在
-4. 已过 17:45 自动投递点 → `cronjob run <JobB id>` 手动投递
+4. 已过 20:45 自动投递点 → `cronjob run <JobB id>` 手动投递
 5. 验证投递成功：`_cb_delivered.txt` 内容 == 草稿 mtime + agent.log `Job 'e8e436bbf9b1': delivered to telegram`
-⚠️ **17:45 的 Job B 自动触发会输出"⚠️ 跨境日报生成失败"告警**（deliver_cb.py 大声失败设计：草稿+存档均非今天且 ≥17:40）——**这是设计行为不是二次故障**，修复过程中用户收到该告警属正常；修复完成后手动投递日报即覆盖。
+⚠️ **20:45 的 Job B 自动触发会输出"⚠️ 跨境日报生成失败"告警**（deliver_cb.py 大声失败设计：草稿+存档均非今天且 ≥20:40）——**这是设计行为不是二次故障**，修复过程中用户收到该告警属正常；修复完成后手动投递日报即覆盖。
 🔴 **Fallback 同源缺陷（2026-08-16 暴露）**：当时 fallback_model（qwen3.7-max @ opencode-go-anthropic）与主模型同一 opencode.ai 网关 → 网关整体挂时 fallback 形同虚设。修复方案（Opus 审查通过，待用户确认）：fallback_providers 加内置 deepseek 官方 API 作第一层 + Job A schedule 双触发点（`0,10 17 * * *`）+ prompt 幂等 [SILENT] 检查。详见 hermes-china-providers「OpenCode Go fallback 链设计」。
 
 ## 投递环节故障（日报生成成功但用户没收到）—— 2026-08-08 实踩
@@ -179,7 +180,7 @@ TrendRadar 自身无数量门槛（fetcher 全收，仅域名安全检查 `expec
 - **验证节点生效**：① sidecar 日志 `grep "api.telegram.org.*using mm\[" logs/sidecar/sidecar_latest.log`——切换后新连接节点名即更新 ② 连续 15-20 次 `curl -x http://127.0.0.1:7897 api.telegram.org/bot<token>/getMe` 0 失败 ③ gateway.log 断连计数归零（观察期 ≥12h，111-OVH 实测 12h 零断连）
 - **换节点时机**：Claude Code 空闲时切（切换瞬间 IP 变化）；**低频切换原则**：固定观察 ≥1 天还抖再换下一个，不频繁切
 - **C 已落地（2026-08-10）投递健康检查 cron**：`~/AppData/Local/hermes/scripts/healthcheck_daily.py`（`--five`/`--cb` 两模式）+ 包装脚本 `healthcheck_five.py`/`healthcheck_cb.py`（cron script 参数不带参，用包装注入 argv）+ cron `日报投递检查-五类`(45 11 * * *)/`日报投递检查-跨境`(45 17 * * *) 均 no_agent（stdout 空=静默，非空=告警投递）。检查项：cron 输出/存档存在性+新鲜度、news_count=0、数据源 db 新鲜度（26h）、投递窗口 TG 断连计数。9 场景分支覆盖验证 PASS（正常静默/缺失告警/过旧告警/断连告警/包装参数传递）
-- **D 已落地（2026-08-10）API 健康监控 cron**：`~/AppData/Local/hermes/scripts/api_healthcheck.py` + cron `API健康检查-DeepSeek`(*/30 * * * *) no_agent——**真实 chat completion 生成延迟测试**（>30s 或失败才告警；网络层 curl 快 ≠ 服务端正常，必须发真实请求计时）。5 分支验证 PASS（正常静默/慢45s/HTTP500/网络异常/key缺失）。与 C 合并 16 场景验证全绿
+- **D 已落地（2026-08-10）API 健康监控 cron**：`~/AppData/Local/hermes/scripts/api_healthcheck.py` + cron `API健康检查-DeepSeek`(*/30 * * * *) no_agent——**真实 chat completion 生成延迟测试**（>30s 或失败才告警；网络层 curl 快 ≠ 服务端正常，必须发真实请求计时）。5 分支验证 PASS（正常静默/慢45s/HTTP500/网络异常/key缺失）。与 C 合并 16 场景验证全绿。**2026-08-17 v2**：失败后 3s 重试 1 次（连败才告警，瞬时抖动静默不打扰——用户定调"先重试不轻易兜底"）；告警带 HTTP 状态码+响应体（urllib `HTTPError` 只报类名会丢状态码，无法区分 401/403/429/5xx）；删掉假的"日报已切 qwen3.7-max 兜底"文案（探测脚本不切任何东西）。排查"又报 API 不可用"：先看 cron 输出目录（6970b7628505）哪些时间点文件 >200 字节=真告警，48 次探测仅 1-2 次异常+瞬时自愈=间歇性上游问题非配置 bug。细节见 hermes-china-providers「fallback_providers 链式机制」
 - **healthcheck 类脚本的验证姿势**：告警逻辑分支（静默/缺失/过旧/断连）用 mock 文件系统+subprocess 模拟场景断言 stdout（`mock.patch('os.path.exists', side_effect=...)` 注意 `os.path.exists` 要用字符串路径形式 `mock.patch('os.path.exists', ...)` 而非 `mock.patch.object(os.path, 'exists', ...)`（后者报 ntpath 无 listdir）；datetime 用真实时间戳控制新鲜/过旧，不要 mock datetime 类）
 - 🔴 **agent 自行分段 = 只发第一段（2026-08-11 实踩，用户只收到 1/3）**：日报完整生成（存档 14.5KB，agent 拆分日志 S1:3736/S2:3689/S3:1321 正常）但用户只收到前 1/3——cron prompt 第 4 步写了"Telegram 消息限制 4096 字符/条：超过时拆成多条消息分段发送，每条消息末尾标注（1/N）"，agent 照做把日报拆 3 段，但 **cron 机制只投递 final response（最后一次文本回复）一条消息**——agent 只输出了第 1 段（3736 字符带"（1/3）"）就 turn ended，第 2/3 段从未发出。排查信号：`agent.log` 的 `Turn ended: reason=text_response ... response_len=3738` 远小于存档大小（14.5KB）+ cron 会话最后一条 assistant 消息带"（1/N）"标记。**修复：cron prompt 严禁指示 agent 自行分段**——第 4/6 步统一改为"最终回复 = 完整日报全文（不自行分段、绝不要只发第一段），系统会自动按 Telegram 限制拆分投递"（8/10 跨境日报 15.5KB 完整送达正是系统层拆条的例证）。两个日报 cron 已改
 - 🔴 **同一内容收到两遍（双投递，2026-08-11 实踩）**：症状 = 用户收到完整日报两次。场景是 **DM 会话内手动补发长回复**（非 cron 投递——cron 是独立单通道不受影响）。根因链：
@@ -206,14 +207,14 @@ TrendRadar 自身无数量门槛（fetcher 全收，仅域名安全检查 `expec
 连续两天"验证总结顶包日报"（8/12、8/13）后用户拍板采纳 Opus 方案 C+D——**根治"LLM 在正确时刻说出正确话"这个脆弱契约**：cron agent 不再负责投递，投递交给独立 no_agent 脚本读文件。核心原则（Opus）：**不要让 LLM 当字节的搬运工**；交付是动作不是话；控制面（对话）与数据面（文件）分离。
 
 **架构**：
-- **Job A 生成任务**（`TrendRadar跨境日报` f4506e87cc69，**schedule `0,10 17 * * *` 双触发**（2026-08-16 加 17:10 重试点：17:00 失败自动重试，幂等靠 prompt 最前面的【前置检查：幂等性】——检查 _draft_cb.txt mtime 是否今天，已生成则回复 [SILENT] 退出），deliver=local 不投递）：prompt 改——第 4.5 步审查修复后覆盖写 `output/_draft_cb.txt`（投递任务唯一内容来源）；第 6 步=一行完成确认；🔴 铁律：全程禁止中间 text response 输出日报正文（只写文件，中间步骤以 tool call 收尾）、禁止自创验证脚本、无新闻日也写草稿（内容"📦 今日跨境无新动态…"）、生成失败**不更新** _draft_cb.txt（投递任务靠 mtime 检测告警）
-- **Job B 投递任务**（`TrendRadar跨境日报投递` e8e436bbf9b1，**no_agent**，schedule `15,45 17 * * *`，deliver=origin）：跑 `scripts/deliver_cb.py`，**stdout 非空=原样投递、空=静默**。17:15 首投（正常情况）；17:45 重试（Job A 慢时补投，DeepSeek 过载日 Job A 可能 17:30+ 才完成）
+- **Job A 生成任务**（`TrendRadar跨境日报` f4506e87cc69，**schedule `30,40 20 * * *` 双触发**（2026-08-17 从 17:00 调整避 OpenCode 峰谷；20:40 重试点：20:30 失败自动重试，幂等靠 prompt 最前面的【前置检查：幂等性】——检查 _draft_cb.txt mtime 是否今天，已生成则回复 [SILENT] 退出），deliver=local 不投递）：prompt 改——第 4.5 步审查修复后覆盖写 `output/_draft_cb.txt`（投递任务唯一内容来源）；第 6 步=一行完成确认；🔴 铁律：全程禁止中间 text response 输出日报正文（只写文件，中间步骤以 tool call 收尾）、禁止自创验证脚本、无新闻日也写草稿（内容"📦 今日跨境无新动态…"）、生成失败**不更新** _draft_cb.txt（投递任务靠 mtime 检测告警）
+- **Job B 投递任务**（`TrendRadar跨境日报投递` e8e436bbf9b1，**no_agent**，schedule `45 20 * * *`，deliver=origin）：跑 `scripts/deliver_cb.py`，**stdout 非空=原样投递、空=静默**。20:45 单点投递（Job A 20:30/20:40 双触发，20:40 完成的草稿 20:45 正好投；20:40 仍失败 → deliver_cb 大声失败告警）
 - **`deliver_cb.py` 三个核心机制**：
-  1. **幂等标记**：`output/_cb_delivered.txt` 记录上次投递时草稿的 mtime；草稿 mtime == 标记 → 已投递 → 静默（防 17:15/17:45 双投）
+  1. **幂等标记**：`output/_cb_delivered.txt` 记录上次投递时草稿的 mtime；草稿 mtime == 标记 → 已投递 → 静默（防重复投递）
   2. **投递守卫**：正常日报须 ≥5000 字符且以 `⚡` 开头；"无新动态"短内容（<2000 字含"无新动态"）也放行；内容异常 → 输出告警不投递（防半截日报/格式污染）
-  3. **大声失败**：草稿+存档都缺失且 ≥17:40 → 输出显式告警"跨境日报生成失败…"；17:15 时段静默（Job A 可能还在跑）。**"文件缺失→报错"而非"无新动态"**（Opus 指出原兜底分支有毒：写盘失败伪装成正常无新闻日）
+  3. **大声失败**：草稿+存档都缺失且 ≥20:40 → 输出显式告警"跨境日报生成失败…"；20:30 时段静默（Job A 可能还在跑）。**"文件缺失→报错"而非"无新动态"**（Opus 指出原兜底分支有毒：写盘失败伪装成正常无新闻日）
 - 存档兜底：草稿缺失但存档 `archives/crossborder/YYYY-MM-DD.md` 今天存在 → 读存档投递
-- 健康检查 cron（`日报投递检查-跨境` 4267ecb32b42）同步调到 17:45（Job A 17:00-17:30 完成后才查）
+- 健康检查 cron（`日报投递检查-跨境` 4267ecb32b42）同步调到 21:00（Job A 20:30-20:45 完成后才查）
 - **cronjob create 坑**：`script` 参数必须是相对 `~/AppData/Local/hermes/scripts/` 的文件名（如 `deliver_cb.py`），绝对路径报错 "Script path must be relative to ~/.hermes/scripts/"
 - 验证：8/8 分支 ad-hoc 验证 PASS（首次投递/幂等/存档兜底/mtime 重投/守卫拒投/无新闻日/缺文件不抛异常）；**执行代码验证脚本时用 execute_code 直接 import 模块 + monkeypatch 路径常量到临时目录，避免 Temp 脚本自激循环**（比写 hermes-verify-*.py 更干净）
 - 完整方案（Opus A/B/C/D 评审原文要点/deliver_cb.py 逻辑/验证断言）：`references/delivery-separation-2026-08.md`
@@ -231,8 +232,8 @@ TrendRadar 自身无数量门槛（fetcher 全收，仅域名安全检查 `expec
 ## 用户偏好（本任务类）
 - 监控系统：事件驱动、平时静默；异常才告警；无新增不推空消息
 - 推送节奏（2026-08-07 定稿，**双日报**）：
-  - **跨境日报 17:00**（cron `TrendRadar跨境日报` f4506e87cc69，2026-08-12 从 16:00 调整避 DeepSeek 下午高峰；**2026-08-13 起生成/投递分离**：Job A 17:00 生成不投递 → Job B no_agent 投递 `deliver_cb.py` 17:15/17:45 读文件投递，见「生成/投递分离架构」）：`prepare_candidates.py --crossborder-only`（24h 窗口、三通道、去重后全推、独立消息）。顶部 Opus 设计的**模块化 AI 分析**（⚡今日速览 / 🏛政策风向 / 🛒平台规则 / 📈市场与成本 / 🧰实战参考 / 📖小白词典 / ✅今天该做的一件事，900-1200 字，小白教学风）+ 新闻清单（中文标题 + 2-3 句带数字摘要 + 链接；英文源「中文译名（English original title）」+🔤 标记）
-  - **5 类日报 11:00**（cron `TrendRadar五类日报` 970113abe8a7，2026-08-12 从 9:30 调整避 DeepSeek 早高峰）：`prepare_candidates.py --hot-only --pushed-file pushed_five.json`（**纯热榜白名单**通道、24h 窗口、去重后全推）。**投资视角分析**（⚡速览 / 🇺🇸美股与纳指 / 🥇黄金 / 🇨🇳中国科技 / 🤖AI半导体 / 🌐宏观与政策 / 📌对投资的提示，700-1000 字，**不喊单不给买卖建议**，非小白教学）+ 新闻清单（5 板块）
+  - **跨境日报 20:30**（cron `TrendRadar跨境日报` f4506e87cc69，2026-08-12 从 16:00→17:00 避 DeepSeek 下午高峰；**2026-08-17 从 17:00→20:30 避 OpenCode 峰谷高峰**（Peak=北京 9-12/14-18 价格×2；用户理由"避免卡着峰谷切换点人潮"）；**2026-08-13 起生成/投递分离**：Job A 生成不投递 → Job B no_agent 投递 `deliver_cb.py` 20:45 读文件投递，见「生成/投递分离架构」）：`prepare_candidates.py --crossborder-only`（24h 窗口、三通道、去重后全推、独立消息）。顶部 Opus 设计的**模块化 AI 分析**（⚡今日速览 / 🏛政策风向 / 🛒平台规则 / 📈市场与成本 / 🧰实战参考 / 📖小白词典 / ✅今天该做的一件事，900-1200 字，小白教学风）+ 新闻清单（中文标题 + 2-3 句带数字摘要 + 链接；英文源「中文译名（English original title）」+🔤 标记）
+  - **5 类日报 8:00**（cron `TrendRadar五类日报` 970113abe8a7，2026-08-12 从 9:30→11:00 避 DeepSeek 早高峰；**2026-08-17 从 11:00→8:00** 避 OpenCode 峰谷高峰+用户作息偏好，8:00 属 Off-Peak 价格便宜；投递检查-五类同步 08:45）：`prepare_candidates.py --hot-only --pushed-file pushed_five.json`（**纯热榜白名单**通道、24h 窗口、去重后全推）。**投资视角分析**（⚡速览 / 🇺🇸美股与纳指 / 🥇黄金 / 🇨🇳中国科技 / 🤖AI半导体 / 🌐宏观与政策 / 📌对投资的提示，700-1000 字，**不喊单不给买卖建议**，非小白教学）+ 新闻清单（5 板块）（2026-08-17 黄金周报已挪至周一 12:30，与 5 类日报 08:00 不再并发）
   - 两日报**独立防重复文件**（pushed_titles.json / pushed_five.json），互不干扰；用户原话："早上9.30推送一次吧 一天只推送这一次"
   - 旧方案"每天 2 次（09:10/18:10）+ 精选 10-20 条"已废弃（用户改要 16:00 单窗口 + 全推）
 - 关注领域 1.0：6 大领域，跨境电商按"市场×平台×环节×政策"四维设计
