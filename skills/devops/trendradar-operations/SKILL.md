@@ -191,6 +191,9 @@ TrendRadar 自身无数量门槛（fetcher 全收，仅域名安全检查 `expec
   - 修复：`hermes config set display.platforms.telegram.streaming false`（回复生成完一次性发出，系统自动拆条，无双通道；cron 投递不受影响；微信本来就没开 streaming）。改后需重启 gateway 生效（从 messaging 会话内重启有断连风险，用桌面 bat 或挑空档）
   - 相关文件：`gateway/run.py` ~25555-25607（去重判定）、`gateway/stream_consumer.py` ~408-470（delivered_final_matches / has_delivered_text）
 - 🔴 **DM 手动补发长回复也会静默丢失（2026-08-12 实踩，与 cron 投递同根因）**：补发 8/12 跨境日报（10176 字符）时 gateway.log 显示 `Sending response (10176 chars)` 但**无任何后续 Flushing/segment 确认日志**，用户没收到——前后时段 TG 网络抖动（17:34:00 ConnectError + 17:43:00 Timed out），发送在拆条过程中断，assume-delivered 把"没送出"当"已送"。**与 8/8 cron 投递丢失同一机制，场景扩展到 DM 会话长回复**（>4096 拆条 = 多条发送 = 撞抖动窗口概率更高）。排查信号：gateway.log 只有 Sending 无 sent/flush 确认 + 该时段有 `Telegram network error`/`polling degraded`。补发前先 `curl --proxy http://127.0.0.1:7897 https://api.telegram.org`（302/几秒内 = 网络可用）再发；发送后若用户仍未收到且日志无确认 → 等网络平稳后重发
+- 🔴 **2026-08-21/22 连续两天跨境日报投递失败（双根因，2026-08-23 排查定型）**：
+  - **8/21**：DeepSeek 过载 → 探测 SLOW 切 qwen3.7-max 引擎生成 → qwen 版日报仅 **4613 字符** → `deliver_cb.py` 投递守卫（须 ≥5000 且 ⚡ 开头）**误杀拒投**，只发了 287B 告警。守卫阈值按 deepseek 输出长度设定，未考虑 qwen 引擎输出更短——**引擎输出长度差异会造成守卫误杀**（当前用户拍板不改阈值，接受 qwen 日容错：qwen 生成短于 5000 会被拒投，内容在存档可补发）
+  - **8/22**：日报正常（31 条 19762B）→ Job B 投递瞬间 **httpx.ConnectError**（gateway.log 显示 8/22 全天 6 波 TG 断连）→ `Job 'e8e436bbf9b1': delivery error: Telegram send failed: httpx.ConnectError` 记入 agent.log → 用户没收到。**投递失败有记录但健康检查没发现**：`healthcheck_daily.py` 用 `subprocess.run(['grep',...])` 统计 TG 断连，但 **cron 由 gateway（pythonw.exe 计划任务启动，继承 Windows 系统 PATH 无 /usr/bin/grep）子进程执行 → grep FileNotFoundError → except pass 吞掉 → TG 断连检查从上线起从未真正工作过**（8/21 20:45 的 ConnectError 因此漏报）。**修复（2026-08-23）**：healthcheck_daily.py 全部 subprocess grep 改纯 Python 文件遍历+正则（不依赖外部命令）；新增"投递失败检测"——查 agent.log 当天 `cron.scheduler: Job '<jobid>': delivery error`（跨境 e8e436bbf9b1 / 五类 970113abe8a7），有则告警（存档存在≠投递成功）；旧文案"17:00 cron"同步清理。验证 7/7 PASS（投递失败告警/正常静默/仅断连不误报/昨天error不误报/双问题双告警/无grep依赖/无旧时间文案）。**经验：healthcheck 类脚本禁止 subprocess 调外部命令（grep/find），一律纯 Python；写告警检测要防"检测代码本身静默失效"**
 补投递（**不重跑 cron**——重跑走 20 分钟全流程且可能重复推）：
 - 跨境日报已存档：读 `archives/crossborder/YYYY-MM-DD.md` 全文，按 4096 字符/条分 3-4 段直接补发（标注"补发 1/N"）
 - 5 类日报无存档：从 `~/AppData/Local/hermes/cron/output/<jobid>/YYYY-MM-DD_HH-MM-SS.md` 的 `## Response` 段提取日报全文补发
@@ -203,6 +206,13 @@ TrendRadar 自身无数量门槛（fetcher 全收，仅域名安全检查 `expec
    - 🔴 **补发/排查前先 `date "+%Y-%m-%d %H:%M"` 确认当前日期（2026-08-13 实踩）**：跨天处理"未收到日报"时（8/12 晚补发 → 8/13 用户才看到），容易把昨天的日报当今天的处理，用户困惑"发 8.12 的给我干嘛"。**任何"未收到日报"排查/补发流程第一步：确认当前日期，再对照用户问的是哪天的日报**（8/13 11:00/17:00 双日报均有投递记录，用户问的可能是当天的）
   - 🔴 **补发前先核对已送达清单（2026-08-11 用户批评"又发两遍"）**：用户已收到第 1 段 + 首轮补发的 2/3、3/3 后，说"完整的发我一份"时误判为"全量重发"，把 2/3、3/3 又发了一遍被批。**任何补发/重发前：先确认用户已收到哪些（查 cron 会话最终输出 + 本轮已补发记录），只补缺口**。🔴 **用户要"完整一份"= 从头到尾完整重发分段文本——绝不改成"优先发文件"**（2026-08-11 用户明确否决文件优先："不要，长文字还是发消息给我，不要改成优先发文件"）。文件优先方案曾作为双投递规避手段被提出，用户拒绝
 
+### 🔴 双失败模式：守卫拒投 vs 投递网络失败（2026-08-21/22 实踩）
+症状：存档存在（生成成功 12/31 条）+ 用户没收到日报 = 投递环节故障。**第一步先看 cronjob list 的 `last_delivery_error` 字段（真相源；8/22 显示 `Telegram send failed: httpx.ConnectError`）**，再按两模式分型：
+- **模式 A 守卫拒投（8/21）**：DeepSeek 过载 → api_probe SLOW → 切 qwen3.7-max 引擎 → **qwen 版日报显著偏短（4613 字符 vs deepseek 平时 13000+）** → 撞 `deliver_cb.py` `MIN_LEN=5000` 下限 → 拒投 → 用户只收到 287 字节守卫告警（"⚠️ 日报内容异常（长度 4613 …），未投递"；告警本身经 cron 正常投递，agent.log 有 `delivered to telegram`，但投的是告警不是日报）。**守卫阈值没考虑引擎差异**。修复方向（待用户拍板）：qwen 版放宽（如 3500）或改结构判定（⚡速览+新闻清单）代替纯长度。
+- **模式 B 投递瞬间 TG 网络故障（8/22）**：日报正常生成（31 条 19762 字）→ Job B 输出全文 → cron 发送时 httpx.ConnectError → 用户没收到。gateway.log 佐证 8/22 全天 6 波 TG 断连（00:16/00:51/11:45/12:00/14:12/14:38），20:45 又撞一次。
+- 🔴 **架构缺陷：投递标记先于发送写入**——`deliver_cb.py` 的 `deliver()` 在 `sys.stdout.write(txt)` 之前写 MARK，no_agent 模式脚本无法感知 cron 层发送成败。8/22 场景：MARK 已写且 mtime 匹配 → Job B 再跑也因幂等判定"已投递"而静默 → **日报从管线永久丢失，只能手动从存档补发**。修复方向（待用户拍板）：投递脚本直发 TG、发送成功才写 MARK，或健康检查补 delivery-error 项。
+- 🔴 **健康检查盲区**：`healthcheck_daily.py` 只查存档存在+新鲜度、TG 断连窗口计数（超阈值才告警）→ 8/21、8/22 的 21:00 检查都是 silent。**存档存在 ≠ 已投递**；健康检查应补"当天 agent.log/cron 有无 delivery error"检查项。
+
 ## 生成/投递分离架构（方案 C+D，2026-08-13 落地，跨境日报）
 连续两天"验证总结顶包日报"（8/12、8/13）后用户拍板采纳 Opus 方案 C+D——**根治"LLM 在正确时刻说出正确话"这个脆弱契约**：cron agent 不再负责投递，投递交给独立 no_agent 脚本读文件。核心原则（Opus）：**不要让 LLM 当字节的搬运工**；交付是动作不是话；控制面（对话）与数据面（文件）分离。
 
@@ -211,7 +221,7 @@ TrendRadar 自身无数量门槛（fetcher 全收，仅域名安全检查 `expec
 - **Job B 投递任务**（`TrendRadar跨境日报投递` e8e436bbf9b1，**no_agent**，schedule `45 20 * * *`，deliver=origin）：跑 `scripts/deliver_cb.py`，**stdout 非空=原样投递、空=静默**。20:45 单点投递（Job A 20:30/20:40 双触发，20:40 完成的草稿 20:45 正好投；20:40 仍失败 → deliver_cb 大声失败告警）
 - **`deliver_cb.py` 三个核心机制**：
   1. **幂等标记**：`output/_cb_delivered.txt` 记录上次投递时草稿的 mtime；草稿 mtime == 标记 → 已投递 → 静默（防重复投递）
-  2. **投递守卫**：正常日报须 ≥5000 字符且以 `⚡` 开头；"无新动态"短内容（<2000 字含"无新动态"）也放行；内容异常 → 输出告警不投递（防半截日报/格式污染）
+  2. **投递守卫**：正常日报须 ≥5000 字符且以 `⚡` 开头；"无新动态"短内容（<2000 字含"无新动态"）也放行；内容异常 → 输出告警不投递（防半截日报/格式污染）。🔴 **阈值未按引擎区分**：qwen 引擎版日报实测 4613 字符会误触守卫拒投（2026-08-21，见「投递环节故障」双失败模式模式 A）——守卫判定须考虑 qwen 引擎或改结构判定
   3. **大声失败**：草稿+存档都缺失且 ≥20:40 → 输出显式告警"跨境日报生成失败…"；20:30 时段静默（Job A 可能还在跑）。**"文件缺失→报错"而非"无新动态"**（Opus 指出原兜底分支有毒：写盘失败伪装成正常无新闻日）
 - 存档兜底：草稿缺失但存档 `archives/crossborder/YYYY-MM-DD.md` 今天存在 → 读存档投递
 - 健康检查 cron（`日报投递检查-跨境` 4267ecb32b42）同步调到 21:00（Job A 20:30-20:45 完成后才查）

@@ -1,4 +1,4 @@
-绝对禁止 taskkill /F /IM python.exe → 杀Agent自身！杀进程必须 taskkill /PID <pid>，排查用 ps aux/任务管理器。
+绝对禁止 taskkill /F /IM python.exe → 杀Agent自身！杀进程必须 taskkill /PID <pid>；MSYS bash 下直接 TASKKILL.EXE /PID <pid> /F（单斜杠即行；//PID 双斜杠报"无效参数"、cmd //c "taskkill..." 会开交互提示符不执行），排查用 ps aux/任务管理器。
 §
 网络:代理127.0.0.1:7897通X+Startpage;Google需CAPTCHA;Bing直连。
 §

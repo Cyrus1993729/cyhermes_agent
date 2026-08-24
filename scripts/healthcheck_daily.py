@@ -3,7 +3,7 @@
 """日报投递健康检查 (cron no_agent 模式: stdout 非空才投递, 空=静默)
 -用法: python healthcheck_daily.py --five | --cb
 - --five: 检查五类财经日报 (08:00 cron) 输出 + 热榜数据源新鲜度
-- --cb:   检查跨境日报 (17:00 cron) 存档 + 垂直源数据新鲜度
+- --cb:   检查跨境日报 (20:30 生成 / 20:45 投递 cron) 存档 + 垂直源数据新鲜度
 - 两者都检查: 当天 gateway.log 的 TG 网络断连次数 (投递风险提示)
 """
 import os, sys, json, glob, datetime, subprocess
@@ -51,9 +51,11 @@ if MODE == 'five':
     tg_err = 0
     if os.path.exists(GW_LOG):
         try:
-            r = subprocess.run(['grep', '-c', f'{today} 08:0[5-9].*Telegram network error\\|{today} 08:[1-4][0-9].*Telegram network error', GW_LOG],
-                               capture_output=True, text=True)
-            tg_err = int(r.stdout.strip() or 0)
+            pat = rf'{today} 08:0[5-9].*Telegram network error|{today} 08:[1-4][0-9].*Telegram network error'
+            import re
+            for line in open(GW_LOG, encoding='utf-8', errors='replace'):
+                if re.search(pat, line):
+                    tg_err += 1
         except Exception:
             pass
 
@@ -62,11 +64,11 @@ elif MODE == 'cb':
     arch_md = rf'D:\Workspace\Projects\TrendRadar\archives\crossborder\{today}.md'
     arch_json = arch_md.replace('.md', '.json')
     if not os.path.exists(arch_md):
-        alerts.append('⚠️ 跨境日报：今日存档缺失（17:00 cron 可能未触发/失败）')
+        alerts.append('⚠️ 跨境日报：今日存档缺失（生成 cron 可能未触发/失败，正常应在 20:30 后生成）')
     else:
         mtime = datetime.datetime.fromtimestamp(os.path.getmtime(arch_md))
         if (now - mtime).total_seconds() > 4 * 3600:
-            alerts.append(f'⚠️ 跨境日报：存档生成于 {mtime:%H:%M}（疑似 17:00 cron 未正常完成）')
+            alerts.append(f'⚠️ 跨境日报：存档生成于 {mtime:%H:%M}（疑似生成 cron 未正常完成）')
         else:
             try:
                 d = json.load(open(arch_json, encoding='utf-8'))
@@ -83,9 +85,11 @@ elif MODE == 'cb':
     tg_err = 0
     if os.path.exists(GW_LOG):
         try:
-            r = subprocess.run(['grep', '-c', f'{today} 20:[2-5][0-9].*Telegram network error\\|{today} 21:0[0-9].*Telegram network error', GW_LOG],
-                               capture_output=True, text=True)
-            tg_err = int(r.stdout.strip() or 0)
+            pat = rf'{today} 20:[2-5][0-9].*Telegram network error|{today} 21:0[0-9].*Telegram network error'
+            import re
+            for line in open(GW_LOG, encoding='utf-8', errors='replace'):
+                if re.search(pat, line):
+                    tg_err += 1
         except Exception:
             pass
 
@@ -94,13 +98,31 @@ AG_LOG = r'C:\Users\Administrator\AppData\Local\hermes\logs\agent.log'
 fb_count = 0
 if os.path.exists(AG_LOG):
     try:
-        r = subprocess.run(['grep', '-c', f'{today}.*Fallback activated', AG_LOG],
-                           capture_output=True, text=True)
-        fb_count = int(r.stdout.strip() or 0)
+        import re
+        for line in open(AG_LOG, encoding='utf-8', errors='replace'):
+            if f'{today}' in line and 'Fallback activated' in line:
+                fb_count += 1
     except Exception:
         pass
 if fb_count > 0:
     alerts.append(f'⚠️ 今日模型 fallback 触发 {fb_count} 次（主模型当时不可用已切备用渠道；备用渠道可能按量付费，触发频繁请排查主链路）')
+
+# 投递失败检测（2026-08-23 新增：补盲——存档存在≠投递成功，8/22 实踩 TG 故障下日报生成成功但发送失败，健康检查未发现）
+# agent.log 里 cron.scheduler 对投递任务的 delivery error 记录是真相源（gateway.log 断连窗口可能对不上）
+DELIVERY_JOB = {'five': '970113abe8a7', 'cb': 'e8e436bbf9b1'}[MODE]
+dlv_err = 0
+if os.path.exists(AG_LOG):
+    try:
+        import re
+        pat = rf"{today}.*cron.scheduler: Job '{DELIVERY_JOB}': delivery error"
+        for line in open(AG_LOG, encoding='utf-8', errors='replace'):
+            if re.search(pat, line):
+                dlv_err += 1
+    except Exception:
+        pass
+if dlv_err > 0:
+    label = '五类财经日报' if MODE == 'five' else '跨境日报'
+    alerts.append(f'⚠️ {label}投递失败 {dlv_err} 次：日报已生成但 Telegram 发送遇连接故障（内容已存档可补发；若持续出现需换 TG 节点/排查代理）')
 
 # TG 断连通用告警
 if tg_err > 0:
