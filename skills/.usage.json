@@ -316,13 +316,13 @@
     "created_at": "2026-06-03T07:30:17.716294+00:00",
     "created_by": "agent",
     "last_patched_at": "2026-08-17T05:27:21.083061+00:00",
-    "last_used_at": "2026-08-10T04:06:25.055685+00:00",
-    "last_viewed_at": "2026-08-10T04:06:25.047884+00:00",
+    "last_used_at": "2026-08-24T04:35:41.201794+00:00",
+    "last_viewed_at": "2026-08-24T04:35:41.194787+00:00",
     "patch_count": 66,
     "pinned": false,
     "state": "active",
-    "use_count": 64,
-    "view_count": 64
+    "use_count": 65,
+    "view_count": 65
   },
   "gold-macro-framework": {
     "archived_at": null,
@@ -511,12 +511,12 @@
     "created_at": "2026-07-02T00:10:37.479388+00:00",
     "created_by": null,
     "last_patched_at": "2026-07-13T15:04:10.994437+00:00",
-    "last_used_at": "2026-08-17T04:30:12.622388+00:00",
+    "last_used_at": "2026-08-24T04:30:05.165864+00:00",
     "last_viewed_at": "2026-08-07T09:11:22.274176+00:00",
     "patch_count": 23,
     "pinned": false,
     "state": "active",
-    "use_count": 27,
+    "use_count": 28,
     "view_count": 21
   },
   "linear": {
@@ -719,12 +719,12 @@
     "created_at": "2026-07-01T16:17:38.869728+00:00",
     "created_by": null,
     "last_patched_at": "2026-07-03T14:19:44.366691+00:00",
-    "last_used_at": "2026-08-17T04:30:12.491648+00:00",
+    "last_used_at": "2026-08-24T04:30:05.034862+00:00",
     "last_viewed_at": "2026-07-13T13:03:46.273124+00:00",
     "patch_count": 8,
     "pinned": false,
     "state": "active",
-    "use_count": 18,
+    "use_count": 19,
     "view_count": 12
   },
   "research-report-analysis": {
@@ -810,12 +810,12 @@
     "created_at": "2026-07-01T23:27:50.641601+00:00",
     "created_by": null,
     "last_patched_at": "2026-07-21T04:58:37.342413+00:00",
-    "last_used_at": "2026-08-17T04:30:12.216962+00:00",
+    "last_used_at": "2026-08-24T04:30:04.730440+00:00",
     "last_viewed_at": "2026-08-06T15:02:30.774557+00:00",
     "patch_count": 21,
     "pinned": false,
     "state": "active",
-    "use_count": 20,
+    "use_count": 21,
     "view_count": 14
   },
   "subagent-driven-development": {
@@ -849,12 +849,12 @@
     "created_at": "2026-07-03T00:39:05.920452+00:00",
     "created_by": null,
     "last_patched_at": "2026-07-13T14:26:27.788096+00:00",
-    "last_used_at": "2026-08-17T04:30:12.359768+00:00",
+    "last_used_at": "2026-08-24T04:30:04.883653+00:00",
     "last_viewed_at": "2026-08-07T09:11:01.307499+00:00",
     "patch_count": 28,
     "pinned": false,
     "state": "active",
-    "use_count": 21,
+    "use_count": 22,
     "view_count": 15
   },
   "third-party-tool-evaluation": {
