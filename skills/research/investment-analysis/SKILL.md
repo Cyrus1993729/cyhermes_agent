@@ -288,6 +288,7 @@ This skill is the umbrella for quantitative investment framework design and impl
 - `references/serenity-the-person.md` — Serenity 博主本人（@aleaborteddit，白毛股神）：身份背景、方法论哲学、与用户 skill 体系的关系
 - `references/dca-retirement-calculator.md` — DCA 退休金计算器：日定投终值公式、多阶段策略分析框架、财务承受力评估、多情景对比输出规范
 - `references/financial-framework-comparison-methodology.md` — 金融框架对比方法论：统一口径、逐个核实、不带结论、不硬推。适用于对比不同理财专家/机构的储蓄率/资产配置建议
+- `references/equity-report-analysis-delivery.md` — 个股财报分析交付方法论：多期数据追溯+Opus 专项分析调用姿势+归档分段写入；"财报差但股价涨"的解释框架（信用vs股权视角/预期差/定价锚/银行信贷投票/低估值容错）
 - See also: `gold-investment-analysis` skill for the full v3.1 implementation with cron jobs, project structure, and 24+ resolved pitfalls from production debugging
 ## Framework Architecture Template
 

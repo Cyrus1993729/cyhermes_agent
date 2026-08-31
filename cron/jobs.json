@@ -124,15 +124,15 @@
       "schedule_display": "0 8 * * *",
       "repeat": {
         "times": null,
-        "completed": 48
+        "completed": 53
       },
       "enabled": true,
       "state": "scheduled",
       "paused_at": null,
       "paused_reason": null,
       "created_at": "2026-07-02T12:38:24.038222+08:00",
-      "next_run_at": "2026-08-27T08:00:00+08:00",
-      "last_run_at": "2026-08-25T08:01:02.944919+08:00",
+      "next_run_at": "2026-09-01T08:00:00+08:00",
+      "last_run_at": "2026-08-30T08:00:12.739481+08:00",
       "last_status": "ok",
       "last_error": null,
       "last_delivery_error": null,
@@ -172,15 +172,15 @@
       "schedule_display": "*/30 * * * *",
       "repeat": {
         "times": null,
-        "completed": 929
+        "completed": 1169
       },
       "enabled": true,
       "state": "scheduled",
       "paused_at": null,
       "paused_reason": null,
       "created_at": "2026-08-06T23:38:21.017914+08:00",
-      "next_run_at": "2026-08-26T08:30:00+08:00",
-      "last_run_at": "2026-08-26T08:00:01.416725+08:00",
+      "next_run_at": "2026-08-31T08:30:00+08:00",
+      "last_run_at": "2026-08-31T08:00:18.077233+08:00",
       "last_status": "ok",
       "last_error": null,
       "last_delivery_error": null,
@@ -218,15 +218,15 @@
       "schedule_display": "0 4 * * 1",
       "repeat": {
         "times": null,
-        "completed": 3
+        "completed": 4
       },
       "enabled": true,
       "state": "scheduled",
       "paused_at": null,
       "paused_reason": null,
       "created_at": "2026-08-06T23:38:21.062272+08:00",
-      "next_run_at": "2026-08-31T04:00:00+08:00",
-      "last_run_at": "2026-08-24T04:00:37.228358+08:00",
+      "next_run_at": "2026-09-07T04:00:00+08:00",
+      "last_run_at": "2026-08-31T04:00:11.737585+08:00",
       "last_status": "ok",
       "last_error": null,
       "last_delivery_error": null,
@@ -264,15 +264,15 @@
       "schedule_display": "30,40 20 * * *",
       "repeat": {
         "times": null,
-        "completed": 23
+        "completed": 32
       },
       "enabled": true,
       "state": "scheduled",
       "paused_at": null,
       "paused_reason": null,
       "created_at": "2026-08-07T10:21:21.624046+08:00",
-      "next_run_at": "2026-08-26T20:30:00+08:00",
-      "last_run_at": "2026-08-25T20:45:56.995050+08:00",
+      "next_run_at": "2026-08-31T20:30:00+08:00",
+      "last_run_at": "2026-08-30T22:56:12.099955+08:00",
       "last_status": "ok",
       "last_error": null,
       "last_delivery_error": null,
@@ -313,18 +313,18 @@
       "schedule_display": "0 8 * * *",
       "repeat": {
         "times": null,
-        "completed": 18
+        "completed": 23
       },
       "enabled": true,
       "state": "scheduled",
       "paused_at": null,
       "paused_reason": null,
       "created_at": "2026-08-07T11:42:39.642261+08:00",
-      "next_run_at": "2026-08-27T08:00:00+08:00",
-      "last_run_at": "2026-08-25T08:07:08.068571+08:00",
-      "last_status": "ok",
-      "last_error": null,
-      "last_delivery_error": null,
+      "next_run_at": "2026-09-01T08:00:00+08:00",
+      "last_run_at": "2026-08-30T08:00:49.603782+08:00",
+      "last_status": "error",
+      "last_error": "RuntimeError: Connection error.",
+      "last_delivery_error": "delivery error: Telegram send failed: httpx.ConnectError: All connection attempts failed",
       "deliver": "origin",
       "origin": {
         "platform": "telegram",
@@ -362,18 +362,18 @@
       "schedule_display": "45 8 * * *",
       "repeat": {
         "times": null,
-        "completed": 16
+        "completed": 21
       },
       "enabled": true,
       "state": "scheduled",
       "paused_at": null,
       "paused_reason": null,
       "created_at": "2026-08-10T08:44:38.851263+08:00",
-      "next_run_at": "2026-08-26T08:45:00+08:00",
-      "last_run_at": "2026-08-25T08:45:02.408136+08:00",
+      "next_run_at": "2026-08-31T08:45:00+08:00",
+      "last_run_at": "2026-08-30T08:45:17.086518+08:00",
       "last_status": "ok",
       "last_error": null,
-      "last_delivery_error": null,
+      "last_delivery_error": "delivery error: Telegram send failed: httpx.ConnectError: All connection attempts failed",
       "deliver": "origin",
       "origin": {
         "platform": "telegram",
@@ -408,18 +408,18 @@
       "schedule_display": "0 21 * * *",
       "repeat": {
         "times": null,
-        "completed": 16
+        "completed": 21
       },
       "enabled": true,
       "state": "scheduled",
       "paused_at": null,
       "paused_reason": null,
       "created_at": "2026-08-10T08:44:38.873706+08:00",
-      "next_run_at": "2026-08-26T21:00:00+08:00",
-      "last_run_at": "2026-08-25T21:00:33.784366+08:00",
+      "next_run_at": "2026-08-31T21:00:00+08:00",
+      "last_run_at": "2026-08-30T21:00:09.021998+08:00",
       "last_status": "ok",
       "last_error": null,
-      "last_delivery_error": null,
+      "last_delivery_error": "delivery error: Telegram send failed: httpx.ConnectError: All connection attempts failed",
       "deliver": "origin",
       "origin": {
         "platform": "telegram",
@@ -454,15 +454,15 @@
       "schedule_display": "*/30 * * * *",
       "repeat": {
         "times": null,
-        "completed": 763
+        "completed": 1003
       },
       "enabled": true,
       "state": "scheduled",
       "paused_at": null,
       "paused_reason": null,
       "created_at": "2026-08-10T10:20:34.277336+08:00",
-      "next_run_at": "2026-08-26T08:30:00+08:00",
-      "last_run_at": "2026-08-26T07:30:16.053504+08:00",
+      "next_run_at": "2026-08-31T08:30:00+08:00",
+      "last_run_at": "2026-08-31T07:30:18.005881+08:00",
       "last_status": "ok",
       "last_error": null,
       "last_delivery_error": null,
@@ -500,18 +500,18 @@
       "schedule_display": "45 20 * * *",
       "repeat": {
         "times": null,
-        "completed": 16
+        "completed": 21
       },
       "enabled": true,
       "state": "scheduled",
       "paused_at": null,
       "paused_reason": null,
       "created_at": "2026-08-13T22:23:11.925554+08:00",
-      "next_run_at": "2026-08-26T20:45:00+08:00",
-      "last_run_at": "2026-08-25T20:45:31.503390+08:00",
+      "next_run_at": "2026-08-31T20:45:00+08:00",
+      "last_run_at": "2026-08-30T20:45:07.679416+08:00",
       "last_status": "ok",
       "last_error": null,
-      "last_delivery_error": null,
+      "last_delivery_error": "delivery error: Telegram send failed: httpx.ConnectError: All connection attempts failed",
       "deliver": "origin",
       "origin": {
         "platform": "telegram",
@@ -571,5 +571,5 @@
       "fire_claim": null
     }
   ],
-  "updated_at": "2026-08-26T08:00:01.420727+08:00"
+  "updated_at": "2026-08-31T08:00:18.081230+08:00"
 }

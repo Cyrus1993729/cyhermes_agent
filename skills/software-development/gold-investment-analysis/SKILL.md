@@ -451,6 +451,8 @@ Claude Code is used for: framework design, model review, analytical logic critiq
 39. **SGE 数据滞后 → 境内需求评分基于 COMEX 换算值 → 系统性高估看空程度（2026.7.27 黄金周报复盘）**：
     SGE 滞后 5 天触发 `_fetch_shanghai_from_xau_conversion()`，境内需求评分 -2.00 基于 COMEX 换算值 ¥893.09（而非真实 SGE ¥897.70）。真实 SGE 数据显示境内外价差 +0.66%（正常——境内并未出现恐慌折价），但 main.py 输出"折价 -6.5%"是公允价值偏离（vs 模型 ¥955），两者是不同口径。**处理**：（a）D4.3/D4.4 必须使用真实 SGE 数据（即使滞后），不可使用 COMEX 换算值做境内外价差校验；（b）D2/D3 中明确区分"公允价值偏离"和"境内外价差"两个概念（pitfall #33）；（c）境内需求评分可能被高估时，在 D3 做敏感性分析（如"境内需求上修至 -1.0 后综合分 39.0 仍 <40，结论不变"）；（d）D4.3 存在 SGE 与 COMEX 时点错配时，标注"定性可用、定量不精准"。
 
+40. **“周报没收到”排查：别被陈旧时间源带偏 (2026-08-26 实踩，用户纠正“现在是周三 不是周一”）**：①cronjob list 的 `last_run_at` 会滞后——黄金周报 8/24 13:13 已 `delivered to telegram`，list 仍显示 last_run=8/17，别拿它判断“没跑/没送”；②agent.log 中 `cron_<jobid>_YYYYMMDD_HHMMSS` 会话是历史记录，日志尾部有 API call ≠ 正在运行——先比对 session 日期与今天（8/26 时误把 8/24 的旧会话当“刚触发 5 分钟”，误导用户）；③单次 `date` 输出可能是陈旧/漂移值（同机先后输出 8/24 周一 / 8/26 周三），须多源三角定位“今天”：会话系统提示 Conversation started 日期 + 用户明示 > `date` 输出，cronjob list 的 `next_run_at` 是调度器时钟真相（周一任务 next_run 已跳下周一 ⇒ 本周一已触发，last_run 未更新 = 那次未完成）。**判定“送没送到”以 agent.log `cron.scheduler: Job '<jobid>': delivered to telegram` 为准**。用户纠正日期后立即重构全部推断。
+
 ## 🧩 工作流配方
 
 **任务**：黄金周报 / 黄金分析
