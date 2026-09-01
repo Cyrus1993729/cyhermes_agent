@@ -1,0 +1,132 @@
+Cronjob Response: TrendRadar跨境日报投递
+(job_id: e8e436bbf9b1)
+-------------
+
+⚡ 今日速览
+• Shein上市估值260亿美元，较2022年缩水74%
+• TikTok Shop美区跨境上半年GMV翻倍
+• 欧盟跟进美日，出手监管中国超低价平台
+
+🏛 政策风向 · 门槛变了吗
+▶ 欧盟跟进美日，出手监管中国超低价平台
+　干货：美国、日本已先后出手，欧盟最新跟进，目标是中国超低价平台
+　对你：低价小包模式在欧美监管趋严，税务成本要提前算进定价
+▶ 美国对华厢式拖车反补贴终裁落地
+　干货：商务部终裁认定中国厢式拖车及组件存在可诉补贴，调查期2024全年
+　对你：涉案品类面临加征反补贴税，做汽配出口的先自查在不在列
+▶ 海南封关晒"成绩单"：零关税进口36.24亿元
+　干货：封关以来零关税进口货物达36.24亿元，官方通报四方面进展
+　对你：想用零关税政策的，先确认品类清单和主体资格再布局
+
+🛒 平台规则 · 在哪卖、怎么卖
+▶ Shein港股定价260亿美元，9月1日挂牌，暗盘跌超10%
+　干货：估值较2022年1000亿美元缩水74%，许仰天财富缩水150亿美元
+　对你：平台上市对供应商影响尚不确定，合作前先谈清账期与退换条款
+▶ TikTok Shop美区跨境POP上半年GMV翻倍
+　干货：GMV翻倍为周报口径，POP是美区跨境的主流店铺模式
+　对你：想入场TikTok带货的，可先注册美区POP后台看准入要求
+▶ Temu被曝花9.62亿美元投广告养"假创作者"
+　干货：研究报告称Temu在Meta平台广告投入最高9.62亿美元
+　对你：买量式增长引发舆论与监管风险，做Temu的多留意风向
+
+📈 市场与成本 · 钱往哪走
+▶ 美国电商Q2增速12.2%，占比升至17.1%
+　干货：重回快速增长轨道，占美国零售总额比例提升至17.1%
+　对你：美国线上大盘在扩张，入场前记得单独核算关税与物流成本
+▶ 连连数字：7月跨境商家信心指数115
+　干货：指数115高于100显示商家偏乐观，品类与策略持续分化
+　对你：整体乐观但分化加剧，选品要差异化而不是跟风
+
+🧰 实战参考 · 别人怎么做的
+▶ 珠海一纸《阻止出境决定书》让跨境人出不了境
+　干货：欠税未清，税务部门可依法限制出境，补缴后才能解除
+　对你：税务合规是底线，欠税不处理可能连国门都出不去
+▶ 集运欧线期货上市三周年，卖家晒"套保账本"
+　干货：欧线集运指数期货满三年，跨境电商用它锁定运费对冲涨价
+　对你：运费波动大，套保相当于给海运买"价格保险"
+
+📖 小白词典
+• 反补贴税（CVD）：对方国家给产品发补贴，进口国经调查认定后额外加收的关税，用来抵消补贴带来的价格优势
+• 暗盘交易：新股上市前，部分券商为投资者提供的场外撮合交易，能提前反映首日行情，像"正式开盘前的场外试水"
+• 保税仓：海关监管下可暂缓缴税的仓库，货物复出口不缴进口关税，进境内销售才纳税，像"先寄存、后结算"
+
+✅ 今天该做的一件事
+打开美国联邦公报搜你的品类名，看8月有无新反补贴终裁（10分钟）
+
+————————————————————
+📦 跨境电商日报 8月31日（过去24小时 · 17 条）
+
+🛃 政策法规
+🔴 🔤 • 美国对华厢式拖车及组件反补贴终裁（Van-Type Trailers and Subassemblies Thereof From the People's Republic of China: Final Affirmative Countervailing Duty Determination）（美国联邦公报）
+  摘要：美国商务部8月31日在《联邦公报》公布终裁，认定中国厢式拖车及组件存在可诉补贴，调查期为2024年1月1日至12月31日。
+  🔗 [查看原文](https://www.federalregister.gov/documents/2026/08/31/2026-17749/van-type-trailers-and-subassemblies-thereof-from-the-peoples-republic-of-china-final-affirmative)
+
+🔴 • 欧盟继美日之后出手监管中国超低价平台（朝鮮日报中文版）
+  摘要：8月31日报道，欧盟成为继美国、日本之后又一个对中国超低价跨境电商平台出手监管的市场。背景："超低价平台"指靠超低价商品快速扩张的中国跨境电商平台。
+  🔗 [查看原文](https://news.google.com/rss/articles/CBMioAFBVV95cUxObVduNWxlai1UcGU5cjBvX3ppM2dyU1MtMHNPWFdoTnp1U0UtUzFCRG1MczB5R3BiZUxwQjg3bTAxX0p2ZGlzeVpWaFBlVHJXczNIVjRrZ1RLeEJ0T3RQY0xkQWdzcVZsVk5rR20yYnpnMkxWYkxRNmJBUjB6alY5YWxnMTEwY21zaXFkZlZBYWd1TGRmQVpUX1NfZjlvLUFU?oc=5)
+
+• 虹桥"跨境电商+产业带"先行区：长三角制造出海新枢纽（上海市人民政府）
+  摘要：上海8月31日公布虹桥"跨境电商+产业带"先行区方案，定位打造长三角制造出海的新枢纽。背景："跨境电商+产业带"指把工厂集群与跨境出口服务绑在一起，缩短出海链路。
+  🔗 [查看原文](https://news.google.com/rss/articles/CBMiigFBVV95cUxPOHlIZDVqZjhLMDdjMkRpdHhZaTJENnFibWFmb1lxLVItZmdpMk5na2diLUFUa1o5X0R3QTQ2LUJNZW1fMXlkYWxaSDNvTGFySndFdTJTNmhETHRKajR5akxzMXpUOXdLQUFtNGViaVNLZ1RhODM4TjR2RHRtSXAwem1KZXVGbnJxS2c?oc=5)
+
+• 海南自贸港晒封关"成绩单"：零关税进口货物36.24亿元（多源报道：搜狐/新浪财经）
+  摘要：海南官方通报封关以来的成绩：零关税进口货物达36.24亿元，自贸港建设取得四方面进展。
+  🔗 [查看原文](https://news.google.com/rss/articles/CBMiVkFVX3lxTFBXbDl2RlVCTUJqS3lJM0N5MkgwcFhFcTNJYU05bS1qOFVXVTFJWERlT2t0RFJ5VUktQWZMa0hoV3dodUVGTFJRckMtSHlCYTgwbmplRDN3?oc=5)
+
+🏪 平台动态
+🔤 • SHEIN港股IPO定价估值约260亿美元，9月1日挂牌，暗盘跌超10%（多源报道：路透/彭博/CNN/WSJ）
+  摘要：SHEIN港股定价落地，市值约260亿美元，较2022年高峰的1000亿美元缩水超七成；9月1日正式登陆港交所，上市前交易一度跌超10%。路透等报道，创始人许仰天财富缩水约150亿美元。
+  🔗 [查看原文](https://news.google.com/rss/articles/CBMixgFBVV95cUxNNTdUOHo4UUNNeGJPVXlUY2Y1TGtsaTFjcW1MLWpuWE5EZThVSnFIT2VSM3Y2MG13TGN2M0Z3LWI3Z1g1MFFVMTdKTXlXeGd1M2Q0VzlfWkVHX0ozc2NzV2JSZ3lyZ1pmZHFKYnFTNlBta0VFRHVKYmtmWUdxQ0dXZnV2dDRSQVBDeXloa3hrcGY2UGxneW00cnpFV0VubGRKLVdJaXUweG9HZGxQZUhyMWpmdWc4RnVkeU5fQUFWMmUxZkd6QWc?oc=5)
+
+• TikTok Shop美区跨境POP上半年GMV翻倍（亿邦动力）
+  摘要：亿邦动力8月30日《跨境电商周报》披露，TikTok Shop美区跨境POP模式上半年GMV翻倍。
+  🔗 [查看原文](https://news.google.com/rss/articles/CBMiVkFVX3lxTE1mc3ZYZDdNZV9NQWoxN0F5dFFkTzVzc2NxSnhkSG04TldSTGQ2T1dqbWhvRjdDbHdfLW5yd0xyd1Q0aGlNVllRanR2cXIxSWgyRncxVTVB?oc=5)
+
+🔤 • TikTok Shop直播带货升温：一位妈妈一晚卖衬衫入账4万美元（TikTok Shop livestreams are becoming big business）（Miami Herald）
+  摘要：美国媒体报道，TikTok Shop直播带货规模快速扩大，一位普通妈妈一晚卖衬衫入账约4万美元。
+  🔗 [查看原文](https://news.google.com/rss/articles/CBMiZ0FVX3lxTE8yMUpKb2h2MWNVWFFTM3QwenlFN1hHMlFxbnBJcFFUc1EyREIweDNkblJVR0lCZlNycUNhUGVwamw0dWZVanVFNjZnQXJaZ09wRzBXZ193Tm1tWXljOHk0LVVzRWRfNzTSAWdBVV95cUxQQVNwUGhqUUpPZGlaZWpMOFItbVQ4eldnYkZ4R0tyV3R4Y0tKYl9NRE5zbGRyLThXeFRaM29iVDczUW5kZk1XV1IybS1jdVlHNXhKRkwyQnNOMmlHRDFNYnEyT1VIc3RR?oc=5)
+
+🔤 • Temu被曝最多花9.62亿美元投广告资助"假创作者"（Temu spent up to $962 million on ads that helped finance an army of fake creators on Meta platforms）（Fortune）
+  摘要：Fortune援引研究报告称，Temu在Meta平台广告投入最高达9.62亿美元，据称资助了大批虚假创作者账号。
+  🔗 [查看原文](https://news.google.com/rss/articles/CBMiiwFBVV95cUxPa2lVN3VsUVR2bnlldXRiR0FuX01qVXNyZnN0bURiQVhLWkNKdjhOUjN5QnJHLWFqUGhKT0hDU2IwTmtHYzlmYlNvLWpfNU1SenpMajV0bVJDcTloMWQxaU1DaUh2bEVRMGtKTkFRY3VJOFc3Y3ZoLVl3cjltcGpKN1JPdmtlNGpYa3Q4?oc=5)
+
+🔤 • 亚马逊"拍卖"2小时达配送，转化可提升12%（Amazon is auctioning 2-hour delivery. The 12% lift is the hook.）（Reddit FBA）
+  摘要：Reddit FBA卖家社区热议亚马逊"拍卖"2小时达配送一事，帖文称转化率可提升12%。
+  🔗 [查看原文](https://www.reddit.com/r/FulfillmentByAmazon/comments/1w2oe3e/amazon_is_auctioning_2hour_delivery_the_12_lift/)
+
+• "日本版阿里"落子杭州，发力跨境电商出海（搜狐）
+  摘要：8月31日搜狐报道，被媒体称为"日本版阿里"的日本电商平台在杭州落地布局，发力跨境电商出海。
+  🔗 [查看原文](https://news.google.com/rss/articles/CBMijAFBVV95cUxNU3JQUFFaLXBnblE5aVFSeWpIc3VCMGVTRE1raU43aEtYM3piYUt1M3F1QmRsVEFNdHRzYlpqclBVQWxnamtnMWVUR2VWQXVBanNnOXBsUUtPOVZyWFRuX0FMTloxZDF4NHV1encwV01FazFPTkJNYjVnWHg5Y243SG04VDFRZElzenBkZg?oc=5)
+
+📦 物流与市场
+• 美国电商重回快车道：Q2增速12.2%，占比升至17.1%（亿邦动力）
+  摘要：统计显示，美国电商Q2同比增长12.2%，占零售总额比重升至17.1%。
+  🔗 [查看原文](https://news.google.com/rss/articles/CBMiVkFVX3lxTE56djRTUmNxMTZwOGxKNzBZZ3I1ckF3SnprYW5vY0Z1V3FaQ2Q2TXk0UjNCTzRhSUtQT2M3LUhQTjhnMEtBSzktcksyVmJjVVF5TUlHNEt3?oc=5)
+
+• 连连数字报告：7月跨境商家信心指数115（中华网）
+  摘要：跨境支付公司连连数字发布报告，7月跨境商家信心指数为115，反映商家对下半年生意偏乐观；报告称品类与经营策略持续分化。
+  🔗 [查看原文](https://news.google.com/rss/articles/CBMibEFVX3lxTE1Id19NSXVxS1FOYndWVVpSVlJBMlNvRlpzVGxMblAtcUtJeDNmT1NFdHgyMnBkdURNQnZuNGhac2hCUGU3Z2FqYk9uVGwtWmw5bmVFcGxLWFB5MnNRY1NpQkRIOWRDTGo3a3N3Wg?oc=5)
+
+• 成都天府综保区1.5万㎡保税仓开仓，开辟对俄新通道（搜狐）
+  摘要：8月31日报道，1.5万平方米保税仓在成都天府综保区开仓，四川由此开辟对俄跨境电商新通道。背景：保税仓货物复出口不缴进口关税，进入境内销售才按规定纳税。
+  🔗 [查看原文](https://news.google.com/rss/articles/CBMijAFBVV95cUxPaFBXNFFpRU5XQVJWdUthUkNqd3NiSG96MUtsQXZWR3ZoTmhiSWxBV3Y0aTN4c3MyMzFoVzFDSGExbDlINmxINE1hNnp3MlFiTExTTldWaXNibk81QnRhVnp4cjFlbTU4QmVaa3V3VmZkYjMwQzVMR2ZzcmVnNHZtQWdrTlZkcnEzMG9faA?oc=5)
+
+• 集运指数（欧线）期货上市三周年：跨境电商的套保账本（中金在线）
+  摘要：集运指数（欧线）期货迎来上市三周年，有跨境电商卖家晒出用其对冲运费波动的"套保账本"。背景：集运指数期货是跟踪集装箱航线运价的金融工具，可对冲运费波动。
+  🔗 [查看原文](https://news.google.com/rss/articles/CBMibkFVX3lxTE5YZjJzbGNPLU1LVGE3OHp6Qm5BY3NTbGFoLW5DNndKNl9FUVVOTWF6d0pBZC1tN0U4YzVPekYySF9sRzVpSERkS0dQYkEtaHlTS2hQNzM5cmd5RHFhd2UzUUhLOXZNVV9kSzhYcWtn?oc=5)
+
+🛡️ 合规与风险
+• 珠海一纸《阻止出境决定书》，跨境人"出不了境"（雨果跨境）
+  摘要：雨果跨境8月31日报道，珠海税务部门对欠税人员发出《阻止出境决定书》，涉事跨境电商从业者被限制出境。背景：《阻止出境决定书》是税务机关对欠税人员采取的限制出境措施。
+  🔗 [查看原文](https://news.google.com/rss/articles/CBMiTEFVX3lxTE1VVWZzQ2Qtb3phX0tveVdrZ0hkM2xFYUNmMHBmY0o2cndHRE82WjAxcW9ILWJpR09sVVlka2RyajgxTVdyUnB1TnBwQ18?oc=5)
+
+💼 卖家运营
+• 7个跨境大卖盈利质量全景透视：下半场拐点归谁（雨果跨境）
+  摘要：雨果跨境8月31日发布分析，透视7个跨境大卖的盈利质量，探讨行业"下半场"的拐点归属。
+  🔗 [查看原文](https://news.google.com/rss/articles/CBMiTEFVX3lxTE5VeHppOU5HdUZ0NHlfbzZ3WmJjVnlYbEtrTVcwTXZ0M0hfTDhuRkI4bjVFRFhDR3F2RzVkQklzM1BVRkJuWl9IRWpycS0?oc=5)
+
+• 跨境电商的"照骗"，被AI承包了？（创业邦 cyzone）
+  摘要：创业邦报道，AI生成技术正被用于制作与实物严重不符的跨境电商商品展示图，行业担忧升温。背景："照骗"指与实物不符的商品图，AI让这类图片的制作成本大幅降低。
+  🔗 [查看原文](https://news.google.com/rss/articles/CBMiUEFVX3lxTE43dnEtYUwxb3dnSjd2VEN2blYtdWF1Tm54SmN2UUF4U0twcFpnV3FqUDg0Ukc5MnByd0VxRGJ2Z242aVE5M3g2bkJQVHVmaGEz?oc=5)
+
+To stop or manage this job, send me a new message (e.g. "stop reminder TrendRadar跨境日报投递").

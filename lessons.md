@@ -116,6 +116,12 @@
 - **复现**: 1次（22:24-22:29 所有出站失败，重启恢复）
 - **状态**: active
 
+### L15 bash（MSYS）下调用 hermes 脚本必须规避 $HOME 路径转义
+- **来源**: 2026-08-31 黄金周报
+- **规则**: git-bash 下把 `$HOME/AppData/...` 或 `C:\Users\...` 形式的路径直接作为参数传给原生 Windows python 会被 MSYS 转义破坏（表现为 `C:\c\Users\...` 或反斜杠被 bash 吞掉，FileNotFoundError）。正确做法二选一：① `cd "$HOME/AppData/Local/hermes/scripts"` 后只传文件名；② 传单引号包裹的正斜杠绝对路径 `'C:/Users/Administrator/...'`。影响所有调用 workflow_check.py / qwen_review.py / pre_review_check.py 的流程步骤
+- **复现**: 本任务内 3 次（workflow_check 2 次、qwen_review 1 次均因此失败）
+- **状态**: active
+
 ---
 
 ## 通用方法论

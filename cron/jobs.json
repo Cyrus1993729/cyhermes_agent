@@ -25,15 +25,15 @@
       "schedule_display": "30 12 * * 1",
       "repeat": {
         "times": null,
-        "completed": 14
+        "completed": 15
       },
       "enabled": true,
       "state": "scheduled",
       "paused_at": null,
       "paused_reason": null,
       "created_at": "2026-06-03T21:26:26.911653+08:00",
-      "next_run_at": "2026-08-31T12:30:00+08:00",
-      "last_run_at": "2026-08-24T13:13:04.133711+08:00",
+      "next_run_at": "2026-09-07T12:30:00+08:00",
+      "last_run_at": "2026-08-31T12:57:43.525436+08:00",
       "last_status": "ok",
       "last_error": null,
       "last_delivery_error": null,
@@ -75,18 +75,18 @@
       "schedule_display": "0 10 * * 1",
       "repeat": {
         "times": null,
-        "completed": 6
+        "completed": 7
       },
       "enabled": true,
       "state": "scheduled",
       "paused_at": null,
       "paused_reason": null,
       "created_at": "2026-07-02T09:34:09.294712+08:00",
-      "next_run_at": "2026-08-31T10:00:00+08:00",
-      "last_run_at": "2026-08-24T10:01:50.280451+08:00",
+      "next_run_at": "2026-09-07T10:00:00+08:00",
+      "last_run_at": "2026-08-31T10:01:58.808253+08:00",
       "last_status": "ok",
       "last_error": null,
-      "last_delivery_error": "delivery error: Weixin send failed: iLink sendmessage rate limited; cooldown active for 30.0s",
+      "last_delivery_error": "live adapter send failed: iLink sendmessage rate limited; cooldown active for 30.0s; live adapter delivery to weixin:o9cq805UpPVgaMB-v0amSgCvP1GY@im.wechat failed: iLink sendmessage rate limited; cooldown active for 30.0s; delivery error: Weixin send failed: iLink sendmessage rate limited; cooldown active for 30.0s",
       "deliver": "origin",
       "origin": {
         "platform": "weixin",
@@ -124,15 +124,15 @@
       "schedule_display": "0 8 * * *",
       "repeat": {
         "times": null,
-        "completed": 53
+        "completed": 54
       },
       "enabled": true,
       "state": "scheduled",
       "paused_at": null,
       "paused_reason": null,
       "created_at": "2026-07-02T12:38:24.038222+08:00",
-      "next_run_at": "2026-09-01T08:00:00+08:00",
-      "last_run_at": "2026-08-30T08:00:12.739481+08:00",
+      "next_run_at": "2026-09-02T08:00:00+08:00",
+      "last_run_at": "2026-08-31T08:00:25.176217+08:00",
       "last_status": "ok",
       "last_error": null,
       "last_delivery_error": null,
@@ -172,15 +172,15 @@
       "schedule_display": "*/30 * * * *",
       "repeat": {
         "times": null,
-        "completed": 1169
+        "completed": 1217
       },
       "enabled": true,
       "state": "scheduled",
       "paused_at": null,
       "paused_reason": null,
       "created_at": "2026-08-06T23:38:21.017914+08:00",
-      "next_run_at": "2026-08-31T08:30:00+08:00",
-      "last_run_at": "2026-08-31T08:00:18.077233+08:00",
+      "next_run_at": "2026-09-01T08:30:00+08:00",
+      "last_run_at": "2026-09-01T08:00:22.391481+08:00",
       "last_status": "ok",
       "last_error": null,
       "last_delivery_error": null,
@@ -264,15 +264,15 @@
       "schedule_display": "30,40 20 * * *",
       "repeat": {
         "times": null,
-        "completed": 32
+        "completed": 33
       },
       "enabled": true,
       "state": "scheduled",
       "paused_at": null,
       "paused_reason": null,
       "created_at": "2026-08-07T10:21:21.624046+08:00",
-      "next_run_at": "2026-08-31T20:30:00+08:00",
-      "last_run_at": "2026-08-30T22:56:12.099955+08:00",
+      "next_run_at": "2026-09-01T20:30:00+08:00",
+      "last_run_at": "2026-08-31T20:44:16.966230+08:00",
       "last_status": "ok",
       "last_error": null,
       "last_delivery_error": null,
@@ -313,18 +313,18 @@
       "schedule_display": "0 8 * * *",
       "repeat": {
         "times": null,
-        "completed": 23
+        "completed": 24
       },
       "enabled": true,
       "state": "scheduled",
       "paused_at": null,
       "paused_reason": null,
       "created_at": "2026-08-07T11:42:39.642261+08:00",
-      "next_run_at": "2026-09-01T08:00:00+08:00",
-      "last_run_at": "2026-08-30T08:00:49.603782+08:00",
-      "last_status": "error",
-      "last_error": "RuntimeError: Connection error.",
-      "last_delivery_error": "delivery error: Telegram send failed: httpx.ConnectError: All connection attempts failed",
+      "next_run_at": "2026-09-02T08:00:00+08:00",
+      "last_run_at": "2026-08-31T08:06:53.593911+08:00",
+      "last_status": "ok",
+      "last_error": null,
+      "last_delivery_error": null,
       "deliver": "origin",
       "origin": {
         "platform": "telegram",
@@ -362,18 +362,18 @@
       "schedule_display": "45 8 * * *",
       "repeat": {
         "times": null,
-        "completed": 21
+        "completed": 22
       },
       "enabled": true,
       "state": "scheduled",
       "paused_at": null,
       "paused_reason": null,
       "created_at": "2026-08-10T08:44:38.851263+08:00",
-      "next_run_at": "2026-08-31T08:45:00+08:00",
-      "last_run_at": "2026-08-30T08:45:17.086518+08:00",
+      "next_run_at": "2026-09-01T08:45:00+08:00",
+      "last_run_at": "2026-08-31T08:45:20.244297+08:00",
       "last_status": "ok",
       "last_error": null,
-      "last_delivery_error": "delivery error: Telegram send failed: httpx.ConnectError: All connection attempts failed",
+      "last_delivery_error": null,
       "deliver": "origin",
       "origin": {
         "platform": "telegram",
@@ -408,18 +408,18 @@
       "schedule_display": "0 21 * * *",
       "repeat": {
         "times": null,
-        "completed": 21
+        "completed": 22
       },
       "enabled": true,
       "state": "scheduled",
       "paused_at": null,
       "paused_reason": null,
       "created_at": "2026-08-10T08:44:38.873706+08:00",
-      "next_run_at": "2026-08-31T21:00:00+08:00",
-      "last_run_at": "2026-08-30T21:00:09.021998+08:00",
+      "next_run_at": "2026-09-01T21:00:00+08:00",
+      "last_run_at": "2026-08-31T21:00:04.351419+08:00",
       "last_status": "ok",
       "last_error": null,
-      "last_delivery_error": "delivery error: Telegram send failed: httpx.ConnectError: All connection attempts failed",
+      "last_delivery_error": null,
       "deliver": "origin",
       "origin": {
         "platform": "telegram",
@@ -454,15 +454,15 @@
       "schedule_display": "*/30 * * * *",
       "repeat": {
         "times": null,
-        "completed": 1003
+        "completed": 1051
       },
       "enabled": true,
       "state": "scheduled",
       "paused_at": null,
       "paused_reason": null,
       "created_at": "2026-08-10T10:20:34.277336+08:00",
-      "next_run_at": "2026-08-31T08:30:00+08:00",
-      "last_run_at": "2026-08-31T07:30:18.005881+08:00",
+      "next_run_at": "2026-09-01T08:30:00+08:00",
+      "last_run_at": "2026-09-01T07:30:25.711276+08:00",
       "last_status": "ok",
       "last_error": null,
       "last_delivery_error": null,
@@ -500,18 +500,18 @@
       "schedule_display": "45 20 * * *",
       "repeat": {
         "times": null,
-        "completed": 21
+        "completed": 22
       },
       "enabled": true,
       "state": "scheduled",
       "paused_at": null,
       "paused_reason": null,
       "created_at": "2026-08-13T22:23:11.925554+08:00",
-      "next_run_at": "2026-08-31T20:45:00+08:00",
-      "last_run_at": "2026-08-30T20:45:07.679416+08:00",
+      "next_run_at": "2026-09-01T20:45:00+08:00",
+      "last_run_at": "2026-08-31T20:46:02.992608+08:00",
       "last_status": "ok",
       "last_error": null,
-      "last_delivery_error": "delivery error: Telegram send failed: httpx.ConnectError: All connection attempts failed",
+      "last_delivery_error": null,
       "deliver": "origin",
       "origin": {
         "platform": "telegram",
@@ -546,15 +546,15 @@
       "schedule_display": "0 9 * * 1",
       "repeat": {
         "times": null,
-        "completed": 2
+        "completed": 3
       },
       "enabled": true,
       "state": "scheduled",
       "paused_at": null,
       "paused_reason": null,
       "created_at": "2026-08-17T08:27:19.980696+08:00",
-      "next_run_at": "2026-08-31T09:00:00+08:00",
-      "last_run_at": "2026-08-24T09:00:49.056614+08:00",
+      "next_run_at": "2026-09-07T09:00:00+08:00",
+      "last_run_at": "2026-08-31T09:00:20.882765+08:00",
       "last_status": "ok",
       "last_error": null,
       "last_delivery_error": null,
@@ -571,5 +571,5 @@
       "fire_claim": null
     }
   ],
-  "updated_at": "2026-08-31T08:00:18.081230+08:00"
+  "updated_at": "2026-09-01T08:00:22.397502+08:00"
 }
