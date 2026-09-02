@@ -169,7 +169,8 @@ def call_gpt(draft: str, candidates: str):
     prompt_file.write_text(prompt, encoding="utf-8")
     r = subprocess.run(
         ["cmd.exe", "/c", r"C:\Users\Administrator\.local\bin\codex.cmd",
-         "exec", "--skip-git-repo-check", "--sandbox", "read-only"],
+         "exec", "--skip-git-repo-check", "--sandbox", "read-only",
+         "-c", 'model="gpt-5.6-sol"'],
         stdin=open(prompt_file, encoding="utf-8"),
         capture_output=True, text=True, timeout=600, env=env,
         cwd=r"D:\Workspace\Projects\TrendRadar")

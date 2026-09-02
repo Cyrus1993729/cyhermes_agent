@@ -63,9 +63,9 @@ python C:\Users\Administrator\AppData\Local\hermes\scripts\workflow_check.py --s
 ┌─ 质量门 ──────────────────────────────────────────┐
 │ 1. 步骤完整性                                     │
 │ 2. 来源区分                                       │
-│ 3. 自动审查（🆕 L1 ‖ Opus 并行扇出）               │
-│    ├── 投资分析类：同时启动 L1 + Opus              │
-│    │    L1 (qwen_review.py) ‖ Opus (claude -p)     │
+│ 3. 自动审查（🆕 L1 ‖ GPT-5.6 Sol，双审已简化为 GPT 单审兜底）         │
+│    ├── 投资分析类：L1 (qwen_review.py) 先行，疑点/3轮不过 → GPT-5.6 Sol │
+│    │    （codex exec -c 'model="gpt-5.6-sol"'，见 codex-cli skill）      │
 │    │    → 合并结果 → 统一修复 → 重审               │
 │    │    ├── 每层最多 3 轮（独立计数）              │
 │    │    └── 第4轮启动前 → 停下，通知用户           │

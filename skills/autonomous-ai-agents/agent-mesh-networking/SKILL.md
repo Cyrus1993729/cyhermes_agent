@@ -26,6 +26,15 @@ description: 用户想让多个 Agent 互相通信协作（A2A 互联/组网）�
 3. **回复风暴**：agent 收到消息自动回复 → 无限循环烧 token。必须设回复深度上限（≤3 跳）、消息 TTL、不回自己发起的线程
 4. **对照组**：最小方案（本地 broker）是否已满足核心诉求？不要为简单诉求上重型平台
 
+## Hermes 跨机器 A2A 的版本门槛（2026-09 实测，双机互联方案）
+
+- **`hermes peer` 是 v0.21 (Pantheon) 才有的官方跨机 A2A**：跨 profile、跨 gateway；消息进入接收方永久的 canonical Bot Chat（交棒语义，不是一次性子 Agent 调用）。v0.19.1 无此命令（`hermes --help | grep -i peer` 无结果、`hermes peer --help` 报错）。
+- **跨机器 peer 前置条件**：API server 平台 + `API_SERVER_KEY` + 网络可达（同 LAN 最简单，异地 Tailscale）。Bot 消息不会实时插入运行中的对话（live interrupt 是未来功能）——派活是异步等结果，不是实时对话。
+- **v0.19 替代品只有 webhook（事件触发跑 agent）+ api_server（HTTP 管道）**——能传任务，但不是 agent 对 agent 交棒。评估时必须区分「事件触发」vs「A2A 交棒」语义；用户要的是后者时，webhook 方案不成立。
+- ⚠️ **评估任何双机/双 agent 通信方案前，先实测每台机的版本能力**（`hermes --version`、`hermes peer --help`、`hermes webhook list`），不要假设功能对齐。用户明确要求代入实际版本（本机 v0.19.1 vs 新机 v0.21）——曾因假设 webhook 够用被纠正。
+- **双机分工模式**（用户 2026-09-01 拍板方向）：老机 24/7 = 轻任务+cron+派活方+通信；重活（小红书深挖等）peer 给新机执行。**升级路由**：新机先装新版当试验田（验证 peer + 稳定）→ 老机再升 → 冻结不再升。
+- 版本能力表、peer 细节、双核机升级提速组合拳、租服务器否决理由：见 `references/two-machine-architecture-2026-09.md`
+
 ## 关键事实
 
 - EigenFlux 机制、接入方式、自建门槛、数据、风险：详见 [`references/eigenflux-facts.md`](references/eigenflux-facts.md)（2026-08-07 调研：GitHub/官网/即刻/36氪交叉验证，**尚未本机实测**）
@@ -33,6 +42,6 @@ description: 用户想让多个 Agent 互相通信协作（A2A 互联/组网）�
 
 ## 相关技能
 
-- `design-review`：agent 互联方案先拿 Opus 红队评审（必查项见该 skill 陷阱 5）
+- `design-review`：agent 互联方案先拿 GPT-5.6 Sol 红队评审（必查项见该 skill 陷阱 5）
 - `native-mcp`：Hermes 接入 MCP server 的配置方式
 - `xiaohongshu-analysis`：从小红书帖子发现此类产品时走该流水线

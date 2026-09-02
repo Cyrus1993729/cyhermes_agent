@@ -4,9 +4,9 @@ model:
   provider: opencode-go
 providers:
   qwen-bailian:
-    api_key: sk-ws-H.RYPHLIL.4QLm.MEUCIElsP9pvIFb8EbjIscIC0Bou0khl3Bi6MYdG6lRkDtz9AiEA4Jrphf8JysbHha05FWLq1zuK2Q3ICk6352Xb1vYMMRo
+    api_key: sk-4AI70ie7Av3sTsE4fDr0NqAbcocAdvdOwFGwwUzD26Ohjtz5bmYroUEW4hy3LrHu
     api_mode: chat_completions
-    base_url: https://ws-9uvsmpyndmhx312y.cn-beijing.maas.aliyuncs.com/compatible-mode/v1
+    base_url: https://opencode.ai/zen/go/v1
   opencode-go-anthropic:
     base_url: https://opencode.ai/zen/go/v1
     api_key: sk-4AI70ie7Av3sTsE4fDr0NqAbcocAdvdOwFGwwUzD26Ohjtz5bmYroUEW4hy3LrHu
@@ -30,7 +30,7 @@ agent:
   environment_probe: true
   environment_hint: ''
   coding_context: auto
-  verify_on_stop: true
+  verify_on_stop: false
   gateway_timeout_warning: 900
   clarify_timeout: 600
   gateway_notify_interval: 180
@@ -236,7 +236,7 @@ auxiliary:
     timeout: 600
 display:
   compact: false
-  personality: kawaii
+  personality: ''
   resume_display: full
   resume_exchanges: 10
   resume_max_user_chars: 300
@@ -381,14 +381,13 @@ delegation:
   api_key: ''
   api_mode: ''
   inherit_mcp_toolsets: true
-  max_iterations: 50
+  max_iterations: 250
   child_timeout_seconds: 600
   reasoning_effort: ''
-  max_concurrent_children: 3
+  max_concurrent_children: 10
   max_spawn_depth: 1
   orchestrator_enabled: true
   subagent_auto_approve: false
-  max_async_children: 3
 prefill_messages_file: ''
 goals:
   max_turns: 20
@@ -398,11 +397,11 @@ moa:
   presets:
     default:
       reference_models:
-        - model: anthropic/claude-opus-4.8
-          provider: nous
+        - model: deepseek-v4-pro
+          provider: opencode-go
       aggregator:
-        provider: nous
-        model: anthropic/claude-opus-4.8
+        provider: opencode-go
+        model: deepseek-v4-pro
       max_tokens: 4096
       enabled: false
       reference_temperature: 0.6
@@ -421,14 +420,14 @@ moa:
           provider: opencode-go
       reference_temperature: 0.6
   aggregator:
-    model: anthropic/claude-opus-4.8
-    provider: nous
+    model: deepseek-v4-pro
+    provider: opencode-go
   aggregator_temperature: 0.4
   enabled: true
   max_tokens: 4096
   reference_models:
-    - model: anthropic/claude-opus-4.8
-      provider: nous
+    - model: deepseek-v4-pro
+      provider: opencode-go
   reference_temperature: 0.6
 skills:
   external_dirs: []
@@ -504,15 +503,16 @@ approvals:
   mcp_reload_confirm: true
   destructive_slash_confirm: false
 command_allowlist:
-  - recursive delete
-  - execute_code
-  - stop/restart hermes gateway (kills running agents)
-  - command parser limit or malformed executable payload
-  - script execution via heredoc
-  - delete in root path
-  - shell command via -c/-lc flag
   - overwrite project env/config file
+  - stop/restart hermes gateway (kills running agents)
+  - script execution via heredoc
+  - command parser limit or malformed executable payload
+  - shell command via -c/-lc flag
+  - recursive delete
+  - delete in root path
+  - PowerShell encoded command execution
   - overwrite project env/config via redirection
+  - execute_code
   - script execution via -e/-c flag
 hooks_auto_accept: false
 security:
@@ -628,7 +628,7 @@ paste_collapse_threshold_fallback: 5
 paste_collapse_char_threshold: 2000
 computer_use:
   cua_telemetry: false
-_config_version: 30
+_config_version: 33
 platforms:
   telegram:
     enabled: false

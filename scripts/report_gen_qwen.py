@@ -34,7 +34,9 @@ def call_qwen(prompt, timeout=300):
     req = urllib.request.Request(
         base + '/chat/completions',
         data=body,
-        headers={'Authorization': f'Bearer {key}', 'Content-Type': 'application/json'},
+        headers={'Authorization': f'Bearer {key}',
+                  'Content-Type': 'application/json',
+                  'User-Agent': 'curl/8.0.0'},
     )
     with urllib.request.urlopen(req, timeout=timeout) as resp:
         d = json.loads(resp.read().decode('utf-8'))

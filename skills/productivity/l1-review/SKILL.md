@@ -1,6 +1,6 @@
 ---
 name: l1-review
-description: "【L1 固定审查层】交付物完成、任务收尾时触发。用 qwen-bailian(千问3.7Max) 对照 sprint-contract 的契约逐条审查交付物，输出 PASS/CONDITIONAL/FAIL + 逐条裁决 + 疑点标记（独立于裁判）。疑点标记触发 L2（Opus）条件性深度审查。走 execute_code 直连 API（不经 delegate_task，锁定 provider）。只报告不改文件。审交付物不审过程。"
+description: "【L1 固定审查层】交付物完成、任务收尾时触发。用 qwen3.7-max 对照 sprint-contract 的契约逐条审查交付物，输出 PASS/CONDITIONAL/FAIL + 逐条裁决 + 疑点标记（独立于裁判）。疑点标记触发 L2（GPT-5.6 Sol）条件性深度审查。走 execute_code 直连 API（不经 delegate_task，锁定 provider）。只报告不改文件。审交付物不审过程。⚠️ 2026-09-01 起：① qwen3.7-max 经 OpenCode 网关调用（config `providers.qwen-bailian` 段 base_url 已指向 opencode.ai/zen/go/v1），不再直连阿里云百炼；脚本须带 `User-Agent: curl/8.0.0` 头（Cloudflare 1010 拦截）。② L2 深度审查由 GPT-5.6 Sol 承接（原 Opus，账户冻结停用），调用走 codex-cli skill 姿势（`codex exec -c 'model=\"gpt-5.6-sol\"'`）；凡原 L1‖Opus 双审结构均简化为 GPT-5.6 单审兜底。"
 version: 1.2.0
 category: productivity
 tags: [review, qa, qwen, verification, methodology, depth, l2-escalation]
@@ -64,7 +64,7 @@ tags: [review, qa, qwen, verification, methodology, depth, l2-escalation]
 - 全 PASS → PASS
 - 有 CONDITIONAL 无 FAIL → CONDITIONAL
 - 任一 FAIL → FAIL
-- **审查阶段全程自动**：L1/Opus 发现问题 → Agent 自动修复 → 重审 → 循环至 PASS（每层最多 3 轮）
+- **审查阶段全程自动**：L1/GPT-5.6 发现问题 → Agent 自动修复 → 重审 → 循环至 PASS（每层最多 3 轮）
 - **第 4 轮启动前停下**：同一审查层连续 3 轮未 PASS（含 FAIL 和 CONDITIONAL），第 4 轮启动前停下询问用户
 - CONDITIONAL 算审查轮次，修完必须重审
 - 详见 sprint-contract v1.2 升级规则
@@ -78,11 +78,11 @@ L1 输出的不是简单的 PASS/FAIL，而是**裁判 + 疑点标记**两件事
 | 输出 | 是什么 | 示例 |
 |:---|:---|:---|
 | **裁判** | 基于 dim1-6 自己能判定的：能不能过？ | PASS / CONDITIONAL / FAIL |
-| **疑点标记** | 千问看到但无法确定的：要不要请 Opus 看看？ | 「证据链单薄」「承重假设未论证」「疑似逻辑跳跃」 |
+| **疑点标记** | 千问看到但无法确定的：要不要请 GPT-5.6 看看？ | 「证据链单薄」「承重假设未论证」「疑似逻辑跳跃」 |
 
-**两者互不影响。** 可以 PASS 但有疑点（交付 + "建议 Opus 再看一眼这几处"），也可以 CONDITIONAL 但无疑点（修完格式即可）。
+**两者互不影响。** 可以 PASS 但有疑点（交付 + "建议 GPT-5.6 再看一眼这几处"），也可以 CONDITIONAL 但无疑点（修完格式即可）。
 
-## L2 深度审查（⚠️ v1.2 新增 — Opus 条件触发）
+## L2 深度审查（⚠️ v1.2 新增 — GPT-5.6 Sol 条件触发，原 Opus 已停用）
 
 ### 触发条件
 **不是每次都跑。** 仅当 L1 输出了疑点标记时，才触发 L2：

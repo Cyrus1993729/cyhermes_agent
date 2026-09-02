@@ -229,6 +229,8 @@ explicit `false`.
 
 Full Qwen workspace key config recipe: [`references/qwen-bailian-workspace-key.md`](references/qwen-bailian-workspace-key.md)
 
+⚠️ **2026-09-01 迁移：qwen-bailian 段已指向 OpenCode 网关**（`base_url: https://opencode.ai/zen/go/v1` + OPENCODE_GO_API_KEY），`qwen_review.py`/`report_gen_qwen.py` 不再直连阿里云百炼（费用归零级），两脚本须带 `User-Agent: curl/8.0.0`（Cloudflare 1010 拦截 urllib 默认 UA）。完整改动/验证/回滚步骤：[`references/qwen-bailian-to-opencode-migration.md`](references/qwen-bailian-to-opencode-migration.md)
+
 ## MoA (Mixture of Agents) with Chinese Models
 
 Hermes v0.17.0+ supports MoA — multiple reference models analyze in parallel,
@@ -406,6 +408,19 @@ DeepSeek 官方 8/17 峰谷涨价（Flash 输出 2→4.5/9 元、Pro 6→13.5/27
 11. **版本核对用 CLI 不用桌面 UI（2026-08-16 实踩）**：桌面客户端（第三方 fathah/hermes-desktop，`app-update.yml` 的 owner/repo 可查）与核心 gateway（`~/AppData/Local/hermes/hermes-agent`）是**两个独立安装、独立版本**。用户"更新到 v0.20"可能只升了桌面壳，核心还是 v0.19.1（`hermes --version` 的 `__version__` + git log 时间戳为准）。改配置前先 `hermes --version` 确认核心版本，配置语法按核心版本文档走
 
 **当前接线状态（2026-08-16 迁移后）**：model/cron/fallback→opencode-go（flash）；MoA china：aggregator deepseek-v4-pro→opencode-go，reference qwen3.7-max→opencode-go-anthropic，reference kimi-k2.7-code→opencode-go；video 管线（pipeline.py/quick_summary.py）→ opencode-go 端点 + deepseek-v4-flash（原 deepseek-chat 模型名在 Go 不存在，必须换）。Opus/GPT sign-off 渠道未动。
+
+### 直连 opencode 网关调推理模型（deepseek-v4-pro）的姿势（2026-09-01 实测）
+
+完整执行工作流（5种指定通道、脚本直连模板、截断续写、坑汇总）：[`references/model-execution-workflow.md`](references/model-execution-workflow.md)
+
+契约审查/深度分析需要指定模型直连 opencode.ai/zen/go/v1 时（如 GPT-5.6 撞 5h 限额改用 deepseek-v4-pro），实测定型：
+
+1. **模型目录**：`GET https://opencode.ai/zen/go/v1/models`（Bearer key + UA: curl/8.0.0 + 代理 7897）列出当前全部可用模型——2026-09-01 实测含 kimi-k3/k2.7-code/k2.6/k2.5、glm-5.3/5.2/5.1/5、deepseek-v4-flash/pro、qwen3.8-max/3.7-max/3.8-flash/plus 系列、grok-4.5/4.6、gpt-5.6-luna、mimo 系列、hy3/hy4-preview、longcat-2.0、minimax-m3 等。指定"任一个模型跑任务"前先拉这份清单确认名字。
+2. 🔴 **POST 一律用 curl，不用 urllib**：urllib.request POST chat/completions 实测连续 RemoteDisconnected（Flash 短请求 curl 秒通，urllib 却断）——脚本内直连用 subprocess 调 curl 或 Python `requests` 库，不要用 urllib。
+3. 🔴 **长生成必须 stream:true**：非流式长生成（max_tokens 4000+ 或输出 >~2KB）会被 Clash 代理掐断——curl exit 56（接收失败）/ exit 35（SSL 错误），响应文件为空。流式边生成边收，2MB 输出也稳。
+4. 🔴 **推理模型吃 token 预算**：deepseek-v4-pro 的 `reasoning_content` 先于 content 消耗 tokens——max_tokens=1200 时 `finish_reason=length` 且 content 为空（思考过程占满）。审查/分析类任务直接 **max_tokens=16000 + stream:true**。
+5. **流式解析**：逐行读 `data:` 前缀的 JSON，累加 `choices[0].delta.content`（reasoning 在 `delta.reasoning_content`），遇 `[DONE]` 结束。pro 的 content 可能被截断（如 226 字符）——重跑时在 prompt 尾加"直接给出最终 JSON，不要中途打草稿"可显著改善完整性。
+6. **审查 prompt 复用 RUBRIC 结构**（与 codex-cli 同款）：检查项+严重度分级 → 待审内容 → 输出要求"只输出 JSON 对象 {verdict, findings[]}"。deepseek-v4-pro 三轮收敛实例：FAIL(8条)→CONDITIONAL(6条)→PASS(4条 soft)，意见质量可用。
 
 ### OpenCode Go fallback 链设计（2026-08-16 故障复盘 + Opus 红队审查）
 

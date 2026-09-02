@@ -57,8 +57,33 @@ date "+%Y-%m-%d %H:%M:%S"
 - 结束进程类操作（会中断用户正在用的东西）**必须先征得同意**。
 - 用户有"改配置/结束进程前须同意"的偏好，若涉及杀进程，给出明确要执行的 PID 清单再动手。
 
+## 第五步：GUI 不可见时读取应用状态（向日葵类远程软件识别码/验证码）
+- **识别码权威来源 = GUI 大字显示**（无头时退而求其次）：
+  - 配置文件：向日葵 `C:\ProgramData\Oray\AweSun\sys_config.ini` 的 `fastcode=k447420158`（k+9 位数字=识别码；`sunlogincode` 是序列号不是识别码；`[history_record_info]` 有历史识别码）
+  - 注册表：`HKLM\SOFTWARE\Oray\AweSun\AweSun` 的 `machine_code`（加密，不可直接读）
+  - ⚠️ 免费版识别码在设备重新初始化（clientId 重生成）时**可能变化**；用户报的码与配置不符时，**以 GUI 实读为准**（截屏 vision_analyze），不要断言用户记错
+- **验证码**：动态 6 位，只显示在 GUI 上且被圆点隐藏（需点"眼睛"图标）；配置文件里的 `fastcodepsw`/`sunloginaccesspassword` 是**加密的固定访问密码**，不是临时验证码
+- **同账号直连免验证码**：被控端已登录账号（sys_config.ini 有 access_token）时，主控端登录同一账号即可从设备列表直连；识别码+验证码只在"非账号直连"时必需
+- 设备名/主机名在安装目录 `config.ini`：`hostname=PC-xxx`、`macaddress=xx:xx...`
+
 ## Pitfalls
 - MSYS bash 下 `ps aux` 常漏报原生 Windows GUI 进程 → 用 `tasklist`。
 - `netstat` 按进程名过滤无效（显示的是 PID），用 `grep -wE "<pid>"`。
 - 结束进程禁止 `taskkill /F /IM python.exe`（会杀 Agent 自身）；桌面软件用 `taskkill /PID <pid>` 逐个结束。
+- 🔴 **MSYS bash 下 taskkill 的斜杠坑（2026-09-01 实踩）**：`taskkill //PID 4228 //F` 报"无效参数/选项 - '//PID'"（MSYS 路径转换把单斜杠转成了双斜杠）；**正确姿势：`TASKKILL.EXE /PID 4228 /F`（TASKKILL.EXE + 单斜杠直接可行，无需 MSYS_NO_PATHCONV）**。另一个失败姿势：`cmd //c "taskkill ..."` 会开交互提示符不执行。杀完用 `powershell "(Get-Process <App> -ErrorAction SilentlyContinue | Measure-Object).Count"` 确认归零。
+- 🔴 **`cmd //c start` 可能静默失败（2026-09-01 实踩：AweSun 没起）**：cmd 返回提示符、无报错，但进程根本没起来（原因不定：路径/会话权限）。**失败时改用 PowerShell：`powershell -NoProfile -Command "Start-Process -FilePath 'C:\Program Files\...\App.exe'"`**，睡眠 8-10 秒后必须用 `Get-Process` 验证进程真正存在。
+- 🔴 **从 Hermes 启动的 GUI 应用会掉进 Session 0（2026-09-01 AweSun 实踩，本类问题最隐蔽的坑）**：Hermes 跑在 Windows **Session 0（services 会话）**，用 `Start-Process`/`cmd start` 拉起的 GUI 应用**继承 Session 0**——进程活着、能连服务器、但 GUI 不可见、注册/鉴权态异常，用户端看到"设备不在线/连不上"。**判定**：`powershell "(Get-Process <App>).SessionId"` 应为 1（用户交互会话）；为 0 即中招。**修复**：杀净进程 → 用 schtasks **交互任务**在用户会话（Session 1）重新拉起：
+  ```bash
+  # 用户必须已登录 console（query session 确认）
+  MSYS_NO_PATHCONV=1 schtasks /create /tn "StartApp" /tr "\"C:\Program Files\...\App.exe\"" /sc once /st 23:59 /it /ru Administrator /f
+  MSYS_NO_PATHCONV=1 schtasks /run /tn "StartApp"
+  # 验证: Get-Process <App> | Select Id,SessionId  → SessionId=1 才算成功
+  ```
+  本机实测 schtasks /run 在 /it + 已登录用户下**可靠执行**（未遇"装睡"）。注意：杀完 Session 0 实例后，服务组件可能自动再拉 Session 0 客户端（AweSun 曾同时 3 个 Session 0 + 1 个 Session 1），以 Session 1 实例为准。
+- 🔴 **Session 0 截屏必败（"句柄无效"），用 schtasks 交互任务在 Session 1 截屏**：Session 0 里 `CopyFromScreen` 抛 Win32Exception（无可见桌面）。**正确姿势**：写截屏 ps1 存到共享路径（如 `C:\ProgramData\<App>\probe.ps1`，输出 png 也存 ProgramData），`schtasks /create ... /it /ru Administrator` + `/run` 在 Session 1 执行，Session 0 读文件 + `vision_analyze` 看图。ps1 要点：`[System.Windows.Forms.Screen]::PrimaryScreen.Bounds` + `CopyFromScreen(0,0,0,0,$b.Size)` + `$bmp.Save(..., [ImageFormat]::Png)`。锁屏/无桌面时会失败（输出 SCREEN_FAIL），此时改走配置文件/注册表。
+- 🔴 **ps1 含中文必须存 UTF-8 BOM（2026-09-01 实踩）**：PowerShell 5.1 按 ANSI(GBK) 读取无 BOM 的 UTF-8 .ps1，含中文（如 `-match '向日葵'`）的文件直接报"字符串缺少终止符"类解析错。**写 ps1 用 python `open(p,'w',encoding='utf-8-sig')`**（或其他工具加 BOM）。另：MSYS bash 下 `powershell -File` 的路径参数反斜杠会被吞（`C:ProgramDataOray...`）→ 用单引号包正斜杠路径 `-File 'C:/ProgramData/.../probe.ps1'`。
+- 🔴 **schtasks 交互任务执行 powershell 会在桌面弹窗遮挡**：`/it` 任务跑 powershell 会弹出一个 PowerShell 窗口（每次都遮挡目标窗口）。**隐藏姿势**：`/tr` 里加 `-WindowStyle Hidden`；或写 vbs 包装 `ws.Run "powershell ... -File xxx.ps1", 0, False`（wscript 无窗口）。schtasks /run 偶发"装睡"（提示成功但没执行，本次 MISS 过一次）→ 无输出/无文件时**重跑一次**。
+- 🔴 **置顶窗口用 FindWindow+SetWindowPos(HWND_TOPMOST)，不要依赖 SetForegroundWindow**：SetForegroundWindow 受前台锁限制不可靠（同脚本两次调用一次成功一次失败）；`EnumWindows` 按标题匹配（如 `-match '向日葵'`）+ `SetWindowPos(hwnd, [IntPtr](-1), 0,0,0,0, 0x43)`（HWND_TOPMOST + NOSIZE|NOMOVE|SHOWWINDOW）稳定置顶。窗口置顶后位置可能变化，**点击前重新截屏定位坐标**，不要用上一轮的旧坐标。
+- 🔴 **Webview2 渲染的 GUI（向日葵新版）对合成鼠标/键盘事件免疫（2026-09-01 实踩）**：SendInput 网格点击（多坐标）、mouse_event、Ctrl+A/C 复制剪贴板**全部无效**——验证码这类被隐藏的动态内容**无法通过程序自动化读取**，只能人工在屏幕上点。**不要浪费时间反复尝试自动化点击**；改用真正可行的路径：同账号直连免验证码（见第五步）、或让用户在电脑前点一下。失败的尝试序列不要固化为"可重试的工作流"。
+- 🔴 **常驻远程控制软件"进程在+已连服务器但设备离线"= 多实例/僵尸实例叠加（2026-09-01 AweSun 实踩）**：现象 = 3 个 AweSun 实例（同一次开机自启叠加产生）都在跑、且有 ESTABLISHED 到中继服务器（阿里云 443）的连接，但玩客端显示"不在线"。修复 = **杀净全部实例（TASKKILL.EXE /PID 逐个）→ Start-Process 重启单实例 → 验证新进程有 4-6 条新 ESTABLISHED 连接**（`netstat -ano | grep -E "ESTABLISHED" | grep <pid>`，连国内阿里云/腾讯云 IP:443 = 已注册上线）。判定"在线"不能只看进程存在或旧连接，要看**新实例**建立的新连接。
 - 判断"连不上"时，进程在跑 + 有到服务器的连接 ≠ 一切正常，还要看进程是不是陈旧僵死 + 是否登录。

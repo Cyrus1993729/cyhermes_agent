@@ -22,7 +22,7 @@ tags: [deployment, self-hosted, windows, scheduler, watchdog, python]
 
 ## 核心流程（10 步，顺序执行）
 
-0. **前置选型**：Docker vs 本地 uv vs 云服务器——结合机器配置（老笔记本跑 Docker Desktop 的 WSL2 虚拟机很吃力）、网络（国内机器走本地代理 vs 云服务器需额外配代理）、常驻情况（电脑是否 24h 开机）判断。出契约（sprint-contract）+ 用户确认（decision-gate）；部署类任务用户可简化流程（跳过 L1/复盘，契约 + Opus 审查仍要）
+0. **前置选型**：Docker vs 本地 uv vs 云服务器——结合机器配置（老笔记本跑 Docker Desktop 的 WSL2 虚拟机很吃力）、网络（国内机器走本地代理 vs 云服务器需额外配代理）、常驻情况（电脑是否 24h 开机）判断。出契约（sprint-contract）+ 用户确认（decision-gate）；部署类任务用户可简化流程（跳过 L1/复盘，契约 + GPT-5.6 Sol 审查仍要）
 1. **环境检查**：`docker/uv/git/python` 版本实测（禁凭常识断言）
 2. **代码源确认**：clone 前先 GitHub API 查用户仓库列表——确认是"正在用的仓库"还是刚 fork 的空模板（空模板 = 关注词/密钥全无，配置从零配；用户可能删过旧仓库）
 3. **依赖安装**：`uv sync`（国内用清华镜像 `UV_DEFAULT_INDEX=https://pypi.tuna.tsinghua.edu.cn/simple`，秒级提速）
@@ -44,7 +44,7 @@ tags: [deployment, self-hosted, windows, scheduler, watchdog, python]
 - 🔴 **计划任务"上次结果=1"排查（2026-08-08 实踩，停摆 24h）**：任务显示"就绪"≠ 正常——"上次结果=1"= bat 被调用但失败。查详情：`MSYS_NO_PATHCONV=1 schtasks /query /tn <任务名> /v /fo LIST | iconv -f GBK -t UTF-8`。**验证/触发一律用 `MSYS_NO_PATHCONV=1 schtasks /run /tn <任务名>`**（等价生产环境，绕开 bash→cmd 路径转换），不要用 `cmd /c "D:\...\xxx.bat"` 复现——其报错与生产环境可能不同（如 `The system cannot find the path specified` 常是重定向目录缺失而非 bat 真失败）
 - 🔴 **bat 编码坑 + 重定向目录坑（同次实踩）**：① bat 文件 UTF-8 无 BOM + 中文注释 → cmd 按 GBK 解析乱码 → 把相邻 ASCII 吞掉当命令执行（`'ndRadar' 不是命令`）——**bat 必须全英文**；② bat 里 `>> output\logs\xxx.log` 重定向前**必须先 `if not exist "output\logs" mkdir "output\logs"`**，否则报 `The system cannot find the path specified`。两个坑叠加时，编码坑修好才会暴露重定向坑
 - 🔴 **看门狗"日志从未生成"必须告警**：日志新鲜度看门狗若 `if not os.path.exists(LOG): return`（把无日志当部署初期），bat 挂掉时日志永远不存在 → 看门狗永久静默。正确：无日志 + 无触发标记 → 触发一次重启；无日志 + 已有标记 → 告警（说明 bat/计划任务层故障）。看门狗"ok"不代表系统健康——排查先查数据/日志时间戳
-- **Opus 契约审查**：`claude -p --model opus` 加 `--tools ""` 禁用工具，否则 Opus 把 max-turns 耗在工具调用上返回 "Reached max turns" 无输出；max-turns 给 8
+- **GPT-5.6 Sol 契约审查**：`codex exec -c 'model="gpt-5.6-sol"' --skip-git-repo-check --sandbox read-only` 加 `--tools ""` 禁用工具，否则 审查模型把 max-turns 耗在工具调用上返回 "Reached max turns" 无输出；max-turns 给 8
 - **验证改动**：写完脚本/配置跑 ad-hoc 验证脚本（tempfile 路径 + `hermes-verify-` 前缀，跑完删除），输出逐项 PASS/FAIL，明确标注"ad-hoc 验证，非测试套件"
 - **增量/去重基准陷阱**：增量模式常是"当天内"去重（存储按天分库）——跨天第一次运行会把昨天推过的内容全当"新增"再推一遍（重复！）。实现跨天增量需改两处：①查重范围扩展为"昨天+今天"合并 ②"当天第一次"分支不能直接全量，也要走新增检测（详见 references/trendradar-deployment-2026-08.md 推送模式小节）
 - **看门狗阈值 vs 推送频率**：阈值必须适配推送间隔——每小时推送用 4h 阈值没问题；改成每天 2 次（间隔 9-15h）后必须调大到 ~16h，否则两次推送之间必误报"疑似故障"
@@ -67,4 +67,4 @@ tags: [deployment, self-hosted, windows, scheduler, watchdog, python]
 ## See Also
 - `china-dev-proxy-setup` — 双网络环境代理配置（部署中代理分流的基础）
 - `sprint-contract` / `decision-gate` — 部署类任务仍走契约+闸门（用户可简化后续流程）
-- `claude-code-workflow` — Opus 审查调用规则（代理红线、smoke test）
+- `claude-code-workflow` — GPT-5.6 Sol 审查调用规则（代理红线、smoke test）

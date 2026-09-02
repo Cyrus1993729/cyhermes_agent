@@ -13,6 +13,12 @@ metadata:
 
 # Claude Code Workflow Rules
 
+> ## ⚠️ 暂停使用（2026-09-01）
+> Claude Code CLI（Opus）账户于 2026-08-30 被风控冻结（"Your account is on hold"），大概率不恢复。
+> **本 skill 所有规则暂停生效**；深度审查/分析/sign-off 全部改由 `codex-cli` skill 承接（GPT-5.6 Sol：
+> `codex exec -c 'model="gpt-5.6-sol"' --skip-git-repo-check --sandbox read-only`）。
+> 若未来账户解冻，恢复本 skill 前先跑 `claude auth status --text` 确认。
+
 User-specific rules for how Hermes Agent should orchestrate Claude Code. These rules apply every time Claude Code is invoked, regardless of the task.
 
 ## Rule 0: Proxy — 🔴 RED LINE

@@ -12,6 +12,7 @@ tags: [codex, cli, gpt-5.6, review, windows]
 - 需要用 GPT-5.6（Codex 背后模型）做审查/独立方案/双审对比（对应 claude-code skill 的定位）
 - 用户说"走 Codex / GPT 审查"或脚本需要调 codex
 - 维护调用 codex 的脚本（如 daily_report_review.py）
+- ⚠️ **2026-09-01 起为本机深度审查/分析/sign-off 的默认执行通道**（原 Opus/claude-code-workflow 因账户冻结停用）。深度任务统一用 `-c 'model="gpt-5.6-sol"'` 指定 GPT-5.6 Sol（Plus 配额模型，实测可用）；普通任务用默认模型即可
 
 ## 环境事实
 - 安装：`~/.local/bin/codex` 是 **bash 脚本**；同目录 `codex.cmd` 是 Windows 包装器（内部 `powershell Get-ChildItem $env:LOCALAPPDATA\OpenAI\Codex\bin\*\codex.exe | Sort LastWriteTime | Select -First 1` 定位最新 codex.exe）
@@ -43,6 +44,7 @@ r = subprocess.run(
 - 也可能是 ```json 围栏包裹
 - 🔴 **嵌套陷阱**：JSON 可能是外层 `{"findings":[...]}` 含内层 `{"severity":...}` 对象——取"最后一个合法块"会取到内层（无 findings 键）→ 静默丢 findings
 - ✅ 提取姿势：解析所有平衡 `{}` 块 → 优先选含 `findings` 键的块，否则取最长。带单元断言：嵌套/单层/围栏三种形态
+- 🔴 **stdout 含 ANSI 控制字符 → read_file 判 binary 无法直读（2026-08-31 实踩）**：subprocess capture 的 stdout 里有 `\x1b[...m` 转义序列（及杂散控制字符），`read_file` 会报 "Binary file - cannot display as text"。**用 python 清洗后再存/读**：`re.sub(r'\x1b\[[0-9;]*[a-zA-Z]', '', text)` + `re.sub(r'[\x00-\x08\x0b\x0c\x0e-\x1f]', '', text)`；正文在 `codex\n` 标记之后、`tokens used\n<N>` 之前（清洗后 `re.sub(r'\ntokens used\n[\d,]+$', '', body)` 去掉尾部）
 
 ## 审查用法（GPT-5.6 作审查者的模式）
 - 审查 prompt 结构：RUBRIC（检查项+严重度分级）→ 【待审内容】→ 【候选数据/来源】（有则给，审查者做跨数据比对）
@@ -54,3 +56,6 @@ r = subprocess.run(
 ## 验证
 - 连通性冒烟：`printf '只输出 JSON: {"ok": true}' | codex exec --skip-git-repo-check --sandbox read-only`（bash 里）→ 输出含 `{"ok":true}` + `tokens used`
 - 脚本化调用后必须断言提取到的 JSON 结构（findings 键存在），不能只看 exit 0
+
+## 迁移与恢复
+- **Opus → GPT-5.6 Sol 迁移全景**（2026-09-01：改动逐文件清单、回滚备份、解冻恢复路径、"双审→单审"用户裁决）：[`references/opus-to-gpt56-sol-migration-2026-09.md`](references/opus-to-gpt56-sol-migration-2026-09.md)

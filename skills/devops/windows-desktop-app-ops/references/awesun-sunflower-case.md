@@ -32,3 +32,23 @@ netstat -ano | grep ESTABLISHED | grep -wE "2848|4380"
 ```bash
 cd "/c/Program Files/Oray/AweSun" && cmd //c start "" "AweSun.exe"
 ```
+
+---
+
+# 向日葵 (Oray AweSun) 实测案例二 — 2026-09-01（Session 0/1 陷阱）
+
+用户报告"远程连接显示不在线"，随后要求核对识别码（用户称 390138142）。
+
+## 时间线
+1. 杀净 3 个陈旧实例（8/30 22:40 开机自启叠加）→ 从 Hermes 用 `Start-Process` 重新拉起 → 进程活了、连上中继（多条 443 ESTABLISHED）→ **但用户仍连不上**。
+2. 查 `query session`：用户已登录 console（Session 1）；`(Get-Process AweSun).SessionId` = **0** → **AweSun 被拉进了 Session 0（服务会话）**！GUI 应用在 Session 0 无可见桌面、注册态异常 → 手机端"不在线/连不上"。
+3. 修复：`TASKKILL.EXE /PID` 杀净 → schtasks 交互任务（`/it /ru Administrator`）在 Session 1 拉起 → 验证 SessionId=1（注意服务组件会再拉 Session 0 实例，以 Session 1 为准）。
+4. 截屏验证：Session 0 里 `CopyFromScreen` 报"句柄无效"→ 用 schtasks /it 交互任务跑截屏 ps1（存 `C:\ProgramData\Oray\screen_probe.png`）→ Session 0 读图 + vision_analyze。
+5. GUI 实读：识别码 **447420158**（与 sys_config.ini `fastcode=k447420158` 一致）、账号"崔宇"、🟢在线、验证码 6 圆点隐藏（需点"眼睛"）；历史识别码 1761807119。用户报的 390138142 在 GUI/配置中均不存在 → 不是本机码（可能是账号下另一台设备）。
+
+## 本案例新经验
+- **从 Hermes 启动 GUI 应用 = Session 0 陷阱**（详见 SKILL.md Pitfalls）。
+- **schtasks /it 交互任务**在这台机器（用户已登录 console）可靠执行，可用来：① 在 Session 1 启动 GUI 应用；② 在 Session 1 截屏（CopyFromScreen 探针）。
+- 向日葵识别码：`sys_config.ini fastcode`（k+9 位）与 GUI 一致；免费版重初始化后识别码可能变，以 GUI 实读为准，不武断说用户记错。
+- 验证码是 GUI 动态显示（圆点隐藏），配置文件里 `fastcodepsw`/`sunloginaccesspassword` 是加密的固定访问密码，不是临时验证码；同账号直连免验证码。
+- 截屏 ps1 模板见 SKILL.md（第五步相关）；输出路径必须选 Session 0 可读的共享位置（ProgramData 优于用户 AppData）。

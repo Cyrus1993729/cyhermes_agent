@@ -90,7 +90,8 @@ def call_qwen(contract: str, deliverable: str):
         base + "/chat/completions",
         data=json.dumps(body, ensure_ascii=False).encode("utf-8"),
         headers={"Authorization": f"Bearer {key}",
-                 "Content-Type": "application/json"})
+                 "Content-Type": "application/json",
+                 "User-Agent": "curl/8.0.0"})
     try:
         with urllib.request.urlopen(req, timeout=300) as resp:
             raw = json.loads(resp.read())

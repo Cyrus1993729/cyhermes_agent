@@ -40,7 +40,7 @@ metadata:
 4. **轮次上限 3-4 轮**：边际收益第 3 轮后衰减；每轮字数上限 + 结构化结尾（已一致/剩余分歧/立场变化）+ 分歧为空提前终止
 5. **机械控制，不要 LLM 主持**：轮流发言、轮次上限、收敛检测用脚本；不要放 LLM 在通路里读改写
 6. **对抗性要求**：system prompt 硬性要求"先找出对方论证最弱的一环"，否则三轮内互相点头
-7. **claude CLI 调用坑**：长 prompt 用 stdin 重定向 `claude -p --model opus --disallowedTools Read Write Bash < f.txt`；`--disallowedTools` 必须空格分隔（逗号语法会解析失败并吞掉后续参数）
+7. **claude CLI 调用坑（已停用 2026-09-01，Opus 冻结）**：长 prompt 用 stdin 重定向；深度审查已改 codex 姿势——`codex exec -c 'model="gpt-5.6-sol"' --skip-git-repo-check --sandbox read-only < f.txt`（见 codex-cli skill）
 
 ## 安全铁律（给有执行权限的 agent 接外部消息）
 

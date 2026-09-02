@@ -84,6 +84,17 @@ cd ~/AppData/Local/hermes/logs
 4. **平台定价与官方 API 价联动**：官方涨价（如 DeepSeek 2026-08-17 峰谷定价，Flash 输出 +125%）→ 平台大概率同步调价 → 额度对应请求数缩水。涨价前先给用户"涨价后占用比例"的敏感测算
 5. **单次成本估算**：用"我们平均每次调用输入 × 模型输入价 + 输出 × 输出价"，不要用官方"每请求 $X"数字
 
+### 🔴 外部 CLI 模型（Codex / Claude Code CLI）的用量审计盲区——state.db 查不到（2026-08-31 实踩）
+
+`session_model_usage` 只记录 **Hermes 自己发起的 API 调用**。subprocess 直调的 Codex CLI（`codex.cmd exec`）、Claude Code CLI（`claude -p`）、`daily_report_review.py` 这类脚本的模型用量**完全不在 state.db**（实测 `WHERE model LIKE '%gpt-5.6%'` 返回空）。审计外部 CLI 订阅只能三源交叉：
+1. **本地调用频率**：agent.log 里脚本名出现次数（如 `grep -c daily_report_review` → 8 月仅 3 次；`grep -c codex` 分布稀疏）——state.db 给不了这个
+2. **官方用量页**：ChatGPT/Codex 用量统计、opencode 的 scode.ai/workspace 页面（5h/周/月三柱 + 模型级明细：如 8/31 实测 Flash $4.71/$30=17.9%、qwen3.7-max $0.10/$60=0.2%）
+3. **官方定位 + 社区实测**：learn.chatgpt.com 定价页写死套餐定位（Plus="Power a few focused coding sessions each week"——"每周几次"就是官方设计容量）；OpenAI 社区 8 月大量"weekly 限额 2-3 天耗尽"抱怨（GPT-5.6 单次消耗大）——**5h 墙不是唯一约束，weekly 是隐性墙**，重度使用前先查社区当前抱怨模式
+
+### 🚨 评估前必须先用数据核实负载，禁止凭印象假设（2026-08-31 用户纠正）
+
+用户原话："你这段话里有一些描述是不是有点太绝对了"——当时输出"日报审查每天跑、一周 7 次会烧穿限额"，实际 `daily_report_review.py` 8 月只跑 3 次（抽查机制非每日任务），整个担忧是编造的。**评估额度/成本前先做三件事再下结论**：① 查实际频率（日志/脚本调用痕迹，不是猜）② 查官方定位与配额数字（learn.chatgpt.com 定价页）③ 查社区对真实瓶颈的共识。没有数据支撑的"会烧穿/用不完"论断用户会直接质疑——本会话两次凭直觉判断（"限额紧张"、"用量余量判断"）前者被纠、后者靠官方页数据才对。
+
 ## 六、从评估到迁移：套餐接入迁移清单（2026-08-15 OpenCode Go 实踩）
 
 评估完"额度够"之后要真正切换 provider 时，**盘点全部接入点**是第一步，漏一个就有一条线静默走旧账单：
@@ -102,3 +113,4 @@ cd ~/AppData/Local/hermes/logs
 ## 参考数据
 
 - `references/opencode-go-2026-08.md` — OpenCode Go 完整 18 模型定价表、额度机制、DeepSeek 8/17 涨价细节、本机用量画像与分情景测算结果（可直接复用数值）
+- **2026-08-31 官方用量页实测画像**（scode.ai/workspace，半月周期）：5h 9.6% / 周 6.1% / 月 18.2%；模型级 = Flash $4.71/$30（17.9%，绝对主力）· qwen3.7-max $0.10/$60（0.2%）· 其余 <$0.02。含义：① 高峰负载也远不撞 5h 墙；② **同一 qwen3.7-max 走 OpenCode 网关近乎免费**（对比 qwen-bailian 直连烧钱，审查/兜底链路可迁移）；③ 月外推 ~36%，仍处"随便用"档

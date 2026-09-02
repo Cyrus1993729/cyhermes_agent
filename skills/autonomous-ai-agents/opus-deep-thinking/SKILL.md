@@ -10,6 +10,11 @@ metadata:
 
 # Opus 多主题深度思考编排
 
+> ## ⚠️ 已停用（2026-09-01）
+> Opus（Claude Code CLI）账户被风控冻结不恢复。**本 skill 暂停**。
+> "你和 Opus 挨个思考"类需求改由 GPT-5.6 Sol 承担（`codex exec -c 'model="gpt-5.6-sol"'`，见 codex-cli skill）；
+> 编排流程结构可复用，仅把 Opus 调用替换为 codex 姿势。
+
 当用户要求"你和 Opus 都深度思考一下 X"（如分析完 N 个帖子/主题后要赋能建议），用本流程。核心：**逐主题独立 prompt 并行跑**（用户明确偏好），不要打包成大杂烩。
 
 ## 触发场景

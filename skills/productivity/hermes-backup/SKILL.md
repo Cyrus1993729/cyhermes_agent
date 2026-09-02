@@ -236,6 +236,21 @@ hermes auth add <provider>
 
 > **额外需要手动重建的：** cron 任务定义（不在 ~/.hermes 目录里）、.env 中的 API key、Python 运行环境依赖。
 
+## 多机共享与迁移（2026-09-01 双机布局咨询沉淀）
+
+两台机器都装 Hermes 时，共享什么、不共享什么：
+
+| 资产 | 共享策略 | 方式 |
+|:---|:---|:---|
+| skills/ | ✅ 推荐共享 | clone 备份仓库，或 `hermes profile export/import`（官方 tar.gz 一键迁移） |
+| memories/ | ⚠️ 选择性 | 90% 是本机环境事实（D:\Workspace 路径、Clash 代理、cron 体系），跨机会误导新机 agent；新机器从零积累更干净 |
+| config.yaml | ✅ 可带 | 需按新机改代理地址/模型 provider |
+| auth.json / .env | ❌ 不在备份内 | `hermes auth add` + 重填 API key |
+| cron 任务 | ❌ 不在备份内 | 手动重建 |
+
+- **skills=可复用流程（跨机有效），memory=本机环境快照（跨机无效）**——共享只带 skills。
+- 不要两台机器双向同步同一仓库（会打架）；单向：主机推 → 新机 clone 即可。
+
 ## 已落地实例（2026.7.2）
 
 实际部署配置参考（Windows, Telegram 用户）：

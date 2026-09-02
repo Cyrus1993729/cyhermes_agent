@@ -22,6 +22,15 @@ tags: [Claude, OAuth, troubleshooting, Windows, authentication]
 | `Not logged in · Please run /login` | 凭证文件不存在 | `claude auth login` |
 | PowerShell 里 `claude` 命令找不到 | npm 全局路径不在 PS 的 PATH | 用 CMD 或 git-bash |
 | localhost 拒绝连接 | auth login 的本地服务器超时退出 | 后台模式重跑 |
+| `claude auth login` 能生成授权 URL、浏览器打开授权页后跳 `claude.ai/restricted` 显示 **"Your account is on hold"** | **账户被风控冻结（不是凭证问题）**——OAuth 管线健康但账户被 Claude 判"异常活动"（常见诱因：大陆 IP+代理访问、高频 CLI 调用），数据安全，审查约 10 天 | 页面点 "Request a review" 申诉（如实说明个人正常使用+大陆代理访问）；**期间 Opus/Claude Code 全不可用，走降级链 GPT-5.6 等；不要反复重试 login** |
+
+## 账户冻结 vs 凭证过期 判别（2026-08-31 实踩）
+
+1. `claude auth status --text` → `Login: Expired`（两种问题都这样显示，仅凭它无法区分）
+2. 跑 `claude auth login`（`terminal background=true pty=true`；**Windows 无 tmux**）→ 能正常打印授权 URL = OAuth 管线健康；终端输出按宽度折行，拼 URL 时把 `client_id=...-59`+`44d...`、`org%3Acreat`+`e_api_key`、`code_chall`+`enge=`、`state=...Qz_1h`+`FnZgY` 这类断行接回
+3. 浏览器打开授权 URL 却落到 `claude.ai/restricted` + "Your account is on hold" → **账户级风控冻结**，非凭证故障
+4. 处理：申诉（Request a review）+ 等 ~10 天（邮件通知）；恢复前 OAuth 无法刷新是冻结的必然结果，无需排障
+5. 冻结期间受影响面：`claude -p`（Opus 深度分析）、黄金周报双审、一切 sign-off——按用户降级链（GPT-5.6/千问 3.7 Max）替代，交付中注明降级原因
 
 ## 凭证恢复流程
 

@@ -109,12 +109,19 @@ TrendRadar 自身无数量门槛（fetcher 全收，仅域名安全检查 `expec
 - ✅ **已执行（2026-08-12 用户拍板）**：五类 9:30→**11:00**、跨境 16:00→**17:00**。用户否决了 8:30 方案（08:00-08:30 实测也偏高、平均 138s——"你都说了8.30也卡"），改选 11:00/17:00（11:00-11:30 平均 9s 0 慢、17:00-17:30 平均 8s 0 慢，均在有数据验证的舒适区）。投递检查 cron 同步：五类 11:45（2026-08-14 从 11:15 调整——原 11:15 与 agent 完成时间竞态连续两天误报，见 Pitfall 19）、跨境 17:45
 - 脚本（`~/AppData/Local/hermes/scripts/`）：
   - `api_probe.py` — DeepSeek 真实 chat completion 延迟探测（25s 超时），输出 `OK <秒>`/`SLOW <秒>`/`ERROR <原因>`（阈值 30s：正常 2-15s、过载 60-265s）
-  - `report_gen_qwen.py` — qwen3.7-max 日报生成引擎（`--candidates <json> --mode five|cb --out <file>`），编辑规则内嵌（与 cron prompt 第 2/3 步一致），读 config.yaml qwen-bailian key 直连；生成文件为 UTF-8 但含 CRLF，read_file 可能误判 binary，用 python 读
+  - `report_gen_qwen.py` — qwen3.7-max 日报生成引擎（`--candidates <json> --mode five|cb --out <file>`），编辑规则内嵌（与 cron prompt 第 2/3 步一致），读 config.yaml qwen-bailian 段 key/base_url；⚠️ 2026-09-01 起该段指向 OpenCode 网关（opencode.ai/zen/go/v1），不再直连阿里云；脚本带 `User-Agent: curl/8.0.0`（Cloudflare 1010 拦截）；生成文件为 UTF-8 但含 CRLF，read_file 可能误判 binary，用 python 读
 - **cron prompt 集成（✅ 已上线 2026-08-12 晚，两个日报 cron 均更新）**：第 0 步跑 api_probe → SLOW/ERROR 时取候选后跑 report_gen_qwen 生成草稿 → 核对完整性（非空/含速览/含清单）→ 跳过人工编辑从审查步骤继续 → 末尾标注"⚠️ 今日 DeepSeek 过载，日报由 qwen3.7-max 生成"；脚本失败则退回当前模型（慢总比没有强）。🔴 prompt 内脚本路径一律用正斜杠 `C:/Users/...`（agent 生成的 `C:\Users\...` 命令在 bash 下反斜杠会被吞，报 "can't open file 'C:\UsersAdministrator...'"，2026-08-12 实踩，agent 重试才成功）
 - 详细延迟数据表/脚本验证（12/12 断言）/调用姿势：`references/deepseek-overload-avoidance-2026-08.md`
 - 🔴 **读 cron jobs.json 用字段 `id` 不是 `job_id`**（2026-08-12 实踩 StopIteration）：`~/AppData/Local/hermes/cron/jobs.json` 结构 `{"jobs":[...],"updated_at":...}`，job 对象主键字段名是 `id`（cronjob list API 显示为 job_id）
 - ⚠️ **避峰非万能 + 体检单次采样局限（2026-08-12 17:00 首跑实测）**：跨境日报改 17:00 首跑时 DeepSeek 依然 50-120s/次（前一天同段实测 8s——过载形态是**全天波动**而非固定高峰，8/12 全天都慢）；api_probe 启动时探测 1.66s 返回 OK，但后续每次调用 50-120s。**单次采样抓不住波动过载**——体检只能抓住"稳定持续过载"（如 8/12 早上的 60-265s 不回落形态），对"探测瞬间快、随后慢"无效。✅ **二次探测已实施（2026-08-14 用户拍板）**：cron prompt 新增【第 1.6 步二次探测】——取完候选（耗时 1-2 分钟，天然形成间隔）后再跑一次 api_probe.py；判定改"**任一 SLOW/ERROR → qwen 引擎，两次都 OK → deepseek**"。两个日报 cron prompt 均已更新（详见 `references/deepseek-overload-avoidance-2026-08.md`「二次探测」章）。8/14 当天 11:00 五类日报即遇波动过载（API 78-217s、19 分钟才跑完 9 步），正是此设计要抓的形态。结论：时间调整降低慢的概率但不保证；体检是粗筛不是保险。⚠️ 更新 cron prompt 的姿势：替换前用 execute_code 读 jobs.json（字段 `id` 非 `job_id`）验证目标段落唯一且 qwen 分支保留 → cronjob update 传完整新 prompt → 改后读回 jobs.json 验证落盘（断言新段落 in、旧判定 not in）
 - 🔴 **2026-08-17 价格维度：日报时间撞 OpenCode 峰谷高峰**（DeepSeek 涨价后 OpenCode 同步官方峰谷定价，Peak=北京 9-12/14-18 点价格×2）——11:00/17:00 生成正好在 Peak 内，成本×2；旧"避 DeepSeek 官方 API 延迟高峰"的理由已不适用（走 OpenCode 网关后延迟与官方峰谷无关，缓存命中 97%+）。✅ **已执行（2026-08-17 用户拍板）：跨境日报 17:00→20:30**（20:40 重试 / 20:45 投递 / 21:00 检查），用户理由"避免跟很多人一样卡着峰谷切换点（18:00）否则卡顿"——20:30 完全 Off-Peak 且避开切换点人潮。**5 类日报 11:00 仍撞高峰，待用户拍板是否同样错峰**。额度缩水详情/用量核算：hermes-china-providers「OpenCode Go 同步 DeepSeek 调价」+ `references/opencode-go-price-update-2026-08-17.md`
+
+## qwen 引擎调用痕迹与 qwen-bailian 费用排查（2026-08-31 实踩）
+用户报"千问直连 API 一直有费用"时的排查结论与顺序（qwen-bailian 是阿里云百炼 MaaS 专属端点，两条 qwen 链路必须分清）：
+1. **agent.log 里查不到脚本直连调用**——terminal 成功调用只记 `completed (N.NNs, N chars)` 不含命令文本，`grep "report_gen_qwen"` 永远为空。脚本调用痕迹看三处：① `archives/crossborder/*.md` 里的"⚠️ 今日 DeepSeek 过载，日报由 qwen3.7-max 生成"标注（8/21、8/27 实测）② `_draft_*.txt` mtime/内容 ③ qwen_review.py 用 `reviews/review_log.jsonl`（L1 审查每次 append 时间戳，黄金周报每期 4-6 次 = 持续费用源）
+2. **区分两条 qwen 链路（看 agent.log API call 的 `provider=` 字段）**：`provider=custom`（base_url=`ws-xxx.maas.aliyuncs.com`）= qwen-bailian 直连（**产生阿里云费用**）；`provider=opencode-go-anthropic` = OpenCode 网关（走订阅，**不产生阿里云费用**）。8/29-8/30 网络故障期每天 39 次 `model=qwen3.7-max` 调用全是后者——大规模调用不一定是费用来源
+3. **历史整会话直连**：config.yaml `cron: model=qwen3.7-max + model_provider=qwen-bailian` 会让整个 cron 会话跑在 qwen-bailian（8/10-11 实踩：黄金周报 18 + 跨境 16 + 五类 9 ≈ 43 次/日）——查费用暴涨先看 cron 段当前配置（现为 opencode-go）
+4. **MaaS 专属端点按实例在线时长计费的可能**：`ws-xxxx.maas.aliyuncs.com` 专属部署（元/小时，无调用也扣）——本地只能查调用方；实例费需用户去阿里云百炼控制台确认/释放（本地无法代做）
 
 ## Pitfalls（实测踩坑）
 0. 🔴 **db 存在且 mtime 新鲜 ≠ 采集成功——真相在 `crawl_records.total_items`（2026-08-29/30 实踩，全链路故障 43h）**：整机出网故障期（8/29 03:41 → 8/30 22:40）每小时采集计划任务照常执行（`output/news/<date>.db` 照常创建、mtime 照常更新、crawl_records 依然 22-23 条），但 **total_items 全为 0**——只看 `ls output/news/` 会误判"采集正常"，实为全时段空转。排查命令（execute_code 读 sqlite，绕开 terminal 工具层故障更稳）：`SELECT crawl_time, total_items FROM crawl_records ORDER BY id`，正常基线 ~252-255 条/批，连续 0 条 = 采集挂；恢复信号 = 某批回到 ~255（实踩 8/30 22:41）。**"错过的日报能否重建"以此为准**：8/29 仅凌晨 3 批（765 raw → 306 唯一），缺 21h 数据 → 历史榜单快照不可补采，无法忠实重建，只能补发恢复后的部分或如实说明缺失（用户会问"采集成功了吗？不是可以重新生成吗"——先查 crawl_records 再回答）。
@@ -278,4 +285,5 @@ TrendRadar 自身无数量门槛（fetcher 全收，仅域名安全检查 `expec
 - `references/daily-report-review-2026-08.md` — 日报投递前自动审查机制（三层质检/L1 模型选择/cron 第 4.5 步/Codex CLI 调用姿势/extract_json 陷阱/验证方法）
 - `references/daily-report-cron-spec-2026-08.md` — 双日报 cron prompt 规范精炼版（跨境 16:00 + 5 类 9:30 的完整步骤/模块结构/硬规则/存档格式）——改日报格式以此为准并同步更新
 - `references/deepseek-overload-avoidance-2026-08.md` — DeepSeek 过载避峰方案（延迟时间模式数据表/api_probe+report_gen_qwen 脚本/验证断言/cron 第 0 步集成设计/待办）
+- `references/clash-outage-diagnosis-2026-08.md` — Clash 卡死全网断诊断（44h 静默断网实踩：newsnow 走代理证据/诊断链/sidecar 静止时间戳/Event 41 判读/系统活着判定/待落地看门狗）
 - `references/delivery-separation-2026-08.md` — 生成/投递分离架构（方案 C+D：Opus 四方案评审/deliver_cb.py 逻辑与验证/Job A/B cron 设计/可迁移设计原则）

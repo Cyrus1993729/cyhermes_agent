@@ -1,9 +1,9 @@
 ---
 name: self-hosted-deployment
-description: "Use when 用户要本地/自托管部署开源项目或选部署方式。侦察→环境检查→方案对比→契约+Opus审→确认。"
+description: "Use when 用户要本地/自托管部署开源项目或选部署方式。侦察→环境检查→方案对比→契约+GPT-5.6 Sol 审→确认。"
 version: 1.0.0
 category: devops
-tags: [deployment, self-hosted, docker, uv, windows, china-network, opus-review]
+tags: [deployment, self-hosted, docker, uv, windows, china-network, gpt56-review]
 ---
 
 # Self-Hosted Deployment — 本机自托管部署规划
@@ -25,17 +25,27 @@ tags: [deployment, self-hosted, docker, uv, windows, china-network, opus-review]
 2. **本机环境检查**（一条命令）：`docker --version; uv --version; git --version; python --version; wsl --status`。用事实说话，禁凭常识断言"应该装了什么"。
 3. **方案对比矩阵**：按用户真正在乎的轴对比——人工干预频率（签到/额度限制）、配置修改便利度、硬件/内存代价、代理链路、数据备份、升级维护。表格 + 一句话类比（Docker=物业托管，本地=自己开店）。明确推荐 + 理由链。
 4. **密钥盘点**：确认本地密钥文件是否覆盖所需（API key、bot token）；注意 bot 隔离——不同服务不要混用同一个 TG bot。
-5. **契约 + Opus 红队审**（详见 references/opus-review-technique.md 与 claude-code skill）：
+5. **契约 + GPT-5.6 Sol 红队审**（详见 references/gpt56-review-technique.md 与 claude-code skill）：
    - 契约按 sprint-contract 格式，验收标准写成"具体命令 + 可看到的结果"，禁"能启动/无报错"这类模糊措辞
-   - Opus 审查用 print 模式：契约全文嵌入提示词（Opus 沙箱读不到本地文件）、`--tools ""` 禁工具、`--max-turns 8`
-6. **用户确认**：5 步流程对部署类任务**非强制**——用户说"不一定要走5步流程"时允许简化（跳过 L1 审查/复盘）。Opus 审查结论必须逐条给出"有无解决方案"，让用户判断，不丢结论给他自己消化。
+   - GPT-5.6 Sol 审查用 print 模式：契约全文嵌入提示词（审查模型沙箱读不到本地文件）、`--tools ""` 禁工具、`--max-turns 8`
+6. **用户确认**：5 步流程对部署类任务**非强制**——用户说"不一定要走5步流程"时允许简化（跳过 L1 审查/复盘）。GPT-5.6 Sol 审查结论必须逐条给出"有无解决方案"，让用户判断，不丢结论给他自己消化。
+
+## 选址决策：本地 vs 云服务器（2026-09-01）
+
+用户问"本地跑还是租服务器"时，先查三件事再给推荐，避免为错误理由买单：
+
+1. **网络依赖**：服务要连被墙端点（TG Bot API 等）？本地=Clash 代理解决；搬到**国内云服务器要挂代理=封机红线**；境外 30 元档机延迟高/晚高峰丢包。
+2. **性能瓶颈是否真实存在**：Hermes 这类 API 客户端本地负载极轻，双核笔记本足够；注意区分"运行慢" vs "升级/安装慢"——升级慢是 pip 源/Defender 扫描/文件锁/降频问题，**换机器不解决（30 元档云主机也是 2 核）**。
+3. **运维手段是否迁移**：本地桌面运维（computer-use 接管桌面、用户双击 .bat）在无桌面服务器上作废，需重学 SSH 命令行体系；交接包/看门狗/备份全要重搭。
+
+推荐模式：**第二台机器当试验田**（新功能/新版本先在新机验证），主机器只跑已验证版本——0 成本，顺带满足探索需求。
 
 ## 监控哲学：用户 = 最终心跳
 - 用户 24h 开机 + 每天看推送 → "当天没收到推送"就是最可靠故障信号，他自己会发现并报告
 - 看门狗/监控设计成：**自动拉起 + 只有拉起失败才通知用户**，不做每日心跳/主动打扰
 - 符合用户"事件驱动、极端条件触发、平时静默"的一贯偏好
 
-## Pitfalls（Opus 红队沉淀，本地部署通用）
+## Pitfalls（GPT-5.6 Sol 红队沉淀，本地部署通用）
 1. **TG bot 无法主动给未对话用户发消息**（403 Forbidden: bot can't initiate conversation）→ 新建 bot 后用户必须先手机点一次 `/start`。必须写进"用户操作清单"，否则执行中段才发现要用户掏手机。
 2. **密钥明文落 git 工作区**：GA Secrets 时代天然隔离；迁本地后 key 在项目文件夹里，非技术用户某天"备份一下"就可能 `git push` 泄露 → key 走 `.env` + 确认 .gitignore + **`git remote remove origin` 物理杜绝误推**。
 3. **计划任务环境 ≠ 交互终端**：uv PATH、代理变量、工作目录、Clash 启动时序全部不同 → 手动验证与自启必须共用同一启动脚本，且**重启实测不可省**（"重启实测可选"会让自启缺陷合法通过验收）。
@@ -53,7 +63,7 @@ tags: [deployment, self-hosted, docker, uv, windows, china-network, opus-review]
 - 执行阶段安全红线：**严禁 taskkill /F /IM python.exe（会杀死 Hermes 自身）**，杀进程用精确 PID
 
 ## See Also
-- `sprint-contract` / `decision-gate` — 契约格式与 Opus 审闸门
-- `claude-code` / `claude-code-workflow` — Opus 调用规范（代理红线、smoke test）
+- `sprint-contract` / `decision-gate` — 契约格式与 GPT-5.6 Sol 审闸门
+- `claude-code` / `claude-code-workflow` — GPT-5.6 Sol 调用规范（代理红线、smoke test）
 - `china-dev-proxy-setup` — 双网络 Python 项目代理配置
-- `references/trendradar-deployment-2026-08.md` — 首个落地案例（TrendRadar 迁移契约 + Opus 全量发现）
+- `references/trendradar-deployment-2026-08.md` — 首个落地案例（TrendRadar 迁移契约 + GPT-5.6 Sol 全量发现）
