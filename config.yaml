@@ -143,12 +143,6 @@ auxiliary:
     api_key: ''
     timeout: 120
     download_timeout: 30
-  web_extract:
-    provider: auto
-    model: ''
-    base_url: ''
-    api_key: ''
-    timeout: 360
   compression:
     provider: auto
     model: ''
@@ -234,6 +228,12 @@ auxiliary:
     base_url: ''
     api_key: ''
     timeout: 600
+  web_extract:
+    provider: auto
+    model: ''
+    base_url: ''
+    api_key: ''
+    timeout: 360
 display:
   compact: false
   personality: ''
@@ -341,7 +341,6 @@ tts:
     voice: en_US-lessac-medium
 stt:
   enabled: true
-  provider: local
   local:
     model: base
     language: ''
@@ -354,6 +353,7 @@ stt:
     language_code: ''
     tag_audio_events: false
     diarize: false
+  provider: local
 voice:
   record_key: ctrl+b
   max_recording_seconds: 120
@@ -503,17 +503,18 @@ approvals:
   mcp_reload_confirm: true
   destructive_slash_confirm: false
 command_allowlist:
-  - overwrite project env/config file
-  - stop/restart hermes gateway (kills running agents)
-  - script execution via heredoc
   - command parser limit or malformed executable payload
-  - shell command via -c/-lc flag
+  - stop/restart hermes gateway (kills running agents)
   - recursive delete
-  - delete in root path
-  - PowerShell encoded command execution
-  - overwrite project env/config via redirection
-  - execute_code
   - script execution via -e/-c flag
+  - delete in root path
+  - overwrite project env/config via redirection
+  - access to Hermes secrets (Windows path)
+  - execute_code
+  - script execution via heredoc
+  - overwrite project env/config file
+  - shell command via -c/-lc flag
+  - PowerShell encoded command execution
 hooks_auto_accept: false
 security:
   allow_private_urls: false
@@ -584,6 +585,11 @@ gateway:
   trust_recent_files_seconds: 600
   api_server:
     max_concurrent_runs: 10
+  platforms:
+    a2a:
+      enabled: true
+      extra:
+        port: 9900
 streaming:
   enabled: false
   transport: auto
@@ -600,6 +606,7 @@ sessions:
 onboarding:
   seen:
     busy_input_prompt: true
+    tool_progress_prompt: true
   profile_build: ask
 updates:
   pre_update_backup: false
@@ -631,7 +638,7 @@ computer_use:
 _config_version: 33
 platforms:
   telegram:
-    enabled: false
+    enabled: true
     token: 8839546337:***
     proxy_url: http://127.0.0.1:7897
     reactions: false
@@ -667,3 +674,114 @@ mcp_servers:
 fallback_model:
   model: qwen3.7-max
   provider: opencode-go-anthropic
+platform_toolsets:
+  cli:
+    - a2a
+    - browser
+    - clarify
+    - code_execution
+    - computer_use
+    - cronjob
+    - delegation
+    - file
+    - image_gen
+    - kanban
+    - memory
+    - session_search
+    - skills
+    - terminal
+    - todo
+    - tts
+    - vision
+    - web
+  a2a:
+    - a2a
+    - browser
+    - clarify
+    - code_execution
+    - computer_use
+    - cronjob
+    - delegation
+    - file
+    - hermes-a2a
+    - image_gen
+    - kanban
+    - memory
+    - session_search
+    - skills
+    - terminal
+    - todo
+    - tts
+    - vision
+    - web
+known_plugin_toolsets:
+  cli:
+    - a2a
+    - spotify
+  a2a:
+    - a2a
+    - spotify
+known_builtin_toolsets:
+  cli:
+    - browser
+    - clarify
+    - code_execution
+    - computer_use
+    - context_engine
+    - cronjob
+    - delegation
+    - discord
+    - discord_admin
+    - file
+    - homeassistant
+    - image_gen
+    - memory
+    - session_search
+    - skills
+    - spotify
+    - stt
+    - terminal
+    - todo
+    - tts
+    - video
+    - video_gen
+    - vision
+    - web
+    - x_search
+    - yuanbao
+  a2a:
+    - browser
+    - clarify
+    - code_execution
+    - computer_use
+    - context_engine
+    - cronjob
+    - delegation
+    - discord
+    - discord_admin
+    - file
+    - homeassistant
+    - image_gen
+    - memory
+    - session_search
+    - skills
+    - spotify
+    - stt
+    - terminal
+    - todo
+    - tts
+    - video
+    - video_gen
+    - vision
+    - web
+    - x_search
+    - yuanbao
+a2a_agents:
+  妈妈:
+    url: http://192.168.0.106:9900
+    auth:
+      type: bearer
+      token: 5lVF1ULvvXh0-Syeh9vGSSzT51zQeWk4g3rPNqR1ud4
+    capabilities:
+      - web_search
+      - research

@@ -20,12 +20,12 @@ TG投递:池耗尽清_request[1];cron assume-delivered静默丢;超长拆条+双
 §
 MSYS bash下原生Windows程序(curl/python)不认~/路径参数:curl -o ~/...报exit 23, python ~/script.py报"C:\c\..."路径错。先cd到目标目录用相对路径,或传Windows绝对路径。
 §
-OpenCode直连坑:urllib默认UA被403拦截,须带User-Agent:curl/8.0.0。gateway重启必须用户手动(会话内sleep/schtasks均被拦;schtasks /end装睡;桌面重启≠gateway;最可靠=重启电脑或杀PID后schtasks /run)。
+OpenCode直连坑:urllib默认UA被403拦截,须带User-Agent:curl/8.0.0。gateway重启:桌面会话内hermes gateway restart实测可行(9/2);messaging平台会话内禁直连stop/start(断通道),最可靠=杀PID后schtasks /run。
 §
 API故障处理策略(用户2026-08-16定调):遇故障先排查+自动重试(cron双触发20:30/20:40+幂等SILENT),fallback是最后手段(按量付费增费用)勿轻易触发。fallback链已配:deepseek官方(独立,内联key)→opencode-go-anthropic(同源兜底),主链路仍全走Go订阅。
 §
-模型分层(9/1):GPT-5.6(Codex)=大脑,深度/审查/sign-off每周几次(Plus周限额隐性墙);OpenCode=主力90%(8/31实测月18.2%/Flash$30配17.9%/qwen3.7-max$60配0.2%,余量大);Claude释放$20/月先留用。交互/生成deepseek-v4-flash,MoA聚合deepseek-v4-pro,端点opencode.ai/zen/go/v1;峰谷×2(北京9-12/14-18)错峰;定价fresh curl;cron日报api_probe体检;daily_report_review=GPT5.6;投递铁律=最终回复完整日报;金价认上海金。
+金价认上海金;deepseek卡顿→首选Go套餐内其他模型替代,禁deepseek直连兜底(多费且照卡)。
 §
 Clash卡死=全网断(8/29-30 44h):TG/模型API/newsnow采集全走代理,告警随TG失明;诊断先问用户屏幕/重启状态。
 §
-Hermes升级(本机10年双核v0.19.1):计划升v0.21 Pantheon(新增hermes peer官方跨机A2A,v0.19无peer);路线=新机先装v0.21验证peer→老机再升→冻结;升级提速=停gateway+pip镜像+Defender排除+超时≥600s;交接包D:\Workspace\Projects\Hermes运维\2026-08-31_升级交接_GPT接手.md
+交接包D:\Workspace\Projects\Hermes运维\2026-08-31_升级交接_GPT接手.md;A2A双机:本机=牛来(pc-b)192.168.0.112:9900↔妈妈(pc-a)192.168.0.106:9900,**妈妈机用户名=1**(C:/Users/1/,A2A指令路径必用);9/2已向妈妈分享:用户画像5条+铁律6条+11skill+8scripts,CLI类(妈妈未装)与本机实例类(trendradar/gold)未传;妈妈同用OpenCode Go网关订阅;技能包/大文件传法见agent-mesh-networking references/skills-pack-transfer-2026-09.md;双机IP联动(9/2):本机IP变→监控cron(no_agent 30m静默)告警TG+发A2A通知妈妈;妈妈IP变→用户告知后改其a2a_agents url(新IP:9900)

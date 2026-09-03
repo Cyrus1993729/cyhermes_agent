@@ -1,0 +1,155 @@
+Cronjob Response: TrendRadar跨境日报投递
+(job_id: e8e436bbf9b1)
+-------------
+
+⚡ 今日速览
+1. Shein港股上市首日破发，估值较巅峰缩水约75%
+2. 法国超快时尚税9月1日生效，欧洲服饰成本再涨
+3. 美国海关拟查进口供应链全链条，申报门槛要变
+
+🏛 政策风向 · 门槛变了吗
+▶ 法国对Shein、Temu开征超快时尚税，9月1日已生效
+　干货：针对海量上新的超快时尚模式设专项收费，Shein、Temu是主要对象，违规面临罚金
+　对你：卖欧洲服饰的，报价前把这项新成本算进去
+
+▶ 美国海关CBP拟强化进口供应链披露，向公众征求意见
+　干货：9月2日发布拟议修订，要求披露进口参与方、用技术手段追踪供应链、收集外国出口单据
+　对你：清关可能要交更多材料，供应商的采购单据从今天起就留好
+
+🛒 平台规则 · 在哪卖、怎么卖
+▶ Amazon商品标题上限缩至75字符，新规已执行
+　干货：标题含空格最多75字符；Item Highlights额外给125字符补充卖点
+　对你：超长标题直接砍，这是10分钟能做完的优化
+
+▶ 京东跨境平台强势杀入欧洲
+　干货：继Temu、Shein、阿里之后，又一中国电商巨头加码欧洲市场
+　对你：出海渠道又多一个，先观察它的模式和门槛再决定要不要进
+
+📈 市场与成本 · 钱往哪走
+▶ Shein港股上市首日破发，估值大缩水
+　干货：9月1日挂牌，募资约17.4亿美元，估值约260亿美元；首日盘中一度跌超10%，市值仍超2000亿港元，约为巅峰估值25%
+　对你：资本市场在给"极致低价"模式重新定价，做全托管的卖家要看清趋势
+
+▶ 美国邮政USPS旺季运费上调6%
+　干货：10月4日起Ground Advantage、Priority Mail等包裹服务涨价6%
+　对你：走USPS服务的卖家旺季成本上升，给客户报价记得提前加价
+
+▶ 原材料涨价潮蔓延：乙烯基年内涨近6%
+　干货：PVC、树脂等石油衍生品材料跟涨，贴纸、铝箔等用这些材料的品类成本承压
+　对你：这类目报价别压太狠，原料成本迟早传导到终端
+
+🧰 实战参考 · 别人怎么做的
+▶ 台青做跨境：避开爆款，专攻小配件成"冷门玩家"
+　干货：不做服装大件，深耕小配件细分类目（多源报道）；这是报道中的个案打法
+　对你：新手想试水，可参考这类避开大类的思路，具体行不行看类目
+
+▶ Reddit卖家热问：怎么和中国供应商签协议保护产品
+　干货：社区讨论聚焦知识产权归属、独家供货与模具所有权等合同条款
+　对你：找供应商前先签书面协议，口头承诺靠不住
+
+📖 小白词典
+- 超快时尚（ultra-fast fashion）：像外卖一样疯狂上新的卖衣服模式，一天能上几千款，靠低价走量
+- 破发：股票上市第一天价格就跌破发行价，说明市场觉得这个价定贵了
+- 全托管：平台包定价、发货、售后，你只管供货的"甩手掌柜"模式，免税红利消失后利润变薄
+
+✅ 今天该做的一件事
+打开亚马逊后台，筛出标题超75字符的Listing，先改掉最长的5条
+
+────────────────────────────
+
+📦 跨境电商日报 9月2日（过去24小时 · 22 条）
+
+🛃 政策法规
+• 🔴 法国开征超快时尚税，9月1日生效（多源报道）[🔤 英文源 France targets Shein and Temu with fast fashion fees]
+  摘要：法国针对Shein、Temu等超快时尚卖家的专项收费9月1日正式生效，违规面临罚金，欧洲跨境服饰成本上行。背景：超快时尚指靠海量上新+低价走量的销售模式，此前欧洲已对低价跨境包裹多轮加税，服饰类卖家成本层层叠加。
+  🔗 [查看原文](https://news.google.com/rss/articles/CBMiWkFVX3lxTE5TeGRkaDhTcXNULXZYd3hyN01jM3l0SzJZeDI4ZFdmTXU3UF9nUVNuUVRFMUQ2Wnd0bmV3MzQ5cXYyQ3VWSFlKTUdVd1d5dDdpemhKbkQycU5XZw?oc=5)
+
+• 🔴 美国海关CBP拟强化进口供应链披露，公开征求意见（美国联邦公报）[🔤 英文源 Heightened Import Disclosures for Supply Chain Visibility]
+  摘要：美国海关与边境保护局9月2日发布拟议修订，考虑要求披露进口涉及的各方、引入技术手段追踪供应链、并收集外国出口商提交的出口单据，以增强对进口商品的可见性。拟议变更尚处征求意见阶段，卖家清关申报信息要求未来可能更细。
+  🔗 [查看原文](https://www.federalregister.gov/documents/2026/09/02/2026-17926/heightened-import-disclosures-for-supply-chain-visibility)
+
+• 🔴 美加贸易战再升级：卫生纸成报复性关税新焦点（纸业网）
+  摘要：美加博弈延续，报复性关税战火烧到卫生纸品类，成为新一轮焦点。背景：美加关税摩擦持续多轮升级，日用纸品也被卷入，做北美市场日用品类的卖家需留意关税清单变化。
+  🔗 [查看原文](https://news.google.com/rss/articles/CBMickFVX3lxTE1lUHBKZG56NnlKbXZwTjM2eGUzdE0tYUk1dlpkemYtbnZLM0VlSkFHb3Jmd2NCTjkzY3RpSzVTN2dCTkFGa29zTWlTd2hqZElCLVV5S1NmWkpFWnFHVE10M2ZMUV91NDU5dlNGVFVSaWhBZw?oc=5)
+
+• 🔴 墨西哥对中国卖家"动真格"：北美合规风暴来袭（雨果跨境）
+  摘要：雨果跨境报道，墨西哥正对中国卖家加强合规要求，税务与清关审查趋严。背景：墨西哥是拉美重要电商市场，本地合规要求近年持续提高，已在墨西哥布局或计划进入的卖家需提前评估合规投入。
+  🔗 [查看原文](https://news.google.com/rss/articles/CBMiTEFVX3lxTE01aWdVTF9BUHNLRGxIT1h2c01hZHlwWGFGei1Qa1hfVTVUX1ltckxhVjFnV2hxNUwxQXMwOUM5RXBEdy1ZT19ONG9TRm4?oc=5)
+
+• 中国拟扩大自贸试验区对东盟开放，数字经济、跨境金融成重点（印尼商报）
+  摘要：据印尼商报报道，中国将扩大自贸试验区对东盟开放，数字经济与跨境金融成为合作重点。这意味着面向东南亚市场的跨境电商与金融通道有望进一步打通，是政策面的利好信号。
+  🔗 [查看原文](https://news.google.com/rss/articles/CBMihgFBVV95cUxNOWp4SEIzYmdFeS1rdTdibmItQmgyQkpRVzk5QjFBQnFjaWQ1MnByN1A3aGNQTndfZU9YeGdyNTFOUmRGanc5Mm5tR1RlUjRFM212cU5KNjZESUxmMkdpUWM4SVFGODNyVnd3b04wQnlCRFRCem9mT0UwSnljU0R5NDk5dWdRdw?oc=5)
+
+🏪 平台动态
+• 🔴 Shein港股上市首日破发，市值超2000亿港元（多源报道）[🔤 英文源 Shein Falls Below IPO Price on Hong Kong Debut]
+  摘要：Shein于9月1日登陆港交所，发行价定于区间底端附近，募资约17.4亿美元，估值约260亿美元；首日盘中一度跌超10%，次日再跌超3%。市值超2000亿港元，约为此前巅峰估值的25%，分析称"市场用真实价格替希音定价"。
+  🔗 [查看原文](https://news.google.com/rss/articles/CBMidkFVX3lxTE9zZVBEN2pYa3BrSDgtTGgtNTlRaFA5OFIzV1JwbzZzMDdfR3pBbmJvLXRpcklhRUlqVml3RjRJaTZpWmw4bl9Ca2NsTjg3aXFfMkpDbFVVdWVrUjVpOFhYbnk5T3NGVW9oRVhqY3VoX0VjU0swdEE?oc=5)
+
+• 亚马逊商品标题上限缩至75字符（tamebay）[🔤 英文源 Amazon 75 Character Product Title Q&A]
+  摘要：亚马逊6月起执行新规，商品标题（含空格）上限降至75字符，同时Item Highlights提供额外125字符用于补充卖点和使用场景。标题过长的卖家需尽快精简，避免影响Listing展示。
+  🔗 [查看原文](https://channelx.world/2026/09/amazon-75-character-product-title-qa/)
+
+• 京东跨境平台强势"杀"入欧洲（白鲸出海）
+  摘要：白鲸出海报道京东跨境平台正式加码欧洲市场。背景：继Temu、SHEIN、阿里巴巴之后，又一中国电商平台进军欧洲，欧洲跨境电商竞争更趋激烈。
+  🔗 [查看原文](https://news.google.com/rss/articles/CBMiTEFVX3lxTFBTck1NWk45X09laUZFaFc5MWFDUjllSjZQaEQyUVJueVUwV000dmdoTkQyVkp0YWZvZ2xQWVlWRHJjYUl1bFRDQzZHM0o?oc=5)
+
+• Whatnot新规：卖家自助支持成标配，Premier徽章设门槛（tamebay）[🔤 英文源 Seller Provided Support to be standard for sellers on Whatnot]
+  摘要：9月1日起Whatnot美国站"卖家提供支持"成为标准支持模式，且是保住"Premier Shop"徽章的必要条件——支持评级须达到"Great"及以上。客服响应质量正变成平台的硬考核指标。
+  🔗 [查看原文](https://channelx.world/2026/09/seller-provided-support-to-be-standard-for-sellers-on-whatnot/)
+
+📦 物流与市场
+• 美国邮政USPS上调2026旺季运费6%，10月4日生效（retail-dive）[🔤 英文源 USPS announces 6% rate increase for 2026 peak season]
+  摘要：美国邮政宣布2026年旺季价格上调6%，涉及Ground Advantage、Priority Mail等包裹服务，10月4日起执行。使用这些服务的卖家旺季物流成本将上升。
+  🔗 [查看原文](https://www.retaildive.com/news/usps-increase-2026-peak-season-holidays/828858/)
+
+• 航空货运变局：电商包裹7%货量贡献53%货值（澎湃新闻）
+  摘要：据澎湃新闻，航空货运价值格局正在重构：电商包裹货量占比仅7%，却贡献53%的货值，AI硬件类高价值货物是变化的重要推手。对跨境卖家而言，高货值小件走航空快线的组合正成为新的物流定价逻辑。
+  🔗 [查看原文](https://news.google.com/rss/articles/CBMiXkFVX3lxTE5oZlFKWHZObkJScWlhX1pXd0xJVHltZWhKTTBmd3I5MXlkVzFwQ2JuNzRtemh3d1hnRnZCRHFERmJKZ1hxdTk1a1R1aERubXo5X2xVd2lCazM3Y09vZEE?oc=5)
+
+• 告别免税红利，跨境电商全托管商家"分流转场"（亿邦动力网）
+  摘要：亿邦动力报道，免税红利退潮后，依赖全托管的商家开始分流：转向半托管、海外仓备货等模式。背景：全托管模式下平台负责定价、物流与售后，卖家只管供货，红利消失后利润更薄，模式被迫调整。
+  🔗 [查看原文](https://news.google.com/rss/articles/CBMiVkFVX3lxTFBVc3piWTRTVEZRTU9pbVdmU1ZycGJWZTRSd2Vzb0RqQVd4OGFFTXAtb3JmbUFJVURiOGlYcVJqdjRfVWltbjdyU19IczRzT1gyeFBkYVp3?oc=5)
+
+• 沃尔玛投13亿美元建自动化履约中心（retail-dive）[🔤 英文源 Walmart to build $1.3B fulfillment center in Georgia]
+  摘要：沃尔玛宣布在佐治亚州Carnesville新建投资13亿美元的履约中心，面积150万平方英尺、全自动化，计划年内动工，显示其持续加码履约基础设施投入。
+  🔗 [查看原文](https://www.retaildive.com/news/walmart-fulfillment-center-Carnesville-georgia/829071/)
+
+• 原材料涨价潮蔓延：乙烯基年内涨近6%（modern-retail）[🔤 英文源 Rising raw material costs are hitting everything from stickers to foil]
+  摘要：石油衍生品涨价推高PVC、树脂等材料成本，乙烯基价格2026年内已上涨近6%，贴纸、铝箔等用到这些材料的品类成本可能跟着涨。相关类目卖家选品定价时需把原料成本传导考虑进去。
+  🔗 [查看原文](https://www.modernretail.co/operations/rising-raw-material-costs-are-hitting-everything-from-stickers-to-foil/?utm_campaign=modernretaildis&utm_medium=rss&utm_source=general-rss)
+
+• 英国消费者给AI自主下单设150英镑信任上限（tamebay）[🔤 英文源 UK shoppers put £150 agentic trust threshold on autonomous AI purchases]
+  摘要：MACH Alliance对1000多名英国消费者的调研显示：AI代理自主购物接受度快速上升，但消费者给高价值订单设了约150英镑的信任上限，超过就要求人工介入。AI购物趋势已开始影响海外消费者的下单习惯。
+  🔗 [查看原文](https://channelx.world/2026/09/uk-shoppers-put-150-agentic-trust-threshold-on-autonomous-ai-purchases/)
+
+🛡️ 合规与风险
+• FTC指控亚马逊广告拍卖隐藏附加费，坑走品牌数十亿美元（retail-dive）[🔤 英文源 Amazon's ad auction surcharges secretly bilked brands of billions, FTC alleges]
+  摘要：美国联邦贸易委员会（FTC）投诉称，亚马逊在广告拍卖中长期向品牌隐藏附加费，累计涉及数十亿美元；内部文件显示亚马逊自知此举会损害广告主信任，亚马逊则回应称FTC不了解其业务。若成立，广告竞价规则与费用结构可能生变。
+  🔗 [查看原文](https://www.retaildive.com/news/amazon-hid-surcharges-ad-auctions-alleges-ftc-complaint/829294/)
+
+💼 卖家运营
+• 新手求教：怎么和中国供应商签协议保护产品（Reddit FBA）[🔤 英文源 How do you do an agreement with a Chinese supplier to protect your product?]
+  摘要：Reddit FBA卖家热议：与中国供应商合作时，如何靠协议保护自己的产品。背景：社区讨论多聚焦知识产权归属、独家供货与模具所有权条款，防止款式被转卖——这类合同细节是小卖家常忽略的环节。
+  🔗 [查看原文](https://www.reddit.com/r/FulfillmentByAmazon/comments/1w4iec4/how_do_you_do_an_agreement_with_a_chinese/)
+
+• 英国站踩坑：无品牌转换插头合规文件被拒（Reddit FBA）[🔤 英文源 UK Amazon Newbie: Need help with rejected compliance docs for unbranded travel adapter]
+  摘要：新手卖家的无品牌旅行转换插头在英国亚马逊上架，合规文件被拒，正在社区求助。提醒：上架前先向平台确认目标品类的文件要求，别等货备好才发现过不了审。
+  🔗 [查看原文](https://www.reddit.com/r/FulfillmentByAmazon/comments/1w4p5rj/uk_amazon_newbie_need_help_with_rejected/)
+
+• 亚马逊保健品合规：检测机构怎么选（Reddit FBA）[🔤 英文源 Amazon dietary supplement compliance -- which testing/compliance/inspection provider to choose (Intertek, Eurofins, SGS etc.)?]
+  摘要：卖家正讨论膳食补充剂上架亚马逊前的检测合规怎么做，以及Intertek、Eurofins、SGS等机构怎么选。想碰保健品这类高门槛类目，可先用社区讨论摸清流程再入场。
+  🔗 [查看原文](https://www.reddit.com/r/FulfillmentByAmazon/comments/1w4v34p/amazon_dietary_supplement_compliance_which/)
+
+• 欧洲便携降温产品：季节性太强还值得压货吗（Reddit FBA）[🔤 英文源 For Amazon sellers in Europe, are portable cooling products becoming too seasonal to justify inventory risk?]
+  摘要：卖家在社区讨论欧洲便携降温产品是否过于依赖夏季、值不值得承担压库存风险。背景：这类需求高度集中在夏季，备货节奏错一个月就可能滞销，新手追季节性爆款前先想清楚清货方案。
+  🔗 [查看原文](https://www.reddit.com/r/FulfillmentByAmazon/comments/1w53h0i/for_amazon_sellers_in_europe_are_portable_cooling/)
+
+• 台青投身跨境电商：专攻小配件成"冷门玩家"（多源报道）
+  摘要：据中新网等报道，一名台湾青年投身跨境电商，避开热门大类，专攻小配件类目，走出差异化路线。个案打法仅供参考：是否可行要看具体类目的需求规模与竞争，资金有限者可用小单先验证。
+  🔗 [查看原文](https://news.google.com/rss/articles/CBMiaEFVX3lxTE1ZcDlORnhfY2U3YUFMc0RxNGxRRjh5NDZNTGEwaG92a1MtaDllSzl3NFBRZ1lIclRMUkR5dnVxY1RFUC1MbGhYSlh2MVhncXJhSENxRklmVFNxUEpUc0NLUkdMX1FBSTJK?oc=5)
+
+• 深圳首个跨境电商服务港落户坂田，选品对接会意向订单破千万元（多源报道）
+  摘要：深圳首个跨境电商服务港落地龙岗坂田，配套的选品对接会首日意向订单突破千万元，另有街道商会跨境专委会同步成立。产业带卖家可借助本地化服务资源对接渠道、降低出海门槛。
+  🔗 [查看原文](https://news.google.com/rss/articles/CBMijAFBVV95cUxOUWVGYzlqUF9wM3JTVkV1ZGVJUG5yRS02UWxPanRqQnRmREp5YjM2S09uRElSdE1iMHE1eE01V2s5ZXowQTZfVXAzNnBkRGFFS25JZ0QxZVlvQTg0MGFSbU1VZmdqMlBqNFZib3RISExKTTJ2a2ZfaXB5SXFFY05VMVlzVjhMUE5PamlqUw?oc=5)
+
+To stop or manage this job, send me a new message (e.g. "stop reminder TrendRadar跨境日报投递").

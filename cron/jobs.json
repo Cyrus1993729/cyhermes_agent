@@ -124,15 +124,15 @@
       "schedule_display": "0 8 * * *",
       "repeat": {
         "times": null,
-        "completed": 55
+        "completed": 56
       },
       "enabled": true,
       "state": "scheduled",
       "paused_at": null,
       "paused_reason": null,
       "created_at": "2026-07-02T12:38:24.038222+08:00",
-      "next_run_at": "2026-09-03T08:00:00+08:00",
-      "last_run_at": "2026-09-01T08:00:33.397995+08:00",
+      "next_run_at": "2026-09-04T08:00:00+08:00",
+      "last_run_at": "2026-09-02T08:00:11.843570+08:00",
       "last_status": "ok",
       "last_error": null,
       "last_delivery_error": null,
@@ -149,9 +149,10 @@
       ],
       "workdir": null,
       "fire_claim": {
-        "at": "2026-09-02T08:00:02.218800+08:00",
-        "by": "PC-20260524NEAI:16788:00abf95fc0da4c9996183bbd9afb0e22"
-      }
+        "at": "2026-09-03T08:00:55.739940+08:00",
+        "by": "PC-20260524NEAI:13816:7f4034531802494bb23f8ff9b1cb0155"
+      },
+      "failure_streak": 0
     },
     {
       "id": "ca8214253197",
@@ -175,15 +176,15 @@
       "schedule_display": "*/30 * * * *",
       "repeat": {
         "times": null,
-        "completed": 1262
+        "completed": 1310
       },
       "enabled": true,
       "state": "scheduled",
       "paused_at": null,
       "paused_reason": null,
       "created_at": "2026-08-06T23:38:21.017914+08:00",
-      "next_run_at": "2026-09-02T08:30:00+08:00",
-      "last_run_at": "2026-09-02T07:30:00.813148+08:00",
+      "next_run_at": "2026-09-03T08:30:00+08:00",
+      "last_run_at": "2026-09-03T07:30:54.527985+08:00",
       "last_status": "ok",
       "last_error": null,
       "last_delivery_error": null,
@@ -198,8 +199,8 @@
       "enabled_toolsets": null,
       "workdir": null,
       "fire_claim": {
-        "at": "2026-09-02T08:00:02.834173+08:00",
-        "by": "PC-20260524NEAI:16788:6ceaf321ed824507afe174f123810e87"
+        "at": "2026-09-03T08:00:56.367286+08:00",
+        "by": "PC-20260524NEAI:13816:e92241d8d1a343eaaa322d531cd401d5"
       },
       "failure_streak": 0
     },
@@ -271,17 +272,17 @@
       "schedule_display": "30,40 20 * * *",
       "repeat": {
         "times": null,
-        "completed": 34
+        "completed": 35
       },
       "enabled": true,
       "state": "scheduled",
       "paused_at": null,
       "paused_reason": null,
       "created_at": "2026-08-07T10:21:21.624046+08:00",
-      "next_run_at": "2026-09-02T20:30:00+08:00",
-      "last_run_at": "2026-09-01T20:41:14.312463+08:00",
-      "last_status": "error",
-      "last_error": "TimeoutError: Cron job 'TrendRadar跨境日报' idle for 600s (limit 600s) — last activity: waiting for non-streaming API response",
+      "next_run_at": "2026-09-03T20:30:00+08:00",
+      "last_run_at": "2026-09-02T20:40:48.601141+08:00",
+      "last_status": "ok",
+      "last_error": null,
       "last_delivery_error": null,
       "deliver": "local",
       "origin": {
@@ -296,7 +297,8 @@
         "file"
       ],
       "workdir": null,
-      "fire_claim": null
+      "fire_claim": null,
+      "failure_streak": 0
     },
     {
       "id": "970113abe8a7",
@@ -320,18 +322,18 @@
       "schedule_display": "0 8 * * *",
       "repeat": {
         "times": null,
-        "completed": 25
+        "completed": 26
       },
       "enabled": true,
       "state": "scheduled",
       "paused_at": null,
       "paused_reason": null,
       "created_at": "2026-08-07T11:42:39.642261+08:00",
-      "next_run_at": "2026-09-03T08:00:00+08:00",
-      "last_run_at": "2026-09-01T08:05:11.146545+08:00",
+      "next_run_at": "2026-09-04T08:00:00+08:00",
+      "last_run_at": "2026-09-02T08:12:59.313576+08:00",
       "last_status": "ok",
       "last_error": null,
-      "last_delivery_error": null,
+      "last_delivery_error": "delivery error: Telegram send failed: Unauthorized (target telegram:8938729624)",
       "deliver": "origin",
       "origin": {
         "platform": "telegram",
@@ -346,9 +348,10 @@
       ],
       "workdir": null,
       "fire_claim": {
-        "at": "2026-09-02T08:00:02.305739+08:00",
-        "by": "PC-20260524NEAI:16788:92fcbc46ae444afa81895f682034f342"
-      }
+        "at": "2026-09-03T08:00:55.861475+08:00",
+        "by": "PC-20260524NEAI:13816:a59d3f6e137544f5a2707aed3c7e822e"
+      },
+      "failure_streak": 0
     },
     {
       "id": "658d98613585",
@@ -372,15 +375,15 @@
       "schedule_display": "45 8 * * *",
       "repeat": {
         "times": null,
-        "completed": 23
+        "completed": 24
       },
       "enabled": true,
       "state": "scheduled",
       "paused_at": null,
       "paused_reason": null,
       "created_at": "2026-08-10T08:44:38.851263+08:00",
-      "next_run_at": "2026-09-02T08:45:00+08:00",
-      "last_run_at": "2026-09-01T08:45:32.799420+08:00",
+      "next_run_at": "2026-09-03T08:45:00+08:00",
+      "last_run_at": "2026-09-02T08:45:18.763764+08:00",
       "last_status": "ok",
       "last_error": null,
       "last_delivery_error": null,
@@ -394,7 +397,8 @@
       },
       "enabled_toolsets": null,
       "workdir": null,
-      "fire_claim": null
+      "fire_claim": null,
+      "failure_streak": 0
     },
     {
       "id": "4267ecb32b42",
@@ -418,15 +422,15 @@
       "schedule_display": "0 21 * * *",
       "repeat": {
         "times": null,
-        "completed": 23
+        "completed": 24
       },
       "enabled": true,
       "state": "scheduled",
       "paused_at": null,
       "paused_reason": null,
       "created_at": "2026-08-10T08:44:38.873706+08:00",
-      "next_run_at": "2026-09-02T21:00:00+08:00",
-      "last_run_at": "2026-09-01T21:00:06.895954+08:00",
+      "next_run_at": "2026-09-03T21:00:00+08:00",
+      "last_run_at": "2026-09-02T21:00:25.994628+08:00",
       "last_status": "ok",
       "last_error": null,
       "last_delivery_error": null,
@@ -440,7 +444,8 @@
       },
       "enabled_toolsets": null,
       "workdir": null,
-      "fire_claim": null
+      "fire_claim": null,
+      "failure_streak": 0
     },
     {
       "id": "6970b7628505",
@@ -464,15 +469,15 @@
       "schedule_display": "*/30 * * * *",
       "repeat": {
         "times": null,
-        "completed": 1097
+        "completed": 1145
       },
       "enabled": true,
       "state": "scheduled",
       "paused_at": null,
       "paused_reason": null,
       "created_at": "2026-08-10T10:20:34.277336+08:00",
-      "next_run_at": "2026-09-02T08:30:00+08:00",
-      "last_run_at": "2026-09-02T07:30:11.547489+08:00",
+      "next_run_at": "2026-09-03T08:30:00+08:00",
+      "last_run_at": "2026-09-03T07:30:56.318865+08:00",
       "last_status": "ok",
       "last_error": null,
       "last_delivery_error": null,
@@ -487,8 +492,8 @@
       "enabled_toolsets": null,
       "workdir": null,
       "fire_claim": {
-        "at": "2026-09-02T08:00:02.338709+08:00",
-        "by": "PC-20260524NEAI:16788:b61fc0ca02204b469b13d318280d153f"
+        "at": "2026-09-03T08:00:55.896261+08:00",
+        "by": "PC-20260524NEAI:13816:03d8a76c2d2c48ea9b1f8900f5298dec"
       },
       "failure_streak": 0
     },
@@ -514,15 +519,15 @@
       "schedule_display": "45 20 * * *",
       "repeat": {
         "times": null,
-        "completed": 23
+        "completed": 24
       },
       "enabled": true,
       "state": "scheduled",
       "paused_at": null,
       "paused_reason": null,
       "created_at": "2026-08-13T22:23:11.925554+08:00",
-      "next_run_at": "2026-09-02T20:45:00+08:00",
-      "last_run_at": "2026-09-01T20:45:05.257717+08:00",
+      "next_run_at": "2026-09-03T20:45:00+08:00",
+      "last_run_at": "2026-09-02T20:45:37.393004+08:00",
       "last_status": "ok",
       "last_error": null,
       "last_delivery_error": null,
@@ -536,7 +541,8 @@
       },
       "enabled_toolsets": null,
       "workdir": null,
-      "fire_claim": null
+      "fire_claim": null,
+      "failure_streak": 0
     },
     {
       "id": "7bfc2c549708",
@@ -583,7 +589,58 @@
       "enabled_toolsets": null,
       "workdir": null,
       "fire_claim": null
+    },
+    {
+      "id": "ac4f080eecdd",
+      "name": "IP监控(牛来-pc-b)",
+      "prompt": "no_agent watchdog: 运行 ip_monitor.py, IP 变化时 stdout 告警投递到 Telegram; 无输出则静默。",
+      "skills": [],
+      "skill": null,
+      "model": null,
+      "provider": null,
+      "provider_snapshot": null,
+      "model_snapshot": null,
+      "base_url": null,
+      "script": "ip_monitor.py",
+      "no_agent": true,
+      "monitor_script": null,
+      "monitor_url": null,
+      "monitor_state": null,
+      "context_from": null,
+      "schedule": {
+        "kind": "interval",
+        "minutes": 30,
+        "display": "every 30m"
+      },
+      "schedule_display": "every 30m",
+      "repeat": {
+        "times": null,
+        "completed": 17
+      },
+      "enabled": true,
+      "state": "scheduled",
+      "paused_at": null,
+      "paused_reason": null,
+      "created_at": "2026-09-02T23:09:23.529313+08:00",
+      "next_run_at": "2026-09-03T08:09:56.226187+08:00",
+      "last_run_at": "2026-09-03T07:39:56.226187+08:00",
+      "last_status": "ok",
+      "last_error": null,
+      "last_delivery_error": null,
+      "failure_streak": 0,
+      "deliver": "telegram",
+      "origin": {
+        "platform": "a2a",
+        "chat_id": "ctx-4d0e5e95b9d3434f",
+        "chat_name": "a2a:ip:192.168.0.106",
+        "thread_id": null,
+        "user_id": "ip:192.168.0.106",
+        "scope_id": null
+      },
+      "enabled_toolsets": null,
+      "workdir": null,
+      "fire_claim": null
     }
   ],
-  "updated_at": "2026-09-02T08:00:02.846172+08:00"
+  "updated_at": "2026-09-03T08:00:56.373287+08:00"
 }
