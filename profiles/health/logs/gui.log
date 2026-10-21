@@ -4029,3 +4029,13 @@
 2026-10-21 10:20:19,881 INFO tui_gateway.ws: ws closed peer=127.0.0.1:55433 reason=client_disconnect(code=1005,reason=) messages=1 parse_errors=0 dispatch_crashes=0 send_failures=0 reaped_sessions=0 detached_sessions=0
 2026-10-21 10:20:25,259 INFO tui_gateway.ws: ws accepted peer=127.0.0.1:55448
 2026-10-21 10:20:25,275 INFO tui_gateway.ws: ws closed peer=127.0.0.1:55448 reason=client_disconnect(code=1005,reason=) messages=1 parse_errors=0 dispatch_crashes=0 send_failures=0 reaped_sessions=0 detached_sessions=0
+2026-10-21 10:20:30,857 INFO tui_gateway.ws: ws accepted peer=127.0.0.1:55456
+2026-10-21 10:20:30,869 INFO tui_gateway.ws: ws closed peer=127.0.0.1:55456 reason=client_disconnect(code=1005,reason=) messages=1 parse_errors=0 dispatch_crashes=0 send_failures=0 reaped_sessions=0 detached_sessions=0
+2026-10-21 10:20:36,427 INFO tui_gateway.ws: ws accepted peer=127.0.0.1:55466
+2026-10-21 10:20:36,451 INFO tui_gateway.ws: ws closed peer=127.0.0.1:55466 reason=client_disconnect(code=1005,reason=) messages=1 parse_errors=0 dispatch_crashes=0 send_failures=0 reaped_sessions=0 detached_sessions=0
+2026-10-21 10:20:42,176 INFO tui_gateway.ws: ws accepted peer=127.0.0.1:55476
+2026-10-21 10:20:42,189 INFO tui_gateway.ws: ws closed peer=127.0.0.1:55476 reason=client_disconnect(code=1005,reason=) messages=1 parse_errors=0 dispatch_crashes=0 send_failures=0 reaped_sessions=0 detached_sessions=0
+2026-10-21 10:20:47,594 INFO tui_gateway.ws: ws accepted peer=127.0.0.1:55492
+2026-10-21 10:20:47,634 INFO tui_gateway.ws: ws closed peer=127.0.0.1:55492 reason=client_disconnect(code=1005,reason=) messages=1 parse_errors=0 dispatch_crashes=0 send_failures=0 reaped_sessions=0 detached_sessions=0
+2026-10-21 10:20:53,162 INFO tui_gateway.ws: ws accepted peer=127.0.0.1:55503
+2026-10-21 10:20:53,176 INFO tui_gateway.ws: ws closed peer=127.0.0.1:55503 reason=client_disconnect(code=1005,reason=) messages=1 parse_errors=0 dispatch_crashes=0 send_failures=0 reaped_sessions=0 detached_sessions=0
