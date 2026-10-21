@@ -59,18 +59,47 @@ ls ~/.hermes/config.yaml 2>/dev/null || echo "WRONG PATH — do NOT use"
 *
 # 显式放行确定安全的
 !memories/
+!memories/**
 !skills/
+!skills/**
 !scripts/
+!scripts/**
 !reviews/
+!reviews/**
 !references/
+!references/**
+!profiles/
+!profiles/**
+!cron/
+!cron/**
 !lessons.md
 !safety_invariants.md
 !model_routing.md
 !config.yaml
 !.gitignore
+
+# === 凭证类绝不入库（必须放在所有放行规则之后，后写者优先）===
+.env
+.env.*
+**/.env
+**/.env.*
+**/auth.json
+**/*.pem
+**/*.key
+**/hermes-cloud-connection.json
+**/.local/
+profiles/**/.env
+profiles/**/auth.json
 ```
 
-> **为什么是白名单不是黑名单？** 黑名单模式下，任何未预料的新文件（如误存的密钥）会被 `git add -A` 永久推进 GitHub。白名单默认安全。Opus 审查明确指出：对不看代码的用户，黑名单 = 定时炸弹。
+> ✅ **白名单本身不够**：`!profiles/**` 会把 `profiles/health/.env`（真实 API Key）一起放行。
+> 白名单只解决了「未预料的新文件」，不解决「已知敏感目录里的敏感文件」。
+> **必须在所有放行规则之后再补一段凭证排除**（gitignore 后写的规则优先）。
+> 2026-10-21 就是因为漏了这一段，含 DeepSeek key 的提交被 GitHub push protection 拦下，备份连挂 5 天。
+> 详见 `references/git-push-protection-2026-10.md`。
+
+> ⚠️ `!config.yaml` 是另一颗雷：config.yaml 里 `api_key:` 是明文真钥匙，
+> 放行它 = 密钥进备份仓库。要么备份前脱敏，要么整个不放行。同样见上述 reference。
 
 ### 2. 首次配置
 
@@ -140,7 +169,8 @@ else:
 
 **ℹ️ 微信 iLink 限流碰撞（2026.7.3 实战，已过时）**
 
-> ⚠️ 以下为历史记录。2026.7.4 已迁移到 Telegram 平台，不再使用微信 iLink 通道。Telegram Bot API 无 10 条回复限制，不存在类似碰撞问题。保留此段作为微信时代的故障排查参考。
+> ⚠️ 以下为历史记录。2026.7.4 主平台迁 Telegram，但 **2026-10-18 起微信被重新启用作通知渠道；2026-10-21 起日程提醒也走微信**——所以「cron 投递和会话回复抢同一个通道」重新是个真问题，不是历史遗迹。
+> 当前机制与应对见 `hermes-wechat-delivery`：context_token 每轮仅 10 条额度、**分块也占额度**、主动推送单条 ≤900 字、脚本自发送时 cron 要 `deliver='local'`。
 >
 > ~~`no_agent` cron 的投递和正常会话回复走**同一 WeChat iLink 通道**。当两者同时发送时，iLink 返回 `errcode=-2`（频率限制），触发适配器内置熔断器（30s 冷却），冷却期内**所有消息全部被拒**——包括用户正在等待的会话回复。~~
 >
@@ -172,7 +202,7 @@ hermes cron list
 python ~/AppData/Local/hermes/scripts/backup_git.py
 ```
 
-确认脚本本身能跑通。注意 `no_agent` cron 的 `script` 路径相对于 `~/.hermes/scripts/`。
+确认脚本本身能跑通。`script` 相对路径解析到 `~/AppData/Local/hermes/scripts/`（支持子目录），不是 `~/.hermes/scripts/`。
 
 ### 3. 检查投递日志
 
@@ -208,13 +238,24 @@ ls ~/AppData/Local/hermes/hermes-agent/gateway/platforms/weixin.py
 
 关键常量：`RATE_LIMIT_ERRCODE = -2`，`BACKOFF_DELAY_SECONDS = 30`，熔断器 `_rate_limit_circuit_until`，串行化锁 `_send_text_gate`。
 
-#### cron 脚本存放位置
+### 7. 代理没监听 / GitHub 密钥扫描拦截（比限流更常见，2026-10-21 实战）
 
-`no_agent` cron 的 `script` 参数路径是相对于 `~/.hermes/scripts/` 的，**不是** `~/AppData/Local/hermes/scripts/`。如果脚本在后者，需要先复制过去：
+看到 `Failed to connect to github.com port 443 via 127.0.0.1 after N ms`，**不要直接当成「网络不通」**：报错里的 `127.0.0.1` 不带端口号，很可能是 git 配了一个**根本没在监听**的代理端口（换了代理客户端，git 全局配置不会自动跟着改）。
 
 ```bash
-cp ~/AppData/Local/hermes/scripts/backup_git.py ~/.hermes/scripts/
+git config --global --get-regexp proxy                       # 它让你走哪个端口
+netstat -ano | grep LISTENING | grep -E ":1080[0-9]|:789[0-9]"  # 哪个端口真的在监听
 ```
+
+代理修好后如果 push 仍然失败，看 remote 段有没有 `GH013` / `push declined due to repository rule violations` / `Push cannot contain secrets`——那就是 **GitHub push protection**，它拦的是「待推历史提交里的密钥」，光改工作区/.gitignore 没用。
+
+完整诊断四连、`git reset --soft origin/main` 重建干净提交的修复步骤、以及「config.yaml 里明文 api_key 已经在远程仓库」这种情况怎么处理，全部写在 `references/git-push-protection-2026-10.md`（必读）。
+
+一句话记牢：**白名单 .gitignore 不等于安全；凭证排除段必须写在所有放行规则之后；密钥一旦确认到过远程，唯一正确做法是轮换密钥，不是擦历史。**
+
+#### cron 脚本存放位置
+
+`script` 相对路径解析到 **`~/AppData/Local/hermes/scripts/`**（不是 `~/.hermes/scripts/`——那是旧版错误认知），并且**支持子目录**：2026-10-21 实测 `script: dayflow/df_morning.py` 直接跑通，无需复制到别处。
 
 ## 恢复流程
 
@@ -260,9 +301,9 @@ hermes auth add <provider>
 | 数据目录 | `%LOCALAPPDATA%\\hermes\\` (= `C:\\Users\\<用户>\\AppData\\Local\\hermes\\`) |
 | GitHub 仓库 | `Cyrus1993729/cyhermes_agent`（私有） |
 | 备份脚本 | `backup_git.py`（`.py` — `no_agent` cron 用 Python 执行，不能用 `.sh`/`.bat`） |
-| Cron | `5b4b88f1f8bf`，`0 3 * * *`，`no_agent: true` |
+| Cron | `5b4b88f1f8bf`，实际 `0 8 * * *`（文档早前写的 `0 3 * * *` 凌晨错峰**未落地**，按当前 jobs.json 为准） |
 | 投递策略 | `deliver='origin'` + 凌晨 3:00 错峰 |
-| 脚本位置 | `~/.hermes/scripts/backup_git.py`（cron 从此目录查找，不是 `~/AppData/Local/hermes/scripts/`） |
+| 脚本位置 | `~/AppData/Local/hermes/scripts/backup_git.py`（`script` 相对路径解析到此目录，支持子目录） |
 | 推送认证 | Windows Git Credential Manager（首次手动弹窗授权） |
 
 **no_agent 模式** — cron 不跑 LLM agent，直接执行脚本。凌晨 3:00 运行避免和用户聊天碰撞。脚本成功时 stdout 为空（静默），失败时推送通知。如需额外保障，可另建轻量 watchdog。
@@ -277,7 +318,8 @@ hermes auth add <provider>
 
 - **路径验证** — `~/.hermes/` 在 Windows bash 下不等于真实数据目录。必须确认用 `~/AppData/Local/hermes/`
 - **白名单 .gitignore** — 默认全忽略，显式放行。黑名单对新文件不安全
-- **auth.json / .env 不入仓库** — 白名单已排除，恢复时手动重建
+- **auth.json / .env 不入仓库** — 靠白名单末尾的**凭证排除段**，仅靠 `!profiles/**` 会漏；恢复时手动重建
+- **config.yaml 含明文 api_key** — 放行它等于密钥进仓库，要么备份前脱敏要么不放行
 - **GitHub 私有仓库** — 必须 Private
 - **失败通知** — `git push` 失败 cron 不会自动通知，脚本必须显式处理 → cron agent 读脚本 stderr 发送通知
 - **首次 push 前安全扫描** — 确认 memory/skill 中没有 API key / 密码 / 手机号
