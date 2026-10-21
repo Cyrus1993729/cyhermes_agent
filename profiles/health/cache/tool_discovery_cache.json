@@ -1,0 +1,682 @@
+{
+"C:\\Users\\Administrator\\AppData\\Local\\hermes\\hermes-agent\\tools\\annotate_preview_tool.py": [
+1788475831402106300,
+4962,
+true
+],
+"C:\\Users\\Administrator\\AppData\\Local\\hermes\\hermes-agent\\tools\\ansi_strip.py": [
+1788271232481510700,
+5238,
+false
+],
+"C:\\Users\\Administrator\\AppData\\Local\\hermes\\hermes-agent\\tools\\apply_layout_tool.py": [
+1788271232487045500,
+2644,
+true
+],
+"C:\\Users\\Administrator\\AppData\\Local\\hermes\\hermes-agent\\tools\\approval.py": [
+1788271232498077800,
+270925,
+false
+],
+"C:\\Users\\Administrator\\AppData\\Local\\hermes\\hermes-agent\\tools\\async_delegation.py": [
+1788271232501062400,
+67331,
+false
+],
+"C:\\Users\\Administrator\\AppData\\Local\\hermes\\hermes-agent\\tools\\audio_container.py": [
+1785768965958920000,
+4007,
+false
+],
+"C:\\Users\\Administrator\\AppData\\Local\\hermes\\hermes-agent\\tools\\binary_extensions.py": [
+1788271232503062000,
+2782,
+false
+],
+"C:\\Users\\Administrator\\AppData\\Local\\hermes\\hermes-agent\\tools\\blueprints.py": [
+1788271232504064100,
+12056,
+false
+],
+"C:\\Users\\Administrator\\AppData\\Local\\hermes\\hermes-agent\\tools\\bot_failure_reasons.py": [
+1788271232511110900,
+6319,
+false
+],
+"C:\\Users\\Administrator\\AppData\\Local\\hermes\\hermes-agent\\tools\\bot_mode_dm.py": [
+1788475831405103800,
+31708,
+false
+],
+"C:\\Users\\Administrator\\AppData\\Local\\hermes\\hermes-agent\\tools\\bot_mode_probe.py": [
+1788271232516065000,
+19304,
+false
+],
+"C:\\Users\\Administrator\\AppData\\Local\\hermes\\hermes-agent\\tools\\bot_relay.py": [
+1788475831407105000,
+27449,
+false
+],
+"C:\\Users\\Administrator\\AppData\\Local\\hermes\\hermes-agent\\tools\\browser_camofox.py": [
+1788271232520064400,
+36330,
+false
+],
+"C:\\Users\\Administrator\\AppData\\Local\\hermes\\hermes-agent\\tools\\browser_camofox_state.py": [
+1782021920223706600,
+1635,
+false
+],
+"C:\\Users\\Administrator\\AppData\\Local\\hermes\\hermes-agent\\tools\\browser_cdp_tool.py": [
+1788271232544136400,
+30616,
+true
+],
+"C:\\Users\\Administrator\\AppData\\Local\\hermes\\hermes-agent\\tools\\browser_dialog_tool.py": [
+1782021920241706800,
+5682,
+true
+],
+"C:\\Users\\Administrator\\AppData\\Local\\hermes\\hermes-agent\\tools\\browser_extension_router.py": [
+1788271232548060800,
+10379,
+false
+],
+"C:\\Users\\Administrator\\AppData\\Local\\hermes\\hermes-agent\\tools\\browser_lightpanda.py": [
+1788475831408105800,
+14579,
+false
+],
+"C:\\Users\\Administrator\\AppData\\Local\\hermes\\hermes-agent\\tools\\browser_supervisor.py": [
+1785768965982931700,
+65299,
+false
+],
+"C:\\Users\\Administrator\\AppData\\Local\\hermes\\hermes-agent\\tools\\browser_tool.py": [
+1788475831414102200,
+288013,
+true
+],
+"C:\\Users\\Administrator\\AppData\\Local\\hermes\\hermes-agent\\tools\\browser_use_cli.py": [
+1788271232560103600,
+44214,
+true
+],
+"C:\\Users\\Administrator\\AppData\\Local\\hermes\\hermes-agent\\tools\\budget_config.py": [
+1788271232565058900,
+7810,
+false
+],
+"C:\\Users\\Administrator\\AppData\\Local\\hermes\\hermes-agent\\tools\\checkpoint_manager.py": [
+1788271232568059700,
+88703,
+false
+],
+"C:\\Users\\Administrator\\AppData\\Local\\hermes\\hermes-agent\\tools\\clarify_gateway.py": [
+1788271232570059800,
+23594,
+false
+],
+"C:\\Users\\Administrator\\AppData\\Local\\hermes\\hermes-agent\\tools\\clarify_tool.py": [
+1788271232575115900,
+21578,
+true
+],
+"C:\\Users\\Administrator\\AppData\\Local\\hermes\\hermes-agent\\tools\\close_preview_tool.py": [
+1788271232583062600,
+2213,
+false
+],
+"C:\\Users\\Administrator\\AppData\\Local\\hermes\\hermes-agent\\tools\\close_terminal_tool.py": [
+1788475831416104400,
+2458,
+true
+],
+"C:\\Users\\Administrator\\AppData\\Local\\hermes\\hermes-agent\\tools\\code_execution_tool.py": [
+1788475831418103400,
+104262,
+true
+],
+"C:\\Users\\Administrator\\AppData\\Local\\hermes\\hermes-agent\\tools\\code_kernel.py": [
+1788475831420104200,
+41586,
+false
+],
+"C:\\Users\\Administrator\\AppData\\Local\\hermes\\hermes-agent\\tools\\code_kernel_remote.py": [
+1788475831422103100,
+21048,
+false
+],
+"C:\\Users\\Administrator\\AppData\\Local\\hermes\\hermes-agent\\tools\\computer_use_tool.py": [
+1785768966087810400,
+1360,
+true
+],
+"C:\\Users\\Administrator\\AppData\\Local\\hermes\\hermes-agent\\tools\\credential_files.py": [
+1788475831431106000,
+25415,
+false
+],
+"C:\\Users\\Administrator\\AppData\\Local\\hermes\\hermes-agent\\tools\\cronjob_tools.py": [
+1788475831434714200,
+103847,
+true
+],
+"C:\\Users\\Administrator\\AppData\\Local\\hermes\\hermes-agent\\tools\\daemon_pool.py": [
+1788475831439727500,
+3957,
+false
+],
+"C:\\Users\\Administrator\\AppData\\Local\\hermes\\hermes-agent\\tools\\debug_helpers.py": [
+1782454622950626500,
+3782,
+false
+],
+"C:\\Users\\Administrator\\AppData\\Local\\hermes\\hermes-agent\\tools\\delegate_tool.py": [
+1788475831447728200,
+243276,
+true
+],
+"C:\\Users\\Administrator\\AppData\\Local\\hermes\\hermes-agent\\tools\\delegation_live_log.py": [
+1788271232654059100,
+18191,
+false
+],
+"C:\\Users\\Administrator\\AppData\\Local\\hermes\\hermes-agent\\tools\\delegation_output_schema.py": [
+1788271232658095100,
+5925,
+false
+],
+"C:\\Users\\Administrator\\AppData\\Local\\hermes\\hermes-agent\\tools\\desktop_ui.py": [
+1788271232664093300,
+2473,
+false
+],
+"C:\\Users\\Administrator\\AppData\\Local\\hermes\\hermes-agent\\tools\\discord_tool.py": [
+1785768966149887900,
+41291,
+true
+],
+"C:\\Users\\Administrator\\AppData\\Local\\hermes\\hermes-agent\\tools\\drive_preview_tool.py": [
+1788271232666063200,
+8250,
+true
+],
+"C:\\Users\\Administrator\\AppData\\Local\\hermes\\hermes-agent\\tools\\env_passthrough.py": [
+1785768966152914500,
+9489,
+false
+],
+"C:\\Users\\Administrator\\AppData\\Local\\hermes\\hermes-agent\\tools\\env_probe.py": [
+1788475831448728300,
+15751,
+false
+],
+"C:\\Users\\Administrator\\AppData\\Local\\hermes\\hermes-agent\\tools\\fal_common.py": [
+1782021920324273900,
+7184,
+false
+],
+"C:\\Users\\Administrator\\AppData\\Local\\hermes\\hermes-agent\\tools\\feishu_doc_tool.py": [
+1782021920325274000,
+4645,
+true
+],
+"C:\\Users\\Administrator\\AppData\\Local\\hermes\\hermes-agent\\tools\\feishu_drive_tool.py": [
+1782021920327280000,
+13767,
+true
+],
+"C:\\Users\\Administrator\\AppData\\Local\\hermes\\hermes-agent\\tools\\file_operations.py": [
+1788475831452726200,
+203060,
+false
+],
+"C:\\Users\\Administrator\\AppData\\Local\\hermes\\hermes-agent\\tools\\file_state.py": [
+1788475831454727700,
+13056,
+false
+],
+"C:\\Users\\Administrator\\AppData\\Local\\hermes\\hermes-agent\\tools\\file_tools.py": [
+1788475831457729800,
+136383,
+true
+],
+"C:\\Users\\Administrator\\AppData\\Local\\hermes\\hermes-agent\\tools\\focus_pane_tool.py": [
+1788271232784060000,
+1986,
+true
+],
+"C:\\Users\\Administrator\\AppData\\Local\\hermes\\hermes-agent\\tools\\fuzzy_match.py": [
+1788271232787061000,
+49571,
+false
+],
+"C:\\Users\\Administrator\\AppData\\Local\\hermes\\hermes-agent\\tools\\homeassistant_tool.py": [
+1785768966271981200,
+18551,
+true
+],
+"C:\\Users\\Administrator\\AppData\\Local\\hermes\\hermes-agent\\tools\\hook_output_spill.py": [
+1788271232790059800,
+8122,
+false
+],
+"C:\\Users\\Administrator\\AppData\\Local\\hermes\\hermes-agent\\tools\\image_generation_tool.py": [
+1788271232797069000,
+84847,
+true
+],
+"C:\\Users\\Administrator\\AppData\\Local\\hermes\\hermes-agent\\tools\\image_source.py": [
+1788271232799058900,
+20679,
+false
+],
+"C:\\Users\\Administrator\\AppData\\Local\\hermes\\hermes-agent\\tools\\interpreter_shutdown.py": [
+1788271232800059500,
+2504,
+false
+],
+"C:\\Users\\Administrator\\AppData\\Local\\hermes\\hermes-agent\\tools\\interrupt.py": [
+1788475831460732200,
+6015,
+false
+],
+"C:\\Users\\Administrator\\AppData\\Local\\hermes\\hermes-agent\\tools\\kanban_tools.py": [
+1788475831462731600,
+99612,
+true
+],
+"C:\\Users\\Administrator\\AppData\\Local\\hermes\\hermes-agent\\tools\\lazy_deps.py": [
+1788475831465730500,
+58679,
+false
+],
+"C:\\Users\\Administrator\\AppData\\Local\\hermes\\hermes-agent\\tools\\managed_tool_gateway.py": [
+1788271232816059700,
+17605,
+false
+],
+"C:\\Users\\Administrator\\AppData\\Local\\hermes\\hermes-agent\\tools\\mcp_dashboard_oauth.py": [
+1785768966326956400,
+5513,
+false
+],
+"C:\\Users\\Administrator\\AppData\\Local\\hermes\\hermes-agent\\tools\\mcp_death_supervisor.py": [
+1788475831466732300,
+9341,
+false
+],
+"C:\\Users\\Administrator\\AppData\\Local\\hermes\\hermes-agent\\tools\\mcp_oauth.py": [
+1788271232829112900,
+84446,
+false
+],
+"C:\\Users\\Administrator\\AppData\\Local\\hermes\\hermes-agent\\tools\\mcp_oauth_manager.py": [
+1788271232833060100,
+43712,
+false
+],
+"C:\\Users\\Administrator\\AppData\\Local\\hermes\\hermes-agent\\tools\\mcp_schema_cache.py": [
+1788271232835059300,
+5275,
+false
+],
+"C:\\Users\\Administrator\\AppData\\Local\\hermes\\hermes-agent\\tools\\memory_tool.py": [
+1788475831474731800,
+62106,
+true
+],
+"C:\\Users\\Administrator\\AppData\\Local\\hermes\\hermes-agent\\tools\\microsoft_graph_auth.py": [
+1782021920354275600,
+8177,
+false
+],
+"C:\\Users\\Administrator\\AppData\\Local\\hermes\\hermes-agent\\tools\\microsoft_graph_client.py": [
+1788271232853067500,
+14169,
+false
+],
+"C:\\Users\\Administrator\\AppData\\Local\\hermes\\hermes-agent\\tools\\neutts_synth.py": [
+1785768966382814000,
+3995,
+false
+],
+"C:\\Users\\Administrator\\AppData\\Local\\hermes\\hermes-agent\\tools\\open_preview_tool.py": [
+1788271232854066400,
+3454,
+false
+],
+"C:\\Users\\Administrator\\AppData\\Local\\hermes\\hermes-agent\\tools\\openrouter_client.py": [
+1785768966394346000,
+1576,
+false
+],
+"C:\\Users\\Administrator\\AppData\\Local\\hermes\\hermes-agent\\tools\\osv_check.py": [
+1788475831478729900,
+11486,
+false
+],
+"C:\\Users\\Administrator\\AppData\\Local\\hermes\\hermes-agent\\tools\\patch_parser.py": [
+1788271232866061000,
+30052,
+false
+],
+"C:\\Users\\Administrator\\AppData\\Local\\hermes\\hermes-agent\\tools\\path_security.py": [
+1785768966405430300,
+1354,
+false
+],
+"C:\\Users\\Administrator\\AppData\\Local\\hermes\\hermes-agent\\tools\\plugin_guard.py": [
+1788271232870064500,
+12310,
+false
+],
+"C:\\Users\\Administrator\\AppData\\Local\\hermes\\hermes-agent\\tools\\preview_tool.py": [
+1788475831480732700,
+3364,
+true
+],
+"C:\\Users\\Administrator\\AppData\\Local\\hermes\\hermes-agent\\tools\\process_registry.py": [
+1788475831483730100,
+162764,
+true
+],
+"C:\\Users\\Administrator\\AppData\\Local\\hermes\\hermes-agent\\tools\\project_tools.py": [
+1788475831484730100,
+6785,
+true
+],
+"C:\\Users\\Administrator\\AppData\\Local\\hermes\\hermes-agent\\tools\\react_to_message_tool.py": [
+1788475831485731800,
+6851,
+true
+],
+"C:\\Users\\Administrator\\AppData\\Local\\hermes\\hermes-agent\\tools\\read_extract.py": [
+1788271232895098100,
+31519,
+false
+],
+"C:\\Users\\Administrator\\AppData\\Local\\hermes\\hermes-agent\\tools\\read_preview_tool.py": [
+1788271232900042400,
+3345,
+false
+],
+"C:\\Users\\Administrator\\AppData\\Local\\hermes\\hermes-agent\\tools\\read_terminal_tool.py": [
+1788271232902045100,
+2851,
+true
+],
+"C:\\Users\\Administrator\\AppData\\Local\\hermes\\hermes-agent\\tools\\read_window_tool.py": [
+1788271232904042900,
+2327,
+true
+],
+"C:\\Users\\Administrator\\AppData\\Local\\hermes\\hermes-agent\\tools\\schema_sanitizer.py": [
+1788271232936046400,
+29310,
+false
+],
+"C:\\Users\\Administrator\\AppData\\Local\\hermes\\hermes-agent\\tools\\self_repo_guard.py": [
+1788271232938048400,
+23495,
+false
+],
+"C:\\Users\\Administrator\\AppData\\Local\\hermes\\hermes-agent\\tools\\send_message_tool.py": [
+1788271232949793400,
+112575,
+false
+],
+"C:\\Users\\Administrator\\AppData\\Local\\hermes\\hermes-agent\\tools\\session_search_tool.py": [
+1788475831490730600,
+52148,
+true
+],
+"C:\\Users\\Administrator\\AppData\\Local\\hermes\\hermes-agent\\tools\\setup_mcp_tool.py": [
+1788271232967813800,
+4272,
+true
+],
+"C:\\Users\\Administrator\\AppData\\Local\\hermes\\hermes-agent\\tools\\shell_heredoc.py": [
+1788271232968819600,
+13628,
+false
+],
+"C:\\Users\\Administrator\\AppData\\Local\\hermes\\hermes-agent\\tools\\skill_ledger.py": [
+1788271232970816600,
+24402,
+false
+],
+"C:\\Users\\Administrator\\AppData\\Local\\hermes\\hermes-agent\\tools\\skill_linter.py": [
+1788271232978907300,
+16440,
+false
+],
+"C:\\Users\\Administrator\\AppData\\Local\\hermes\\hermes-agent\\tools\\skill_manager_tool.py": [
+1788475831492730300,
+91279,
+true
+],
+"C:\\Users\\Administrator\\AppData\\Local\\hermes\\hermes-agent\\tools\\skill_provenance.py": [
+1782021920402274900,
+2680,
+false
+],
+"C:\\Users\\Administrator\\AppData\\Local\\hermes\\hermes-agent\\tools\\skill_usage.py": [
+1788271232986816100,
+53913,
+false
+],
+"C:\\Users\\Administrator\\AppData\\Local\\hermes\\hermes-agent\\tools\\skillevaluator_scan.py": [
+1788271232990813400,
+9622,
+false
+],
+"C:\\Users\\Administrator\\AppData\\Local\\hermes\\hermes-agent\\tools\\skills_ast_audit.py": [
+1782021920404273700,
+5329,
+false
+],
+"C:\\Users\\Administrator\\AppData\\Local\\hermes\\hermes-agent\\tools\\skills_guard.py": [
+1788271232998813500,
+58479,
+false
+],
+"C:\\Users\\Administrator\\AppData\\Local\\hermes\\hermes-agent\\tools\\skills_hub.py": [
+1788271233002816200,
+198004,
+false
+],
+"C:\\Users\\Administrator\\AppData\\Local\\hermes\\hermes-agent\\tools\\skills_sync.py": [
+1788271233008862300,
+61416,
+false
+],
+"C:\\Users\\Administrator\\AppData\\Local\\hermes\\hermes-agent\\tools\\skills_sync_client.py": [
+1785768966504651700,
+91168,
+false
+],
+"C:\\Users\\Administrator\\AppData\\Local\\hermes\\hermes-agent\\tools\\skills_tool.py": [
+1788271233015814300,
+85778,
+true
+],
+"C:\\Users\\Administrator\\AppData\\Local\\hermes\\hermes-agent\\tools\\slash_confirm.py": [
+1782021920415282600,
+5918,
+false
+],
+"C:\\Users\\Administrator\\AppData\\Local\\hermes\\hermes-agent\\tools\\spill_safety.py": [
+1788271233017815300,
+4206,
+false
+],
+"C:\\Users\\Administrator\\AppData\\Local\\hermes\\hermes-agent\\tools\\subagent_worktree.py": [
+1788475831495733600,
+13894,
+false
+],
+"C:\\Users\\Administrator\\AppData\\Local\\hermes\\hermes-agent\\tools\\terminal_hints.py": [
+1788271233020811200,
+11827,
+false
+],
+"C:\\Users\\Administrator\\AppData\\Local\\hermes\\hermes-agent\\tools\\terminal_scope.py": [
+1788475831497732000,
+12433,
+false
+],
+"C:\\Users\\Administrator\\AppData\\Local\\hermes\\hermes-agent\\tools\\terminal_tool.py": [
+1788475831500729200,
+193489,
+true
+],
+"C:\\Users\\Administrator\\AppData\\Local\\hermes\\hermes-agent\\tools\\thread_context.py": [
+1782021920419276900,
+4814,
+false
+],
+"C:\\Users\\Administrator\\AppData\\Local\\hermes\\hermes-agent\\tools\\threat_patterns.py": [
+1788271233034810300,
+14344,
+false
+],
+"C:\\Users\\Administrator\\AppData\\Local\\hermes\\hermes-agent\\tools\\tip_tool.py": [
+1788475831502732200,
+3910,
+true
+],
+"C:\\Users\\Administrator\\AppData\\Local\\hermes\\hermes-agent\\tools\\tirith_security.py": [
+1785768966537938100,
+34917,
+false
+],
+"C:\\Users\\Administrator\\AppData\\Local\\hermes\\hermes-agent\\tools\\todo_tool.py": [
+1788475831504728400,
+17485,
+true
+],
+"C:\\Users\\Administrator\\AppData\\Local\\hermes\\hermes-agent\\tools\\tool_backend_helpers.py": [
+1788475831506731600,
+17498,
+false
+],
+"C:\\Users\\Administrator\\AppData\\Local\\hermes\\hermes-agent\\tools\\tool_output_limits.py": [
+1782021920440277400,
+4101,
+false
+],
+"C:\\Users\\Administrator\\AppData\\Local\\hermes\\hermes-agent\\tools\\tool_result_storage.py": [
+1788271233052809900,
+17196,
+false
+],
+"C:\\Users\\Administrator\\AppData\\Local\\hermes\\hermes-agent\\tools\\tool_search.py": [
+1788475831508732500,
+61409,
+false
+],
+"C:\\Users\\Administrator\\AppData\\Local\\hermes\\hermes-agent\\tools\\tour_tool.py": [
+1788475831511741700,
+7849,
+true
+],
+"C:\\Users\\Administrator\\AppData\\Local\\hermes\\hermes-agent\\tools\\transcription_tools.py": [
+1788271233069481900,
+139354,
+false
+],
+"C:\\Users\\Administrator\\AppData\\Local\\hermes\\hermes-agent\\tools\\tts_streaming.py": [
+1785768966580029600,
+19032,
+false
+],
+"C:\\Users\\Administrator\\AppData\\Local\\hermes\\hermes-agent\\tools\\tts_text_normalize.py": [
+1785768966584005800,
+12300,
+false
+],
+"C:\\Users\\Administrator\\AppData\\Local\\hermes\\hermes-agent\\tools\\tts_tool.py": [
+1788475831514727800,
+191735,
+true
+],
+"C:\\Users\\Administrator\\AppData\\Local\\hermes\\hermes-agent\\tools\\url_safety.py": [
+1788475831516730600,
+34381,
+false
+],
+"C:\\Users\\Administrator\\AppData\\Local\\hermes\\hermes-agent\\tools\\video_generation_tool.py": [
+1788271233085488000,
+22892,
+true
+],
+"C:\\Users\\Administrator\\AppData\\Local\\hermes\\hermes-agent\\tools\\vision_tools.py": [
+1788475831519728000,
+97735,
+true
+],
+"C:\\Users\\Administrator\\AppData\\Local\\hermes\\hermes-agent\\tools\\voice_client_config.py": [
+1788271233097510200,
+13101,
+false
+],
+"C:\\Users\\Administrator\\AppData\\Local\\hermes\\hermes-agent\\tools\\voice_mode.py": [
+1788271233101489000,
+99377,
+false
+],
+"C:\\Users\\Administrator\\AppData\\Local\\hermes\\hermes-agent\\tools\\wake_word.py": [
+1788271233103484900,
+58662,
+false
+],
+"C:\\Users\\Administrator\\AppData\\Local\\hermes\\hermes-agent\\tools\\web_result_cache.py": [
+1788271233109519500,
+16444,
+false
+],
+"C:\\Users\\Administrator\\AppData\\Local\\hermes\\hermes-agent\\tools\\web_tools.py": [
+1788475831521729300,
+76677,
+true
+],
+"C:\\Users\\Administrator\\AppData\\Local\\hermes\\hermes-agent\\tools\\website_policy.py": [
+1785768966671776300,
+10127,
+false
+],
+"C:\\Users\\Administrator\\AppData\\Local\\hermes\\hermes-agent\\tools\\working_diff.py": [
+1788475831522731600,
+5229,
+false
+],
+"C:\\Users\\Administrator\\AppData\\Local\\hermes\\hermes-agent\\tools\\write_approval.py": [
+1782021920462277100,
+19905,
+false
+],
+"C:\\Users\\Administrator\\AppData\\Local\\hermes\\hermes-agent\\tools\\x_search_tool.py": [
+1788271233131486300,
+21292,
+true
+],
+"C:\\Users\\Administrator\\AppData\\Local\\hermes\\hermes-agent\\tools\\xai_http.py": [
+1788271233133487300,
+14993,
+false
+],
+"C:\\Users\\Administrator\\AppData\\Local\\hermes\\hermes-agent\\tools\\xai_video_tools.py": [
+1785768966696017900,
+6539,
+true
+],
+"C:\\Users\\Administrator\\AppData\\Local\\hermes\\hermes-agent\\tools\\yuanbao_tools.py": [
+1782021920466275500,
+28152,
+true
+]
+}

@@ -88,22 +88,64 @@ Uses long-polling — no public endpoint or webhook needed.
 uv pip install aiohttp cryptography qrcode --python "$HERMES_HOME/hermes-agent/venv/Scripts/python.exe"
 ```
 
-### QR Login Flow
+### QR Login Flow — 二维码约 90 秒，而且**可以全自动**
 
-The iLink QR codes expire in ~4-5 seconds. This is too fast for the agent's
-foreground terminal (output is buffered and returned only on command exit).
-The user MUST run the QR scan in their own terminal, ready with WeChat
-scan already open.
+🔴 **2026-10-18 实测更正**：本 skill 之前的版本写「iLink 二维码只活 ~4-5 秒、
+必须用户自己在自己终端跑 `hermes gateway setup`」——**那是错的**。
+三张码实测存活 **121s / 92s / 92s**，而且整套绑定流程可以由 agent 全自动完成，
+不需要用户进终端。
 
-**Correct workflow:**
-1. Tell the user to open WeChat scan on their phone FIRST
-2. Tell the user to run `hermes gateway setup` in their own terminal
-3. User selects option 12 (Weixin / WeChat)
-4. User scans QR immediately — it expires fast
-5. After successful login, agent updates `config.yaml` and restarts gateway
+**可行方案：agent 自动补发循环 + 直接把二维码推到 Telegram**
 
-**Do NOT attempt to run QR login through the agent's terminal** — the output
-buffering will always cause the QR to expire before the user sees it.
+1. `GET /ilink/bot/get_bot_qrcode?bot_type=3` 拿码（GET，只需 `iLink-App-Id` +
+   `iLink-App-ClientVersion` 两个头，**不要 token**）
+2. 🔴 **发码前先自检** `get_qrcode_status?qrcode=<token>` 应返回
+   `{"ret":0,"status":"wait"}`。URL 拼错会让轮询全 404、用户白扫一次；
+   先自检就不会发出接不住的码。
+3. `qrcode` 库生成 PNG → 用 `hermes send --to telegram "..."`，消息里带
+   `MEDIA:<png>` 直接推给用户。**不要靠主 agent 转发**——每轮回复十几秒的延迟
+   会把二维码寿命吃掉一半。`hermes send` 无 LLM 延迟。
+4. 轮询 status（每张码最长约 130s）：
+   - `scaned` → **立刻再推一条「马上在微信里点确认」**。这是最常卡住的一步：
+     用户扫上了但没点确认，状态会一直停在 `scaned` 直到过期。
+   - `expired` → 补发下一张
+   - 拿到 `ilink_bot_id` / `bot_token` → 写结果文件并退出
+5. 循环 12 轮左右，首条消息里写明轮数，避免无限刷屏。
+
+**扫不上不是码的问题，是节奏问题**：每张码从发出起只剩 90 秒，用户必须「看到即扫」。
+实践中最有效的一句话是：
+> “把手机拿在手上、微信停在『扫一扫』界面等着；看到新码立刻扫，扫完立刻点确认。”
+
+**完整实战细节（请求头陷阱、扫码结果丢失后的二维码反解补救、时间线）见**
+`hermes-wechat-delivery` 的 `references/ilink-rebind-2026-10.md`。
+
+### 🔴 重新绑定后必须重启 gateway（否则改了也没用）
+
+`WeixinAdapter.__init__` 在启动时就把 token 读进实例属性（`self._token`），
+**改 `.env` 不会热重载**——这点和 cron tick 每次重读 `.env` 的机制**不同，别搞混**。
+所以重新扫码、换了 `WEIXIN_TOKEN` 之后，运行中的 gateway 里微信通道仍然是死的
+（表现为 `[Weixin] Session expired; pausing for 10 minutes` 继续刷）。
+
+- ✅ **最稳**：让用户在 Telegram 发一句 `/restart`（gateway 内置斜杠命令，优雅重启）
+- ⚠️ 备用：杀 PID + `schtasks /run /tn Hermes_Gateway`；
+  注意 `hermes gateway restart` / `stop` 在 gateway 进程内会被安全防护 **BLOCKED**
+
+**重启之前就能验证绑定是否真的成功**——新进程会重新读 `.env`：
+```bash
+hermes send --to weixin "微信通道测试" --json
+# 期望 {"success": true, "platform": "weixin", "chat_id": "...@im.wechat", ...}
+```
+这条通了 = 绑定确实成功，剩下的纯粹是「让 gateway 用上它」的运维问题，
+与绑定本身无关。**重启后用 gateway.log 的 `inbound` / `Sending response` 做真实往返验证。**
+
+### 诊断「iLink 会话超时」（`errcode:-14`）时的假阳性陷阱
+
+验证 token 是否有效时，iLink 的 POST 接口**必须带齐** `AuthorizationType: ilink_bot_token`、
+`X-WECHAT-UIN`（随机数字串）、body 里的 `base_info: {channel_version: ...}`、
+以及 `iLink-App-Id` / `iLink-App-ClientVersion`。
+**漏任何一个，返回的错误和「会话真过期」一模一样（`errcode:-14 session timeout`）** ——
+会把「我请求写错了」误判成「token 也挂了」，从而错误地否掉重扫码方案。
+正确格式下的成功响应：`{"msgs":[],"sync_buf":"...","get_updates_buf":"..."}`。
 
 ### Config After Successful Login
 
@@ -426,6 +468,75 @@ Verify with:
 "$HERMES_HOME/hermes-agent/venv/Scripts/python.exe" -c "import <package>; print('ok')"
 ```
 
+## 中国大陆免代理消息平台（TG 替代候选，2026-09-03 调研）
+
+背景：TG 在中国必须走代理 → 代理抖动导致丢消息。用户想找"同成熟、免代理、不限流"的入口。Hermes 原生支持平台里，国内直连候选 = 飞书 / 钉钉 / 邮箱。**微信 iLink 的 10 条配额限制是用户明确排除项**（见 hermes-wechat-delivery）。
+
+| 平台 | 连接方式 | 能力表 | 限流 | 坑 |
+|:---|:---|:---|:---|:---|
+| **飞书 (Feishu/Lark)** 🥇 | 推荐 WebSocket 长连接（免公网 URL，SDK 自动重连）或 Webhook | Voice/Images/Files/Threads/Reactions/Typing/Streaming 全 ✅（与 TG 同档，官方能力表逐项对齐） | 应用机器人 5 QPS（同用户/同群）；自定义机器人 100 次/分、5 次/秒（普通聊天远够不到） | 整点/半点推送可能遇系统压力限流 11232（避开 10:00/17:30）；企业版应用发布需管理员审批，个人自建应用内部发布无需商店审核 |
+| **钉钉 (DingTalk)** 🥈 | Stream Mode WebSocket（免公网 URL，NAT 后可用） | 图片/文件/Reactions/Streaming，AI Cards 可选 | 一般频控（个人场景够） | 🔴 `No session_webhook available`：回复依赖收到消息时的临时 session webhook，重启/过期后可能投递失败——与代理丢消息模式类似，扣分；需企业/组织账号 |
+| **邮箱 (Email)** 保底 | IMAP/SMTP | 图片/文件/线程 | 无实质性限流（个人邮箱） | 非实时（轮询延迟几十秒），无打字指示/流式 |
+
+**排除**：企业微信（微信生态限流）、QQ（个人号机器人走第三方框架有冻号风险）、Discord/Slack（国外服务同样要代理）。
+
+### 配置要点
+
+- **飞书**：`hermes gateway setup` 扫码创建应用（推荐路径）或手动：`.env` 设 `FEISHU_APP_ID`/`FEISHU_APP_SECRET`/`FEISHU_DOMAIN=feishu`/`FEISHU_CONNECTION_MODE=websocket`/`FEISHU_ALLOWED_USERS`。依赖：`uv pip install lark-oapi websockets`。DM 每消息必回，群聊需 @。
+- **钉钉**：`.env` 设 `DINGTALK_CLIENT_ID`/`DINGTALK_CLIENT_SECRET`/`DINGTALK_ALLOWED_USERS`。依赖：`uv pip install dingtalk-stream httpx alibabacloud-dingtalk`。DM 免 @，群聊需 @。
+- **邮箱**：无额外依赖（内置 adapter），QQ 邮箱零成本。
+
+### 推荐组合（2026-09-03 建议，待用户拍板）
+
+主通道切飞书（解决 TG 走代理丢消息，功能体验几乎无损），TG 保留备用（双通道备份），邮箱做兜底（日报/告警永不失联）。飞书/钉钉是国内服务，服务器在国内，无代理依赖；与修代理（Clash 节点）互不冲突。
+
+---
+
+## 盘点「能官方接入哪些生态」——先查源码，别背清单
+
+Trigger：用户问「你有哪些可以官方接入的生态 / 能接哪些平台 / 支持什么官方渠道」——
+常见于拿 Hermes 与其它 agent 产品（Muse 等）做对比时。**禁止凭记忆罗列**：适配器随版本
+增删，必须扫本机源码再答，并把「已启用」和「只是支持」分清楚。
+
+### 枚举命令（三条扫完整个接入面）
+
+```bash
+cd ~/AppData/Local/hermes/hermes-agent
+ls gateway/platforms/     # 核心平台适配器
+ls plugins/platforms/     # 插件式平台适配器（数量更多，别漏）
+ls optional-mcps/         # 官方 MCP 目录，每个子目录一个 manifest.yaml
+```
+
+文件名基本就是平台名：`weixin.py`=微信（腾讯 iLink 官方个人号）、`yuanbao.py`=腾讯元宝、
+`qqbot/`=QQ 官方机器人、`msgraph_webhook.py`=微软 365/Outlook、`bluebubbles.py`=iMessage 桥、
+`dingtalk` / `feishu` / `wecom` = 钉钉 / 飞书 / 企业微信。
+
+### ⚠️ 判定「已启用」的地面真相（别把能力注册表当启用状态）
+
+| 看着像启用状态 | 实际含义 | 能作准吗 |
+|:---|:---|:---|
+| `known_plugin_toolsets` / `known_builtin_toolsets` | 该版本**存在**哪些 toolset 的能力注册表 | ❌ 列表里有 `spotify`/`yuanbao` ≠ 已配置凭证 |
+| `gateway_state.json` → `platforms` | 运行时快照，实测可为 `null`/陈旧 | ⚠️ 不可单独作准 |
+| `config.yaml` 的 `platforms:` / `mcp_servers:` 块 | 配置真身 | ✅ |
+| `.env`（`WEIXIN_TOKEN` / `TELEGRAM_BOT_TOKEN` / `A2A_BEARER_TOKEN` …） | 凭证真身 | ✅ |
+
+**实踩（2026-10-08）**：微信平台在 `config.yaml` 里 grep 完全搜不到（只配在 `.env`），
+只查 config 会误报「微信没接」。反之 `spotify` 出现在 toolset 注册表里但无配置块 = 实际没接。
+两边都要查。
+
+### 回答姿势（本用户偏好）
+
+- 按三层给全貌：**消息平台适配器 / MCP 应用生态 / 内置插件**。
+- 每层分档：**已启用 → 原生适配器只差凭证 → 需手动配 key**，不要混成一锅。
+- 国内优先，并显式区分**官方渠道**（腾讯 iLink 个人号、QQ 官方机器人、飞书/钉钉/企微开放平台、
+  高德官方 MCP）与 skill 级非官方采集（B站/小红书/公众号抓取）——这个区分是用户真正在意的点。
+- 诚实交代差距：Hermes 是适配器框架，数量多但多数要自配凭证，≠ Muse 那种一键 SaaS 连接；
+  但国产生态（微信个人号/高德/飞书钉钉）是 Hermes 的长板。不要吹成「开箱即用」。
+- 聊天回复用 bullet / 标签行，不用 markdown 表格（Telegram 不渲染表格）。
+
+完整实测清点结果（2026-10-08，含 65 个官方 MCP 目录条目与国内候选）见
+`references/integration-surface-inventory.md`。
+
 ---
 
 ## Platform Config Structure
@@ -655,7 +766,8 @@ to confirm bidirectional communication.
   save credentials, update config.yaml and .env. Includes the mandatory
   Windows asyncio event loop fix.
 - `references/ilink-api-notes.md` — iLink Bot API behavior notes: endpoint
-  reference, QR expiration timing (~4-5s), poll statuses, credential storage
+  reference, QR expiration timing (**~90–120 s; the earlier "~4-5s" note was wrong,
+  corrected 2026-10-18**), poll statuses, credential storage
   paths, context token persistence, retry logic, and AES-128-ECB encryption
   details.
 - `references/gateway-proxy-delay-diagnosis.md` — Diagnosing gateway response
@@ -674,3 +786,9 @@ to confirm bidirectional communication.
 - `references/a2a-platform-notes.md` — v0.20 A2A v1.0 (agent-to-agent) platform:
   enable config, inbound/outbound tools, security defaults, env vars, plus the
   GitHub-API recipe for pulling Hermes release notes when release pages 404.
+- `references/integration-surface-inventory.md` — 全量接入面清点（2026-10-08 源码实测）：核心/插件平台
+  适配器全清单、65 个官方 MCP 目录条目、本机实际已启用项、国内官方渠道清单，
+  以及 Gmail 类欧美生态的等价映射。回答「你能接哪些生态」时直接引用。
+- 相关 skill：`hermes-context-partitioning` —— 用 Telegram DM 话题给不同任务域
+  （健康 / 投资 / 运维）分独立会话，含话题级 skill 绑定、与独立 profile 的选型对比，
+  以及「用户不想手动切换」时的零命令方案。用户问「能不能单独建个 bot 处理 X」时加载。

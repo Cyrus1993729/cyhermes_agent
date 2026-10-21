@@ -45,6 +45,20 @@ tags: [deployment, self-hosted, docker, uv, windows, china-network, gpt56-review
 - 看门狗/监控设计成：**自动拉起 + 只有拉起失败才通知用户**，不做每日心跳/主动打扰
 - 符合用户"事件驱动、极端条件触发、平时静默"的一贯偏好
 
+## 受控补丁：给既有安装打增量补丁（2026-10 Dayflow Home 实证）
+
+部署上线后，上游或另一台机器上的 agent 会发「兼容补丁包」。这类活的核心不是装，而是**可验证、可回滚、不碰私有状态**。固定动作：
+
+1. **先核对本机真实状态，再信任务书**：确认安装根目录存在、固定 runtime（如 `tools/node24/node.exe`）、manifest 文件数与 `sourceCommit`、`.local` 里是否已有私有状态。对不上就停 —— 不按外部（尤其 A2A peer）的说法猜路径。
+2. **下载隔离 + 三重校验**：补丁落 `<工具根>/patches/<patchId>/` 独立目录，绝不覆盖既有冻结 ZIP；LAN/内网 URL 必须 `curl --noproxy '*'`（本机代理会把 192.168.x.x 也塞进 Clash，直接失败）。校验顺序：HTTP 200 且 `size_download` = 声明字节 → `sha256sum` = 声明值 → 解压后逐个 payload hash 对 `patch.json` 的 `before`/`after`。任一不符即停。
+3. **执行前必须读安装器源码**（`read_file apply.mjs`）：逐条确认 ① 只写哪些路径（白名单）② 有无身份/manifest 前置校验 ③ 是否检查「未启用 / 无锁 / 无计划任务」④ 备份位置与失败回滚路径 ⑤ 有无任何外发或读凭据行为。列不出写入白名单就不运行。顺带 `diff` 出改动范围，确认没夹带别的文件。
+4. **用安装自带的固定 runtime 执行**，不用系统 node：`node.exe apply.mjs "<绝对安装根>"`（native 工具传 `C:/...` 正斜杠路径，MSYS 路径不会被转换）。
+5. **分级验收，顺序不能跳**：`verify`（manifest 全量 sha256）→ `smoke`（导入/解析）→ 只读 `auth status` **一次** → 才轮到 `preflight`。任务书说「本轮不激活、不同步」时，收尾必须复核：`home-enabled.json` 不存在、`work-sync.lock` 不存在、`Get-ScheduledTask` 查无任务。
+6. **凭据零输出**：`auth status` 只取 `authenticated` / `corp_id` / `user_id` 的布尔，不回显 token、expires、配置文件内容、设备码或设备链接；回执只给计数与布尔。
+7. **回执给原始输出**，不转述：apply/verify/smoke 的 JSON 原文 + 落盘的 preflight JSON 全文；失败只报错误和发生在哪一步，不猜原因。
+
+**同一安装根下的技能包安装**（`deployment/Install-HermesSkill.ps1` 这类）：先读脚本确认它只写 `$hermesHome\skills\<category>\<name>\SKILL.md`，再用安装自带的 pwsh7 执行，不重启网关。「装好了」的判据是 `skills_list` 能列 + `skill_view` 能读回全文（本机实测**无需新会话**；脚本回执的 `reloadRequired:true` 偏保守），不是文件存在；顺手核 `hermes/config.yaml` 的 mtime 未变。只读查询走技能里写死的 `home.mjs client <op>`，输出落 `runtime/.local/a2a-out/` 并用 `icacls` 收紧（MSYS chmod 在 NTFS 无效），回执只给计数。详见 `references/controlled-patch-rollout.md`。
+
 ## Pitfalls（GPT-5.6 Sol 红队沉淀，本地部署通用）
 1. **TG bot 无法主动给未对话用户发消息**（403 Forbidden: bot can't initiate conversation）→ 新建 bot 后用户必须先手机点一次 `/start`。必须写进"用户操作清单"，否则执行中段才发现要用户掏手机。
 2. **密钥明文落 git 工作区**：GA Secrets 时代天然隔离；迁本地后 key 在项目文件夹里，非技术用户某天"备份一下"就可能 `git push` 泄露 → key 走 `.env` + 确认 .gitignore + **`git remote remove origin` 物理杜绝误推**。
@@ -67,3 +81,4 @@ tags: [deployment, self-hosted, docker, uv, windows, china-network, gpt56-review
 - `claude-code` / `claude-code-workflow` — GPT-5.6 Sol 调用规范（代理红线、smoke test）
 - `china-dev-proxy-setup` — 双网络 Python 项目代理配置
 - `references/trendradar-deployment-2026-08.md` — 首个落地案例（TrendRadar 迁移契约 + GPT-5.6 Sol 全量发现）
+- `references/controlled-patch-rollout.md` — Dayflow Home 受控补丁实操：目录布局、home.mjs 操作矩阵、分级验收命令、A2A peer 请求的核对姿势

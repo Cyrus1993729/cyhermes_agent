@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-"""OpenCode Go (deepseek-v4-flash) API 健康检查 (cron no_agent 模式: 慢/失败才告警, 正常静默)
+"""OpenCode Go (deepseek-v4.1-flash) API 健康检查 (cron no_agent 模式: 慢/失败才告警, 正常静默)
 测真实生成延迟: >30s 或请求失败 → 输出告警。
 2026-08-16 迁移: DeepSeek 官方 API → OpenCode Go 套餐 (https://opencode.ai/zen/go/v1, 走代理 7897)
 2026-08-17 改进: ①失败后 3s 重试一次(瞬时故障不打扰, 用户策略"先重试不轻易兜底") ②告警带 HTTP 状态码+响应体(区分 401/403/429/5xx) ③去掉误导性的"日报已切 qwen3.7-max 兜底"文案(本脚本不切任何东西, 日报引擎切换由 cron prompt 的 api_probe 判定负责)
@@ -10,7 +10,7 @@ import sys, time, json, urllib.request, urllib.error
 KEY_PATH = r'C:\Users\Administrator\Desktop\各类api key\opencode go api key.txt'
 THRESHOLD = 30  # 秒, 超过视为"慢"
 API_URL = 'https://opencode.ai/zen/go/v1/chat/completions'
-PROXY = 'http://127.0.0.1:7897'
+PROXY = 'http://127.0.0.1:10808'
 
 try:
     key = open(KEY_PATH, encoding='utf-8').read().strip()
@@ -23,7 +23,7 @@ def probe(timeout):
     """单次探测。返回 (status, code, elapsed, detail)
     status: 'ok' | 'http' (HTTPError) | 'err' (其他异常)"""
     body = json.dumps({
-        "model": "deepseek-v4-flash",
+        "model": "deepseek-v4.1-flash",
         "messages": [{"role": "user", "content": "hi"}],
         "max_tokens": 5,
     }).encode('utf-8')
@@ -32,7 +32,7 @@ def probe(timeout):
     req = urllib.request.Request(
         API_URL,
         data=body,
-        headers={'Authorization': f'Bearer {key}', 'Content-Type': 'application/json', 'User-Agent': 'curl/8.0.0'},
+        headers={'Authorization': f'Bearer {key}', 'Content-Type': 'application/json', 'User-Agent': 'curl/8.0.0', 'x-opencode-session': 'hermes-script-healthcheck'},
     )
     t0 = time.time()
     try:

@@ -15,7 +15,7 @@ import urllib.request
 from pathlib import Path
 
 BASE_IP = "192.168.0.112"
-PEER_URL = "http://192.168.0.106:9900/"          # 妈妈机 (pc-a)
+PEER_URL = "http://192.168.0.113:9900/"          # 妈妈机 (pc-a)
 HERMES_HOME = Path(r"C:\Users\Administrator\AppData\Local\hermes")
 
 A2A_NOTE_TEMPLATE = (

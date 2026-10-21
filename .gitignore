@@ -23,3 +23,16 @@
 !safety_invariants.md
 !model_routing.md
 !config.yaml
+
+# === 凭证类绝不入库（放在所有放行规则之后，优先级最高）===
+.env
+.env.*
+**/.env
+**/.env.*
+**/auth.json
+**/*.pem
+**/*.key
+**/hermes-cloud-connection.json
+**/.local/
+profiles/**/.env
+profiles/**/auth.json

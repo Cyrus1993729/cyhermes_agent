@@ -1,0 +1,133 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""妈妈机 IP 修复守候 (cron no_agent 模式; stdout 非空才投递, 空=静默)
+
+背景: 妈妈机局域网 IP 2026-09-07 从 192.168.0.106 变为 192.168.0.113,
+本机 a2a_agents.url 已改好; 妈妈机自己的 scripts/ip_monitor.py BASE_IP 仍是 106,
+会在妈妈机每 30 分钟误报一次假告警 → 需让妈妈机 agent 自行把 BASE_IP 改成 113。
+
+逻辑 (每 30 分钟一轮):
+  1. 无代理探活 http://192.168.0.113:9900/.well-known/agent-card.json (8s)
+     - 不通 = 妈妈机未开机 → 空输出 (静默, 下轮再试)
+  2. 通 → message/send JSON-RPC 指令 (超时 150s), 要求妈妈机 agent:
+       检查 C:/Users/1/AppData/Local/hermes/scripts/ip_monitor.py 的 BASE_IP
+       - 已是 192.168.0.113 → 直接回复 "已是新IP" (幂等, 不重复改)
+       - 是 192.168.0.106 → 用 python 改文件文本为 113, 读回验证, 回复确认
+  3. 输出: 拿到确认回复 → print 成功消息 (触发 TG 投递); 未开机 → 静默;
+     超时/失败 → print 一行提示 (下轮重试)
+
+坑位 (agent-mesh-networking skill 实测):
+  - 本机 env HTTP_PROXY=10808 会劫持 LAN 直连 → urllib 必须无代理 opener
+  - token 取 .env 的 A2A_BEARER_TOKEN (双机共享同一 token)
+  - Windows 中文 stdout 需 reconfigure utf-8 (GBK 无 ⚠️ 字符)
+"""
+import json
+import re
+import sys
+import time
+import urllib.request
+
+sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+
+PEER_URL = "http://192.168.0.113:9900"
+MAMA_SCRIPT = r"C:/Users/1/AppData/Local/hermes/scripts/ip_monitor.py"
+OLD_IP = "192.168.0.106"
+NEW_IP = "192.168.0.113"
+ENV_PATH = r"C:\Users\Administrator\AppData\Local\hermes\.env"
+CARD_TIMEOUT = 8
+SEND_TIMEOUT = 150
+
+
+def load_token() -> str:
+    try:
+        for line in open(ENV_PATH, encoding="utf-8", errors="replace"):
+            m = re.match(r"\s*A2A_BEARER_TOKEN\s*=\s*(.+)", line.strip())
+            if m:
+                return m.group(1).strip().strip('"').strip("'")
+    except Exception:
+        pass
+    return ""
+
+
+def opener_noproxy():
+    """无代理 opener (绕过本机 HTTP_PROXY=10808 对 LAN 直连的劫持)"""
+    return urllib.request.build_opener(urllib.request.ProxyHandler({}))
+
+
+def probe_card(opener, token) -> tuple[bool, str]:
+    try:
+        req = urllib.request.Request(
+            PEER_URL + "/.well-known/agent-card.json",
+            headers={"Authorization": f"Bearer {token}"},
+            method="GET",
+        )
+        with opener.open(req, timeout=CARD_TIMEOUT) as r:
+            card = json.loads(r.read().decode("utf-8"))
+            return True, card.get("name", "?")
+    except Exception:
+        return False, ""
+
+
+def send_instruction(opener, token):
+    """发送指令并等待回复; 返回 (ok, reply)"""
+    instruction = (
+        "【IP联动修复】你的本机局域网 IP 已从 "
+        f"{OLD_IP} 变为 {NEW_IP}。"
+        f'请检查文件 {MAMA_SCRIPT} 中的 BASE_IP 值：'
+        f"① 如果已经是 '{NEW_IP}'，直接回复『已是新IP』，不要做任何修改；"
+        f"② 如果是 '{OLD_IP}'，用 python 读取该文件并把字符串 '{OLD_IP}' "
+        f"替换为 '{NEW_IP}'（一次性替换），改完读回文件确认无误，"
+        f"然后回复『BASE_IP 已更新为 {NEW_IP}』。"
+        "除 BASE_IP 外不要改动任何其他内容，不要动其他文件。"
+    )
+    body = json.dumps(
+        {
+            "jsonrpc": "2.0",
+            "id": int(time.time() * 1000),
+            "method": "message/send",
+            "params": {
+                "message": {
+                    "role": "user",
+                    "parts": [{"text": instruction}],
+                    "metadata": {"taskId": f"fix-mama-ip-{int(time.time())}"},
+                }
+            },
+        }
+    ).encode("utf-8")
+    req = urllib.request.Request(
+        PEER_URL + "/",
+        data=body,
+        method="POST",
+        headers={"Content-Type": "application/json", "A2A-Version": "1.0", "Authorization": f"Bearer {token}"},
+    )
+    t0 = time.time()
+    with opener.open(req, timeout=SEND_TIMEOUT) as r:
+        resp = json.loads(r.read().decode("utf-8"))
+    st = resp.get("result", {}).get("status", {})
+    parts = st.get("message", {}).get("parts", [])
+    reply = parts[0].get("text", "") if parts else ""
+    return (True, reply, time.time() - t0)
+
+
+def main():
+    token = load_token()
+    if not token:
+        print("⚠️ 妈妈机IP修复守候: 本机 .env 读不到 A2A_BEARER_TOKEN")
+        return
+    opener = opener_noproxy()
+    ok, name = probe_card(opener, token)
+    if not ok:
+        return  # 妈妈机未开机 → 静默 (空 stdout, no_agent 不投递)
+    try:
+        ok2, reply, dt = send_instruction(opener, token)
+    except Exception as e:
+        print(f"⚠️ 妈妈机在线({name})但指令未完成确认(超时/异常 {e})，30分钟后自动重试")
+        return
+    if ok2 and reply:
+        print(f"✅ 妈妈机({name})已响应: {reply} (耗时{dt:.0f}s)")
+    else:
+        print(f"⚠️ 妈妈机({name})响应为空，30分钟后重试")
+
+
+if __name__ == "__main__":
+    main()

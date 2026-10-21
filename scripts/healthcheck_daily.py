@@ -124,9 +124,10 @@ if dlv_err > 0:
     label = '五类财经日报' if MODE == 'five' else '跨境日报'
     alerts.append(f'⚠️ {label}投递失败 {dlv_err} 次：日报已生成但 Telegram 发送遇连接故障（内容已存档可补发；若持续出现需换 TG 节点/排查代理）')
 
-# TG 断连通用告警
-if tg_err > 0:
-    alerts.append(f'⚠️ 今天 TG 连接出现 {tg_err} 次断连（节点问题）——日报可能投递失败，若没收到请告诉我补发')
+# TG 断连通用告警 —— 2026-09-07 改判据: 纯断连不再单独告警(长轮询被掐是常态,自愈秒级,不影响发送通道)
+# 断连只在「投递确实失败」时作为背景原因附带,避免狼来了误报
+if tg_err > 0 and dlv_err > 0:
+    alerts.append(f'⚠️ {label if MODE else "日报"}投递失败,且伴随 {tg_err} 次 TG 长轮询断连(大概率原因)——内容已存档可补发')
 
 if alerts:
     print('📋 日报投递健康检查')

@@ -1,0 +1,13 @@
+# 任务复盘：黄金周报
+- 日期：2026-09-21
+- 任务目标：生成 2026-09-15~09-21 周黄金积存金周报（要闻+量化+研判+校验）
+- 数据质量：
+  - SGE 数据 as_of 2026-09-17（4 天旧），系统自动以 GLD 变动率+汇率外推至 ¥943.69，属正常降级路径
+  - FRED 完整（DFII10/M2SL/T10Y2Y 全成功）；COT 已更新（MM 多 258,059/空 27,721）
+  - API 校验：COMEX $4,401.30 vs XAU 现货 $4,361.80，偏差 0.91% ≤2% ✓（contango 正常）
+  - 汇率：API 6.70 vs main.py 6.6952，偏差 0.07% ✓；人民币换算偏差约 -0.4% ≤3% ✓
+- 踩过的坑：
+  - **坑1**：直接 `python main.py` 报 ModuleNotFoundError: pandas — 根因是系统 python 无 pandas，项目依赖在 .venv 中。cron prompt 未提及 venv。解法：改用 ./.venv/Scripts/python.exe。**教训：gold_analyzer 必须用项目 venv 运行，写入 lessons.md 供后续复用。**
+  - **坑2**：L1 审查 PASS 但疑点标记 URL 精确性（要闻1 Fed 链接为新闻首页通用页）。解法：web_search 定位官方 FOMC statement 精确 URL（monetary20260916a.htm）替换。教训：要闻来源 URL 优先贴官方声明直链而非新闻首页。
+- 最终结果：L1 审查 PASS（8/8，含疑点 1 处已修复）；已存档 hermes_output/2026-09-21_gold_weekly.md；contract+deliverable 已归档
+- 可优化点：cron 周报 prompt 可增加"用 .venv 运行 main.py"提示，避免每次踩坑

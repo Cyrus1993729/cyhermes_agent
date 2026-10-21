@@ -30,6 +30,7 @@ TrendRadar（纯采集器）           Hermes（主编）
 ## 纯采集模式
 - `config.yaml`：`notification.enabled=false` + `ai_analysis.enabled=false`（日志确认语："通知功能已禁用，将只进行数据抓取"）
 - 采集频率不受推送节奏限制：每小时入库数据越全，主编筛选余地越大
+- 🔴 **本地模式自动弹浏览器已关闭（2026-09-03 用户拍板）**：`trendradar/__main__.py` 的 `_should_open_browser()` 恒返回 False——原实现非容器/非 CI 环境每次运行都 `webbrowser.open(file_url)` 弹 Chrome 新标签抢前台（计划任务每小时一次，Chrome 启动时间整点后 38 分对齐；截图"热点新闻分析"= file:///D:/Workspace/Projects/TrendRadar/index.html）。改动后报告照常生成（output/html/YYYY-MM-DD/HH-MM.html + latest/current.html + 根 index.html），不再打扰用户；要看时双击 index.html 即可。备份 `__main__.py.bak_20260903_094546`。排查"谁在弹浏览器"先 grep webbrowser 调用（全项目仅此一处）。
 
 ## 精选推送管线（prepare_candidates.py，v2 三通道）
 - 窗口自动判断：当前 <14 点 → morning（昨天 18:00 → 现在）；≥14 点 → evening（今天 09:00 → 现在）
@@ -210,6 +211,7 @@ TrendRadar 自身无数量门槛（fetcher 全收，仅域名安全检查 `expec
   - **8/22**：日报正常（31 条 19762B）→ Job B 投递瞬间 **httpx.ConnectError**（gateway.log 显示 8/22 全天 6 波 TG 断连）→ `Job 'e8e436bbf9b1': delivery error: Telegram send failed: httpx.ConnectError` 记入 agent.log → 用户没收到。**投递失败有记录但健康检查没发现**：`healthcheck_daily.py` 用 `subprocess.run(['grep',...])` 统计 TG 断连，但 **cron 由 gateway（pythonw.exe 计划任务启动，继承 Windows 系统 PATH 无 /usr/bin/grep）子进程执行 → grep FileNotFoundError → except pass 吞掉 → TG 断连检查从上线起从未真正工作过**（8/21 20:45 的 ConnectError 因此漏报）。**修复（2026-08-23）**：healthcheck_daily.py 全部 subprocess grep 改纯 Python 文件遍历+正则（不依赖外部命令）；新增"投递失败检测"——查 agent.log 当天 `cron.scheduler: Job '<jobid>': delivery error`（跨境 e8e436bbf9b1 / 五类 970113abe8a7），有则告警（存档存在≠投递成功）；旧文案"17:00 cron"同步清理。验证 7/7 PASS（投递失败告警/正常静默/仅断连不误报/昨天error不误报/双问题双告警/无grep依赖/无旧时间文案）。**经验：healthcheck 类脚本禁止 subprocess 调外部命令（grep/find），一律纯 Python；写告警检测要防"检测代码本身静默失效"**
 补投递（**不重跑 cron**——重跑走 20 分钟全流程且可能重复推）：
 - 跨境日报已存档：读 `archives/crossborder/YYYY-MM-DD.md` 全文，按 4096 字符/条分 3-4 段直接补发（标注"补发 1/N"）
+- 🔴 **DM 会话回复超长同样被静默截断（2026-09-13 实踩：用户只收到半条）**：本次"deepseek 直连排查报告"单条回复超 4096 字符 → 用户只收到前一半（"…唯一活的直连deep"处截断）。**任何将作为最终回复的长文本（检查报告/分析/补发日报）不能赌系统自动拆条——先估算字符数，>~3500 就必须主动分段，每段 ≤3800**；分段输出时避免单段含超长行（长 URL base_url 等也占额度）
 - 5 类日报无存档：从 `~/AppData/Local/hermes/cron/output/<jobid>/YYYY-MM-DD_HH-MM-SS.md` 的 `## Response` 段提取日报全文补发
 - 补充：cron 输出文件 Response 若是"验证总结"而非日报本体（agent 声称"已在上面分 N 段交付"）——说明日报在 agent 中间输出里，投递的只是最终响应；用户视角=没收到日报。**🔴 2026-08-12 17:00 实踩（跨境日报，response_len=529 字符）**：agent 生成完整日报（21 条已存档 ✅）后，最后一步把"20/20 ad-hoc 验证通过总结"输出为最终回复，日报正文被顶掉（cron 只投递 final response）。**修复已落地：cron prompt 第 6 步加铁律——"最终回复必须 ONLY 是日报全文本身；禁止输出任何验证总结/过程报告/步骤清单/测试结果/确认信息（这些写草稿/日志文件即可，绝不进入最终回复）；最终回复只允许出现日报正文"**（两个日报 cron 均已更新）。排查信号：`Turn ended ... response_len` 远小于存档大小 + cron 会话末条是技术性总结而非日报开头
    - 🔴 **第一版措辞修复无效（2026-08-13 连续第二天实踩）**：8/12 上线的"禁止验证总结"铁律**没拦住**——8/13 跨境日报 agent 仍自创 `Temp\hermes-verify-bookkeeping.py` 验证脚本（prompt 根本没让它写验证代码）+ 输出"13 项 PASS 验证总结"为最终回复（response_len=573，正文 20 条已存档但被顶掉）。**根因：agent 的"完成即输出"心智——它把中间轮输出日报正文当作步骤完成标志，把验证汇报当作最终交付；措辞级"禁止"打不过这个心智**。**第二版修复（2026-08-13）：第 6 步改为"用 read_file 读取 _draft_cb.txt 内容并**原样输出**为最终回复" + 明示"禁止自行创建或运行任何验证脚本（bookkeeping 脚本内部自带校验）" + 点名"连续两天事故"**。教训：**cron 最终回复要"钉死"为文件内容的原样输出（read_file），不要依赖 agent 自觉；任何让 agent"自行组织最终回复"的指令都会给它自由发挥的空间**。⚠️ 但 Opus 评审（2026-08-13）指出 read_file 方案仍有新坑（模型可能回"文件已读取如上"——tool result≠text response 但模型不区分；max_tokens 截断半截日报；陈旧文件静默；"文件缺失→无新动态"兜底有毒）。**用户拍板采用 Opus 方案 C+D：生成/投递分离架构（见「生成/投递分离架构」章节），8/13 下午已落地，不再依赖 agent 的最终回复**
@@ -224,7 +226,8 @@ TrendRadar 自身无数量门槛（fetcher 全收，仅域名安全检查 `expec
 
 ### 🔴 双失败模式：守卫拒投 vs 投递网络失败（2026-08-21/22 实踩）
 症状：存档存在（生成成功 12/31 条）+ 用户没收到日报 = 投递环节故障。**第一步先看 cronjob list 的 `last_delivery_error` 字段（真相源；8/22 显示 `Telegram send failed: httpx.ConnectError`）**，再按两模式分型：
-- **模式 A 守卫拒投（8/21）**：DeepSeek 过载 → api_probe SLOW → 切 qwen3.7-max 引擎 → **qwen 版日报显著偏短（4613 字符 vs deepseek 平时 13000+）** → 撞 `deliver_cb.py` `MIN_LEN=5000` 下限 → 拒投 → 用户只收到 287 字节守卫告警（"⚠️ 日报内容异常（长度 4613 …），未投递"；告警本身经 cron 正常投递，agent.log 有 `delivered to telegram`，但投的是告警不是日报）。**守卫阈值没考虑引擎差异**。修复方向（待用户拍板）：qwen 版放宽（如 3500）或改结构判定（⚡速览+新闻清单）代替纯长度。
+- **模式 A 守卫拒投（8/21）**：DeepSeek 过载 → api_probe SLOW → 切 qwen3.7-max 引擎 → **qwen 版日报显著偏短（4613 字符 vs deepseek 平时 13000+）** → 撞旧 `deliver_cb.py` `MIN_LEN=5000` 下限 → 拒投 → 用户只收到 287 字节守卫告警（"⚠️ 日报内容异常（长度 4613 …），未投递"；告警本身经 cron 正常投递，agent.log 有 `delivered to telegram`，但投的是告警不是日报）。**守卫阈值没考虑引擎差异**。✅ **已解决（2026-09-11 用户拍板）**：废除长度拒投（`deliver_cb.py` 守卫改为"非空即投"，`MIN_LEN` 移除；仅空内容/读取失败才告警）——qwen 短版日报今后照投，用户明确"宁可短内容，不能零信息"。
+- 🔴 **改守卫 vs 当日投递点的时间线（2026-09-13 实踩）**：守卫改动发生在投递点之后（22:49 改脚本 vs 20:45 已跑过自动投递）——**当天自动投递仍执行旧逻辑拒投**，用户晚上来要日报才发现。**改投递逻辑后必须先判断当天是否已过 20:45；已过则手动补投。补投姿势**：`cd C:/Users/Administrator/AppData/Local/hermes/scripts && python deliver_cb.py > <tmp>`（新守卫非空即投，stdout=全文 + 脚本自动写 mark 防次日自动投递重复推）→ 把全文按 ≤3800 字符/段发给用户（开头声明"X月X日 日报（补发）"+ 一句原因）。**诊断拒投原因看 cron 输出目录 `e8e436bbf9b1/YYYY-MM-DD_HH-MM-SS.md`**——no_agent 脚本的 stdout 原样落盘（本次 291 字节文件 = "⚠️ 日报内容异常（长度 4186…）未投递"即真相源）；同时用三文件（草稿/标记/存档）mtime 交叉判断"生成了没投"vs"根本没生成"（标记 mtime 停在昨天 = 今天没投）。
 - **模式 B 投递瞬间 TG 网络故障（8/22）**：日报正常生成（31 条 19762 字）→ Job B 输出全文 → cron 发送时 httpx.ConnectError → 用户没收到。gateway.log 佐证 8/22 全天 6 波 TG 断连（00:16/00:51/11:45/12:00/14:12/14:38），20:45 又撞一次。
 - 🔴 **架构缺陷：投递标记先于发送写入**——`deliver_cb.py` 的 `deliver()` 在 `sys.stdout.write(txt)` 之前写 MARK，no_agent 模式脚本无法感知 cron 层发送成败。8/22 场景：MARK 已写且 mtime 匹配 → Job B 再跑也因幂等判定"已投递"而静默 → **日报从管线永久丢失，只能手动从存档补发**。修复方向（待用户拍板）：投递脚本直发 TG、发送成功才写 MARK，或健康检查补 delivery-error 项。
 - 🔴 **健康检查盲区**：`healthcheck_daily.py` 只查存档存在+新鲜度、TG 断连窗口计数（超阈值才告警）→ 8/21、8/22 的 21:00 检查都是 silent。**存档存在 ≠ 已投递**；健康检查应补"当天 agent.log/cron 有无 delivery error"检查项。
@@ -238,7 +241,7 @@ TrendRadar 自身无数量门槛（fetcher 全收，仅域名安全检查 `expec
 - **Job B 投递任务**（`TrendRadar跨境日报投递` e8e436bbf9b1，**no_agent**，schedule `45 20 * * *`，deliver=origin）：跑 `scripts/deliver_cb.py`，**stdout 非空=原样投递、空=静默**。20:45 单点投递（Job A 20:30/20:40 双触发，20:40 完成的草稿 20:45 正好投；20:40 仍失败 → deliver_cb 大声失败告警）
 - **`deliver_cb.py` 三个核心机制**：
   1. **幂等标记**：`output/_cb_delivered.txt` 记录上次投递时草稿的 mtime；草稿 mtime == 标记 → 已投递 → 静默（防重复投递）
-  2. **投递守卫**：正常日报须 ≥5000 字符且以 `⚡` 开头；"无新动态"短内容（<2000 字含"无新动态"）也放行；内容异常 → 输出告警不投递（防半截日报/格式污染）。🔴 **阈值未按引擎区分**：qwen 引擎版日报实测 4613 字符会误触守卫拒投（2026-08-21，见「投递环节故障」双失败模式模式 A）——守卫判定须考虑 qwen 引擎或改结构判定
+  2. **投递守卫（2026-09-11 用户拍板修订）**：**废除长度门槛——草稿/存档存在且内容非空即投递**（用户原话："不能因为日报的长度不满足要求就不投递，投递哪怕内容短，好歹能获取一点信息"；宁可短内容，不能零信息）。仅 空内容/读取失败 → 告警不投。原 ⚡开头 + ≥5000 字符守卫、'无新动态' 放行分支已删除（`MIN_LEN` 移除）。🔴 背景：qwen 引擎版日报实测 4613 字符曾误触旧守卫拒投（2026-08-21，见「投递环节故障」双失败模式模式 A），当时用户拍板"不改阈值"，2026-09-11 推翻旧决定改拍板废除长度拒投
   3. **大声失败**：草稿+存档都缺失且 ≥20:40 → 输出显式告警"跨境日报生成失败…"；20:30 时段静默（Job A 可能还在跑）。**"文件缺失→报错"而非"无新动态"**（Opus 指出原兜底分支有毒：写盘失败伪装成正常无新闻日）
 - 存档兜底：草稿缺失但存档 `archives/crossborder/YYYY-MM-DD.md` 今天存在 → 读存档投递
 - 健康检查 cron（`日报投递检查-跨境` 4267ecb32b42）同步调到 21:00（Job A 20:30-20:45 完成后才查）

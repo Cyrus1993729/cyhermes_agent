@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-"""OpenCode Go (deepseek-v4-flash) 延迟探测（日报 cron 第 0 步用）
+"""OpenCode Go (deepseek-v4.1-flash) 延迟探测（日报 cron 第 0 步用）
 输出格式（供 agent 判断）:
   OK <秒>     → 正常，继续用当前模型
   SLOW <秒>   → 超过阈值（30s），应切换 qwen 引擎
@@ -14,7 +14,7 @@ import sys, time, json, urllib.request
 KEY_PATH = r'C:\Users\Administrator\Desktop\各类api key\opencode go api key.txt'
 THRESHOLD = 30.0  # 秒
 API_URL = 'https://opencode.ai/zen/go/v1/chat/completions'
-PROXY = 'http://127.0.0.1:7897'
+PROXY = 'http://127.0.0.1:10808'
 
 try:
     with open(KEY_PATH, encoding='utf-8') as f:
@@ -24,7 +24,7 @@ except Exception as e:
     sys.exit(0)
 
 body = json.dumps({
-    "model": "deepseek-v4-flash",
+    "model": "deepseek-v4.1-flash",
     "messages": [{"role": "user", "content": "hi"}],
     "max_tokens": 5,
 }).encode('utf-8')
@@ -33,7 +33,7 @@ opener = urllib.request.build_opener(proxy_handler)
 req = urllib.request.Request(
     API_URL,
     data=body,
-    headers={'Authorization': f'Bearer {key}', 'Content-Type': 'application/json', 'User-Agent': 'curl/8.0.0'},
+    headers={'Authorization': f'Bearer {key}', 'Content-Type': 'application/json', 'User-Agent': 'curl/8.0.0', 'x-opencode-session': 'hermes-script-probe'},
 )
 
 t0 = time.time()

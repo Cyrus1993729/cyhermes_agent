@@ -18,8 +18,20 @@ Base URL: `https://ilinkai.weixin.qq.com`
 
 ## QR Code Behavior
 
-- QR codes expire in approximately 4-5 seconds after issuance
+- 🔴 **CORRECTION (2026-10-18, live re-test): QR codes live ~90–120 s, NOT 4–5 s.**
+  Three consecutive codes measured **121 s / 92 s / 92 s**. The "4–5 seconds" figure
+  previously recorded here was wrong, and it led straight to the false conclusion that
+  the QR flow can never be automated and the user must run `hermes gateway setup`
+  themselves. Working approach: `gateway-setup` SKILL.md → "QR Login Flow";
+  full worked case: `hermes-wechat-delivery` → `references/ilink-rebind-2026-10.md`.
+- ⚠️ ~90 s is **still** too short for a human relay. The user must scan AND confirm
+  inside the window, so a self-refreshing loop that pushes each new code to Telegram is
+  required — and the push must bypass the LLM (`hermes send --to telegram` with a
+  `MEDIA:<png>` line), never be relayed by the main agent turn.
 - The `qr_login()` function auto-refreshes up to 3 times on expiry
+- When status reaches `scaned`, immediately push a second message telling the user to
+  **tap confirm in WeChat** — that is the step that actually gets missed; the status
+  sits at `scaned` until the code expires.
 - After 3 expirations, the function returns `None`
 - The QR URL is embedded in a `liteapp.weixin.qq.com` URL that opens inside WeChat
 - A plain `https://` URL is also returned — this can be rendered as ASCII art via the `qrcode` package

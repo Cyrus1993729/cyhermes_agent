@@ -54,6 +54,13 @@ metadata:
 - 双模型 sign-off 时，自己的分析要主动标注哪些是核实哪些是推断（Opus 会基于你的转述判断，它会明确说明无法验证的部分）
 - 名称确认：封面 OCR/ASR 都可能读错产品名（Holmes vs Hermes），用帧内运行时自述+GitHub API 双重确认（见 `xiaohongshu-analysis` skill）
 
+- ⚠️ **工具宣称「降低封号概率 / 防封保号」= 无法验证的因果主张，方向常反（2026-09-09 CodexFF 案例）**：本地工具改变不了服务端风控判定。核查三步：① 源码 grep 有无任何风控相关机制（该案例：`封号|ban|风控|risk` 零命中）② 查 issue/文档是否真有此主张（该案例：零相关 issue，主张纯属社区民间话术）③ 回到封号真实触发条件判断——出口 IP 稳定性/共享度、支付、脚本自动化、**把订阅额度当 API 经第三方网关分发（key 分发）**。结论口径：官方 CLI + 官方凭证 + 固定独享出口 = 低位；更要警惕**工具的核心卖点（切到第三方中转）本身就是触发红线的那类行为**——「防封」话术与它自身机制常常自相矛盾。
+- **用户问「我这台机/这个工具是否在滥用账号」→ 读配置证据回答，不凭印象**：`~/.codex/config.toml` 有无 `base_url`/provider 覆盖（无 = 官方直连；有指向中转 = key 分发红线）、`~/.codex/auth.json` 的 `auth_mode` 与 `tokens` 键（chatgpt + tokens.* = 官方 OAuth 登录态，正常用法）、再 grep 其他工具配置确认第三方网关里**没有**该厂模型。把这些串成结论，比笼统说「应该没事」可信得多。
+
+- **用户问「用这个 API 要不要钱/收多少」→ 价格结论只认官网 fresh 数据（2026-09-11 Perplexity 评估实踩）**：做法 = web_search 定位官方定价页 → web_extract 官方页面逐项核对数字 → 换算「每次调用≈XX元」→ 按我们的用量估月成本。禁止凭二手博客/搜索摘要/缓存结论单源断言（用户 2026-08-17 定调：对价格/额度直觉质疑率高且常对）。另注意：付费 API 常无免费额度（Perplexity Search API $5/千次、无免费档 vs Tavily 免费 1000次/月——免费额度对比是决策关键数）。
+- **评估针对我们自己工具链的更新（Hermes 自身功能）→ 先查本地版本兼容，再谈质量价格**：`hermes --version` + `hermes config get web` 对照官方版本要求（如 Perplexity provider 需 v0.21.1+，本机 v0.21.0 不支持）——「装不上」直接终结讨论。
+
 ## 参考资料
 
 - `references/hermes-studio-2026-08.md` — Hermes Studio 群聊评估完整案例（源码发现+Opus 评审+最终结论）
+- `references/perplexity-hermes-2026-09.md` — Hermes+Perplexity 搜索后端评估案例（官方核实/本地版本兼容/官网定价→月成本→决策的完整链路）

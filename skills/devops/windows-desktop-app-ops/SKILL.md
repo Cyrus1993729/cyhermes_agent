@@ -87,3 +87,55 @@ date "+%Y-%m-%d %H:%M:%S"
 - 🔴 **Webview2 渲染的 GUI（向日葵新版）对合成鼠标/键盘事件免疫（2026-09-01 实踩）**：SendInput 网格点击（多坐标）、mouse_event、Ctrl+A/C 复制剪贴板**全部无效**——验证码这类被隐藏的动态内容**无法通过程序自动化读取**，只能人工在屏幕上点。**不要浪费时间反复尝试自动化点击**；改用真正可行的路径：同账号直连免验证码（见第五步）、或让用户在电脑前点一下。失败的尝试序列不要固化为"可重试的工作流"。
 - 🔴 **常驻远程控制软件"进程在+已连服务器但设备离线"= 多实例/僵尸实例叠加（2026-09-01 AweSun 实踩）**：现象 = 3 个 AweSun 实例（同一次开机自启叠加产生）都在跑、且有 ESTABLISHED 到中继服务器（阿里云 443）的连接，但玩客端显示"不在线"。修复 = **杀净全部实例（TASKKILL.EXE /PID 逐个）→ Start-Process 重启单实例 → 验证新进程有 4-6 条新 ESTABLISHED 连接**（`netstat -ano | grep -E "ESTABLISHED" | grep <pid>`，连国内阿里云/腾讯云 IP:443 = 已注册上线）。判定"在线"不能只看进程存在或旧连接，要看**新实例**建立的新连接。
 - 判断"连不上"时，进程在跑 + 有到服务器的连接 ≠ 一切正常，还要看进程是不是陈旧僵死 + 是否登录。
+- 🔴 **用 `psutil` 按 cmdline 子串找进程时，诊断脚本自己也会被匹配到（2026-10-18 实踩）**：
+  `python -c "...'hermes_cli.main'..."` 这类一行式诊断命令，**其自身 cmdline 就包含那些搜索字符串**，
+  `process_iter` 会把诊断进程自己（以及同类的其他诊断调用）一起返回 → **报出虚高的进程数**。
+  本次因此向用户报了"7 个 gateway 进程"，实际只有 4 个。
+  **修法（三层都上）**：
+  ① 开头 `me = psutil.Process()`，循环里 `if p.info['pid'] == me.pid: continue`；
+  ② 把诊断脚本**落盘成文件**跑（`python pcheck.py`）而不是 `python -c`，更容易排除；
+  ③ 再加一道字符串兜底 `if 'process_iter' in cl: continue`。
+  **通用教训：任何按 cmdline 匹配得到的进程统计，报数前先自问"我自己是不是也被算进去了"。**
+  另：MSYS 下 `python /tmp/x.py` 会报 `can't open file 'C:\tmp\x.py'`（原生程序不认 MSYS 路径）
+  → 脚本写到 Windows 绝对路径（如 `%LOCALAPPDATA%\Temp\`）再 `cd` 过去用相对路径跑。
+
+## 🔴 识别"到底是哪个应用"——读源码/翻安装目录之前必做
+
+**2026-10-18 实踩：把用户用了很久的客户端认成了另一个同名软件**，用户直接回"你完全搞错了"。
+
+同为 hermes-desktop 的两个不同软件同时存在于本机：
+
+| 路径 | 是谁 |
+|:--|:--|
+| `%LOCALAPPDATA%\Programs\hermes-desktop` | 第三方，`package.json` author=fathah |
+| `%LOCALAPPDATA%\hermes\hermes-agent\apps\desktop\release\win-unpacked\Hermes.exe` | **从仓库构建的，用户在用的那个** |
+
+凭安装目录枚举或屏幕照片猜身份会翻车。**正确顺序：**
+
+1. **先拿运行中进程的可执行体绝对路径** —— 这才是"用户在用的那个"：
+   ```python
+   import psutil
+   for p in psutil.process_iter(['pid','name','exe','cmdline']):
+       # 务必排除自身（见上方 psutil 自匹配坑）
+   ```
+2. **只读那个路径下的 bundle**，不要读别的目录
+3. 拿不到进程时，才退回按安装目录枚举，并明确声明"未验证是运行中的那个"
+
+**读 Electron 应用（app.asar）的两步：**
+
+```python
+import json, struct
+head = open("app.asar","rb").read(32 << 20)   # 🔴 头可能 >4MB，别只读 4MB
+json_size = struct.unpack("<I", head[12:16])[0]  # JSON 从 offset 16 开始
+obj = json.JSONDecoder().raw_decode(head[16:].decode("utf-8","replace"))[0]
+# 数据区起点 = 16 + json_size；文件绝对偏移 = 数据区起点 + entry["offset"]
+```
+先把渲染进程 bundle（`out/renderer/assets/index-*.js`）提取成独立文件再 grep，
+比直接在 200MB+ 的 asar 上 grep 可靠（asar 里长行会让 `grep -o` 静默失手）。
+
+🔴 **grep 界面文字前先想 CSS**：界面上显示的 `BOTS` 可能只是 `text-transform: uppercase` 渲染出来的，
+源码里写的是 `Bots`/`bots`。**直接搜大写会 0 命中，并让你得出"这软件没这个功能"的错误结论。**
+搜界面文字时大小写两种形式都搜，或搜它旁边的唯一标识串。
+
+**结论句式要求**：断言"某软件没有某功能"之前，必须能说清你是从哪个**进程路径**下、哪份 bundle 里搜的。
+

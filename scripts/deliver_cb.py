@@ -7,7 +7,7 @@
   - 已投递（草稿 mtime == 标记）→ stdout 空（静默，防重复投递）
   - 草稿缺失/过期但存档今天存在 → 读存档投递（兜底）
   - 全部缺失: 20:40 之后 → stdout = 显式告警（大声失败）；20:30 时段 → 静默（生成任务可能仍在运行）
-投递守卫（方案 D③）: 正常日报须 ≥5000 字符且以 ⚡ 开头；无新动态日（<2000 字符且含"无新动态"）也允许投递；内容异常 → 告警不投递。
+投递守卫（2026-09-11 用户拍板修订）: 不再因长度拒投——草稿/存档存在且内容非空即投递（宁可短内容，不能零信息）；仅空内容/读取失败 → 告警不投。
 """
 import datetime
 import os
@@ -16,7 +16,6 @@ import sys
 DRAFT = r"D:\Workspace\Projects\TrendRadar\output\_draft_cb.txt"
 MARK = r"D:\Workspace\Projects\TrendRadar\output\_cb_delivered.txt"
 ARCHIVE = r"D:\Workspace\Projects\TrendRadar\archives\crossborder\{date}.md"
-MIN_LEN = 5000
 
 
 def is_today(path):
@@ -41,13 +40,11 @@ def deliver(path):
         return True  # 已尝试，避免下次重复报错
 
     stripped = txt.lstrip()
-    normal = len(txt) >= MIN_LEN and stripped.startswith("⚡")
-    empty_day = len(txt) < 2000 and "无新动态" in txt
-    if normal or empty_day:
+    if stripped:
         open(MARK, "w", encoding="utf-8").write(str(os.path.getmtime(path)))
         sys.stdout.write(txt)
         return True
-    print(f"⚠️ 日报内容异常（长度 {len(txt)}，header '{stripped[:10]}'），未投递: {path}")
+    print(f"⚠️ 日报内容为空（长度 {len(txt)}），未投递: {path}")
     return True
 
 

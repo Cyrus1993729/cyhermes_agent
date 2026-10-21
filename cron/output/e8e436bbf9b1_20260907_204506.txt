@@ -1,0 +1,127 @@
+Cronjob Response: TrendRadar跨境日报投递
+(job_id: e8e436bbf9b1)
+-------------
+
+⚡ 今日速览
+1. 速卖通遭欧盟创纪录罚款5.5亿欧元，违规上架代价惊人
+2. Temu被曝9.62亿美元广告涉"假网红"账号，投放合规敲警钟
+3. TikTok Shop 10月19日欧盟开卖，英国卖家直卖欧盟各国
+
+🏛 政策风向 · 门槛变了吗
+▶ 速卖通被欧盟罚5.5亿欧元，创纪录
+　干货：罚金5.5亿欧元，欧盟同类最高；起因：非法商品listing过多
+　对你：拿违规品试错的成本，小卖家扛不起
+▶ 美加关税冲突，边境转运仓承压
+　干货：冲突殃及横跨美加边境的转运仓；背景：美加关税摩擦还在持续
+　对你：别押注"经加转运"旧通道，直发更稳
+▶ 快时尚监管升温，行业转向合规履约
+　干货：卖家从"低价上新"转"合规履约"；欧盟平台罚款可达销售额6%
+　对你：低价冲量风险变大，合规成本提前算
+
+🛒 平台规则 · 在哪卖、怎么卖
+▶ TikTok Shop 欧盟开卖：10月19日启动
+　干货：Sell Across EU功能10月19日上线；英国卖家可直卖欧盟多国
+　对你：想卖欧洲，先把英国店开起来
+▶ eBay上线捆绑折扣功能
+　干货：listing、店铺两处可设组合优惠，购物车自动减价；爆款+配件抬客单
+　对你：后台10分钟能设好，值得一试
+▶ 亚马逊升级WhatsApp买家沟通
+　干货：买家收消息后可回复干三件事：找优惠、问推荐、查商品；不再跳回App
+　对你：聊天场景前移，客服话术多备一份
+
+📈 市场与成本 · 钱往哪走
+▶ Temu自建13个海外仓，从轻转重
+　干货：自建13个海外仓；从"轻资产"转向重模式
+　对你：时效竞争升级，本地仓玩法可研究
+▶ 希音市值一周再跌约50亿美元
+　干货：本周缩水约50亿美元，港股最差上市周之列；累计较高峰跌约七成
+　对你：低价快时尚模式承压，别只盯着低价抄打法
+▶ 8月航空货运数据：运价影响小包
+　干货：IndexBox发布8月吨位与运价；背景：空运是小包主流通道
+　对你：旺季前先锁空运价格，别临时抱佛脚
+
+🧰 实战参考 · 别人怎么做的
+▶ 美国公司暴雷，科州注册漏洞被点名
+　干货：暴雷根源指向科罗拉多州注册漏洞；注册美国公司别只图便宜
+　对你：选注册州先查合规成本再下单
+▶ 品牌备案：量产前先搞定品牌名
+　干货：Reddit卖家问量产前如何获批品牌名；背景：备案通常要求先有商标
+　对你：商标流程早启动，别卡在上架前
+▶ Vine名额怎么拆：30个单位分两个变体
+　干货：卖家有30个Vine评测单位（units），纠结两变体怎么拆；Vine=官方评测计划
+　对你：新品要评论，Vine是常见起步工具
+
+📖 小白词典
+- 海外仓：把货提前囤到买家所在国仓库，下单后本地发货，快但压资金。Temu自建13个就是干这个。
+- Vine计划：亚马逊官方邀请评论人评测新品的计划，新品用样品换真实评论，起步常用。
+- Sell Across EU：TikTok Shop的跨欧盟功能，英国卖家可直接卖向欧盟多国。
+
+✅ 今天该做的一件事
+把"10月19日TikTok Shop欧盟开卖"记进日历，再花10分钟查英国站开店条件。
+
+──────────────
+
+📦 跨境电商日报 9月7日（过去24小时 · 17 条）
+
+🛃 政策法规
+• 🔴 速卖通遭欧盟5.5亿欧元创纪录罚款（AliExpress hit with record €550m fine for illegal product listings）（scanx.trade）🔤
+  摘要：欧盟对速卖通开出5.5亿欧元创纪录罚单，原因是平台存在大量非法商品listing（违规上架）。这是欧盟同类案件中金额最高的一次，平台合规压力与资质审核都会明显收紧。
+  🔗 [查看原文](https://news.google.com/rss/articles/CBMivwFBVV95cUxNajFqdV9zZ2pDUEpXZmdCRzlhOVh1WV85djZySUI2d1JBQUlvYmJ1YmdUSmx3MzBZZHhKc1FtaUFMcWNaUkVaZHlWTkZ3a1RNdjlfdFBZUFFBbEY3T0VRdFd0a09YRHBiSC1YVkRRMnpiTkVFM1NFY21iYTFMYlJFSEdaSlZOcnpZd01yUXpjQlVELW81SHN0a1o2WF9qVExBb2JBSTZnT0wxeUUyNl9vcU80VTl3MzdXemhXU2FpVQ?oc=5)
+• 美加关税冲突冲击跨境转运仓（美加关税冲突冲击跨境转运屋：横跨两国的建筑面临变局）（Межа·乌克兰媒体）
+  摘要：美加两国的关税冲突持续发酵，横跨边境的跨境转运仓库（中转仓）面临业务变局。背景：跨境转运屋指承接美加间中转运输的仓库设施，关税摩擦直接影响其生意。
+  🔗 [查看原文](https://news.google.com/rss/articles/CBMiYkFVX3lxTE12YUk3bzJBVVdzTFpjWWQwTm1LNlhKLWs2bG5nblo0WEVQV3BZLTdhSHRNSHkzVTlVV0t3OVlsbmZtQnFkQXd2OV9KVU1seDNaUWUyODczYkExX3BsOWxZUGlR?oc=5)
+• 快时尚监管升温，跨境卖家转向合规履约（Sohu）
+  摘要：行业报道指出，快时尚（低价快上新模式）监管在全球持续升温，跨境电商正从"低价上新"转向"合规履约"。背景：欧盟海关改革中平台将成法定进口商，罚款最高可达销售额6%，法国也在推进超快时尚税，监管层层加码。
+  🔗 [查看原文](https://news.google.com/rss/articles/CBMiiAFBVV95cUxQRkRTdXB6V1RiUGNOSUZUVTI1M0huaHFQeGFvZmdzMHJJWlpqX2htSmNtdDAtSXJEOWxTMGhCbnpGX3gyYnVnOFFHNE5lbGhQQ3RkdlV0SkFVUTNrUTFtMG41cEZwQXNyZWJlUC03X0g0TW9rYlhKNHhXWDVmM2kyb1VYTjJMMmZD?oc=5)
+
+🏪 平台动态
+• TikTok Shop 欧盟开卖：10月19日启动（TikTok Shop Sell across EU launches 19th October 2026）（channelx.world）🔤
+  摘要：TikTok Shop的"Sell Across EU"（跨欧盟销售）功能定于10月19日上线，英国卖家可直接向欧盟多国消费者卖货。对想卖欧洲的卖家，这是眼下明确的窗口期信号。
+  🔗 [查看原文](https://channelx.world/2026/09/tiktok-shop-sell-across-eu-launches-19th-october-2026/)
+• eBay详解捆绑折扣功能（Spotlight: eBay Bundle discounts）（tamebay）🔤
+  摘要：eBay介绍捆绑折扣（Bundle discounts）功能：卖家可在listing、店铺两处设置组合优惠，买家购物车满足条件自动减价。"爆款+配件"组合是拉高客单价（单笔成交金额）的常见打法，折扣幅度由卖家自定。
+  🔗 [查看原文](https://channelx.world/2026/09/spotlight-ebay-bundle-discounts/)
+• 亚马逊升级WhatsApp买家沟通体验（Amazon WhatsApp experience upgraded）（tamebay）🔤
+  摘要：亚马逊升级WhatsApp买家体验：收到消息后买家可直接回复干三件事——找优惠、问推荐、查商品，咨询不再跳回App。WhatsApp是海外高频聊天工具，买家互动场景正在向聊天前移。
+  🔗 [查看原文](https://channelx.world/2026/09/amazon-whatsapp-experience-upgraded/)
+• 2026年1-8月跨境电商投诉榜发布（网经社）
+  摘要：网经社发布2026年1-8月跨境电商投诉榜：全球速卖通、海淘免税店、Shopee、阿里巴巴国际站、别样等平台上榜。投诉处理质量直接影响平台口碑，卖家可据此评估各平台的服务水位。
+  🔗 [查看原文](https://news.google.com/rss/articles/CBMiUkFVX3lxTE5SUUFCWVJQZHN3R2Y5ZkxwTW8yXzd5ZkkxNmhRdnNPVWlkYzNvcy11OGlEOWltNnJrTV9HU1JYR21abHdwU3lKQTNUd0VheEt3UWc?oc=5)
+
+📦 物流与市场
+• Temu自建13个海外仓，模式从轻转重（从轻到重，跨境电商格局生变：Temu自建13个海外仓）（新浪财经）
+  摘要：报道称Temu自建13个海外仓，从"轻资产"（纯平台模式）转向重资产运营。海外仓自营意味着时效与成本结构都要变，对卖家来说"本地发货"类玩法的权重正在上升。
+  🔗 [查看原文](https://news.google.com/rss/articles/CBMijgFBVV95cUxPTXFyRFFTcXowdEVPWHl5cTdUSFJrWU11Nk5KcTV1c0FUbVNTZmNOSVRTeU1EeEV6dWRvYmllY1llUF9PamVISmNMT0NwYjJzMGVHVGF5VkMxNzZiTWJ6Z1JUZnRvUF95STEydkR3b3hLTnhmU09iczdoR21SYVRCNnQzT2hsLTNCNXBNTTZR?oc=5)
+• 8月航空货运数据：吨位、运价与电商影响（IndexBox）
+  摘要：IndexBox发布2026年8月航空货运市场数据，涵盖吨位、运价与电子商务影响。背景：航空货运是跨境电商直发（小包）的主要通道，运价直接决定小包卖家的利润空间，旺季前波动值得盯。
+  🔗 [查看原文](https://news.google.com/rss/articles/CBMihwFBVV95cUxPQVZrbWRQOFl1MWE1Umd1SmhDOGEwSy1pYmhORGpQN2JWUk0tRl9UODVsSl9RSHNmakZYWTdwQkZRZjBSRDdDNHVLdFdKQ2V4RnZMWTh5M3R4d0xHTE1hcmpWZ1ROZkZaVkh0WEdIZFFGejdDSE90UC1yRU01SHZfUTZpSlVLYWc?oc=5)
+• 希音市值一周再跌约50亿美元（Shein's Value Down $5 Billion, Among HK's Worst Post-IPO Weeks）（Bloomberg）🔤
+  摘要：彭博报道，希音（Shein）本周市值再缩水约50亿美元，跻身港股上市后表现最差的一周之列；此前累计市值已较高峰缩水约七成。资本市场对"超低价快时尚"模式的信心持续走弱。
+  🔗 [查看原文](https://news.google.com/rss/articles/CBMisAFBVV95cUxORG9FV0thR1FVd3EyWi1qMEFydUhpQkVGZXlRYVd3bFY4QkJ5bHhSZG1XSGNSbTQwVDVRSXViWmlsT1BRLW1vdml6Q0tnQmRzODVSTjFmS0dxOExuWDk2X3JyalpUYWNrQnFKYTFNR05kTzJBOG1vOTdLLW92YWU5bFNHNEs0Snl1eWEwTk14MXdraEZxODNyaWkyV2ZsTlFmbGo1dTJRZlFTVlRpMjVhaA?oc=5)
+• 跨境通业绩会释疑：转向"供应链+投资平台"（eastmoney）
+  摘要：跨境电商上市公司跨境通在业绩会上回应经营压力：拟从跨境电商向"供应链+投资平台"两条路并行转型。老牌大卖主动求变，是行业利润承压的明确信号。
+  🔗 [查看原文](https://news.google.com/rss/articles/CBMiYEFVX3lxTE1IV1g3RDRZYVNZaFpEd2RkYUFRc3RaTmxfY2Zua3Y0a0hiU01iQV9XVzlRZnNsV2s5RmN4QUNVLVljMUw1TWszT1A2YndFWmlTWkRoalpITHMxQ0VrZjlBYg?oc=5)
+• Temu联手尼日利亚快递Kwikpik铺末端配送（Temu partners with Kwikpik to power last-mile deliveries across Nigeria）（TechCabal）🔤
+  摘要：Temu与尼日利亚本地物流Kwikpik合作，补齐非洲市场的末端配送（last-mile，最后一公里）能力。背景：尼日利亚是非洲人口第一大国（人口超2亿），电商渗透率低，属典型增量市场，物流落地是关键一步。
+  🔗 [查看原文](https://news.google.com/rss/articles/CBMiqAFBVV95cUxNMjFRUDhvOXlUTTZPZTRFTVlOV0pWX0Q1M28xQklTVHp1WlRYMkJOZVVvcUw3VUJfdjZMSmZsaG5qZGJlNFVRamRhV0xtTlBJOG1EU1dOTmNySDZnOWVRbERZUzN1bHh6SS1yTDRtNzVwTnMzLUlubmx0TThGSEFRMW5jbEtORDlBVGFEUTlEQnYwbEU4aFBHX3VkZE41SS1feFc2UnBBRmQ?oc=5)
+
+🛡️ 合规与风险
+• Temu被曝在英欧砸9.62亿美元投"假网红"广告（Temu Spent USD 962 Million on Ads Linked to Fake Meta Influencers）（多家外媒）🔤
+  摘要：多家媒体报道，Temu在英欧市场的Meta广告投入高达9.62亿美元（指广告总额），其中大量顶级网红账号被指"不存在"（虚假账号）。投放合规与品牌安全风险被曝光，可能招致平台与监管的双重审查。
+  🔗 [查看原文](https://news.google.com/rss/articles/CBMinwJBVV95cUxQNXRVaG02Mndocmc5ZG4xVDMzRXV0X3FNUDU1cXNBMzBjRmdTbWlNVHVvUVJXYzI5WG9LOVQ1ZHpmVEJhcWV3dzMwZ2pIeGhtYVhHQ0ZPMjd6eUhxamdYeEZWNk9WakpDYklvT3BpSjJNT1FBZFI1X24yMmllZWZSbzlPbjd6cDdkaDdLdVl5dmxRdnJ4d1RQaTRZUl9QaEE1NkhVZU1QRUFLY1hSUkRKUFdnVkNJYmh6TDd1TDhvNFJTOEFJbTB2a3IwOERjMUt3ZVlQckNJdXlodlEzVzgyenpfYjMxNVpwUDQ0MDFwTTZ5d1UxZ2NDdjhOeU1TeVBteFdkOV95T1JjY1RJTGVxYW96MUQ2RzV1Q28zVjhXZ9IBpAJBVV95cUxPV1k3NGJGME1aczVZLXZSUzBSMXpULUs3TENiWkM5aS1EY3V0RlIwSUczZjVzREg2aGFvZHdqdlN3bTREdW9xdmtJX1NoYzYtdy03X2plRnhGTDhVbE5ua1JrOXliVU42SExrSlF4Y2tIcFBTZlVjLXNVblQ0M2FlWWNBVlVEaVl0djRtcUdUdmpOWDhkYU5GeGFaY3RiVTJab3pQMEN1VU53R3VWU3ZqQVdQaS1xRnhwOXpZXzBRTlNoOFUwYmRnRm15QVIzVl9XUGdCbG55MjBHRnlqNGpRRFFfaXAtVUpNMmhpWTdKay1xUzJGRnpXUDNVcTRaOG5wdTUzM3JYTTRkYW5sS1A5T2Nia3hNQUVNWG12ejVpSTlabHlH?oc=5)
+• 美国公司批量暴雷，科州注册漏洞被深度解读（雨果跨境）
+  摘要：雨果跨境深度解读：美国本土公司批量暴雷，根源指向科罗拉多州的注册漏洞（报道观点）。背景：注册美国公司常选门槛低的州，但经营与合规记录不达标易成爆雷点，选州别只图便宜。
+  🔗 [查看原文](https://news.google.com/rss/articles/CBMiTEFVX3lxTE5XeFVMQVRkRl9VWWV0aFN4bFhhWG1BRllQTmVMZjQ0VVZjMDNWVE1QYjNtcHlCME9XOFc0Rm1SYmhVWmg2dWUyYXFxVTk?oc=5)
+
+💼 卖家运营
+• 亚马逊品牌备案：量产前如何获批品牌名（How do you get an Amazon private-label brand name approved before mass production?）（Reddit FBA）🔤
+  摘要：Reddit卖家热议：私标（贴牌）产品量产前，如何让亚马逊批准品牌名。背景：亚马逊品牌备案（Brand Registry）通常要求先有商标，没商标拿不到品牌功能权限。
+  🔗 [查看原文](https://www.reddit.com/r/FulfillmentByAmazon/comments/1w8xhrx/how_do_you_get_an_amazon_privatelabel_brand_name/)
+• Vine计划：30个名额如何拆分给两个变体（How do I split 30 units between two variants for Vine program?）（Reddit FBA）🔤
+  摘要：卖家提问：Vine计划的30个评测单位（units）如何在两个变体（同一款商品的不同规格）之间分配。背景：Vine是亚马逊官方邀请评论人评测新品的计划，新品用它积累早期评论最常见。
+  🔗 [查看原文](https://www.reddit.com/r/FulfillmentByAmazon/comments/1w904ut/how_do_i_split_30_units_between_two_variants_for/)
+• 原创服装设计被抄，卖家如何维权（As a clothing brand with original clothing ideas. What can I do if a seller copies my designs...）（Reddit FBA）🔤
+  摘要：服装卖家求助：原创设计被别家抄走、贴牌后低价卖。背景：常见维权路径有三——平台知识产权投诉、发律师函、走诉讼，但举证门槛高，最好一开始就留好设计底稿与时间戳。
+  🔗 [查看原文](https://www.reddit.com/r/FulfillmentByAmazon/comments/1w9eehb/as_a_clothing_brand_with_original_clothing_ideas/)
+
+To stop or manage this job, send me a new message (e.g. "stop reminder TrendRadar跨境日报投递").

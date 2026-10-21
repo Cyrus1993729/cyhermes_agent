@@ -1,0 +1,146 @@
+Cronjob Response: TrendRadar跨境日报投递
+(job_id: e8e436bbf9b1)
+-------------
+
+⚡ 今日速览
+· 前三季度跨境电商进出口2.18万亿元，同比只增4.4%。
+· 英国要收紧线上平台税，亚马逊、eBay首当其冲。
+· 密苏里州起诉Temu，App数据权限成新雷区。
+
+🏛 政策风向 · 门槛变了吗
+▶ 海关总署：前三季度跨境电商进出口2.18万亿元（10月14日披露）
+　干货：同比增4.4%；出口约1.75万亿元；广东为主要出口货源地
+　对你：增速只有4.4%，大盘在涨但不再狂飙，入场别只赌"行业还热"。
+▶ 英国财政大臣对线上市场平台加税，亚马逊、eBay面临新税规
+　干货：在预算案中推平台税务整顿；官方理由是"拯救商业街"；平台要担更多纳税与申报责任
+　对你：做英国站要留一层成本缓冲，平台代扣和申报都可能加码。
+▶ 密苏里州总检察长起诉Temu，指其App越权读取用户数据
+　干货：被指可访问位置、摄像头、麦克风；另涉假冒 Chiefs、Royals 周边；州府呼吁删App
+　对你：单站点风险变大，Temu卖家要提前准备数据合规与账号材料。
+
+🛒 平台规则 · 在哪卖、怎么卖
+▶ TikTok Shop岗位成营销圈最热招聘方向，品牌转向自建团队
+　干货：品牌不再全外包；这类岗位需求持续升温
+　对你：渠道还在扩张期，先学一项TikTok运营技能，比先囤货更保值。
+▶ Bazaarvoice调研：96%的TikTok Shop买家更信"已验证评论"
+　干货：样本为TikTok Shop买家；96%看重验证评论；评论会影响下单转化
+　对你：新品期与其猛砸广告，不如先把真实评价数量做起来。
+▶ Shopify：AI带来的流量转化率比传统搜索高80%
+　干货：AI入口转化率高出80%；商家生态一年贡献超1.2万亿美元；比2022年增110%
+　对你：把商品信息填得结构化一点，让AI读懂，是新的基本功。
+
+📈 市场与成本 · 钱往哪走
+▶ 跨境电商遇"最大关税挑战"，涨价只是短期策略
+　干货：业内称本轮为最大关税挑战；普遍先涨价；同时找新市场、新渠道
+　对你：涨价掉销量、不涨亏钱，先算清楚自己能承受几个点。
+▶ AI热潮正在部分替代电商，成为全球货运新主力
+　干货：AI硬件与数据中心货量上升；空运海运舱位被分流
+　对你：跨境电商要和AI硬件抢舱位，物流预算别照搬去年。
+▶ BYD扩充自有汽车运输船队，对冲被战争打乱的运价与航线
+　干货：自建船队；冲突导致运费上涨；贸易航线被迫变更
+　对你：大件重货的运输时间，要多留一到两周缓冲。
+
+🧰 实战参考 · 别人怎么做的
+▶ TikTok Shop出单公式：小达人数量多 + 视频更新勤
+　干货：头部主播不是关键；靠中小达人批量铺量；视频更新频率与效果正相关
+　对你：与其去找一个大主播，不如一次谈20个小达人。
+▶ Q4质检提醒：工厂说"全好了"，不代表真的好
+　干货：亚马逊FBA卖家经验；旺季前必须自己验货；别只信口头确认
+　对你：黑五前这批货，出货前寄样或找第三方抽检，比事后退货便宜。
+▶ 全职做TikTok Shop联盟带货可年入六位数
+　干货：靠内容加佣金收入；全职投入；不需要自己备货压库存
+　对你：低门槛练手路径——先做联盟赚佣金，不用自己备货压库存。
+
+📖 小白词典
+De Minimis（小额免税门槛）：单笔价值低于一条线的进口包裹可免关税，美国长期是800美元，这条线一收紧，直发小包就不划算。
+MFN（最惠国定价）：给的待遇不能比给别国更差；药品上的MFN定价，就是拿别国最低药价来对标。
+反倾销复审（AD Review）：美国对既有关税令可以做复查，通常是利害关系方提出申请后启动，看涉案出口商有没有以低于正常价值的价格在美销售，低了就可能补税。
+
+✅ 今天该做的一件事
+花10分钟，把主力SKU的美国到岸成本按加税重算一遍，看还剩几个点利润。
+
+━━━━━━━━━━━━━━━
+📦 跨境电商日报 10月14日（过去24小时 · 19 条）
+
+🛃 政策法规
+• 🔴 海关总署：前三季度跨境电商进出口2.18万亿元，同比增长4.4%（多源报道）
+  摘要：海关总署披露，前三季度我国跨境电商进出口约2.18万亿元，同比增长4.4%，其中出口约1.75万亿元，广东等为主要出口货源地。背景：海关口径的跨境电商数据，是判断行业冷热最直接的官方指标。
+  🔗 [查看原文](https://news.google.com/rss/articles/CBMijwFBVV95cUxPT2paNVhjM0lIWnlMTml5NnVHMjRNY3hjaUJDSVo0QVgxYmxFbmI3OWJxNS1TMGs0RUpRdjBRZjhQZ1JrNXowQklabHltYWMtVnN1SUo3Wl9WQ216UE5XbXRERmlrTG9PdnZVMXlKc25pWjMxeHhxcFk3b2hxbjBpUWEyeWRvb2dwTlBUNHZROA?oc=5)
+
+• 🔴 英国拟收紧线上市场平台税收，亚马逊、eBay面临新税规（多源报道）
+  摘要：英国财政大臣在预算案筹备阶段推动一轮线上市场平台税务整顿，亚马逊、eBay等平台被要求承担更多纳税与信息申报责任，官方给出的理由是为"拯救商业街"。背景：英国此前已要求平台代扣海外卖家的增值税（VAT），这轮属于继续收紧。
+  🔗 [查看原文](https://news.google.com/rss/articles/CBMioAFBVV95cUxOdFRoRG1PdURQLXhpbW12N2kzYzNMUXotQzNIRWQwb0p4YzFsYXltQjV6bVN2aHFsUE0wUlE2cERmaHdXYkVmalJyZEtQYjF2MTlZeEZvS285eEUtc2JRd3FkM0VETWx5ZFZxbGJERVVmU3lxYy1LZzQzaldUZjJSZ1R3ampaUHZ4aE4zOURveW5FSVAzZjdZNkc1X0g3V1hE?oc=5)
+
+• 🔴 🔤 调查：37%的电商出口商不知道小额免税门槛（De Minimis: 37% of e-commerce exporters unaware of duty-free threshold）（The Morning）
+  摘要：一项针对电商出口商的调查显示，37%的受访者不清楚小额免税（De Minimis）门槛的具体标准。背景：De Minimis指单笔价值低于门槛的进口包裹可免关税，美国长期执行的是单笔800美元，欧美近月已相继收紧这条通道。
+  🔗 [查看原文](https://news.google.com/rss/articles/CBMiZkFVX3lxTE8wSjhsVzdnQTB4WlNSN2xNY2VNWXh4Q1RmUEwzcC1mNHR6Z0JkSmRVVkpCcEk2N0hiOFBqeFZZREFIUGYta0lYdnd1a2owTFdBZDR0RTlwYS00cHdUYmJiQWdsUmJwdw?oc=5)
+
+• 🔤 美加贸易战：加拿大反制关税如何影响跨境电商（US-Canada trade war: How Canada’s retaliatory tariffs affect e-commerce）（KIRO 7 News）
+  摘要：随着美加贸易战升级，加拿大对美国的反制关税开始波及跨境电商，报道梳理了其对订单成本、清关流程和终端售价的影响。背景：反制关税是进口国对加税的对等回击。
+  🔗 [查看原文](https://news.google.com/rss/articles/CBMikwFBVV95cUxNSTJLMGpYQlFTX3NBamRENzhhUEpNZkhGV3A4OEgtV0M1OUpDd2MtSGx3Y2xYbUJMZTBpOFp0RGFHeV9sajdIb2Y4cFAtb0NxTW9XelBOSk1nRHpqOFViQ0Y3T0M0SUdoeEYxWnE4aG9idUU4LTBJVmpjODIxbmt0dWNSQ050QUNhWElmMXFpSG9EQTDSAZMBQVVfeXFMTUkySzBqWEJRU19zQWpkRDc4YVBKTWZIRldwODhILVdDNTlKQ3djLUhsd2NsWG1CTGUwaThadERhR3lfbGo3SG9mOHBQLW9DcU1vV3pQTkpNZ0R6ajhVYkNGN09DNElHaHhGMVpxOGhvYnVFOC0wSVZqYzgyMW5rdHVjUkNOdEFDYVhJZjFxaUhvREEw?oc=5)
+
+• 跨境电商迎来"最大关税挑战"，涨价只是短期策略（搜狐）
+  摘要：报道指出，本轮关税调整被业内称为跨境电商遇到的"最大关税挑战"，普遍做法是先涨价应对，同时四处寻找新市场与替代渠道。
+  🔗 [查看原文](https://news.google.com/rss/articles/CBMijAFBVV95cUxNTzlTejdOV1N5eWY1SXRPVTZlOXJuRWxRU0twTGsxM09KQ2RxN2hKVDVhZ2hHZmxTb3NfYWFWd2dja2xKNzgwSGttRElfcHM0aU9yS0FYZ1FGUUUySWpKUFN0SmhfUldVdHozNW4wVHlfM3FldVVzajdSRVQxRVNKa29IVUp2a2Vtc3JTcg?oc=5)
+
+🏪 平台动态
+• 🔤 TikTok Shop 相关岗位成营销圈最热招聘方向，品牌纷纷自建团队（Inc.com）
+  摘要：Inc.com报道称，TikTok Shop运营岗位已成为当下营销招聘中最热门的方向，越来越多品牌把这块业务从外包转回内部团队自建。
+  🔗 [查看原文](https://news.google.com/rss/articles/CBMiiwFBVV95cUxPZG9jLXc5Nm16V2wtLUY3bThNZzIyTDV4eGw5MVM5ZlVGbHJZZWUwNXM1d1NJUFJwWmRUM0RMZlVnaXdIaDNZZEpjUldjVWh2eV9qWXY4akhweWZTVFQ5djBlNE1weUJ5TzRUUWxlcXZmV2lTNlJsbGVMNWdHOUFTTW5jM0J1OENNS3d3?oc=5)
+
+• 🔤 TikTok Shop 的成功公式：小达人 + 更多视频（Digiday）
+  摘要：Digiday分析TikTok Shop带货数据后指出，效果跑得好的组合是"合作的中小达人数量多、视频更新频率高"，而不是押注少数头部主播。
+  🔗 [查看原文](https://news.google.com/rss/articles/CBMipAFBVV95cUxQWHZyRXNLQUFsQ2dlZml5ZVdDRDV5cC04bTgyU1ppSkYzRndic0lrUnZRY1hpTmZnWE13OTUzTFZwUmRsVlZYMUdtVFFheElDOTFub2tRaUVMUFBEdkZzTUZubWdXTWc3OXRkSXlCMlJIZWdFQlM3NElVNmY3Zm9QdnNnZEtKMXFyVkwzek96dk02M0YtX09NcHdwcjFvYUVCaGtXSQ?oc=5)
+
+• 🔤 Bazaarvoice：96%的TikTok Shop买家偏好"已验证评论"（Bazaarvoice）
+  摘要：调研机构Bazaarvoice数据显示，96%的TikTok Shop买家在下单前更愿意参考平台的"已验证评论"，评价体系直接影响成交转化。
+  🔗 [查看原文](https://news.google.com/rss/articles/CBMikwFBVV95cUxNWjJTX2RRdDMzalFEdVJNblZpTjlwdWRROU9rSFJ2STA0VjZGMFZ1VGt2TG0xNEpYQnVudkp3NXp1cTdEbVYzUklpa2R4UFp3dUstTV9UMThNWlQ4SzFUZ0hXbk9rNE4xY3ZVZnZ3YlZvQ25FZVpYSG1naDIydHcxc2o0ZmlDLTRVUEtvT0lqR0V5elk?oc=5)
+
+• Shopify：AI带来的流量转化率比搜索高80%，生态年贡献超1.2万亿美元（Shopify数据）
+  摘要：Shopify称，通过AI入口进入店铺的流量转化率比传统搜索高80%；其商家与合作伙伴生态过去一年贡献超过1.2万亿美元经济活动，比2022年增长110%，并支撑约960万个就业岗位（比2022年增长193%）。
+  🔗 [查看原文](https://channelx.world/2026/10/ai-traffic-conversion-rate-80-higher-than-search-says-shopify/)
+
+• 云从科技推出面向跨境电商的AI营销团队（东方财富）
+  摘要：云从科技发布面向跨境电商的AI营销产品，以"智能体+增长专家"的组合切入多语种营销与广告投放环节，帮助卖家压低人力成本。
+  🔗 [查看原文](https://news.google.com/rss/articles/CBMiZEFVX3lxTE9PZHkyLU1mZlNkeXFhRkhrSE1DS2c2SWsyVXBpUGtvenFDbHZfLW5kcHhjT052eF9Pam85d1V1NzRVNkhtNXYtYng5bUNoSGpWNmRwTjNTdGlEWEExcmFrcUpJRm4?oc=5)
+
+• SensorTower发布《2026年电子商务应用报告》（199IT）
+  摘要：SensorTower发布2026年电子商务应用报告，梳理全球电商类App的下载量与营收走势，可用于判断不同市场App端购物的热度变化。
+  🔗 [查看原文](https://news.google.com/rss/articles/CBMiVkFVX3lxTE9wMTFSUTUwTnpmdUdPcjZyWUs4S2xnTzRNbl9oVmRRSzJJWWNkakZ5dElrbHdUc2doY1ZValpkZWlPZThBMVJhcEdnb3JtRlU0TmZmVEJB?oc=5)
+
+📦 物流与市场
+• 🔤 AI热潮正在取代电商，成为全球货运的新增长主力（The AI Boom: Why It’s Replacing E-commerce in Global Freight）（FreightWaves）
+  摘要：FreightWaves报道称，AI硬件与数据中心相关货运需求快速上升，正在部分替代跨境电商货量，成为全球空运、海运舱位的主要需求方。
+  🔗 [查看原文](https://news.google.com/rss/articles/CBMilwFBVV95cUxNRlBHTXc3eXk1Mk50NElrMTktNlNIbzdTRzJrcnpVQXhVLUhONHJlajVKRWYzcDAxM1R0QU1NLWtUSnpGRkpyY3psMWVIaVJjOE41TTRORFB4ZW8xZFdYRXpKUXlEX2xuYjM2Z19BbjlFZnJiUE5xaFNSdjZIX1FzNnZ0MU9pU1dlb1JJVGdUMGxsNmNWeHBz?oc=5)
+
+• 🔤 BYD扩充汽车运输船队，战争打乱了运费与关键航线（Rest of World）
+  摘要：Rest of World报道，比亚迪继续扩大自有汽车运输船队，以应对冲突导致的运费上涨与贸易航线变更，把运输环节握在自己手里。
+  🔗 [查看原文](https://restofworld.org/2026/byd-expands-cargo-ship-ev-exports/?utm_source=rss&utm_medium=rss&utm_campaign=feeds)
+
+• 东方嘉盛：定位为面向跨境电商出口的国际航空基地枢纽（证券之星）
+  摘要：东方嘉盛表示公司定位是面向跨境电商出口及一般贸易进出口的国际航空基地枢纽，业务重点围绕航空货运环节展开。
+  🔗 [查看原文](https://news.google.com/rss/articles/CBMiYEFVX3lxTFBrWkVlN3dkY2JmdGZiVURpVG1wUTE1eEljbnY1NFlGZ3RDTWN3TmlULTB2aUR5Si1TZ1d2a3JyVW1tYV81OE5oMkRBNG5TTkxGOWtJOEJ4dzQxR0ZNMFdJVA?oc=5)
+
+🛡️ 合规与风险
+• 🔴 密苏里州总检察长起诉Temu：指其窃取数据、欺骗消费者（多源报道）
+  摘要：密苏里州总检察长Hanaway对Temu提起诉讼，指控其App可访问用户的位置、摄像头和麦克风，存在数据采集与欺骗性商业行为，并涉及销售假冒堪萨斯城酋长队（Chiefs）和皇家队（Royals）周边商品；州长办公室同时呼吁居民删除该App。
+  🔗 [查看原文](https://news.google.com/rss/articles/CBMi3AFBVV95cUxOWUJYS3l2Z1ExN25pOWZva19xMzRsNUJrSzl0MFlWZFBQZENqTmtSUFdwdVJxN3IxVlpHRzVuOTl5eTFYOUhsTnpTMmNzOUtuVkhRQUpLTmFuS05HSWthQkptcm14Z0RpdUw1bVA1TmVkbzVtZmtyNlZUR3haSk43dFBWNHlVSnJUd3RVcEotZGxScnFjc3J2RFhHTE1zVm44VEhLb1l5SjVqbWU5NjBJTEp6b1pSM0JVU3ZQT3FDd0kyV0YwTlVwMnN1UllzbktfMUVoR2xzLUY0UVp1?oc=5)
+
+• 美国对越南纸质购物袋作出反倾销复审初裁（Federal Register）
+  摘要：美国商务部初裁认定越南纸质购物袋出口商IPSC在2024年1月3日至2025年6月30日的复审期内，以低于正常价值的价格在美销售。背景：反倾销行政复审针对已生效的关税令，结果可能调整税率。
+  🔗 [查看原文](https://www.federalregister.gov/documents/2026/10/14/2026-20935/certain-paper-shopping-bags-from-the-socialist-republic-of-vietnam-preliminary-results-of)
+
+• 🔴 美国对中国黄原胶作出反倾销复审初裁（Federal Register）
+  摘要：美国商务部对中国黄原胶（Xanthan Gum）作出反倾销行政复审初裁，认定涉案出口商在2024年7月1日至2025年6月30日期间以低于正常价值销售，同时对部分企业撤销复审。
+  🔗 [查看原文](https://www.federalregister.gov/documents/2026/10/14/2026-20899/xanthan-gum-from-the-peoples-republic-of-china-preliminary-results-and-rescission-in-part-of)
+
+💼 卖家运营
+• 🔤 Q4质检提醒：工厂说"都准备好了"，就真的好了吗（Reddit FBA）
+  摘要：亚马逊FBA卖家在Reddit分享旺季质检经验，提醒Q4出货前不要只依赖工厂的口头确认，建议自行验货或委托第三方抽检，以免旺季退货和差评集中爆发。
+  🔗 [查看原文](https://www.reddit.com/r/FulfillmentByAmazon/comments/1x4xld3/q4_qc_tip_your_factory_says_everything_is_ready/)
+
+• 🔤 全职做TikTok Shop联盟带货，如何做到年入六位数（Business Insider）
+  摘要：Business Insider报道一位全职TikTok Shop联盟营销者的做法，靠内容加佣金收入做到六位数年收入，模式不需要自己备货压库存。
+  🔗 [查看原文](https://news.google.com/rss/articles/CBMipAFBVV95cUxPT3hsV3RoSGFHTUZLeFNfbS1MNUFRclYzTW9ocmVub2ZLRU9nQlE1R045WElhWmF5Y0t3WEtIV0V6VTlqUVJYWXRRck5MSWFGcEpMWkk5azE3b1Y5VTFXMFBCa201SVVSTXpGMEJKMi1UWUhXMGlyS3VYRUw3Y0c2WmFka1hhTlZYT2RMc2lPQzR0SnpyN0FCS3lBaGtxLTdtRmZjMA?oc=5)
+
+To stop or manage this job, send me a new message (e.g. "stop reminder TrendRadar跨境日报投递").

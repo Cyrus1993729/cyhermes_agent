@@ -142,7 +142,7 @@ Step 1: News Recap — web_search (do NOT use delegate_task or execute_code)
   The curl + proxy approach is reliably available from cron.
 
 Step 2: Quantitative Analysis (python main.py with proxy)
-  └─ HTTP_PROXY=http://127.0.0.1:7897 HTTPS_PROXY=http://127.0.0.1:7897 python main.py
+  └─ HTTP_PROXY=http://127.0.0.1:10808 HTTPS_PROXY=http://127.0.0.1:10808 python main.py
 
 Step 2.5: Data Validation (see references/data-validation.md)
   ├─ 3.1 COMEX vs spot: gold-api.com may be blocked in China — skip if timeout. GC=F is reliable.
@@ -263,6 +263,8 @@ url = "https://stock.finance.sina.com.cn/fundInfo/api/openapi.php/CaihuiFundInfo
 
 yfinance/FRED → needs proxy. akshare/eastmoney.com → needs DIRECT. Use Clash rule mode: `eastmoney.com` → DIRECT, everything else → proxy.
 
+⚠️ **端口现状（2026-10）**：代理 = `127.0.0.1:10808`（v2rayN 主线路）；**Clash 7897 已退休作废**——本 skill 任何地方再出现 7897 一律改成 10808，否则跑出来的是连不上的死代理（命令会静默超时，表现为 yfinance 限流）。
+
 ### Geopolitical Module: Three Market-Price Proxies
 
 All signals DXY-orthogonalized to avoid double-counting with macro module:
@@ -283,7 +285,7 @@ Reference implementation at `C:\Users\Administrator\gold_analyzer\`:
 Run weekly report with:
 ```bash
 cd C:\Users\Administrator\gold_analyzer
-HTTP_PROXY=http://127.0.0.1:7897 HTTPS_PROXY=http://127.0.0.1:7897 python main.py
+HTTP_PROXY=http://127.0.0.1:10808 HTTPS_PROXY=http://127.0.0.1:10808 python main.py
 ```
 **Always include the proxy env vars.** yfinance will rate-limit without them; the run will time out after 300s.
 
@@ -303,8 +305,8 @@ Cron job for automated weekly delivery:
 When significant architectural changes are needed (not code, but design), use Claude Code as a consultant:
 
 ```bash
-export HTTP_PROXY=http://127.0.0.1:7897
-export HTTPS_PROXY=http://127.0.0.1:7897
+export HTTP_PROXY=http://127.0.0.1:10808
+export HTTPS_PROXY=http://127.0.0.1:10808
 claude --dangerously-skip-permissions -p "设计问题描述（中文）" 
 ```
 
@@ -407,7 +409,7 @@ Claude Code is used for: framework design, model review, analytical logic critiq
 
 28. **Manual CNH CSV rows MUST use yfinance's multi-column format**: When `CNH=X` fetch fails (common from China), the model falls back to `data/usdcnh.csv`. If you manually add a row, the format must match yfinance's output exactly: `Date,Open,High,Low,Close,Volume,Dividends,Stock Splits` with values like `2026-06-22 00:00:00+00:00,6.78,6.78,6.78,6.78,0,0.0,0.0`. A plain 2-column `Date,Close` row will cause the Close column to be mis-parsed as NaN, producing wildly incorrect Shanghai premium values (e.g. -7.2% instead of ~0%). Always verify with `tail -3 data/usdcnh.csv` after editing. Use the external CNH rate from `https://api.exchangerate-api.com/v4/latest/USD` (field `rates.CNH`, not `rates.CNY`) — the model uses offshore CNH for premium calculation.
 
-29. **gold-api.com has SSL certificate issues — use `curl -k` for manual validation**: The API `https://api.gold-api.com/price/XAU` returns SSL errors (exit code 35) from mainland China networks with standard curl. However, it works with `curl -k` (insecure SSL). The gold analyzer's `data_fetcher.py` uses yfinance GC=F + USDCNH cache instead, which has zero external API dependencies for automated paths. **For manual D4 validation only**: use `curl -k -x http://127.0.0.1:7897 -s "https://api.gold-api.com/price/XAU"` to get XAU spot for basis calculation. Never use gold-api.com in automated code paths — only for D4 spot-checks during manual report runs.
+29. **gold-api.com has SSL certificate issues — use `curl -k` for manual validation**: The API `https://api.gold-api.com/price/XAU` returns SSL errors (exit code 35) from mainland China networks with standard curl. However, it works with `curl -k` (insecure SSL). The gold analyzer's `data_fetcher.py` uses yfinance GC=F + USDCNH cache instead, which has zero external API dependencies for automated paths. **For manual D4 validation only**: use `curl -k -x http://127.0.0.1:10808 -s "https://api.gold-api.com/price/XAU"` to get XAU spot for basis calculation. Never use gold-api.com in automated code paths — only for D4 spot-checks during manual report runs.
 
 30. **fredapi package may not be installed even when .env has the key**: The FRED_API_KEY in `.env` is loaded by `config.py`, but `from fredapi import Fred` requires the `fredapi` PyPI package (`pip install fredapi`). If FRED data shows "不可用" in the report, run `python -c "from fredapi import Fred"` first — a `ModuleNotFoundError` means the package needs installation, not a key problem. The key alone is not sufficient.
 
@@ -452,6 +454,17 @@ Claude Code is used for: framework design, model review, analytical logic critiq
     SGE 滞后 5 天触发 `_fetch_shanghai_from_xau_conversion()`，境内需求评分 -2.00 基于 COMEX 换算值 ¥893.09（而非真实 SGE ¥897.70）。真实 SGE 数据显示境内外价差 +0.66%（正常——境内并未出现恐慌折价），但 main.py 输出"折价 -6.5%"是公允价值偏离（vs 模型 ¥955），两者是不同口径。**处理**：（a）D4.3/D4.4 必须使用真实 SGE 数据（即使滞后），不可使用 COMEX 换算值做境内外价差校验；（b）D2/D3 中明确区分"公允价值偏离"和"境内外价差"两个概念（pitfall #33）；（c）境内需求评分可能被高估时，在 D3 做敏感性分析（如"境内需求上修至 -1.0 后综合分 39.0 仍 <40，结论不变"）；（d）D4.3 存在 SGE 与 COMEX 时点错配时，标注"定性可用、定量不精准"。
 
 40. **“周报没收到”排查：别被陈旧时间源带偏 (2026-08-26 实踩，用户纠正“现在是周三 不是周一”）**：①cronjob list 的 `last_run_at` 会滞后——黄金周报 8/24 13:13 已 `delivered to telegram`，list 仍显示 last_run=8/17，别拿它判断“没跑/没送”；②agent.log 中 `cron_<jobid>_YYYYMMDD_HHMMSS` 会话是历史记录，日志尾部有 API call ≠ 正在运行——先比对 session 日期与今天（8/26 时误把 8/24 的旧会话当“刚触发 5 分钟”，误导用户）；③单次 `date` 输出可能是陈旧/漂移值（同机先后输出 8/24 周一 / 8/26 周三），须多源三角定位“今天”：会话系统提示 Conversation started 日期 + 用户明示 > `date` 输出，cronjob list 的 `next_run_at` 是调度器时钟真相（周一任务 next_run 已跳下周一 ⇒ 本周一已触发，last_run 未更新 = 那次未完成）。**判定“送没送到”以 agent.log `cron.scheduler: Job '<jobid>': delivered to telegram` 为准**。用户纠正日期后立即重构全部推断。
+
+## 单笔持仓的操作建议（≠ 周报）
+
+用户报出**具体持仓**（克数 + 均价）问「怎么操作」时，走 **Codex 外部研判**路线，不是重跑周报：
+
+1. 秒读 `C:\Users\Administrator\gold_analyzer\output\latest_weekly.json`（最近一期全部读数：`composite_100` / `module_scores` / `shanghai_price_cny` + `shanghai_source` + `shanghai_as_of` / `fair_value_cny` / `regime_diagnostics`）——**不必重跑 main.py**
+2. 补实时现货（`curl -k -x http://127.0.0.1:10808 https://api.gold-api.com/price/XAU`）；⚠️ `execute_code` 沙箱没有 yfinance，抓行情走 terminal
+3. 打包（持仓 + 产品约束 + 定价框架 + 数据快照 + 系统读数 + 四个必答）喂 Codex（`codex-cli` 的 background+notify 配方）
+4. 全文内联交付，开头列明 Codex 纠正了哪几处数据；**触发价位以银行 App 实际客户买卖价为准**；结尾追问「这笔占可投资金融资产多少」——占比 ≤10% 与 >15-20% 结论相反
+
+完整配方、prompt 六要素、Codex 本次打回的数据（10Y 名义 5.28%、SGE 900.89）、交付口径：见 [`references/position-advice-via-codex.md`](references/position-advice-via-codex.md)。
 
 ## 🧩 工作流配方
 

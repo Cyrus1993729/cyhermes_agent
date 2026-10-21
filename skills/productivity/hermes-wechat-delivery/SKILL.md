@@ -6,9 +6,10 @@ category: productivity
 tags: [hermes, wechat, weixin, delivery, rate-limit, debugging]
 ---
 
-> ⚠️ **已弃用 (2026-07-04)**：Hermes 主通信平台已从微信 iLink 迁移到 Telegram。本 skill 中的微信投递机制（iLink 限流、熔断器、多源碰撞）不再适用于当前主平台。保留本文作为历史技术文档。
+> ⚠️ **状态更新（2026-10-18）**：微信 iLink 通道曾被弃用（主平台迁 Telegram），但**用户已明确要把微信重新用作通知渠道**（"国内使用率高"）。2026-10-18 完成了一次完整的**会话超时 → 重新扫码绑定**，流程见 `references/ilink-rebind-2026-10.md`（必读，含 90 秒二维码生死线、自动补发循环、请求格式坑）。
+> 下面关于 iLink 限流/熔断器的内容仍是有效的技术参考。
 
-# Hermes 微信消息投递可靠性（已弃用）
+# Hermes 微信消息投递可靠性
 
 > 来源：2026.7.3 实战——备份 cron 失败通知 + 会话回复同时触发 iLink 限流，一天内两次消息丢失事故。深入阅读 `gateway/platforms/weixin.py` 和 `cron/scheduler.py` 源码后整理。
 
@@ -33,6 +34,51 @@ tags: [hermes, wechat, weixin, delivery, rate-limit, debugging]
 - 每轮回复控制在 10 条以内
 - 多轮长任务时用户中途多互动几次刷新 token
 - **强烈建议接入无此限制的平台（Telegram 等）作为主力通讯工具**
+
+## 分块线：一条消息吃几个额度（2026-10-21 核实源码）
+
+```python
+# gateway/platforms/weixin.py
+MAX_MESSAGE_LENGTH = 2000   # L1193
+_SPLIT_THRESHOLD   = 1800   # L1592 —— 超过就拆块，iLink 按 ~2048 字符切
+```
+
+🔴 **拆块 = 多耗额度**：超过 1800 字的消息被拆成 N 块发送，每块各占 1 条 context_token 额度。所以「消息太长」不仅会因限流丢后半段，还直接烧配额。
+
+→ 实践口径：**主动推送单条 ≤900 字**（拆块线的一半），既防截断又只吃 1 个额度。
+
+## 主动发一条到微信（2026-10-21 实测可用）
+
+与 Telegram 同一套 CLI，不必碰 token/代理：
+
+```bash
+hermes send --list weixin                 # 列出在册目标
+hermes send --to "weixin:<wxid>@im.wechat" --file msg.txt --json
+# → {"success": true, "platform": "weixin", "chat_id": "...",
+#    "message_id": "hermes-weixin-...", "context_token_used": true}
+```
+
+- 返回里的 `context_token_used: true` 说明它走的是当前有效会话的配额——**所以主动推送依赖用户近期在微信说过话**。
+- 用户久未发言会报 `errcode=-14 session timeout`；这时不要反复重试，发一条别的渠道（Telegram）告知，并请用户回微信说句话刷新会话。
+- `success` 字段就是交付证据，失败 exit 1。
+
+### 推荐封装：微信优先 + 跨平台兜底
+
+脚本里不要直接发一条就算，写成：
+
+```
+send(text):
+  1) 长度截到 ≤900 字（别让它自动拆块）
+  2) 微信发送；success → 记账返回
+  3) 失败 → 原文 + "（微信通道没发出去，这条走 Telegram）" 转 Telegram 再发一遍
+  4) 两条路都失败才返回失败，并落 delivery.log
+```
+
+这样 iLink 配额打满/会话过期时，消息只是换了通道，不会静默消失。
+
+### cron 里怎么接
+
+如果用脚本自己发，cron 任务必须设 `deliver='local'`（只留日志），否则脚本 stdout 会被再投递一次，等于一内容发两遍、吃两个额度。
 
 ## 问题清单
 

@@ -36,7 +36,8 @@ def call_qwen(prompt, timeout=300):
         data=body,
         headers={'Authorization': f'Bearer {key}',
                   'Content-Type': 'application/json',
-                  'User-Agent': 'curl/8.0.0'},
+                  'User-Agent': 'curl/8.0.0',
+                  'x-opencode-session': 'hermes-script-report'},
     )
     with urllib.request.urlopen(req, timeout=timeout) as resp:
         d = json.loads(resp.read().decode('utf-8'))

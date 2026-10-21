@@ -563,7 +563,7 @@ BV号：{bvid}
 
     import requests
     try:
-        print(f"[summary] Sending to OpenCode Go deepseek-v4-flash ({len(transcript)} chars)...")
+        print(f"[summary] Sending to OpenCode Go deepseek-v4.1-flash ({len(transcript)} chars)...")
         resp = requests.post(
             "https://opencode.ai/zen/go/v1/chat/completions",
             headers={
@@ -571,7 +571,7 @@ BV号：{bvid}
                 "Content-Type": "application/json",
             },
             json={
-                "model": "deepseek-v4-flash",
+                "model": "deepseek-v4.1-flash",
                 "messages": [{"role": "user", "content": prompt}],
                 "temperature": 0.3,
                 "max_tokens": 4096,
@@ -591,7 +591,7 @@ BV号：{bvid}
             "_meta": {
                 "tokens": usage.get("total_tokens", 0),
                 "cost_estimate": f"¥{usage.get('total_tokens', 0) * 0.000002:.4f}",
-                "model": "deepseek-v4-flash",
+                "model": "deepseek-v4.1-flash",
                 "transcript_chars": len(transcript),
                 "ocr_lines": len(ocr_text.split("\n")) if ocr_text else 0,
                 "comments_count": len(comments),

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Quick summary: skip OCR, cached ASR + comments -> OpenCode Go deepseek-v4-flash.
+"""Quick summary: skip OCR, cached ASR + comments -> OpenCode Go deepseek-v4.1-flash.
 2026-08-16 迁移: DeepSeek 官方 API → OpenCode Go 套餐 (https://opencode.ai/zen/go/v1)
 """
 import json, sys, os, re, subprocess, argparse
@@ -83,10 +83,10 @@ def main():
 
 输出JSON，字段：overview, key_points, chapters(time/title/summary), data_mentions, viewer_consensus, conclusion。修正同音错字。"""
 
-    print(f"OpenCode Go deepseek-v4-flash ({len(txt)} chars)...")
+    print(f"OpenCode Go deepseek-v4.1-flash ({len(txt)} chars)...")
     resp = requests.post("https://opencode.ai/zen/go/v1/chat/completions",
         headers={"Authorization": f"Bearer {key}", "Content-Type": "application/json"},
-        json={"model": "deepseek-v4-flash", "messages": [{"role": "user", "content": prompt}],
+        json={"model": "deepseek-v4.1-flash", "messages": [{"role": "user", "content": prompt}],
               "temperature": 0.3, "max_tokens": 4096, "response_format": {"type": "json_object"}},
         timeout=120, proxies={"http": PROXY, "https": PROXY})
     resp.raise_for_status()

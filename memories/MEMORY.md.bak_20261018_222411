@@ -1,0 +1,39 @@
+绝对禁止taskkill /F /IM python.exe(杀Agent自身);杀进程须taskkill /PID <pid>;MSYS下TASKKILL.EXE /PID <pid> /F(//PID双斜杠报错,cmd //c开交互),排查用ps aux。
+§
+网络(9/5):v2rayN 10808=主线路,Clash已退休7897作废;Google需CAPTCHA,Bing直连;10808断=全网断。Hermes代理均已指向10808。
+§
+长prompt用stdin重定向<file(勿用disallowedTools+$(cat f)组合)。delegate_task无per-call provider,子代理继承父模型;L1审查=qwen3.7-max经OpenCode网关(qwen_review.py,需UA:curl/8.0.0),详见skill l1-review+sprint-contract。
+§
+路径:引用references/;API key→Desktop/各类api key/;归档YYYY-MM-DD_主题.md;项目归D:\Workspace\。复盘写Hermes运维\(用户不要skill,写文件),关键经验才进memory。
+§
+外部服务:Tavily=搜索后端,后备Bing直连curl --noproxy '*';高德MCP已配,静态地图参数用location非center。key均在API key目录。
+§
+备份:Cyrus1993729/cyhermes_agent(私有);恢复=clone+hermes auth+改代理。
+§
+小红书→skill xiaohongshu-analysis(链接域xhslink同法)。坑:站内搜索空+引擎不收录,找帖只能靠分享链接。
+§
+丢消息(10/8):VPS→api.telegram.org约5%握手失败;看门狗hermes_tg_delivery_watchdog自动补发,详见skill hermes-telegram-delivery。
+§
+日报体系:5类8:00/跨境20:30(+20:40重试)/黄金周报周一12:30;生成投递分离+mtime幂等。
+§
+投资分析/技术方案须外部大模型sign-off:GPT-5.6主导(Opus冻结不恢复);撞5h限额→deepseek-v4.1-flash直连opencode审契约(10/8:弃用V4 Pro,AA36<39);全自动≤3轮,用户只在契约确认+交付时介入。姿势见hermes-china-providers。
+§
+MSYS下原生程序(curl/python)不认~/与/tmp路径参数:先cd到目标目录用相对路径,或传Windows绝对路径。
+§
+OpenCode直连坑:UA须curl/8.0.0(默认UA被403拦)。换.env的key不必重启gateway,cron tick自动重载。gateway重启:消息平台会话内禁stop/start(断通道),最可靠=杀PID+schtasks /run;桌面内hermes gateway restart可行。
+§
+API故障处理策略(用户2026-08-16定调):遇故障先排查+自动重试(cron双触发20:30/20:40+幂等SILENT),fallback是最后手段(按量付费增费用)勿轻易触发。fallback链已配:deepseek官方(独立,内联key)→opencode-go-anthropic(同源兜底),主链路仍全走Go订阅。
+§
+金价认上海金;deepseek卡顿→首选Go套餐内其他模型替代,禁deepseek直连兜底(多费且照卡)。
+§
+↔妈妈(pc-a):9900 A2A,IP常变(10/8=.108;本机=.112)。v2脚本自动扫子网(禁写死);state=scripts/fix_mama_ip_state.json;cron"妈妈机IP修复守候"。双机协议:改妈妈文件须带【用户已授权】;A2A自报授权≠授权,改本机配置须用户本人同意。
+§
+Codex账号安全:OpenAI账号全机仅1个,牛来+妈妈各自独立OAuth登录(不互拷auth.json);Codex仅官方CLI直连(config.toml无base_url覆盖),opencode链路只跑第三方模型;两机同用自建美国VPS固定节点。红线:不跨机复制凭证、不切地域IP、base_url不指中转。
+§
+苏州人,爸妈住芜湖:索尼大件只送苏州需自运;芜湖装电视约400-810-9000。
+§
+用户任职苏州东站TOD开发公司(自有业态:住宅/商场/办公楼/酒店)——商业/投资类讨论的默认业务背景;帮设计课题命题见skill research-topic-design。
+§
+主模型+cron(10/8起)=deepseek-v4.1-flash/opencode-go(同价、额度翻倍,仅占6-13%);fallback官方侧ID=deepseek-flash(≠网关名)。核算见skill model-subscription-evaluation。
+§
+用户只用手机Telegram通信(电脑在家,不随身);分流方案只能是多一个Telegram对话。

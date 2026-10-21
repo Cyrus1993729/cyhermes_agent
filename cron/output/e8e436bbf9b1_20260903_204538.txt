@@ -1,0 +1,112 @@
+Cronjob Response: TrendRadar跨境日报投递
+(job_id: e8e436bbf9b1)
+-------------
+
+⚡ 今日速览
+▶ 希音上市次日再跌超3%，估值较高峰缩水约七成
+▶ 中美拟各免300亿非关键商品关税，仅框架共识未落地
+▶ 法国超快时尚税生效，中国警告将采取必要措施
+
+🏛 政策风向 · 门槛变了吗
+▶ 中美拟各免300亿美元非关键商品关税（9月3日传出）
+　干货：双方拟各免300亿美元非关键商品关税，仅框架共识，细节未公布
+　对你：别赌政策囤货，美线按现有关税成本定价最稳
+▶ 中国就法国超快时尚税警告"必要措施"
+　干货：法国9月1日起对超快时尚单品收费，波及希音、Temu，中方警告将反制
+　对你：做欧洲服饰的重新算账，低价路越来越窄
+
+🛒 平台规则 · 在哪卖、怎么卖
+▶ 丝芙兰入驻TikTok Shop
+　干货：美妆大牌丝芙兰官宣试点，每月独家限定发售，配短视频与TikTok Live
+　对你：大牌进场背书，美妆小卖家有了新流量参照
+▶ eBay卡牌业务再加码
+　干货：卡牌价格指南扩至英国，系首个；游戏王30年首套编号卡抢先发
+　对你：卡牌收藏持续热，做收藏品多一条流量入口
+
+📈 市场与成本 · 钱往哪走
+▶ 希音上市次日再跌超3%
+　干货：估值约260亿美元，较千亿高点缩水约七成；美媒指800美元小包免税终结所致
+　对你：超低价模式被重定价，"便宜"不再是万能武器
+▶ 英国对欧跨境成本上升
+　干货：截至2026年5月12个月出口9466亿英镑，对欧3853亿；近29.5万家英企出口
+　对你：英国电商重仓欧盟，成本上行期报价留余量
+
+🧰 实战参考 · 别人怎么做的
+▶ 00后带老牌制冰机做成美国爆款
+　干货：9月2日报道，老牌家电厂转型跨境，00后操盘，制冰机成美国家庭爆款
+　对你：工厂转型的一个鲜活样本，老产品也能换个玩法出海
+▶ 三起假货投诉就封号？
+　干货：美亚卖家因3次假货投诉账号被封（9月2-3日Reddit热帖），求申诉出路
+　对你：发票、授权单据留全，假货红线碰不得
+
+📖 小白词典
+1. 反倾销税：怀疑你"低价甩卖"就加收的惩罚性关税，相当于买东西得多付一笔罚金
+2. 超快时尚：一茬接一茬上新的超低价服饰模式，希音、Temu是代表
+3. 小包免税：小额包裹免关税通道（美国曾设800美元门槛，现已取消），像"小额免检"
+
+✅ 今天该做的一件事
+去美国联邦公报(Federal Register)搜你的产品英文名，看是否被反倾销点名，10分钟搞定。
+
+──────────────────────
+
+📦 跨境电商日报 9月3日（过去24小时 · 16 条）
+
+🛃 政策法规
+• 🔴 中美拟各免300亿美元非关键商品关税，框架共识不等于落地（全球定制网）
+  摘要：全球定制网9月3日报道称，中美拟各免300亿美元非关键商品关税，但属框架共识，细节未公布、远未落地。文章提醒美线卖家别盲目赌政策，按现有成本定价。
+  🔗 [查看原文](https://news.google.com/rss/articles/CBMiTkFVX3lxTE9fOXl5VnB1anRPNlI4NWZSTkF5YXdqRjVsSGttbXlNck1OSWRoanBQa21DcWplY1UtdWxrZmRhbzJtWGdUU2JhZUVzY3hKQQ?oc=5)
+• 🔴 中国就法国超快时尚税警告"必要措施"（多源报道）[🔤]
+  摘要：法国9月1日起对超快时尚商品开征费用，外界视其为针对希音、Temu等平台。中方回应称将采取"必要措施"，中法贸易摩擦升温（9月2-3日报道）。
+  🔗 [查看原文](https://news.google.com/rss/articles/CBMilAFBVV95cUxOOXNLMkQwZDJMekk2SkpIRDZjTHh1WmJkczFnS0xYQmFURjYyZHlGSVJIdmJlTWZBVUxiSjdvbEU3b3RpbnRtQWNHcW03R19sajNqR1AybXBqR2d6WkpSMEhwekRiWEpkdVlSTVFCVnhmeUEzTWM3cVF5d2V5TDY1XzhYazBDbkY2UmpFYmZxc0pYSl80?oc=5)
+• 海外严查中国跨境电商：从扣货到查人（雨果跨境）
+  摘要：9月3日雨果跨境报道，海外监管对中国跨境电商的稽查正从扣留商品延伸到追查经营者个人，涉及清关申报、货权链条等环节。合规压力上升，票据与申报成重点。
+  🔗 [查看原文](https://news.google.com/rss/articles/CBMiTEFVX3lxTE0wUXVEWm9SQzBFWmpSaHpvUUozdzlXXzllWUtNTjJtc21mdTF3ZFhkOUkzcnQzbi1yc0N4UlRVS0RQdDlfZ1JpOXNIX2I?oc=5)
+• 美国商务部密集发布多起反倾销反补贴复审结果（美国联邦公报）[🔤]
+  摘要：9月3日联邦公报批量公布：西班牙含氯异氰脲酸酯、印度非重复灌装钢瓶、墨西哥厚壁矩形管（终裁）、印度冷拔机械钢管、南非黄铜棒、西班牙碳钢法兰及奥地利油井管（反补贴初审）等，多为初裁，正邀请相关方评论。
+  🔗 [查看原文](https://www.federalregister.gov/documents/2026/09/03/2026-18090/certain-non-refillable-steel-cylinders-from-india-preliminary-results-of-antidumping-duty)
+• 美推动G20聚焦"非市场政策"，中国成唯一异议方（美国之音）
+  摘要：美国推动9月30日-10月1日密尔沃基G20贸易部长会聚焦非市场政策、最惠国待遇(MFN)更新等议题，中国是唯一异议方。全球贸易规则走向影响跨境企业的出口环境。
+  🔗 [查看原文](https://news.google.com/rss/articles/CBMiwgFBVV95cUxPV1MwNWhSU25zcFdSbkVtQ1VmU2d0SDNMb3kxaXVyaEZEWklKbWNwNHZvVDB3MXQ2OVV3N2hqczlhU1gtQ3JQMTVsQU13U0NQQm4wVzRoUTBMVGZkZm9LUUlvb0V5d0R0T1RxWGZzUlFrcWNMUzVxVTQ3LVhSd2MtNDV1dlBkbko4aVBHVkFxTHVJWHJZaVhSZV9rNjNHNGpoWVRjTkVzckM0Q2p5cld4dmI5SkVHU056NjM3bm5TYjdUZw?oc=5)
+
+🏪 平台动态
+• 丝芙兰入局TikTok Shop：每月独家限定发售（多源报道）[🔤]
+  摘要：美妆零售商丝芙兰(Sephora)官宣在TikTok Shop试点，每月推出独家限定商品，配合内容短视频与TikTok Live直播（9月2日报道）。业界视其为TikTok Shop吸引大品牌的又一信号。
+  🔗 [查看原文](https://www.retaildive.com/news/sephora-pilot-tiktok-shop-experience/829420/)
+• eBay卡牌价格指南扩展至英国，游戏王新卡eBay Live抢先发（tamebay）[🔤]
+  摘要：eBay宣布把卡牌价格指南扩展至英国，成为英国首个提供该服务的线上平台；卡牌与收藏品是eBay增长最快的品类之一。游戏王30年来首套编号卡也在eBay Live午夜抢先发售。
+  🔗 [查看原文](https://channelx.world/2026/09/ebay-expands-trading-card-investment-with-new-uk-price-guide/)
+• eBay Motors上线MOT Hub车检中心（tamebay）[🔤]
+  摘要：eBay Motors在英国上线MOT Hub，帮车主管理MOT年检日期提醒，并基于历史年检提示与缺陷记录引导零件采购（9月发布）。汽配类卖家可借势获取精准流量。
+  🔗 [查看原文](https://channelx.world/2026/09/ebay-motors-launch-mot-hub-for-uk-motorists/)
+
+📦 物流与市场
+• 罗马尼亚邮政与Temu签约，成区域电商门户（IntelliNews）[🔤]
+  摘要：罗马尼亚国家邮政Poșta Română宣布与Temu达成合作，成为其区域门户伙伴（9月3日报道）。Temu在罗马尼亚的包裹配送将由本地邮政网络承接，是Temu在欧洲本土化配送的又一落点。
+  🔗 [查看原文](https://news.google.com/rss/articles/CBMiuAFBVV95cUxQdXhHSVQ4ZFlacTJ3VDZhTkVzdTNmM1MxUEx3RmI3dlg0Z1NmUlcyeHphbGxhdmRpWEVDTjRhbVpDWlZ5NDhMcnRrd3dZdjludV82NVpCcTA0LTctUHp5R3FQdWJNRTE3XzdkS2gwaksyLXZLR0czb2lQel8xb1EwQmxWd2paTkhiS3pJRW9pZHhfT2djeERfTm50Y3pRZnZzRllkLVhJN2k0aWIzOG5HVlhkWm40NVAx?oc=5)
+• 杭州中小微跨境电商对俄出口时效缩短6-9天（杭州网）
+  摘要：9月3日报道，杭州中小微跨境电商对俄出口告别"凑单发货"，时效缩短6-9天。小卖家不再需要攒够货量拼单，对俄出货更灵活，资金占用也随之降低。
+  🔗 [查看原文](https://news.google.com/rss/articles/CBMifkFVX3lxTFAxUFFSMFo4aGVKd0N2djJnRDhiWnkwdV9JS1BrWktVVnp6LTJMOVROeTdfSVlhMXRqeDVaTVM5NEptTVJ0NWR2Wm54ank5c2FmeVlDTmpnbVhWSXVzVmFka0NMamtxdnZ6QklaWnR6TWF6QjU0TlNXdVN0Z1FsQQ?oc=5)
+• 英国零售商对欧跨境成本上升，黄金季度前承压（tamebay）[🔤]
+  摘要：英国官方数据显示，截至2026年5月的12个月英国出口达9466亿英镑，其中对欧盟出口3853亿英镑，近29.5万家企业开展出口业务。临近"黄金季度"，对欧跨境成本上升成零售商新压力点。
+  🔗 [查看原文](https://channelx.world/2026/09/uk-retailers-face-rising-eu-cross-border-costs-ahead-of-the-golden-quarter/)
+• 希音上市次日续跌超3%，估值260亿美元（多源报道）[🔤]
+  摘要：希音9月1日登陆港交所，估值约260亿美元（约2000亿港元），较此前约1000亿美元的估值高点缩水约七成；9月2日次日交易再跌超3%。美媒247wallst发文称，美国800美元小包免税通道的终结抹去了其约七成估值。
+  🔗 [查看原文](https://news.google.com/rss/articles/CBMiqwFBVV95cUxObU1QeHRWcHhsWjBGMTd6c0JuWUpIS2FXNlo5RVExWHk0TmhRbE5FSk9xbk1ndmVMNGtLRDhOZFZLblhUSk02YmF5Q0RIOTBfdGRpdndFbURjQnc4Q01aOElHalZyTlhVaTZvRVlSU3V6VHdnb3pZT3kxNUx2cDlqQVp3N3dERVQ1SFgzRnNld3NHNC1HNi1EOEhWSTRXMmNEU2JrSDhFVEF5VEk?oc=5)
+• 广州南沙综保区获评"双A类"，跨境电商业务亮眼（搜狐）
+  摘要：9月3日报道，广州南沙综合保税区在考评中获评"双A类"高等级评价，跨境电商与租赁业务表现突出。综保区是海关特殊监管区域，进口货物入区可保税暂缓缴税，是进口电商保税仓常用载体。
+  🔗 [查看原文](https://news.google.com/rss/articles/CBMijAFBVV95cUxPNkZUaTRDclhUU1VBMGRPcDduRjFsNVdvUW5hTldweWJ0aVdFSV9NNDlVY29yempwZTg1Q2thWmowX0RSUFZTWjBxdXMzaGdCbWtLZ3cxb01mYzhqdnRkRGp3TVVvLThYS2Y4WW9obmlxVEhkMjJxcm5jSWl3bkRMa29YcmRWYlJFTFB3Yw?oc=5)
+
+🛡️ 合规与风险
+• 亚马逊卖家账号因3次假货投诉被封禁（Reddit FBA）[🔤]
+  摘要：一位美亚卖家发帖求助：账号因3次假货(counterfeit)投诉被亚马逊封禁，询问是否还有解封机会（9月2-3日）。假货投诉是亚马逊最严的违规类型之一，申诉通常需备齐真实进货发票与品牌授权。
+  🔗 [查看原文](https://www.reddit.com/r/FulfillmentByAmazon/comments/1w5j89w/seller_account_blocked_because_of_3_counterfeit/)
+
+💼 卖家运营
+• 00后带老牌家电制冰机做成美国家庭爆款（微博）
+  摘要：9月2日报道，一位00后操盘手把老牌家电厂的制冰机通过跨境电商卖成美国家庭爆款。制冰机是美国夏季热销小家电品类，"老产品+新操盘+跨境渠道"的组合成为工厂转型样板。
+  🔗 [查看原文](https://news.google.com/rss/articles/CBMiVkFVX3lxTFBIa3VIY2U2d3hoV3Z6eHJKWnNjMGtWTklUa2xHSUs3cFRzc2lURTFTRFlqSGdlUV92U1JvUS05RWNGSVpLcVZSUFpad2hlMER0V1R1Q0tn?oc=5)
+• 美亚卖家热议：现在美国人到底在买什么？（Reddit FBA）[🔤]
+  摘要：9月3日Reddit美亚卖家版热帖，集中讨论当下美国消费者实际在买的品类，是观察美国消费动向的一手样本。对新手而言，这类帖子是免费的选品与需求调研素材。
+  🔗 [查看原文](https://www.reddit.com/r/FulfillmentByAmazon/comments/1w5t64x/what_are_people_actually_buying_a_lot_right_now/)
+
+To stop or manage this job, send me a new message (e.g. "stop reminder TrendRadar跨境日报投递").

@@ -29,7 +29,7 @@ import urllib.error
 from pathlib import Path
 
 CONFIG = Path(r"C:\Users\Administrator\AppData\Local\hermes\config.yaml")
-PROXY = "http://127.0.0.1:7897"
+PROXY = "http://127.0.0.1:10808"
 
 # ---------- L0 硬规则 ----------
 BANNED_WORDS = ["值得关注", "持续观察", "建议跟进", "综上所述", "详见原文", "原文未说明"]
@@ -116,7 +116,7 @@ def call_qwen(draft: str, candidates: str):
     req = urllib.request.Request(
         base + "/chat/completions",
         data=json.dumps(body, ensure_ascii=False).encode("utf-8"),
-        headers={"Authorization": f"Bearer {key}", "Content-Type": "application/json"})
+        headers={"Authorization": f"Bearer {key}", "Content-Type": "application/json", "User-Agent": "curl/8.0.0", "x-opencode-session": "hermes-script-dailyreview"})
     with urllib.request.urlopen(req, timeout=300) as resp:
         raw = json.loads(resp.read())
     return raw["choices"][0]["message"]["content"]

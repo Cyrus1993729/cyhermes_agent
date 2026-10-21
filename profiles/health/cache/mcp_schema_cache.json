@@ -1,0 +1,891 @@
+{
+  "x": {
+    "fingerprint": "d4a26e5e1bf0665a",
+    "tools": [
+      {
+        "name": "list_broadcasts",
+        "description": "List broadcasts",
+        "inputSchema": {},
+        "annotations": {
+          "readOnlyHint": false
+        }
+      },
+      {
+        "name": "get_chat_moderators",
+        "description": "Get chat moderators",
+        "inputSchema": {},
+        "annotations": {
+          "readOnlyHint": false
+        }
+      },
+      {
+        "name": "add_chat_moderator",
+        "description": "Add a chat moderator",
+        "inputSchema": {},
+        "annotations": {
+          "readOnlyHint": false
+        }
+      },
+      {
+        "name": "remove_chat_moderator",
+        "description": "Remove a chat moderator",
+        "inputSchema": {},
+        "annotations": {
+          "readOnlyHint": false
+        }
+      },
+      {
+        "name": "list_scheduled_broadcasts",
+        "description": "List scheduled broadcasts",
+        "inputSchema": {},
+        "annotations": {
+          "readOnlyHint": false
+        }
+      },
+      {
+        "name": "create_scheduled_broadcast",
+        "description": "Create a scheduled broadcast",
+        "inputSchema": {},
+        "annotations": {
+          "readOnlyHint": false
+        }
+      },
+      {
+        "name": "delete_scheduled_broadcast",
+        "description": "Delete a scheduled broadcast",
+        "inputSchema": {},
+        "annotations": {
+          "readOnlyHint": false
+        }
+      },
+      {
+        "name": "get_scheduled_broadcast",
+        "description": "Get a scheduled broadcast",
+        "inputSchema": {},
+        "annotations": {
+          "readOnlyHint": false
+        }
+      },
+      {
+        "name": "update_scheduled_broadcast",
+        "description": "Update a scheduled broadcast",
+        "inputSchema": {},
+        "annotations": {
+          "readOnlyHint": false
+        }
+      },
+      {
+        "name": "go_live_scheduled_broadcast",
+        "description": "Go live on a scheduled broadcast",
+        "inputSchema": {},
+        "annotations": {
+          "readOnlyHint": false
+        }
+      },
+      {
+        "name": "get_broadcast",
+        "description": "Get a broadcast",
+        "inputSchema": {},
+        "annotations": {
+          "readOnlyHint": false
+        }
+      },
+      {
+        "name": "get_broadcast_chat",
+        "description": "Get broadcast chat history",
+        "inputSchema": {},
+        "annotations": {
+          "readOnlyHint": false
+        }
+      },
+      {
+        "name": "mute_broadcast_chat_user",
+        "description": "Mute or time out a user in a broadcast chat",
+        "inputSchema": {},
+        "annotations": {
+          "readOnlyHint": false
+        }
+      },
+      {
+        "name": "unmute_broadcast_chat_user",
+        "description": "Unmute a user in a broadcast chat",
+        "inputSchema": {},
+        "annotations": {
+          "readOnlyHint": false
+        }
+      },
+      {
+        "name": "list_scheduled_calls",
+        "description": "List scheduled calls",
+        "inputSchema": {},
+        "annotations": {
+          "readOnlyHint": false
+        }
+      },
+      {
+        "name": "schedule_call",
+        "description": "Schedule a call",
+        "inputSchema": {},
+        "annotations": {
+          "readOnlyHint": false
+        }
+      },
+      {
+        "name": "cancel_scheduled_call",
+        "description": "Cancel a scheduled call",
+        "inputSchema": {},
+        "annotations": {
+          "readOnlyHint": false
+        }
+      },
+      {
+        "name": "get_scheduled_call",
+        "description": "Get a scheduled call",
+        "inputSchema": {},
+        "annotations": {
+          "readOnlyHint": false
+        }
+      },
+      {
+        "name": "update_scheduled_call",
+        "description": "Update a scheduled call",
+        "inputSchema": {},
+        "annotations": {
+          "readOnlyHint": false
+        }
+      },
+      {
+        "name": "respond_to_scheduled_call",
+        "description": "Respond to a scheduled call",
+        "inputSchema": {},
+        "annotations": {
+          "readOnlyHint": false
+        }
+      },
+      {
+        "name": "get_chat_conversations",
+        "description": "Get Chat Conversations; unread state via chat_conversation.fields=unread,last_read_event_id,newest_event_id",
+        "inputSchema": {},
+        "annotations": {
+          "readOnlyHint": false
+        }
+      },
+      {
+        "name": "get_chat_conversation",
+        "description": "Get Chat Conversation; unread state via chat_conversation.fields=unread,last_read_event_id,newest_event_id",
+        "inputSchema": {},
+        "annotations": {
+          "readOnlyHint": false
+        }
+      },
+      {
+        "name": "unarchive_chat_conversation",
+        "description": "Unarchive a Chat conversation",
+        "inputSchema": {},
+        "annotations": {
+          "readOnlyHint": false
+        }
+      },
+      {
+        "name": "archive_chat_conversation",
+        "description": "Archive a Chat conversation",
+        "inputSchema": {},
+        "annotations": {
+          "readOnlyHint": false
+        }
+      },
+      {
+        "name": "get_chat_conversation_events",
+        "description": "Get Chat Conversation Events, newest first; unread ones have an id above last_read_event_id",
+        "inputSchema": {},
+        "annotations": {
+          "readOnlyHint": false
+        }
+      },
+      {
+        "name": "add_conversation_keys",
+        "description": "Add Conversation Keys",
+        "inputSchema": {},
+        "annotations": {
+          "readOnlyHint": false
+        }
+      },
+      {
+        "name": "send_chat_message",
+        "description": "Send Chat Message",
+        "inputSchema": {},
+        "annotations": {
+          "readOnlyHint": false
+        }
+      },
+      {
+        "name": "mark_chat_conversation_read",
+        "description": "Mark Conversation as Read",
+        "inputSchema": {},
+        "annotations": {
+          "readOnlyHint": false
+        }
+      },
+      {
+        "name": "send_chat_typing_indicator",
+        "description": "Send Typing Indicator",
+        "inputSchema": {},
+        "annotations": {
+          "readOnlyHint": false
+        }
+      },
+      {
+        "name": "mark_chat_conversation_unread",
+        "description": "Mark Conversation as Unread",
+        "inputSchema": {},
+        "annotations": {
+          "readOnlyHint": false
+        }
+      },
+      {
+        "name": "chat_media_upload_initialize",
+        "description": "Initialize Chat Media Upload. Needs the OAuth2 scope `media.write`.",
+        "inputSchema": {},
+        "annotations": {
+          "readOnlyHint": false
+        }
+      },
+      {
+        "name": "chat_media_upload_append",
+        "description": "Append Chat Media Upload. Needs the OAuth2 scope `media.write`.",
+        "inputSchema": {},
+        "annotations": {
+          "readOnlyHint": false
+        }
+      },
+      {
+        "name": "chat_media_upload_finalize",
+        "description": "Finalize Chat Media Upload. Needs the OAuth2 scope `media.write`.",
+        "inputSchema": {},
+        "annotations": {
+          "readOnlyHint": false
+        }
+      },
+      {
+        "name": "chat_media_download",
+        "description": "Download Chat Media. Returns JSON with the response bytes base64-encoded in `data`, plus `content_type` and `size_bytes`. Needs the OAuth2 scope `media.write`.",
+        "inputSchema": {},
+        "annotations": {
+          "readOnlyHint": false
+        }
+      },
+      {
+        "name": "get_chat_message_requests",
+        "description": "Get Chat Message Requests",
+        "inputSchema": {},
+        "annotations": {
+          "readOnlyHint": false
+        }
+      },
+      {
+        "name": "get_chat_message_request",
+        "description": "Get Chat Message Request",
+        "inputSchema": {},
+        "annotations": {
+          "readOnlyHint": false
+        }
+      },
+      {
+        "name": "accept_chat_message_request",
+        "description": "Accept a Chat message request",
+        "inputSchema": {},
+        "annotations": {
+          "readOnlyHint": false
+        }
+      },
+      {
+        "name": "search_communities",
+        "description": "Search Communities",
+        "inputSchema": {},
+        "annotations": {
+          "readOnlyHint": false
+        }
+      },
+      {
+        "name": "get_communities_by_id",
+        "description": "Get Communities by ID",
+        "inputSchema": {},
+        "annotations": {
+          "readOnlyHint": false
+        }
+      },
+      {
+        "name": "create_lists",
+        "description": "Create Lists",
+        "inputSchema": {},
+        "annotations": {
+          "readOnlyHint": false
+        }
+      },
+      {
+        "name": "get_lists_by_id",
+        "description": "Get Lists by ID",
+        "inputSchema": {},
+        "annotations": {
+          "readOnlyHint": false
+        }
+      },
+      {
+        "name": "update_lists",
+        "description": "Update List",
+        "inputSchema": {},
+        "annotations": {
+          "readOnlyHint": false
+        }
+      },
+      {
+        "name": "get_lists_followers",
+        "description": "Get Lists Followers",
+        "inputSchema": {},
+        "annotations": {
+          "readOnlyHint": false
+        }
+      },
+      {
+        "name": "get_lists_members",
+        "description": "Get Lists Members",
+        "inputSchema": {},
+        "annotations": {
+          "readOnlyHint": false
+        }
+      },
+      {
+        "name": "add_lists_member",
+        "description": "Add Lists Member",
+        "inputSchema": {},
+        "annotations": {
+          "readOnlyHint": false
+        }
+      },
+      {
+        "name": "remove_lists_member_by_user_id",
+        "description": "Remove a List member",
+        "inputSchema": {},
+        "annotations": {
+          "readOnlyHint": false
+        }
+      },
+      {
+        "name": "get_lists_posts",
+        "description": "Get Lists Posts",
+        "inputSchema": {},
+        "annotations": {
+          "readOnlyHint": false
+        }
+      },
+      {
+        "name": "search_news",
+        "description": "Search News Each returned story includes a `url` deeplinking to its x.com page.",
+        "inputSchema": {},
+        "annotations": {
+          "readOnlyHint": false
+        }
+      },
+      {
+        "name": "get_news",
+        "description": "Get news stories by ID Each returned story includes a `url` deeplinking to its x.com page.",
+        "inputSchema": {},
+        "annotations": {
+          "readOnlyHint": false
+        }
+      },
+      {
+        "name": "list_sources",
+        "description": "List stream sources",
+        "inputSchema": {},
+        "annotations": {
+          "readOnlyHint": false
+        }
+      },
+      {
+        "name": "create_source",
+        "description": "Create a stream source",
+        "inputSchema": {},
+        "annotations": {
+          "readOnlyHint": false
+        }
+      },
+      {
+        "name": "delete_source",
+        "description": "Delete a stream source",
+        "inputSchema": {},
+        "annotations": {
+          "readOnlyHint": false
+        }
+      },
+      {
+        "name": "get_source",
+        "description": "Get a stream source",
+        "inputSchema": {},
+        "annotations": {
+          "readOnlyHint": false
+        }
+      },
+      {
+        "name": "update_source",
+        "description": "Rename a stream source",
+        "inputSchema": {},
+        "annotations": {
+          "readOnlyHint": false
+        }
+      },
+      {
+        "name": "get_spaces_by_ids",
+        "description": "Get Spaces by IDs",
+        "inputSchema": {},
+        "annotations": {
+          "readOnlyHint": false
+        }
+      },
+      {
+        "name": "get_spaces_by_creator_ids",
+        "description": "Get Spaces by Creator IDs",
+        "inputSchema": {},
+        "annotations": {
+          "readOnlyHint": false
+        }
+      },
+      {
+        "name": "search_spaces",
+        "description": "Search Spaces",
+        "inputSchema": {},
+        "annotations": {
+          "readOnlyHint": false
+        }
+      },
+      {
+        "name": "get_spaces_by_id",
+        "description": "Get Spaces by ID",
+        "inputSchema": {},
+        "annotations": {
+          "readOnlyHint": false
+        }
+      },
+      {
+        "name": "get_spaces_posts",
+        "description": "Get Space Posts",
+        "inputSchema": {},
+        "annotations": {
+          "readOnlyHint": false
+        }
+      },
+      {
+        "name": "get_trends_by_woeid",
+        "description": "Get Trends by Woeid Each returned trend includes a `url` deeplinking to its x.com search.",
+        "inputSchema": {},
+        "annotations": {
+          "readOnlyHint": false
+        }
+      },
+      {
+        "name": "get_posts_by_ids",
+        "description": "Get Posts by IDs Each returned post includes a `url` deeplinking to it on x.com.",
+        "inputSchema": {},
+        "annotations": {
+          "readOnlyHint": false
+        }
+      },
+      {
+        "name": "get_posts_counts_recent",
+        "description": "Get Posts Counts Recent",
+        "inputSchema": {},
+        "annotations": {
+          "readOnlyHint": false
+        }
+      },
+      {
+        "name": "search_posts_all",
+        "description": "Search Posts All Each returned post includes a `url` deeplinking to it on x.com.",
+        "inputSchema": {},
+        "annotations": {
+          "readOnlyHint": false
+        }
+      },
+      {
+        "name": "get_posts_by_id",
+        "description": "Get Posts by ID Each returned post includes a `url` deeplinking to it on x.com.",
+        "inputSchema": {},
+        "annotations": {
+          "readOnlyHint": false
+        }
+      },
+      {
+        "name": "get_posts_liking_users",
+        "description": "Get Posts Liking Users",
+        "inputSchema": {},
+        "annotations": {
+          "readOnlyHint": false
+        }
+      },
+      {
+        "name": "get_posts_quoted_posts",
+        "description": "Get Posts Quoted Posts Each returned post includes a `url` deeplinking to it on x.com.",
+        "inputSchema": {},
+        "annotations": {
+          "readOnlyHint": false
+        }
+      },
+      {
+        "name": "get_posts_reposted_by",
+        "description": "Get Posts Reposted by",
+        "inputSchema": {},
+        "annotations": {
+          "readOnlyHint": false
+        }
+      },
+      {
+        "name": "get_usage_credits",
+        "description": "Get usage credits",
+        "inputSchema": {},
+        "annotations": {
+          "readOnlyHint": false
+        }
+      },
+      {
+        "name": "get_users_by_usernames",
+        "description": "Get Users by Usernames",
+        "inputSchema": {},
+        "annotations": {
+          "readOnlyHint": false
+        }
+      },
+      {
+        "name": "get_users_by_username",
+        "description": "Get Users by Username",
+        "inputSchema": {},
+        "annotations": {
+          "readOnlyHint": false
+        }
+      },
+      {
+        "name": "get_users_me",
+        "description": "Get Users Me",
+        "inputSchema": {},
+        "annotations": {
+          "readOnlyHint": false
+        }
+      },
+      {
+        "name": "get_users_public_keys",
+        "description": "Get public keys",
+        "inputSchema": {},
+        "annotations": {
+          "readOnlyHint": false
+        }
+      },
+      {
+        "name": "search_users",
+        "description": "Search Users",
+        "inputSchema": {},
+        "annotations": {
+          "readOnlyHint": false
+        }
+      },
+      {
+        "name": "get_users_by_id",
+        "description": "Get Users by ID",
+        "inputSchema": {},
+        "annotations": {
+          "readOnlyHint": false
+        }
+      },
+      {
+        "name": "get_users_bookmarks",
+        "description": "Get Users Bookmarks Each returned post includes a `url` deeplinking to it on x.com.",
+        "inputSchema": {},
+        "annotations": {
+          "readOnlyHint": false
+        }
+      },
+      {
+        "name": "create_users_bookmark",
+        "description": "Create Bookmark",
+        "inputSchema": {},
+        "annotations": {
+          "readOnlyHint": false
+        }
+      },
+      {
+        "name": "get_users_bookmark_folders",
+        "description": "Get Users Bookmark Folders",
+        "inputSchema": {},
+        "annotations": {
+          "readOnlyHint": false
+        }
+      },
+      {
+        "name": "create_users_bookmark_folder",
+        "description": "Create Bookmark Folder",
+        "inputSchema": {},
+        "annotations": {
+          "readOnlyHint": false
+        }
+      },
+      {
+        "name": "get_users_bookmarks_by_folder_id",
+        "description": "Get Users Bookmarks by Folder ID Each returned post includes a `url` deeplinking to it on x.com.",
+        "inputSchema": {},
+        "annotations": {
+          "readOnlyHint": false
+        }
+      },
+      {
+        "name": "delete_users_bookmark",
+        "description": "Delete Bookmark",
+        "inputSchema": {},
+        "annotations": {
+          "readOnlyHint": false
+        }
+      },
+      {
+        "name": "get_users_followed_lists",
+        "description": "Get Users Followed Lists",
+        "inputSchema": {},
+        "annotations": {
+          "readOnlyHint": false
+        }
+      },
+      {
+        "name": "follow_list",
+        "description": "Follow List",
+        "inputSchema": {},
+        "annotations": {
+          "readOnlyHint": false
+        }
+      },
+      {
+        "name": "unfollow_list",
+        "description": "Unfollow a List",
+        "inputSchema": {},
+        "annotations": {
+          "readOnlyHint": false
+        }
+      },
+      {
+        "name": "get_users_liked_posts",
+        "description": "Get Users Liked Posts Each returned post includes a `url` deeplinking to it on x.com.",
+        "inputSchema": {},
+        "annotations": {
+          "readOnlyHint": false
+        }
+      },
+      {
+        "name": "get_users_list_memberships",
+        "description": "Get Users List Memberships",
+        "inputSchema": {},
+        "annotations": {
+          "readOnlyHint": false
+        }
+      },
+      {
+        "name": "get_users_mentions",
+        "description": "Get Users Mentions Each returned post includes a `url` deeplinking to it on x.com.",
+        "inputSchema": {},
+        "annotations": {
+          "readOnlyHint": false
+        }
+      },
+      {
+        "name": "get_users_owned_lists",
+        "description": "Get Users Owned Lists",
+        "inputSchema": {},
+        "annotations": {
+          "readOnlyHint": false
+        }
+      },
+      {
+        "name": "get_users_pinned_lists",
+        "description": "Get Users Pinned Lists",
+        "inputSchema": {},
+        "annotations": {
+          "readOnlyHint": false
+        }
+      },
+      {
+        "name": "pin_list",
+        "description": "Pin List",
+        "inputSchema": {},
+        "annotations": {
+          "readOnlyHint": false
+        }
+      },
+      {
+        "name": "unpin_list",
+        "description": "Unpin a List",
+        "inputSchema": {},
+        "annotations": {
+          "readOnlyHint": false
+        }
+      },
+      {
+        "name": "get_users_public_key",
+        "description": "Get public keys",
+        "inputSchema": {},
+        "annotations": {
+          "readOnlyHint": false
+        }
+      },
+      {
+        "name": "get_users_timeline",
+        "description": "Get Users Timeline Each returned post includes a `url` deeplinking to it on x.com.",
+        "inputSchema": {},
+        "annotations": {
+          "readOnlyHint": false
+        }
+      },
+      {
+        "name": "get_users_posts",
+        "description": "Get Users Posts Each returned post includes a `url` deeplinking to it on x.com.",
+        "inputSchema": {},
+        "annotations": {
+          "readOnlyHint": false
+        }
+      }
+    ],
+    "utility_tools": [
+      {
+        "schema": {
+          "name": "mcp__x__list_resources",
+          "description": "List available resources from MCP server 'x'",
+          "parameters": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        "handler_key": "list_resources"
+      },
+      {
+        "schema": {
+          "name": "mcp__x__read_resource",
+          "description": "Read a resource by URI from MCP server 'x'",
+          "parameters": {
+            "type": "object",
+            "properties": {
+              "uri": {
+                "type": "string",
+                "description": "URI of the resource to read"
+              }
+            },
+            "required": [
+              "uri"
+            ]
+          }
+        },
+        "handler_key": "read_resource"
+      }
+    ],
+    "ttl_ms": 0,
+    "written_at": 1792545970.6172125,
+    "cache_scope": "private"
+  },
+  "amap": {
+    "fingerprint": "c7ceb340d481bc1e",
+    "tools": [
+      {
+        "name": "maps_regeocode",
+        "description": "将一个高德经纬度坐标转换为行政区划地址信息",
+        "inputSchema": {},
+        "annotations": {
+          "readOnlyHint": false
+        }
+      },
+      {
+        "name": "maps_geo",
+        "description": "将详细的结构化地址转换为经纬度坐标。支持对地标性名胜景区、建筑物名称解析为经纬度坐标",
+        "inputSchema": {},
+        "annotations": {
+          "readOnlyHint": false
+        }
+      },
+      {
+        "name": "maps_ip_location",
+        "description": "IP 定位根据用户输入的 IP 地址，定位 IP 的所在位置",
+        "inputSchema": {},
+        "annotations": {
+          "readOnlyHint": false
+        }
+      },
+      {
+        "name": "maps_weather",
+        "description": "根据城市名称或者标准adcode查询指定城市的天气",
+        "inputSchema": {},
+        "annotations": {
+          "readOnlyHint": false
+        }
+      },
+      {
+        "name": "maps_search_detail",
+        "description": "查询关键词搜或者周边搜获取到的POI ID的详细信息",
+        "inputSchema": {},
+        "annotations": {
+          "readOnlyHint": false
+        }
+      },
+      {
+        "name": "maps_bicycling",
+        "description": "骑行路径规划用于规划骑行通勤方案，规划时会考虑天桥、单行线、封路等情况。最大支持 500km 的骑行路线规划",
+        "inputSchema": {},
+        "annotations": {
+          "readOnlyHint": false
+        }
+      },
+      {
+        "name": "maps_direction_walking",
+        "description": "步行路径规划 API 可以根据输入起点终点经纬度坐标规划100km 以内的步行通勤方案，并且返回通勤方案的数据",
+        "inputSchema": {},
+        "annotations": {
+          "readOnlyHint": false
+        }
+      },
+      {
+        "name": "maps_direction_driving",
+        "description": "驾车路径规划 API 可以根据用户起终点经纬度坐标规划以小客车、轿车通勤出行的方案，并且返回通勤方案的数据。",
+        "inputSchema": {},
+        "annotations": {
+          "readOnlyHint": false
+        }
+      },
+      {
+        "name": "maps_direction_transit_integrated",
+        "description": "公交路径规划 API 可以根据用户起终点经纬度坐标规划综合各类公共（火车、公交、地铁）交通方式的通勤方案，并且返回通勤方案的数据，跨城场景下必须传起点城市与终点城市",
+        "inputSchema": {},
+        "annotations": {
+          "readOnlyHint": false
+        }
+      },
+      {
+        "name": "maps_distance",
+        "description": "距离测量 API 可以测量两个经纬度坐标之间的距离,支持驾车、步行以及球面距离测量",
+        "inputSchema": {},
+        "annotations": {
+          "readOnlyHint": false
+        }
+      },
+      {
+        "name": "maps_text_search",
+        "description": "关键词搜，根据用户传入关键词，搜索出相关的POI",
+        "inputSchema": {},
+        "annotations": {
+          "readOnlyHint": false
+        }
+      },
+      {
+        "name": "maps_around_search",
+        "description": "周边搜，根据用户传入关键词以及坐标location，搜索出radius半径范围的POI",
+        "inputSchema": {},
+        "annotations": {
+          "readOnlyHint": false
+        }
+      }
+    ],
+    "utility_tools": [],
+    "ttl_ms": 0,
+    "written_at": 1792545975.6539116,
+    "cache_scope": "private"
+  }
+}

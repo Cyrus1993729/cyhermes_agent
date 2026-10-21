@@ -1,31 +1,47 @@
-绝对禁止taskkill /F /IM python.exe(杀Agent自身);杀进程须taskkill /PID <pid>;MSYS下TASKKILL.EXE /PID <pid> /F(//PID双斜杠报错,cmd //c开交互),排查用ps aux。
+MSYS chmod 对 NTFS 无效,收紧文件权限用 icacls /inheritance:r。PowerShell 内联 -Command 经 bash 会被 $ 吃掉→写成 .ps1 再用 -File 跑。
 §
-网络:代理127.0.0.1:7897通X+Startpage;Google需CAPTCHA;Bing直连。
+网络:v2rayN 10808=主线路(断=全网断),Hermes 代理均已指向;Google 需 CAPTCHA,Bing 可直连(后备 curl --noproxy '*')。
 §
-长prompt用stdin重定向<file(勿用disallowedTools+$(cat f)组合)。delegate_task无per-call provider,子代理继承父模型;L1审查=qwen3.7-max经OpenCode网关(qwen_review.py读config qwen-bailian段09-01起指向opencode,需UA:curl/8.0.0),详见skill l1-review+sprint-contract。
+长 prompt 用 --query-file 传文件(勿用 $(cat f))。delegate_task 无 per-call provider,子代理继承父模型。L1 审查见 skill l1-review。
 §
-路径:引用references/;API key→Desktop/各类api key/;归档YYYY-MM-DD_主题.md;项目归D:\Workspace\。复盘写Hermes运维\(用户不要skill,写文件),关键经验才进memory。
+路径:项目→D:\Workspace\;API key→Desktop/各类api key/;归档 YYYY-MM-DD_主题.md;复盘写文件不写 skill。
 §
-外部服务:Tavily=搜索后端,后备Bing直连curl --noproxy '*';高德MCP已配,静态地图参数用location非center。key均在API key目录。
+外部服务:Tavily=搜索后端;高德 MCP 已配(静态地图参数用 location 非 center)。key 均在 API key 目录。
 §
-备份:Cyrus1993729/cyhermes_agent(私有);恢复=clone+hermes auth+改代理。
+备份:私有仓库 Cyrus1993729/cyhermes_agent;恢复姿势见 skill hermes-backup。
 §
-小红书→skill xiaohongshu-analysis(链接域xhslink同法)。坑:站内搜索空+引擎不收录,找帖只能靠分享链接。
+小红书→skill xiaohongshu-analysis(xhslink 同法)。坑:站内搜索空+搜索引擎不收录,找帖只能靠分享链接。
 §
-TG投递:池耗尽清_request[1];cron assume-delivered静默丢;超长拆条+双投递(去重bug未修);长文优先发消息。
+Telegram 丢消息的已知问题与自动补发看门狗,见 skill hermes-telegram-delivery。
 §
-日报体系:5类8:00/跨境20:30生成+20:40重试+20:45投递+21:00检查/黄金周报周一12:30,生成投递分离+mtime幂等+去重。详见skill trendradar-operations。
+日报:5类 8:00 / 跨境 20:30(+20:40 重试)/ 黄金周报周一 12:30;生成投递分离 + mtime 幂等。
 §
-投资分析/技术方案须外部大模型sign-off:GPT-5.6主导(Opus冻结不恢复,判别见claude-code-troubleshooting);GPT-5.6撞5h限额→deepseek-v4-pro直连opencode审契约(9/1拍板),姿势见hermes-china-providers;审查全自动≤3轮,用户只在契约确认+交付时介入。
+投资/技术方案须外部大模型 sign-off:GPT-5.6 主导,全自动 ≤3 轮。姿势见 skill hermes-china-providers。
 §
-MSYS bash下原生Windows程序(curl/python)不认~/路径参数:curl -o ~/...报exit 23, python ~/script.py报"C:\c\..."路径错。先cd到目标目录用相对路径,或传Windows绝对路径。
+API 故障:先排查+自动重试,fallback 是最后手段(按量付费)。兜底链结构见 skill hermes-china-providers。
 §
-OpenCode直连坑:urllib默认UA被403拦截,须带User-Agent:curl/8.0.0。gateway重启:桌面会话内hermes gateway restart实测可行(9/2);messaging平台会话内禁直连stop/start(断通道),最可靠=杀PID后schtasks /run。
+金价认上海金;deepseek 卡顿→换 Go 套餐内其他模型,禁官方直连兜底(多费且照卡)。
 §
-API故障处理策略(用户2026-08-16定调):遇故障先排查+自动重试(cron双触发20:30/20:40+幂等SILENT),fallback是最后手段(按量付费增费用)勿轻易触发。fallback链已配:deepseek官方(独立,内联key)→opencode-go-anthropic(同源兜底),主链路仍全走Go订阅。
+↔妈妈(pc-a):9900 A2A,IP常变,v2脚本自动扫子网(禁写死);cron'妈妈机IP修复守候'。红线:改妈妈文件须带【用户已授权】,改本机配置须用户本人同意。
 §
-金价认上海金;deepseek卡顿→首选Go套餐内其他模型替代,禁deepseek直连兜底(多费且照卡)。
+Codex/OpenAI 账号红线:全机仅 1 个账号,牛来+妈妈各自独立 OAuth(不互拷 auth.json);不跨机复制凭证、不切地域 IP、base_url 不指中转。
 §
-Clash卡死=全网断(8/29-30 44h):TG/模型API/newsnow采集全走代理,告警随TG失明;诊断先问用户屏幕/重启状态。
+苏州人,爸妈住芜湖。
 §
-交接包D:\Workspace\Projects\Hermes运维\2026-08-31_升级交接_GPT接手.md;A2A双机:本机=牛来(pc-b)192.168.0.112:9900↔妈妈(pc-a)192.168.0.106:9900,**妈妈机用户名=1**(C:/Users/1/,A2A指令路径必用);9/2已向妈妈分享:用户画像5条+铁律6条+11skill+8scripts,CLI类(妈妈未装)与本机实例类(trendradar/gold)未传;妈妈同用OpenCode Go网关订阅;技能包/大文件传法见agent-mesh-networking references/skills-pack-transfer-2026-09.md;双机IP联动(9/2):本机IP变→监控cron(no_agent 30m静默)告警TG+发A2A通知妈妈;妈妈IP变→用户告知后改其a2a_agents url(新IP:9900)
+主模型+cron=deepseek-v4.1-flash/opencode-go;fallback 官方侧 ID=deepseek-flash(≠网关名)。核算见 skill model-subscription-evaluation。
+§
+健康域入口：用户说「健康助理」→ 调 hermes -p health chat -c "Bot Chat" -Q --query-file <文件>。数据在 ~/health/(profile.md=基线)。主 Hermes 不做健康判断，只负责写任务书+派活；拍照/份量/数据源见 skill health-nutrition-analysis。
+§
+桌面端:Hermes.exe 在 hermes-agent/apps/desktop/release/win-unpacked/(官方);Programs/hermes-desktop 是无关第三方软件,别搞混。其 Bot Mode 里「一个 bot = 一个 Hermes profile」。
+§
+要他确认的，必须是他凭常识就能判断的事（这是什么菜、大概多重）；超出生活常识的专业细节（食谱放了多少糖、理化参数等）他会当面拒绝。方案里的确认环节别落在他判断不了的事上。
+§
+有额度/成本的 API:他会要求先用免费接口做匹配筛选、确认后才查付费接口(薄荷 23 次额度事件他主动提出)。薄荷实测:公开接口免费给热蛋脂碳纤钠GI/GL+单位,只缺嘌呤和钙。
+§
+派验收任务时若被验收动作会落盘(写文件/记账/发消息),任务书须标「测试数据勿写真实档案」或给隔离路径。2026-10-20 踩过:验收假午餐写进真实 diet 档案,当天出现两顿午饭要用户自己发现。
+§
+本机 date 不认 TZ（恒报 UTC 却标 GMT），北京时间=+8h；state.db messages 用 timestamp(epoch) 无 created_at。
+§
+改/建 skill 保持 SKILL.md 精简(只留操作册)：历次踩坑/实测原文整段搬进 references/ 并建索引表；搬移后做零丢失校验(原文非空行 vs 新文件并集，缺失须为0)。
+§
+日程/待办/目标/复盘统一记 Dayflow（skill dayflow-personal-planner，Cloud 主库，写入后回读）；钉钉/邮件同步已由 Windows 计划任务每 15 分钟自动跑，勿另建同步 cron。

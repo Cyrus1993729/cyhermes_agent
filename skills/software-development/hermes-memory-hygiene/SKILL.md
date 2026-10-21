@@ -203,3 +203,4 @@ Run before manual cleanup to prioritize which entries to merge/delete.
 
 - `scripts/mem_gc.py` — 自动化记忆时效扫描器，标记 STALE/VOLATILE/SUPERSEDED/DUP
 - `references/skill-optimization-conventions.md` — **Skill 库优化三步法**（合并重复→统一描述→建立依赖）+ 工作流配方模板。增删 skill 时参照此文档。
+- `references/skill-slimming-zero-loss.md` — **SKILL.md 瘦身（按行区间拆 references + 零丢失校验）**。当某个 skill 超过 20KB、每次加载都要付几万 token 过路费、或用户要求「精简但一个字不能丢」时读这份：备份策略（重跑固定读原备份）、留/搬判据、`seg()` 切片、**原文非空行逐行覆盖校验**、feature-string 交叉校验，以及「第一次跑漏掉一整节」的实踩。

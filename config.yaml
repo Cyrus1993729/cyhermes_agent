@@ -1,19 +1,19 @@
 model:
   base_url: https://opencode.ai/zen/go/v1
-  default: deepseek-v4-flash
+  default: deepseek-v4.1-flash
   provider: opencode-go
 providers:
   qwen-bailian:
-    api_key: sk-4AI70ie7Av3sTsE4fDr0NqAbcocAdvdOwFGwwUzD26Ohjtz5bmYroUEW4hy3LrHu
+    api_key: oc_sk_c13bd3924f74_avobrATM7BoSjCs3f7CsjT7EQFmvhWas
     api_mode: chat_completions
     base_url: https://opencode.ai/zen/go/v1
   opencode-go-anthropic:
     base_url: https://opencode.ai/zen/go/v1
-    api_key: sk-4AI70ie7Av3sTsE4fDr0NqAbcocAdvdOwFGwwUzD26Ohjtz5bmYroUEW4hy3LrHu
+    api_key: oc_sk_c13bd3924f74_avobrATM7BoSjCs3f7CsjT7EQFmvhWas
     api_mode: anthropic_messages
 fallback_providers:
   - provider: deepseek
-    model: deepseek-v4-flash
+    model: deepseek-flash
     api_key: sk-3ed0dac2aefd47288b4a3074bc61428a
 toolsets:
   - hermes-cli
@@ -82,6 +82,7 @@ browser:
     adopt_existing_tab: false
     rewrite_loopback_urls: false
     loopback_host_alias: host.docker.internal
+  use_real_profile: true
 checkpoints:
   enabled: false
   max_snapshots: 20
@@ -397,18 +398,18 @@ moa:
   presets:
     default:
       reference_models:
-        - model: deepseek-v4-pro
+        - model: deepseek-v4.1-flash
           provider: opencode-go
       aggregator:
         provider: opencode-go
-        model: deepseek-v4-pro
+        model: deepseek-v4.1-flash
       max_tokens: 4096
       enabled: false
       reference_temperature: 0.6
       aggregator_temperature: 0.4
     china:
       aggregator:
-        model: deepseek-v4-pro
+        model: deepseek-v4.1-flash
         provider: opencode-go
       aggregator_temperature: 0.4
       enabled: true
@@ -420,13 +421,13 @@ moa:
           provider: opencode-go
       reference_temperature: 0.6
   aggregator:
-    model: deepseek-v4-pro
+    model: deepseek-v4.1-flash
     provider: opencode-go
   aggregator_temperature: 0.4
   enabled: true
   max_tokens: 4096
   reference_models:
-    - model: deepseek-v4-pro
+    - model: deepseek-v4.1-flash
       provider: opencode-go
   reference_temperature: 0.6
 skills:
@@ -487,7 +488,7 @@ telegram:
     rich_drafts: false
   enabled: true
   token: 8839546337:***
-  proxy_url: http://127.0.0.1:7897
+  proxy_url: http://127.0.0.1:10808
 mattermost:
   require_mention: true
   free_response_channels: ''
@@ -503,18 +504,21 @@ approvals:
   mcp_reload_confirm: true
   destructive_slash_confirm: false
 command_allowlist:
-  - command parser limit or malformed executable payload
-  - stop/restart hermes gateway (kills running agents)
-  - recursive delete
-  - script execution via -e/-c flag
-  - delete in root path
+  - Windows cmd destructive delete
   - overwrite project env/config via redirection
+  - shell command via -c/-lc flag
+  - force kill processes (Stop-Process -Force)
+  - PowerShell encoded command execution
+  - delete in root path
+  - recursive delete
   - access to Hermes secrets (Windows path)
-  - execute_code
+  - script execution via -e/-c flag
+  - stop/restart hermes gateway (kills running agents)
+  - force kill processes (taskkill /F)
+  - command parser limit or malformed executable payload
   - script execution via heredoc
   - overwrite project env/config file
-  - shell command via -c/-lc flag
-  - PowerShell encoded command execution
+  - execute_code
 hooks_auto_accept: false
 security:
   allow_private_urls: false
@@ -530,7 +534,7 @@ security:
   acked_advisories: []
   allow_lazy_installs: true
 cron:
-  model: deepseek-v4-flash
+  model: deepseek-v4.1-flash
   model_provider: opencode-go
   provider: ''
   chronos:
@@ -570,7 +574,6 @@ logging:
 model_catalog:
   enabled: true
   url: https://hermes-agent.nousresearch.com/docs/api/model-catalog.json
-  ttl_hours: 1
 network:
   force_ipv4: false
 gateway:
@@ -635,12 +638,12 @@ paste_collapse_threshold_fallback: 5
 paste_collapse_char_threshold: 2000
 computer_use:
   cua_telemetry: false
-_config_version: 33
+_config_version: 40
 platforms:
   telegram:
     enabled: true
     token: 8839546337:***
-    proxy_url: http://127.0.0.1:7897
+    proxy_url: http://127.0.0.1:10808
     reactions: false
     channel_prompts: {}
     allowed_chats: ''
@@ -659,8 +662,8 @@ mcp_servers:
       - mcp
       - https://api.x.com/mcp
     env:
-      HTTPS_PROXY: http://127.0.0.1:7897
-      HTTP_PROXY: http://127.0.0.1:7897
+      HTTPS_PROXY: http://127.0.0.1:10808
+      HTTP_PROXY: http://127.0.0.1:10808
       CLIENT_ID: NXVEa0hnOUNhbE1xdHBfOTlnLW86MTpjaQ
       CLIENT_SECRET: nAhLlXCCWMfVS9xTV2RUbQJmg1hJBq0sz6RiDVqIHA2oCAdxAN
     enabled: true
@@ -778,7 +781,7 @@ known_builtin_toolsets:
     - yuanbao
 a2a_agents:
   妈妈:
-    url: http://192.168.0.106:9900
+    url: http://192.168.0.113:9900
     auth:
       type: bearer
       token: 5lVF1ULvvXh0-Syeh9vGSSzT51zQeWk4g3rPNqR1ud4
