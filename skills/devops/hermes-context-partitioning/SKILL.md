@@ -106,6 +106,99 @@ hermes profile list
 
 给用户时把「反着做才亏」讲清楚：先建 bot 再发现不需要，拆比建麻烦。
 
+## 多通道软分工：同一 profile 里的「小秘书 + 总管」（2026-10-21 实做）
+
+用户想让「微信 = 日程小秘书，Telegram = 总管」，同一个模型两种角色。
+
+### 硬约束先说清楚
+
+- **一个 profile 每个平台只能配一个凭据。** 微信 iLink bot 是扫码绑定的设备身份，
+  想给微信单独挂一个独立小秘书实例**做不到**（要第二个微信号去扫码）。
+- 只能走**软分工**：同一套 skill / memory / config，靠**会话隔离 + 规则约束**区分角色。
+  **拦不死**——越界是可能的，所以必须有第三层「事后发现」，不能只靠规则。
+
+### 平台消息的真实路由（实测，别向用户描述错）
+
+用户曾以为「所有消息 agent 都看得见，只是决定从哪个通道回」。**不是**：
+
+- 每个平台的消息进**各自的 session**，上下文不共享
+- 回复**自动回到原平台**，由网关路由决定，agent 不选通道
+- 微信里说的话，Telegram 会话里的 agent **不会自动知道**，得主动查 `state.db`
+- **唯一由 agent 选通道的**是 cron 的 `deliver`
+
+实测证据（2026-10-21）：微信 `09:58:51 在吗` 由微信 session 回「在。你说。」，
+同一时刻 Telegram session 里完全没有这条。两个 session id 不同、`source` 不同。
+
+### 三层实现
+
+1. **角色定义进 memory** —— 跨会话注入，微信会话每次启动都读到「你是日程秘书」
+2. **流程进 skill** —— 共享目录，两个会话都能加载同一套操作手册
+3. **事后可观测** —— 两个来源：
+   - **硬数据**：所有操作必须落外部主库（如 Dayflow），查库即知对方改了什么，不靠对话同步
+   - **软信息**：对话里说了什么，靠 cron 定时扫 `state.db` 的对方会话，摘要落盘 +
+     「对话里提到但库里没落地」的差异告警
+
+> 为什么用「扫数据库」而不是让秘书自己写交接？**秘书可能漏写，数据库它绕不过去。**
+
+### 🔴 让老会话「学会」新规则：必须重建会话（2026-10-21 实测）
+
+写完规则、装完技能，**老会话依然按老办法干活**——不是不听话，是它根本没被告知。
+
+Hermes 的 system prompt 在一个会话生命周期内 **byte-stable**（prompt caching 要求），
+memory 与 skill 清单都在里面。所以：会话建好之后，**新写的 memory 进不去，新装的 skill 也不在它的清单里**。
+
+本例症状：给微信会话定好角色与操作手册（description 里明写「禁止自建 cron 充当提醒」）后，
+它连续两次把「下午5点提醒我」做成自建 cron，完全没提目标系统，主库里零记录。
+
+一眼诊断：
+
+```python
+# state.db 里看会话年龄 + system_prompt_hash
+SELECT id, source, started_at, system_prompt_hash FROM sessions
+ORDER BY last_activity_at DESC LIMIT 6
+```
+
+`started_at` 是三个月前、`system_prompt_hash` 与新建会话不同 → 就是它。
+
+修复：删掉老会话，下次来消息自动按最新 system prompt 重建
+
+```bash
+hermes sessions delete <session_id> --yes
+```
+
+三条规矩：
+
+1. **改 memory / 装 skill = 只对之后新建的会话生效**；要立即生效必须重建会话
+2. **先查会话年龄，再改文案**——会话太老时改十遍文案也读不到
+3. **验证用行为，不用自述**：让对方真跑一次，再回查主库有没有对应写入
+
+完整诊断路径、证据与 export 参数坑见 `references/session-system-prompt-freeze.md`。
+
+### 不同通道的汇报口径必须分开
+
+角色不同，汇报风格也得分开——同一个 agent 在两个通道里不该用同一种语气：
+
+| | 总管通道（如 Telegram） | 秘书通道（如微信） |
+|:--|:--|:--|
+| 过程 | 分步汇报、边说边做 | **只讲结果，不报过程** |
+| 长度 | 不限 | 单条 ≤900 字（iLink 1800 字才拆块，拆块既丢内容又烧额度） |
+| 格式 | 可用加粗/列表 | 纯文本，不用表格分隔线 |
+
+两条硬规矩：
+
+1. **角色定义必须同时写进 memory**，否则新会话会按默认习惯在微信里刷屏。
+2. 🔴 **写操作必须先回读成功再回话。** 微信端没有「正在处理」的过程播报，
+   用户只看得到最终结果——先说「已保存」再去改，一旦失败用户根本无从发现。
+
+### 查另一通道说了什么
+
+```python
+# state.db：sessions 按 source 区分平台；messages 按 session_id 取
+SELECT id, source, chat_id, last_activity_at FROM sessions ORDER BY last_activity_at DESC
+SELECT role, content, timestamp FROM messages WHERE session_id = ? ORDER BY timestamp DESC
+```
+`timestamp` 是 epoch 秒，北京时间 = `utcfromtimestamp(ts + 8*3600)`；`messages` 表**没有** `created_at`。
+
 ## Memory 预算
 
 独立 profile 的**真实好处之一**是独立 memory 预算（本用户 memory 已近满：
@@ -160,6 +253,10 @@ Telegram 里打 `@名字` 也不会触发（`@` 解析在 `apps/desktop/`）。
 - 🔴 **不要一上来就答应建 bot。** 先讲清「专业度来自沉淀」，再给分层方案。
 - 🔴 **子 profile 的记忆里不要复制基线数据**（体重/指标/目标）——必然漂移；
   memory 只留指针，数据放档案文件。交接后务必回读核验，别信它的自报。
+- 🔴 **别把「规则已经写进去了」当成「它已经知道了」。** 老会话的 system prompt 是固化的，
+  新 memory / 新 skill 进不去；要让某平台会话立刻采纳新流程，必须 `hermes sessions delete` 重建。
+- 🔴 **运维告警类 cron 不要用 `deliver=origin`**：origin 跟着创建时所在平台走，很容易落到
+  额度有限的通道（本例备份失败通知一直发微信，微信限流后又失败，双重静默）。显式写目标平台。
 - 🔴 **不要推荐要打命令的切换方式**（见「零手动切换」）。
 - 🔴 **别承诺「定时任务每天跟你讨论计划」**：Hermes cron 无人值守、无交互，只能单向推送。
   正确拆法——cron 生成并**落盘**草案 + 推送里带可回复的问题，**真正的讨论发生在用户回复后的交互会话**。
@@ -173,6 +270,9 @@ Telegram 里打 `@名字` 也不会触发（`@` 解析在 `apps/desktop/`）。
 - 汇报用 bullet / 标签行，不用 markdown 表格（Telegram 不渲染表格）。
 
 ## 参考
+- `references/session-system-prompt-freeze.md` — 会话 system prompt 固化：新 memory/skill
+  不进老会话的完整诊断、`sessions` 表查询、`hermes sessions delete` 修复法、export 参数坑、
+  以及 `cron deliver=origin` 误投通道的排查。
 - `references/telegram-dm-topics.md` — DM 话题的源码核实行为：配置格式、
   自动建话题、thread_id 回写、话题级 skill 绑定、独立 session 的路由证据。
 - `gateway-setup` — 平台接入与凭据（本 skill 是「接了之后怎么分域」）。

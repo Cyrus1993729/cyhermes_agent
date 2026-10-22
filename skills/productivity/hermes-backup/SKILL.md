@@ -101,6 +101,21 @@ profiles/**/auth.json
 > ⚠️ `!config.yaml` 是另一颗雷：config.yaml 里 `api_key:` 是明文真钥匙，
 > 放行它 = 密钥进备份仓库。要么备份前脱敏，要么整个不放行。同样见上述 reference。
 
+#### config.yaml 脱敏提交（2026-10-21 已落地并验证）
+
+`scripts/backup_git.py` 已内置脱敏，机制是**不碰工作区文件**：
+
+1. `git add -A` 正常暂存
+2. 读工作区 config.yaml → 行级正则把 `api_key/api_secret/access_key/secret_key/secret/token/password` 的值替换成 `"***REDACTED***"`
+3. `git hash-object -w --stdin` 写入脱敏内容成 blob，再用 `git update-index --add --cacheinfo 100644,<blob>,config.yaml` 覆盖 index 条目
+4. 提交前**回读 `git show :config.yaml`** 自查，若仍匹配 `oc_sk_…/sk-…/sk-ws-…` 特征则**中止提交并报警**（宁可备份失败也不泄露）
+
+实测（2026-10-21）：远程版本真实密钥 0 处、REDACTED 6 处（3 个 api_key + 3 个 token），YAML 结构完全一致，工作区原文件仍有 3 处真 key，Hermes 运行不受影响。
+
+🔴 **副作用必知**：`git status` 会**永远显示 `config.yaml` 已修改**（index 是脱敏版、工作区是真版）。这不是没提交，不要去 `git add` 或 `git checkout` 它。
+
+🔴 **恢复时**：克隆回来的 config.yaml 里 `api_key` 全是 `***REDACTED***`，必须手动重新填真实密钥。
+
 ### 2. 首次配置
 
 ```bash

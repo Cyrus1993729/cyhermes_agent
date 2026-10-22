@@ -101,6 +101,39 @@ send(text):
 - 真的需要长内容（报告、清单）→ 微信发一句摘要 + 问要不要发到 Telegram
 - 用户对机制的直觉可能不准（他以为是「连续发超过 10 条会丢」，实际是**每轮总额度 10 条、分块也算条数**）——纠正时给机制，别只附和
 
+## 🔴 通知路由：什么该走微信，什么不该（2026-10-21 用户明确定调）
+
+用户原话：「后续如果再有备份失败这种事，应该是通过 telegram 通知我，而不是微信了」
+
+| 类别 | 通道 | 例子 |
+|:--|:--|:--|
+| 日程 / 待办 / 复盘（秘书域） | **微信** | 07:30 早报、开始前 15 分钟提醒、21:30 收尾 |
+| 运维 / 故障 / 备份 / 日报（总管域） | **Telegram** | git 备份失败、Memory 体检、API 健康、IP 监控、跨境与五类日报 |
+
+**为什么不能混**：微信每轮只有 10 条额度。运维告警一旦堆在微信，会把真正要送达的日程提醒挤掉——
+2026-10-20/21 实测就是备份失败通知和日程推送抢同一份配额，两边都可能丢。
+
+### 🔴 审计陷阱：`deliver=origin` 的 origin 可能指向微信
+
+只改 `deliver` 不够。`deliver=origin` 表示「投回任务创建时所在会话」——如果那个 origin 是微信，
+任务照样往微信发，而 `hermes cron list` 里看不出异常。
+
+```python
+# 必须同时检查 origin.platform，不能只看 deliver
+import json
+d = json.load(open(r'C:\Users\Administrator\AppData\Local\hermes\cron\jobs.json', encoding='utf-8'))
+for j in d['jobs']:
+    o = (j.get('origin') or {}).get('platform')
+    if j.get('deliver') == 'origin' and o == 'weixin':
+        print('仍会投微信:', j.get('name'))      # ← 改 deliver 为 'telegram'
+```
+
+本机 2026-10-21 就是这么揪出两个漏网的：**Hermes Git 自动备份**、**每周 Memory 体检**，
+两者都是 `deliver=origin` 且 origin=weixin，失败通知一直往微信发。
+改完复查口径：`deliver=origin 且 origin=weixin` 的应剩 **0 条**。
+
+> 新建运维类 cron 时**显式写 `deliver='telegram'`**，不要依赖 origin。
+
 ## 问题清单
 
 | 问题 | 症状 | 根因 |
@@ -296,8 +329,8 @@ async def send(...):
 | 备份 cron ID | `5b4b88f1f8bf` |
 | 备份脚本 | `backup_git.py`（`.py` — `no_agent` cron 在 Windows 上必须用 Python） |
 | 执行时间 | `0 8 * * *`（每天 8:00。凌晨错峰方案已讨论但未执行，错峰可进一步降低碰撞概率） |
-| 投递策略 | `deliver='weixin'` + 凌晨错峰 + 静默成功 |
-| 脚本位置 | `~/.hermes/scripts/backup_git.py` |
+| 投递策略 | ~~`deliver='weixin'`~~ → **2026-10-21 已改 `deliver='telegram'`**（微信只留日程提醒，见上方「通知路由」） |
+| 脚本位置 | `~/AppData/Local/hermes/scripts/backup_git.py`（**不是** `~/.hermes/`，后者在 Windows 下不存在） |
 
 ## 相关技能
 
