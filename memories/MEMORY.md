@@ -1,4 +1,4 @@
-MSYS chmod 对 NTFS 无效,权限用 icacls /inheritance:r。PowerShell -Command 经 bash 会吃 $,写成 .ps1 用 -File 跑。
+PowerShell 经 bash 会吃 $ 和 -e 内双引号,写 .ps1/.mjs 跑。
 §
 网络:v2rayN 10808=主线路,已全局指向;Google需CAPTCHA,Bing可直连(curl --noproxy '*')。
 §

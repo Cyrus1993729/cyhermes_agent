@@ -56,6 +56,7 @@ tags: [deployment, self-hosted, docker, uv, windows, china-network, gpt56-review
 5. **分级验收，顺序不能跳**：`verify`（manifest 全量 sha256）→ `smoke`（导入/解析）→ 只读 `auth status` **一次** → 才轮到 `preflight`。任务书说「本轮不激活、不同步」时，收尾必须复核：`home-enabled.json` 不存在、`work-sync.lock` 不存在、`Get-ScheduledTask` 查无任务。
 6. **凭据零输出**：`auth status` 只取 `authenticated` / `corp_id` / `user_id` 的布尔，不回显 token、expires、配置文件内容、设备码或设备链接；回执只给计数与布尔。
 7. **回执给原始输出**，不转述：apply/verify/smoke 的 JSON 原文 + 落盘的 preflight JSON 全文；失败只报错误和发生在哪一步，不猜原因。
+8. **装后复核（peer 回执超时、只要求核对时）**：先读 `install-result.json` 定「已完成/仍在跑」，再验当前 manifest 的全量文件（**manifest 自身 hash 变了属预期**，旧 hash 应等于备份副本里的那份）+ 计划任务数字状态（`267009`=正在运行）+ `home-enabled.json` 哈希未变 + `work-sync.lock` 的 pid 是否已死（残留锁只报不删）+ 技能成对标记 + `client categories` 只读列表。全程不写入、不重启、不重跑验收脚本，输出 ≤10 行脱敏。详见 `references/controlled-patch-rollout.md` 的「装后只读复核」。
 
 **同一安装根下的技能包安装**（`deployment/Install-HermesSkill.ps1` 这类）：先读脚本确认它只写 `$hermesHome\skills\<category>\<name>\SKILL.md`，再用安装自带的 pwsh7 执行，不重启网关。「装好了」的判据是 `skills_list` 能列 + `skill_view` 能读回全文（本机实测**无需新会话**；脚本回执的 `reloadRequired:true` 偏保守），不是文件存在；顺手核 `hermes/config.yaml` 的 mtime 未变。只读查询走技能里写死的 `home.mjs client <op>`，输出落 `runtime/.local/a2a-out/` 并用 `icacls` 收紧（MSYS chmod 在 NTFS 无效），回执只给计数。详见 `references/controlled-patch-rollout.md`。
 

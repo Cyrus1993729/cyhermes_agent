@@ -86,7 +86,7 @@ Pitfalls：
 | 后台连接配置 | `<release>/runtime/.local/hermes-cloud-connection.json` 不存在 = 未配置 |
 | 同步激活标记 | 同目录 `home-enabled.json` 不存在 = 未激活（`pause` 会改名 `home-disabled-<ts>.json`） |
 | 计划任务 | `schtasks /Query /FO CSV \| grep -i <任务名>`，无输出 = 未注册 |
-| 运行锁 | 同目录 `work-sync.lock` |
+| 运行锁 | 同目录 `work-sync.lock`（**每轮瞬时锁**，跑完即删；单次看不到属正常，判活看 `work-automation-status.json` 的 `finishedAt`） |
 
 坑：
 - 🔴 **过期公钥请求直接重跑 `connection-request`，别手工删文件**：该 op 幂等——请求件仍有效则原样返回旧的，过期才新生成密钥对并覆盖 `connection-request-private.pem`。本次旧件 `2026-10-20T14:52:42Z` 已过期，重跑即得新件（30 分钟有效期）。
@@ -136,6 +136,25 @@ Pitfalls：
 - **回执脱敏**：报 homeId/bundleId、执行程序与 Arguments 路径、触发器（`PT1M` + `AtLogOn`）、首次完整运行的各段**计数**（mail observed 16、bodyFailures 0、backup bytes/items）、最近 N 条状态摘要；**不回** signature、回填密钥、邮件标题全文、连接秘密。
 - **发现字段缺失先分类**：是「这文件本来不装这字段」还是「真失败」——报告缺失 + 安装进程状况，把下一步交回对方，不自行恢复旧端、不重跑安装。
 - 完整脚本与输出映射：`references/runtime-audit-2026-10-21.md`。
+
+## 升级前只读预检：三层 manifest 一致性（2026-10-22 实案，Dayflow 类别 API 升级）
+
+场景：协调端/A2A peer 要先发一份只读预检（release 路径、manifest SHA256、files 数量、同步任务状态、有无锁、技能文件位置、与某补丁是否一致），再给增量包。
+
+四条要点：
+
+1. **manifest 有三层，别只看两层**：根 `<AppHome>/manifest.json`=安装基线（**打补丁后常没人回写，会落后**）、`releases/<bundle>/manifest.json`=运行态真相、`patches/<p>/extracted/manifest.json`+`patch.json`=补丁期望态。
+   判读：release 逐文件全通过 + 根 == `patch.json.oldManifestSHA256` ⇒ **补丁已落地、根基线没回写，不是损坏/篡改**。讲成「manifest 不一致」会让对方按被篡改去回滚，那才是事故。
+   任何增量包都要含「根 manifest 回写对齐」，否则每打一次补丁留一个错基线。
+2. **「实际在跑哪个 release」只看计划任务 Action**（`(Get-ScheduledTask -TaskName X).Actions`），不凭目录名 / mtime / 「releases 下只有一项」推断。
+3. **`work-sync.lock` 是每轮瞬时锁**（`{pid,at,token}`）：单次 `ls` 看不到 ≠ 没在跑，看到残留 ≠ 卡死。同周期采两次，或看 `work-automation-status.json` 的 `finishedAt` 是否推进。`token` 不得转录；别与 DWS 自身 `.data.lock/.audit.lock` 混谈。
+4. **技能文件位置报三处**：包内模板 `deployment/<app>-skill.md`（恒原始版）、`<AppHome>/skills/`（可能空目录）、真正生效的 `…/hermes/skills/<cat>/<skill>/SKILL.md`——并点明哪个生效。
+
+其他：`LastTaskResult=267009`(0x41301)=正在运行，不是错误码；评估新需求差距要落到函数级（本次 `categories.ts`：默认四类硬编码、只有 create 无 update/delete、`validateCategoryReferences` 可复用），别只说「需要改造」。
+
+只读边界落地：自写脚本放 `%LOCALAPPDATA%/Temp/`、回执放 `…/hermes/state/a2a/<date>_<topic>.md`，**不写 AppHome 一个字节**；不停任务、不动锁、不联网（云端接口状态只能标「历史记录，非本次实测」）。回执可带路径/sha256/文件数/任务状态；不可带 token、cookie、DWS 凭据、邮件或日程正文、`.local/` 内业务 JSON 内容。收尾要给出「增量包到位后的顺序：备份 → 停任务 → 落文件 → 根 manifest 对齐 → 逐文件校验 → 只读回读 → 启任务」。
+
+工具与实录：`scripts/verify_manifest.py triage <AppHome>`（只读体检三层 manifest）、`references/manifest-integrity-precheck-2026-10-22.md`。
 
 ## 受控写入验收：幂等双发 + 基线 diff（2026-10-21 实案，Dayflow HD.4）
 
@@ -208,6 +227,47 @@ $DWS mail +recent-mail / +unread-mail
 
 详见：`references/dws-auth-readonly-verify-2026-10-21.md`。
 
+## 增量补丁落地：停任务 → apply → finally 恢复（2026-10-22 实案，Dayflow 类别 API v1）
+
+场景：预检通过后协调端（A2A peer）发来无凭据增量包 = `apply.mjs` + `patch.json` + 若干改动文件 + 新 `manifest.json` + `skill-append.md`，要求只替换受清单约束的文件、停用计划任务后应用、**无论成败都恢复任务启用**。
+
+1. **先在解压目录做双向哈希核对（不碰目标）**：`patch.json.changes[].after` == 载荷文件 sha256、`changes[].before` == 目标现有文件 sha256、`manifest.json` sha == `newManifestSHA256`；再比对新旧 manifest 的 `files` —— **只有 changes 里那几条路径不同**，其余条目哈希不变（本次 52 条中恰 6 条）。这条能抓出「补丁顺手多改文件」。
+2. **先读安装器的 gate 再动手**：apply.mjs 会拒绝的四种状态 —— 目标 basename 不符、homeId/bundleId 不符、manifest 既非 old 也非 new、**`work-sync.lock` 存在**、PowerShell 查到 `Settings.Enabled=true` 或 `State=Running`。所以必须先停任务，且**绝不删锁/杀进程**，等它自然结束。
+3. 🔴 **停用与恢复写进同一个 try/finally（一个脚本内）**，不要拆成三次工具调用：`catch` 记错误，`finally` 无条件 `Enable-ScheduledTask` + 回读 `Enabled/State/Action[0].Execute|Arguments`。拆开调用时中途失败会把任务永久留在 Disabled。
+4. **等待自然结束**：循环判 `State != Running` 且 `!exists(work-sync.lock)`，上限 120 s；超时就恢复 Enabled 并回报「暂不安装」，别硬上（本次 12 s 就绪）。
+5. **用该程序自带的独立 Node 24** 跑安装器（`tools/node24/node.exe apply.mjs <release>`），不用 Hermes 自带 node v22 —— manifest 的 `runtimeDependencies` 写明 Node>=24.14。
+6. **装完按顺序核**：release manifest == `newManifestSHA256` → `verifyManifest(release)` 52/52 → 私有配置 6 个 json 哈希逐个与 before 相同（`home-deployment/home-enabled/hermes-cloud-connection/calendar-automation/cutover-permit/runtime-paths`）→ 技能文件**前缀逐字节**等于安装器备份的旧 SKILL.md（`cur.startswith(bk)` + 前缀 sha == 旧 sha）→ 根离线副本 `verifyManifest(AppHome)` 仍 51/51。
+7. 🔴 **别把 release 的新 manifest 复制到根目录**：根目录那份是离线原始副本（配 51 个原文件），单换 manifest 会让它与文件不匹配、`verifyManifest` 立刻失败。要「根基线对齐」只能是另一次带全量文件的回写，不是拷一个 json。
+8. 允许等一次自然分钟轮（PT1M 任务）确认 `work-automation-observation.jsonl` 新行 `error:null`，不必手动触发完整同步，也不用手动跑 work-runner。
+9. **回执口径**：ZIP 字节+SHA、6 文件双向哈希结论、manifest 前后 SHA + 52/52、任务 Enabled 前后与 Action 未变、私有配置哈希未变、技能前缀完整、业务计数（items/goals/reviews 只读计数）、临时验收对象已清理。**不给**凭据、日程/邮件正文、`.local/` 业务内容。
+
+坑：
+- **判任务状态别用 `schtasks /query /xml`**（UTF-16 + 中文乱码），用 PowerShell `Get-ScheduledTask`：`$t.Settings.Enabled` / `[string]$t.State`。
+- 安装器自建备份目录 `<release>/runtime/.local/<patch>-backup-<ts>`（含 manifest + 旧 SKILL.md + 被替换文件）：前缀比对与回滚都靠它，别自己另建一套。
+- **`patch.json.sourceCommit` 可能与新 manifest 里的 `sourceCommit/sourceSiteVersion` 不一致**（本次 manifest 两版都还是 `975d898…`/v30，只有 patch.json 带 `791e83f…`）：功能无影响，但回执要点出「元数据没同步」，交回协调端下版修正，不要自己改 manifest。
+- 补丁自带的内存 smoke（`emptyState` → `category.patch` → 删到最后一个必须抛 `last_category`）若失败会整体回滚并抛错：用 `applyStdout`/`applyExit` 原样记录，别只看「exit 0」。
+
+工具与实录：`templates/apply_patch_guarded.mjs`（可改路径的 stop→apply→finally-restore 运行器）、`references/incremental-patch-apply-2026-10-22.md`（apply.mjs gate 原文、验收命令、类别 CRUD 幂等实测、回执 JSON 结构）。
+
+### 第二轮及之后的最小补丁（v2：只换一个 .ts，2026-10-22 实案）
+
+同一个安装器连发第二个包时，前一轮的模板只需三处收紧：
+
+1. 🔴 **顺序改「先停触发器 → 再等在途结束」**（v1 模板是先等后停）。apply.mjs 同时要求 `Enabled=false` 且无锁，先停能防止等待期间新的一轮被触发、把 120 s 等待预算耗光。实案：先停在 20 s 内拿到 `Ready` + 无锁。
+2. 🔴 **`applyStdout.skillAppended:true` 是硬编码字面量，不代表真追加**。判「技能没被重复追加」要自己数 mark 开/闭各 1，并比对前后 `sha256(SKILL.md)` 未变（本次两轮都印 true，但第二轮确实没写文件）。
+3. 🔴 **别用 mtime 判断文件是否落地**：`copyFileSync` + `rename` 保留源文件时间戳（本次目标 `categories.ts` 装完 mtime 仍是解压时刻）。只认 sha256 == `newManifestSHA256` 里该文件的哈希。
+
+严格类型类补丁的验收（本次 v2 只改 `runtime/lib/categories.ts`，拒绝颜色/图标传数组或对象）：
+- 在**内存 emptyState** 上跑，不落库：`import` 目标 release 的 `domain.ts` + `categories.ts`，`mutate(s,'category.patch',{id:'work',color:['teal']})` → 必须抛 `DomainError`；判 `e.status === 400`（`DomainError` 第二参数就是 status），`e.name`/`instanceof` 双判更稳。再断言 `s.settings` 与 `emptyState().settings` 相同（拒绝时不能半写入）。
+- 同一脚本顺手做 `verifyManifest(release)` 计数核对（52 声明 == 52 实到）。
+- 未覆盖到的类型用例不必重复造：协调端已在正式环境实测过就只测它点名的那一两条。
+
+调用 client 的 PATH 坑：`runtime/scripts/http-request.mjs` 用 `spawn('pwsh', …)`，PATH 里没有 pwsh 时报 `PowerShell 7 is required for Windows HTTP requests`（不是网络问题、也不是 client 坏了）。修法：调用前 `PATH=<AppHome>/tools/pwsh7:$PATH`（该目录就有 `pwsh.exe`），再跑 `node24 runtime/scripts/hermes-cloud.mjs categories`；只读 GET 无需 request-id。
+
+私有配置哈希比对：沿用 6 个 json（`home-deployment / home-enabled / hermes-cloud-connection / calendar-automation / cutover-permit / runtime-paths`），**在内存里比 before/after、只回布尔**，不写哈希也不写内容；不要拿旧的 0 字节 config 基线当参照。
+
+残留锁：`runtime/scripts/work-lock.mjs` 的 `acquireRunnerLock` 在确认旧 PID 已不存在时会自动回收，返回 `{skipped:'active_runner'}` 说明真有活进程。所以**先核对「锁文件是否存在 + status 文件 finishedAt 是否推进」，等待一次自然分钟轮即可**；不手删、不强杀、不改锁算法。
+
 ## 交付物清单（本类任务的验收）
 - D1 代码+依赖跑通（具体命令 + 退出码 0）
 - D2 密钥安全（config 无明文；密钥独立文件被 gitignore）
@@ -226,6 +286,12 @@ $DWS mail +recent-mail / +unread-mail
 - `scripts/state-baseline-diff.js` — 通用基线比对：两份 state JSON → 计数/新增/缺失/变更（标题只输出哈希）
 - `references/runtime-audit-2026-10-21.md` — 启用后的运行期只读审计：计划任务 PowerShell 脚本、status/observation/work-host 三份文件的字段映射与判定阈值
 - `references/natural-cycle-observer-2026-10-21.md` — 自然轮次观察器：只读 observation.jsonl 的验收脚本源码、隐藏启动 + 两级 PID、进程假阳性排查、首轮 receipt 判读
+- `references/manifest-integrity-precheck-2026-10-22.md` — 升级前只读预检：三层 manifest 判读、release 归属核对、瞬时锁采样、技能文件三处、函数级差距评估
+- `references/incremental-patch-apply-2026-10-22.md` — 增量补丁落地实录：apply.mjs gate 条件、停/恢复任务运行器、6 文件双向哈希、装后八项核对、类别 API 客户端用法与幂等实测、脱敏回执结构
+- `references/incremental-patch-apply-v2-2026-10-22.md` — 第二轮最小补丁（单文件 .ts）实录：先停后等顺序、skillAppended 假信号、mtime 不可信、严格类型 400 内存探针、pwsh PATH 修法
+- `scripts/postinstall_verify.mjs` — 补丁装后验证器（manifest 计数 + client 只读回读 + 内存严格类型探针，只落脱敏 JSON）
+- `templates/apply_patch_guarded.mjs` — 增量补丁运行器模板（等空闲 → 停任务 → apply → finally 恢复 → 落 install-result.json）
+- `scripts/verify_manifest.py` — 通用 manifest 只读校验器（verify / diff / triage，不写不联网）
 - `scripts/log_freshness_watchdog.py` — 通用日志新鲜度看门狗模板（参数化，复制改 BASE/LOG/START_CMD 即可）
 - `templates/start_service.bat` — 启动脚本模板（PYTHONPATH 清理 + 密钥加载 + 日志重定向）
 

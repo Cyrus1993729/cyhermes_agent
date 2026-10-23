@@ -3,6 +3,14 @@
     "fingerprint": "d4a26e5e1bf0665a",
     "tools": [
       {
+        "name": "article_create_draft",
+        "description": "Create draft Article",
+        "inputSchema": {},
+        "annotations": {
+          "readOnlyHint": false
+        }
+      },
+      {
         "name": "list_broadcasts",
         "description": "List broadcasts",
         "inputSchema": {},
@@ -780,7 +788,7 @@
       }
     ],
     "ttl_ms": 0,
-    "written_at": 1792591068.548128,
+    "written_at": 1792671886.2741773,
     "cache_scope": "private"
   },
   "amap": {
@@ -885,7 +893,7 @@
     ],
     "utility_tools": [],
     "ttl_ms": 0,
-    "written_at": 1792591071.4638665,
+    "written_at": 1792671889.3022678,
     "cache_scope": "private"
   }
 }

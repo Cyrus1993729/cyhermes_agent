@@ -1,6 +1,6 @@
 {
 "https://opencode.ai/zen/go/v1":{
-"at":1792591095.704098,
+"at":1792671791.5194707,
 "models":{
 "deepseek-v4.1-flash":{
 "name":"deepseek-v4.1-flash"
@@ -88,9 +88,6 @@
 },
 "longcat-2.0":{
 "name":"longcat-2.0"
-},
-"longcat-2.5-preview-free":{
-"name":"longcat-2.5-preview-free"
 },
 "step-5-preview":{
 "name":"step-5-preview"

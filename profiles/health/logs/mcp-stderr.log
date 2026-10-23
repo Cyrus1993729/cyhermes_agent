@@ -334,12 +334,9 @@ CP Server running on stdio
 [xurl mcp] request error (retrying): Post "https://api.x.com/mcp": net/http: TLS handshake timeout
 [xurl mcp] request error (retrying): Post "https://api.x.com/mcp": net/http: TLS handshake timeout
 [xurl mcp] request error (retrying): Post "https://api.x.com/mcp": net/http: TLS handshake timeout
-
-===== [2026-10-21 17:09:24] starting MCP server 'x' =====
-[xurl mcp] bridging stdio <-> https://api.x.com/mcp
-
-===== [2026-10-21 17:09:28] starting MCP server 'amap' =====
-Amap Maps MCP Server running on stdio
+[xurl mcp] request error (retrying): Post "https://api.x.com/mcp": net/http: TLS handshake timeout
+[xurl mcp] request failed: Post "https://api.x.com/mcp": net/http: TLS handshake timeout
+CP Server running on stdio
 
 ===== [2026-10-21 21:43:14] starting MCP server 'x' =====
 [xurl mcp] bridging stdio <-> https://api.x.com/mcp
@@ -352,3 +349,114 @@ Amap Maps MCP Server running on stdio
 ===== [2026-10-21 21:57:47] starting MCP server 'amap' =====
 [xurl mcp] bridging stdio <-> https://api.x.com/mcp
 Amap Maps MCP Server running on stdio
+
+===== [2026-10-22 08:58:25] starting MCP server 'x' =====
+[xurl mcp] bridging stdio <-> https://api.x.com/mcp
+
+===== [2026-10-22 08:58:26] starting MCP server 'amap' =====
+Amap Maps MCP Server running on stdio
+
+===== [2026-10-22 09:36:17] starting MCP server 'x' =====
+[xurl mcp] bridging stdio <-> https://api.x.com/mcp
+[xurl mcp] request error (retrying): Post "https://api.x.com/mcp": net/http: TLS handshake timeout
+[xurl mcp] server stream error: Get "https://api.x.com/mcp": net/http: TLS handshake timeout
+[xurl mcp] request failed: Post "https://api.x.com/mcp": net/http: TLS handshake timeout
+
+===== [2026-10-22 09:36:39] starting MCP server 'x' =====
+[xurl mcp] bridging stdio <-> https://api.x.com/mcp
+[xurl mcp] request error (retrying): Post "https://api.x.com/mcp": net/http: TLS handshake timeout
+[xurl mcp] server stream error: Get "https://api.x.com/mcp": net/http: TLS handshake timeout
+[xurl mcp] request failed: Post "https://api.x.com/mcp": net/http: TLS handshake timeout
+
+===== [2026-10-22 09:37:01] starting MCP server 'x' =====
+[xurl mcp] bridging stdio <-> https://api.x.com/mcp
+[xurl mcp] request error (retrying): Post "https://api.x.com/mcp": net/http: TLS handshake timeout
+[xurl mcp] server stream error: Get "https://api.x.com/mcp": net/http: TLS handshake timeout
+[xurl mcp] request failed: Post "https://api.x.com/mcp": net/http: TLS handshake timeout
+
+===== [2026-10-22 09:37:26] starting MCP server 'x' =====
+[xurl mcp] bridging stdio <-> https://api.x.com/mcp
+[xurl mcp] request error (retrying): Post "https://api.x.com/mcp": net/http: TLS handshake timeout
+[xurl mcp] server stream error: Get "https://api.x.com/mcp": net/http: TLS handshake timeout
+[xurl mcp] request failed: Post "https://api.x.com/mcp": net/http: TLS handshake timeout
+
+===== [2026-10-22 09:37:54] starting MCP server 'x' =====
+[xurl mcp] bridging stdio <-> https://api.x.com/mcp
+[xurl mcp] request error (retrying): Post "https://api.x.com/mcp": net/http: TLS handshake timeout
+[xurl mcp] server stream error: Get "https://api.x.com/mcp": net/http: TLS handshake timeout
+[xurl mcp] request error (retrying): Post "https://api.x.com/mcp": net/http: TLS handshake timeout
+[xurl mcp] request failed: Post "https://api.x.com/mcp": net/http: TLS handshake timeout
+
+===== [2026-10-22 09:41:33] starting MCP server 'x' =====
+[xurl mcp] bridging stdio <-> https://api.x.com/mcp
+[xurl mcp] request error (retrying): Post "https://api.x.com/mcp": net/http: TLS handshake timeout
+[xurl mcp] request failed: Post "https://api.x.com/mcp": net/http: TLS handshake timeout
+
+===== [2026-10-22 09:49:57] starting MCP server 'x' =====
+[xurl mcp] bridging stdio <-> https://api.x.com/mcp
+[xurl mcp] request error (retrying): Post "https://api.x.com/mcp": net/http: TLS handshake timeout
+[xurl mcp] request error (retrying): Post "https://api.x.com/mcp": net/http: TLS handshake timeout
+[xurl mcp] request error (retrying): Post "https://api.x.com/mcp": net/http: TLS handshake timeout
+[xurl mcp] request error (retrying): token error: Auth Error: RefreshTokenError (cause: oauth2: "invalid_request" "Value passed for the token was invalid.")
+[xurl mcp] request failed: token error: Auth Error: RefreshTokenError (cause: oauth2: "invalid_request" "Value passed for the token was invalid.")
+
+===== [2026-10-22 10:35:49] starting MCP server 'x' =====
+[xurl mcp] bridging stdio <-> https://api.x.com/mcp
+[xurl mcp] request error (retrying): Post "https://api.x.com/mcp": net/http: TLS handshake timeout
+[xurl mcp] request error (retrying): Post "https://api.x.com/mcp": net/http: TLS handshake timeout
+[xurl mcp] request failed: Post "https://api.x.com/mcp": net/http: TLS handshake timeout
+
+===== [2026-10-22 11:00:29] starting MCP server 'x' =====
+[xurl mcp] bridging stdio <-> https://api.x.com/mcp
+[xurl mcp] request error (retrying): token error: Auth Error: RefreshTokenError (cause: oauth2: "invalid_request" "Value passed for the token was invalid.")
+[xurl mcp] request failed: token error: Auth Error: RefreshTokenError (cause: oauth2: "invalid_request" "Value passed for the token was invalid.")
+
+===== [2026-10-22 12:37:02] starting MCP server 'x' =====
+[xurl mcp] bridging stdio <-> https://api.x.com/mcp
+[xurl mcp] request error (retrying): token error: Auth Error: RefreshTokenError (cause: oauth2: "invalid_request" "Value passed for the token was invalid.")
+[xurl mcp] request failed: token error: Auth Error: RefreshTokenError (cause: oauth2: "invalid_request" "Value passed for the token was invalid.")
+
+===== [2026-10-22 14:37:36] starting MCP server 'x' =====
+[xurl mcp] bridging stdio <-> https://api.x.com/mcp
+[xurl mcp] request error (retrying): token error: Auth Error: RefreshTokenError (cause: oauth2: "invalid_request" "Value passed for the token was invalid.")
+[xurl mcp] request failed: token error: Auth Error: RefreshTokenError (cause: oauth2: "invalid_request" "Value passed for the token was invalid.")
+
+===== [2026-10-22 16:38:06] starting MCP server 'x' =====
+[xurl mcp] bridging stdio <-> https://api.x.com/mcp
+[xurl mcp] request error (retrying): token error: Auth Error: RefreshTokenError (cause: oauth2: "invalid_request" "Value passed for the token was invalid.")
+[xurl mcp] request failed: token error: Auth Error: RefreshTokenError (cause: oauth2: "invalid_request" "Value passed for the token was invalid.")
+
+===== [2026-10-22 18:38:35] starting MCP server 'x' =====
+[xurl mcp] bridging stdio <-> https://api.x.com/mcp
+[xurl mcp] request error (retrying): token error: Auth Error: RefreshTokenError (cause: oauth2: "invalid_request" "Value passed for the token was invalid.")
+[xurl mcp] request failed: token error: Auth Error: RefreshTokenError (cause: oauth2: "invalid_request" "Value passed for the token was invalid.")
+] starting MCP server 'amap' =====
+[xurl mcp] bridging stdio <-> https://api.x.com/mcp
+Amap Maps MCP Server running on stdio
+
+===== [2026-10-22 20:39:05] starting MCP server 'x' =====
+[xurl mcp] bridging stdio <-> https://api.x.com/mcp
+[xurl mcp] request error (retrying): token error: Auth Error: RefreshTokenError (cause: oauth2: "invalid_request" "Value passed for the token was invalid.")
+[xurl mcp] request failed: token error: Auth Error: RefreshTokenError (cause: oauth2: "invalid_request" "Value passed for the token was invalid.")
+
+===== [2026-10-22 22:39:36] starting MCP server 'x' =====
+[xurl mcp] bridging stdio <-> https://api.x.com/mcp
+[xurl mcp] request error (retrying): token error: Auth Error: RefreshTokenError (cause: oauth2: "invalid_request" "Value passed for the token was invalid.")
+[xurl mcp] request failed: token error: Auth Error: RefreshTokenError (cause: oauth2: "invalid_request" "Value passed for the token was invalid.")
+
+===== [2026-10-23 00:40:06] starting MCP server 'x' =====
+[xurl mcp] bridging stdio <-> https://api.x.com/mcp
+[xurl mcp] request error (retrying): token error: Auth Error: RefreshTokenError (cause: oauth2: "invalid_request" "Value passed for the token was invalid.")
+[xurl mcp] request failed: token error: Auth Error: RefreshTokenError (cause: oauth2: "invalid_request" "Value passed for the token was invalid.")
+
+===== [2026-10-23 02:40:36] starting MCP server 'x' =====
+[xurl mcp] bridging stdio <-> https://api.x.com/mcp
+[xurl mcp] request error (retrying): token error: Auth Error: RefreshTokenError (cause: oauth2: "invalid_request" "Value passed for the token was invalid.")
+[xurl mcp] request failed: token error: Auth Error: RefreshTokenError (cause: oauth2: "invalid_request" "Value passed for the token was invalid.")
+
+===== [2026-10-23 04:41:05] starting MCP server 'x' =====
+[xurl mcp] bridging stdio <-> https://api.x.com/mcp
+[xurl mcp] request error (retrying): token error: Auth Error: RefreshTokenError (cause: oauth2: "invalid_request" "Value passed for the token was invalid.")
+[xurl mcp] request failed: token error: Auth Error: RefreshTokenError (cause: oauth2: "invalid_request" "Value passed for the token was invalid.")
+
+===== [2026-10-23 06:41:53] starting MCP server 'x' =====

@@ -131,3 +131,62 @@ Node：`C:/Users/Administrator/AppData/Local/DayflowHome/tools/node24/node.exe`�
 **不要自己驱动浏览器代建**（用户 2026-10-21 明确要求自己建）。
 后台建类别接口缺失，已出需求书交 Codex 开发；接口上线后只需在 hermes-client.mjs mapping 加项即可。
 网页登录用独立的**页面访问密钥**（≠ 后台连接 key），登录后 30 天记住本设备。
+
+<!-- DAYFLOW-CATEGORY-API-20261022 -->
+## 类别 API 升级（2026-10-22，覆盖旧文中默认分类只读的说法）
+
+沿用上文 Node 与 deployment/home.mjs 入口，通过 client 操作：
+- client categories：GET /api/v1/categories，直接返回真实类别数组，default标记只代表初始类别ID。
+- client category-create --json-file <JSON绝对路径> --request-id <稳定标识>：创建类别，JSON为name、可选color/icon；返回201直接类别对象（不是result字段）。
+- client category-patch <类别ID> --json-file <JSON绝对路径> --request-id <稳定标识>：修改name/color/icon中的字段。
+- client category-delete <类别ID> --request-id <稳定标识>：删除类别，无需JSON文件。
+
+默认四类也可以改删，至少保留一个类别；最后一个可修改但不可删除。被事项、周期/计划、复盘、历史或分析记录引用的类别会返回409及itemCount/referenceCount，不能级联改写事项。先回读，再根据用户意图处理，不能为了删除而篡改历史。自定义ID仍为custom_UUID，最多32个；名称1–20字、无首尾空白/控制字符，NFKC+小写去重。颜色仅teal/blue/purple/orange/pink/slate，图标仅briefcase/rocket/dumbbell/house/book/heart/tag/coffee；省略用teal/tag，空值非法。
+
+遇到新类型先查categories复用已有分类，确需新增时创建并回读，拿到真实ID再创建事项。同一请求重试必须复用request-id。不得输出密钥或凭据。删除work若完全无引用才可能成功，官方采集仍使用work；不要擅自删除工作分类而打断后续同步。
+<!-- /DAYFLOW-CATEGORY-API-20261022 -->
+
+## 类别 API 实测结论（2026-10-22 牛来端验证，19 项用例）
+
+四个命令全部可用：`client categories` / `category-create` / `category-patch ID` / `category-delete ID`。
+返回形态：**create 直接返回类别对象**（不是 `result` 包裹）；patch 返回对象；delete 返回 `{"id":...,"deleted":true}`。
+全部需要 `--json-file <绝对路径>` + `--request-id <uuid>`（env 变量仍不生效）。
+
+✅ **已验证通过**：
+- 同 `--request-id` 重试 → 返回同一 id，**不重复创建**（幂等成立）
+- 省略 color/icon → 默认 `teal` / `tag`
+- **默认四类可改**（实测 sport 颜色 orange→pink→orange 成功；改完要还原）
+- 校验全过：空名、纯空格、**首尾空格**、超 20 字、非法颜色（red）、非法图标 —— 全部拒绝
+- **NFKC + 全角去重有效**：「测试分类Ａ改」被「测试分类A改」拦下
+- 删除不存在的 id → `{"error":"分类不存在"}`
+- 引用保护两级文案：被事项引用 → `分类仍被 N 条事项引用` + `details.itemCount`；事项已移走但历史仍引用 → `分类仍有 N 处引用（含计划、复盘或历史记录）` + `details.referenceCount`
+
+🔴 **用过的类别基本删不掉**：类别一旦挂过事项，**即使事后把事项移走或取消**，`referenceCount` 仍计入历史，删不掉的 409 会一直在。只有**从未被任何事项/计划/复盘引用过**的自定义类别才删得掉。→ **拿不准就先别建**；测试用的类别会永久留在用户分类列表里，去不掉。
+
+🔴 **`client create` 事项时 category 传空字符串会静默落到 `life`**，服务端不报错。喂分类 id 前必须先回读确认真实 id，别传空值。
+
+⚠️ **偶发 `TaskCanceledException` / `Invalid Windows HTTP response`**：正常请求耗时 3.7–7.7s，但冷不丁会有一次超时，`category-create/patch/delete` 都撞过。**处理：同一个操作重试 1–2 次即可**（create 用原 request-id 保幂等；patch/delete 换新 request-id 无副作用）。
+
+⚠️ **CLI 健壮性小坑**：`category-delete ""`（id 传空）→ 客户端误判成要读 stdin，报 `请求必须是 JSON`。
+
+⚠️ **错误文案笼统**：名称超长、首尾空格、颜色非法、图标非法，四种情况回同一句「分类名称需要1–20字，颜色与图标请选择提供的选项」，排查时得自己逐项试。
+
+未测（有风险，故意没做）：32 个上限、删除最后一个类别。
+
+## 类别 API 回归脚本（可重跑）
+
+`~/AppData/Local/hermes/scripts/dayflow/test_categories.sh` —— 覆盖建/改/删/重名/校验/幂等/引用保护。
+🔴 它会创建一个**删不掉的**残留类别和一条 cancelled 测试事项，**跑之前先告诉用户**。
+
+<!-- DAYFLOW-CATEGORY-FIX66-20261022 -->
+## 66号分类与可靠性修复（覆盖旧版分类删除和重试约定）
+
+- `client categories` 只返回当前可用类别。初始work/side/sport/life也可修改删除；至少保留一个。新增/修改事项前使用真实可用ID，不可留空或自行拼造。未提供category允许选择默认值；明确传空/null/非法ID会400，不再转成life。
+- 类别删除：当前事项（包括已完成、取消）、待执行草案、有效周期、待处理邮件及工作同步映射仍引用时409，按references中的来源先处理。仅有旧复盘、审计和已完成草案等历史引用时允许移出可用目录，保留名称/颜色/图标与历史；不要清理历史，也不要给新事项使用已删除ID。历史分类不占32个可用自定义名额，同名重建得到新ID。
+- 工作同步默认分类先在网页“设置→连接”改选，或 `client work-category-set --json-file <JSON> --request-id <稳定UUID>`，JSON为`{"categoryId":"可用ID"}`，对应PATCH /api/v1/settings/work-category。默认work也受该映射保护；新同步工作安排使用映射，已有事项分类保持不变。
+- 所有写操作（包括create、patch、delete、execution、review等）重试必须使用完全相同的request-id、JSON内容、对象ID及版本。不能换新ID绕开冲突；也不要重新计算相对日期。修改/删除同样不能换键“再试试”。
+- 客户端仅在可恢复传输错误、502/503/504或429时最多自动重试一次；总预算70秒，429尊重Retry-After。400/401/403/404/409和恢复epoch错误不会自动重试。付费分析不适用这个自动重试层。
+- Hermes终端运行客户端时显式使用至少100秒时限，推荐120秒；home/client90秒，cloud85秒，local80秒。无需修改Hermes全局模型/网络/A2A配置。诊断仅含操作、request-id、尝试次数、用时、状态/错误类型，存于runtime/.local/hermes-client-diagnostics.jsonl；不要把私有连接、请求头或正文加进日志。
+- 网络超时后应说“保存结果暂未确认”，用原键重试或回读核对，不说“未保存”，不以新键再次新建。先看真实成功回执和回读再告知用户已保存。recovery_epoch 409先停止并重新读取state核对恢复后的对象/版本，不能作为网络失败绕过；必要时向客户端提供当前DAYFLOW_EPOCH。
+- 新备份若含requiredFeatures:["historical-categories-v1"]，必须使用更新后的校验库恢复，旧读取器应拒绝。不要剥掉能力标记或retiredCategories以便旧程序接受。
+<!-- /DAYFLOW-CATEGORY-FIX66-20261022 -->
