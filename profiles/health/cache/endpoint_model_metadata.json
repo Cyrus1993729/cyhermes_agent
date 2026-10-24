@@ -1,6 +1,6 @@
 {
 "https://opencode.ai/zen/go/v1":{
-"at":1792671791.5194707,
+"at":1792757629.7285025,
 "models":{
 "deepseek-v4.1-flash":{
 "name":"deepseek-v4.1-flash"
@@ -83,8 +83,8 @@
 "minimax-m3":{
 "name":"minimax-m3"
 },
-"minimax-m3.1-flash-free":{
-"name":"minimax-m3.1-flash-free"
+"minimax-m3.1-flash":{
+"name":"minimax-m3.1-flash"
 },
 "longcat-2.0":{
 "name":"longcat-2.0"

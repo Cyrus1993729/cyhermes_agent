@@ -209,15 +209,15 @@
     "created_at": "2026-08-11T02:44:51.441799+00:00",
     "created_by": "agent",
     "last_patched_at": "2026-10-19T01:40:15.250058+00:00",
-    "last_reused_patch_generation": 15,
-    "last_used_at": "2026-10-19T01:39:34.343774+00:00",
-    "last_viewed_at": "2026-10-19T01:39:34.321779+00:00",
+    "last_reused_patch_generation": 16,
+    "last_used_at": "2026-10-23T11:32:19.847121+00:00",
+    "last_viewed_at": "2026-10-23T11:32:19.838119+00:00",
     "patch_count": 19,
     "patch_generation": 16,
     "pinned": false,
     "state": "active",
-    "use_count": 28,
-    "view_count": 28
+    "use_count": 29,
+    "view_count": 29
   },
   "company-financial-analysis": {
     "archived_at": null,
@@ -268,14 +268,14 @@
     "created_by": null,
     "last_patched_at": "2026-10-22T02:10:17.184217+00:00",
     "last_reused_patch_generation": 10,
-    "last_used_at": "2026-10-22T14:35:00.392390+00:00",
-    "last_viewed_at": "2026-10-22T14:35:00.384391+00:00",
+    "last_used_at": "2026-10-23T04:12:16.412955+00:00",
+    "last_viewed_at": "2026-10-23T04:12:16.402949+00:00",
     "patch_count": 10,
     "patch_generation": 10,
     "pinned": false,
     "state": "active",
-    "use_count": 22,
-    "view_count": 22
+    "use_count": 23,
+    "view_count": 23
   },
   "debugging-hermes-tui-commands": {
     "archived_at": null,
@@ -578,16 +578,16 @@
     "archived_at": null,
     "created_at": "2026-10-18T14:14:24.922129+00:00",
     "created_by": "agent",
-    "last_patched_at": "2026-10-22T12:26:43.554887+00:00",
-    "last_reused_patch_generation": 144,
-    "last_used_at": "2026-10-22T12:26:11.335974+00:00",
-    "last_viewed_at": "2026-10-22T12:26:11.324374+00:00",
-    "patch_count": 148,
-    "patch_generation": 148,
+    "last_patched_at": "2026-10-23T12:12:13.227824+00:00",
+    "last_reused_patch_generation": 158,
+    "last_used_at": "2026-10-23T12:02:53.838765+00:00",
+    "last_viewed_at": "2026-10-23T12:02:53.829764+00:00",
+    "patch_count": 159,
+    "patch_generation": 159,
     "pinned": false,
     "state": "active",
-    "use_count": 63,
-    "view_count": 63
+    "use_count": 69,
+    "view_count": 69
   },
   "hermes-agent": {
     "archived_at": null,
@@ -855,14 +855,14 @@
     "created_by": "agent",
     "last_patched_at": "2026-10-22T07:12:28.655599+00:00",
     "last_reused_patch_generation": 4,
-    "last_used_at": "2026-10-22T12:26:48.217124+00:00",
-    "last_viewed_at": "2026-10-22T12:26:48.208115+00:00",
+    "last_used_at": "2026-10-23T04:11:20.057289+00:00",
+    "last_viewed_at": "2026-10-23T04:11:19.037093+00:00",
     "patch_count": 4,
     "patch_generation": 4,
     "pinned": false,
     "state": "active",
-    "use_count": 4,
-    "view_count": 4
+    "use_count": 5,
+    "view_count": 5
   },
   "mcp-server-setup": {
     "archived_at": "2026-10-14T12:29:45.103824+00:00",

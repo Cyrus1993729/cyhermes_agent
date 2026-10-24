@@ -460,3 +460,37 @@ Amap Maps MCP Server running on stdio
 [xurl mcp] request failed: token error: Auth Error: RefreshTokenError (cause: oauth2: "invalid_request" "Value passed for the token was invalid.")
 
 ===== [2026-10-23 06:41:53] starting MCP server 'x' =====
+[xurl mcp] bridging stdio <-> https://api.x.com/mcp
+[xurl mcp] request error (retrying): token error: Auth Error: RefreshTokenError (cause: oauth2: "invalid_request" "Value passed for the token was invalid.")
+[xurl mcp] request failed: token error: Auth Error: RefreshTokenError (cause: oauth2: "invalid_request" "Value passed for the token was invalid.")
+
+===== [2026-10-23 08:42:22] starting MCP server 'x' =====
+[xurl mcp] bridging stdio <-> https://api.x.com/mcp
+[xurl mcp] request error (retrying): token error: Auth Error: RefreshTokenError (cause: oauth2: "invalid_request" "Value passed for the token was invalid.")
+[xurl mcp] request failed: token error: Auth Error: RefreshTokenError (cause: oauth2: "invalid_request" "Value passed for the token was invalid.")
+
+===== [2026-10-23 10:42:51] starting MCP server 'x' =====
+[xurl mcp] bridging stdio <-> https://api.x.com/mcp
+[xurl mcp] request error (retrying): Post "https://api.x.com/mcp": net/http: TLS handshake timeout
+[xurl mcp] request failed: Post "https://api.x.com/mcp": net/http: TLS handshake timeout
+
+===== [2026-10-23 11:10:18] starting MCP server 'x' =====
+[xurl mcp] bridging stdio <-> https://api.x.com/mcp
+[xurl mcp] request error (retrying): token error: Auth Error: RefreshTokenError (cause: oauth2: "invalid_request" "Value passed for the token was invalid.")
+[xurl mcp] request failed: token error: Auth Error: RefreshTokenError (cause: oauth2: "invalid_request" "Value passed for the token was invalid.")
+
+===== [2026-10-23 12:43:44] starting MCP server 'x' =====
+[xurl mcp] bridging stdio <-> https://api.x.com/mcp
+[xurl mcp] request error (retrying): token error: Auth Error: RefreshTokenError (cause: oauth2: "invalid_request" "Value passed for the token was invalid.")
+[xurl mcp] request failed: token error: Auth Error: RefreshTokenError (cause: oauth2: "invalid_request" "Value passed for the token was invalid.")
+
+===== [2026-10-23 14:44:34] starting MCP server 'x' =====
+[xurl mcp] bridging stdio <-> https://api.x.com/mcp
+[xurl mcp] request error (retrying): token error: Auth Error: RefreshTokenError (cause: oauth2: "invalid_request" "Value passed for the token was invalid.")
+[xurl mcp] request failed: token error: Auth Error: RefreshTokenError (cause: oauth2: "invalid_request" "Value passed for the token was invalid.")
+] starting MCP server 'amap' =====
+[xurl mcp] bridging stdio <-> https://api.x.com/mcp
+Amap Maps MCP Server running on stdio
+
+===== [2026-10-23 22:44:01] starting MCP server 'x' =====
+[xurl mcp] bridging stdio <-> https://api.x.com/mcp

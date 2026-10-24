@@ -1006,3 +1006,59 @@
 2026-10-23 02:40:36,236 WARNING tools.mcp_tool: MCP server 'x' keepalive failed, triggering reconnect (state: connected → degraded): MCPError: xurl mcp: could not reach the MCP server (transport error)
 2026-10-23 04:41:05,506 WARNING tools.mcp_tool: MCP server 'x' keepalive failed, triggering reconnect (state: connected → degraded): MCPError: xurl mcp: could not reach the MCP server (transport error)
 2026-10-23 06:41:53,232 WARNING tools.mcp_tool: MCP server 'x' keepalive failed, triggering reconnect (state: connected → degraded): MCPError: xurl mcp: could not reach the MCP server (transport error)
+2026-10-23 08:42:22,182 WARNING tools.mcp_tool: MCP server 'x' keepalive failed, triggering reconnect (state: connected → degraded): MCPError: xurl mcp: could not reach the MCP server (transport error)
+2026-10-23 10:42:51,496 WARNING tools.mcp_tool: MCP server 'x' keepalive failed, triggering reconnect (state: connected → degraded): MCPError: xurl mcp: could not reach the MCP server (transport error)
+2026-10-23 11:10:18,814 WARNING tools.mcp_tool: MCP server 'x' keepalive failed, triggering reconnect (state: connected → degraded): MCPError: xurl mcp: could not reach the MCP server (transport error)
+2026-10-23 12:08:23,760 WARNING tools.registry: check_fn check_browser_back_requirements returned False; dependent tools will be unavailable this turn
+2026-10-23 12:08:23,807 WARNING tools.registry: check_fn _browser_cdp_check returned False; dependent tools will be unavailable this turn
+2026-10-23 12:08:23,852 WARNING tools.registry: check_fn check_browser_click_requirements returned False; dependent tools will be unavailable this turn
+2026-10-23 12:08:23,893 WARNING tools.registry: check_fn check_browser_requirements returned False; dependent tools will be unavailable this turn
+2026-10-23 12:08:23,934 WARNING tools.registry: check_fn _browser_dialog_check returned False; dependent tools will be unavailable this turn
+2026-10-23 12:08:24,025 WARNING tools.registry: check_fn check_browser_navigate_requirements returned False; dependent tools will be unavailable this turn
+2026-10-23 12:08:24,073 WARNING tools.registry: check_fn check_browser_press_requirements returned False; dependent tools will be unavailable this turn
+2026-10-23 12:08:24,116 WARNING tools.registry: check_fn check_browser_scroll_requirements returned False; dependent tools will be unavailable this turn
+2026-10-23 12:08:24,157 WARNING tools.registry: check_fn check_browser_snapshot_requirements returned False; dependent tools will be unavailable this turn
+2026-10-23 12:08:24,199 WARNING tools.registry: check_fn check_browser_type_requirements returned False; dependent tools will be unavailable this turn
+2026-10-23 12:08:24,241 WARNING tools.registry: check_fn check_browser_vision_requirements returned False; dependent tools will be unavailable this turn
+2026-10-23 12:08:24,268 WARNING tools.registry: check_fn check_computer_use_requirements returned False; dependent tools will be unavailable this turn
+2026-10-23 12:08:24,299 WARNING tools.registry: check_fn check_image_generation_requirements returned False; dependent tools will be unavailable this turn
+2026-10-23 12:08:24,303 WARNING tools.registry: check_fn _check_kanban_mode returned False; dependent tools will be unavailable this turn
+2026-10-23 12:08:24,307 WARNING tools.registry: check_fn _check_kanban_orchestrator_mode returned False; dependent tools will be unavailable this turn
+2026-10-23 12:43:44,236 WARNING tools.mcp_tool: MCP server 'x' keepalive failed, triggering reconnect (state: connected → degraded): MCPError: xurl mcp: could not reach the MCP server (transport error)
+2026-10-23 14:44:34,822 WARNING tools.mcp_tool: MCP server 'x' keepalive failed, triggering reconnect (state: connected → degraded): MCPError: xurl mcp: could not reach the MCP server (transport error)
+2026-10-23 19:30:39,210 WARNING tools.registry: check_fn check_browser_back_requirements returned False; dependent tools will be unavailable this turn
+2026-10-23 19:30:39,251 WARNING tools.registry: check_fn _browser_cdp_check returned False; dependent tools will be unavailable this turn
+2026-10-23 19:30:39,292 WARNING tools.registry: check_fn check_browser_click_requirements returned False; dependent tools will be unavailable this turn
+2026-10-23 19:30:39,333 WARNING tools.registry: check_fn check_browser_requirements returned False; dependent tools will be unavailable this turn
+2026-10-23 19:30:39,374 WARNING tools.registry: check_fn _browser_dialog_check returned False; dependent tools will be unavailable this turn
+2026-10-23 19:30:39,479 WARNING tools.registry: check_fn check_browser_navigate_requirements returned False; dependent tools will be unavailable this turn
+2026-10-23 19:30:39,547 WARNING tools.registry: check_fn check_browser_press_requirements returned False; dependent tools will be unavailable this turn
+2026-10-23 19:30:39,603 WARNING tools.registry: check_fn check_browser_scroll_requirements returned False; dependent tools will be unavailable this turn
+2026-10-23 19:30:39,656 WARNING tools.registry: check_fn check_browser_snapshot_requirements returned False; dependent tools will be unavailable this turn
+2026-10-23 19:30:39,704 WARNING tools.registry: check_fn check_browser_type_requirements returned False; dependent tools will be unavailable this turn
+2026-10-23 19:30:39,754 WARNING tools.registry: check_fn check_browser_vision_requirements returned False; dependent tools will be unavailable this turn
+2026-10-23 19:30:39,786 WARNING tools.registry: check_fn check_computer_use_requirements returned False; dependent tools will be unavailable this turn
+2026-10-23 19:30:39,820 WARNING tools.registry: check_fn check_image_generation_requirements returned False; dependent tools will be unavailable this turn
+2026-10-23 19:30:39,823 WARNING tools.registry: check_fn _check_kanban_mode returned False; dependent tools will be unavailable this turn
+2026-10-23 19:30:39,827 WARNING tools.registry: check_fn _check_kanban_orchestrator_mode returned False; dependent tools will be unavailable this turn
+2026-10-23 20:08:22,713 WARNING tools.registry: check_fn check_browser_back_requirements returned False; dependent tools will be unavailable this turn
+2026-10-23 20:08:22,761 WARNING tools.registry: check_fn _browser_cdp_check returned False; dependent tools will be unavailable this turn
+2026-10-23 20:08:22,802 WARNING tools.registry: check_fn check_browser_click_requirements returned False; dependent tools will be unavailable this turn
+2026-10-23 20:08:22,845 WARNING tools.registry: check_fn check_browser_requirements returned False; dependent tools will be unavailable this turn
+2026-10-23 20:08:22,885 WARNING tools.registry: check_fn _browser_dialog_check returned False; dependent tools will be unavailable this turn
+2026-10-23 20:08:23,006 WARNING tools.registry: check_fn check_browser_navigate_requirements returned False; dependent tools will be unavailable this turn
+2026-10-23 20:08:23,069 WARNING tools.registry: check_fn check_browser_press_requirements returned False; dependent tools will be unavailable this turn
+2026-10-23 20:08:23,116 WARNING tools.registry: check_fn check_browser_scroll_requirements returned False; dependent tools will be unavailable this turn
+2026-10-23 20:08:23,162 WARNING tools.registry: check_fn check_browser_snapshot_requirements returned False; dependent tools will be unavailable this turn
+2026-10-23 20:08:23,210 WARNING tools.registry: check_fn check_browser_type_requirements returned False; dependent tools will be unavailable this turn
+2026-10-23 20:08:23,260 WARNING tools.registry: check_fn check_browser_vision_requirements returned False; dependent tools will be unavailable this turn
+2026-10-23 20:08:23,291 WARNING tools.registry: check_fn check_computer_use_requirements returned False; dependent tools will be unavailable this turn
+2026-10-23 20:08:23,321 WARNING tools.registry: check_fn check_image_generation_requirements returned False; dependent tools will be unavailable this turn
+2026-10-23 20:08:23,324 WARNING tools.registry: check_fn _check_kanban_mode returned False; dependent tools will be unavailable this turn
+2026-10-23 20:08:23,328 WARNING tools.registry: check_fn _check_kanban_orchestrator_mode returned False; dependent tools will be unavailable this turn
+2026-10-23 20:09:11,404 WARNING [20261021_220134_612a3e] agent.tool_executor: Tool execute_code returned error (0.02s): {"status": "error", "error": "BLOCKED: execute_code runs arbitrary local Python (including subprocess calls that bypass shell-string approval checks). Single-query mode (-q) runs without a user presen
+2026-10-23 22:44:00,985 WARNING tools.mcp_tool: MCP server 'x' keepalive failed, triggering reconnect (state: connected → degraded): MCPError: xurl mcp: could not reach the MCP server (transport error)
+2026-10-24 00:44:29,995 WARNING tools.mcp_tool: MCP server 'x' keepalive failed, triggering reconnect (state: connected → degraded): MCPError: xurl mcp: could not reach the MCP server (transport error)
+2026-10-24 02:44:59,138 WARNING tools.mcp_tool: MCP server 'x' keepalive failed, triggering reconnect (state: connected → degraded): MCPError: xurl mcp: could not reach the MCP server (transport error)
+2026-10-24 04:45:28,048 WARNING tools.mcp_tool: MCP server 'x' keepalive failed, triggering reconnect (state: connected → degraded): MCPError: xurl mcp: could not reach the MCP server (transport error)
+2026-10-24 06:45:56,445 WARNING tools.mcp_tool: MCP server 'x' keepalive failed, triggering reconnect (state: connected → degraded): MCPError: xurl mcp: could not reach the MCP server (transport error)
