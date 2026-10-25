@@ -30,7 +30,7 @@ Codex/OpenAI 账号红线:全机仅 1 个账号,牛来+妈妈各自独立 OAuth(
 §
 主模型+cron=deepseek-v4.1-flash/opencode-go;fallback 官方侧 ID=deepseek-flash(≠网关名)。核算见 skill model-subscription-evaluation。
 §
-健康域:「健康助理」→hermes -p health chat -c "Bot Chat" -Q --query-file。数据在~/health/(profile.md=基线)。主Hermes不做健康判断,只派活;见 skill health-nutrition-analysis。
+健康域:「健康助理」→hermes -p health chat -c "Bot Chat" -Q --query-file。数据在~/health/(profile.md=基线)。主Hermes不做健康判断,只派活;见 skill health-nutrition-analysis。他瘦=体脂降非体重(判据腰围+力量);答复须分「指南原文/临床惯例/机制推测」三档,无数据不编数。
 §
 桌面端:Hermes.exe 在 hermes-agent/apps/desktop/release/win-unpacked/(官方);Programs/hermes-desktop 是无关第三方软件,别搞混。其 Bot Mode 里「一个 bot = 一个 Hermes profile」。
 §
@@ -44,10 +44,12 @@ date 不认 TZ(恒报 UTC),北京时间=+8h;state.db messages 用 timestamp(epoc
 §
 skill 保持精简:踩坑原文搬 references/ 建索引;搬后做零丢失校验。
 §
-日程/待办/目标/复盘统一记 Dayflow（skill dayflow-personal-planner，Cloud 主库，写入后回读）；钉钉/邮件同步已由 Windows 计划任务每 15 分钟自动跑，勿另建同步 cron。
+Dayflow-Work-Sync 每分钟采集钉钉/邮件，但只抓不落日程（落地要助手判断）；他2026-10 明确否决邮件转日程自动化，勿另建 cron。
 §
 微信端=日程秘书(只办日程/复盘,其他话题引到TG);TG=总管。日程类请求必须先加载 skill dayflow-personal-planner 用 client 写云端库,禁自建 cron 充当提醒;编号回复读 state/dayflow/evening_<日期>.json。
 §
 通知路由:日程/提醒→微信;运维、故障、备份、日报→Telegram。cron 运维类 deliver 用 telegram,禁用 origin(旧 origin 指向微信)。
 §
 家里常无脱脂奶(只有全脂纯牛奶/全脂无糖酸奶);给奶类建议按全脂算,别默认他能换脱脂。
+§
+「打算吃/要吃」≠已吃：未发生的餐和事不许进统计（蛋糕未吃被当面纠正）。

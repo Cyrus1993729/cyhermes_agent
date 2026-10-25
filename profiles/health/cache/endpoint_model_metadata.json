@@ -1,6 +1,6 @@
 {
 "https://opencode.ai/zen/go/v1":{
-"at":1792757629.7285025,
+"at":1792859144.2064054,
 "models":{
 "deepseek-v4.1-flash":{
 "name":"deepseek-v4.1-flash"
@@ -77,9 +77,6 @@
 "minimax-m2.7":{
 "name":"minimax-m2.7"
 },
-"gemini-4-argon-contributor":{
-"name":"gemini-4-argon-contributor"
-},
 "minimax-m3":{
 "name":"minimax-m3"
 },
@@ -109,6 +106,12 @@
 },
 "qwen3.7-plus":{
 "name":"qwen3.7-plus"
+},
+"kimi-k3.1-pro":{
+"name":"kimi-k3.1-pro"
+},
+"gemini-4-argon":{
+"name":"gemini-4-argon"
 }
 }
 }

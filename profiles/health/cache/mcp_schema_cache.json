@@ -579,6 +579,22 @@
         }
       },
       {
+        "name": "get_users_me_followers",
+        "description": "Get the authenticated user's followers",
+        "inputSchema": {},
+        "annotations": {
+          "readOnlyHint": false
+        }
+      },
+      {
+        "name": "get_users_me_following",
+        "description": "Get the users the authenticated user follows",
+        "inputSchema": {},
+        "annotations": {
+          "readOnlyHint": false
+        }
+      },
+      {
         "name": "get_users_public_keys",
         "description": "Get public keys",
         "inputSchema": {},
@@ -788,7 +804,7 @@
       }
     ],
     "ttl_ms": 0,
-    "written_at": 1792757291.3543136,
+    "written_at": 1792859376.6394217,
     "cache_scope": "private"
   },
   "amap": {
@@ -893,7 +909,7 @@
     ],
     "utility_tools": [],
     "ttl_ms": 0,
-    "written_at": 1792757298.871788,
+    "written_at": 1792859381.121454,
     "cache_scope": "private"
   }
 }

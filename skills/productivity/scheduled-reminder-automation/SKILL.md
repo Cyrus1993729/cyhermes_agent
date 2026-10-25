@@ -22,7 +22,7 @@ tags: [cron, reminder, briefing, no_agent, delivery, wechat, telegram]
 
 ## 四条设计铁律
 
-1. **节流靠快照 TTL**：本地快照未过期就不碰上游 API。TTL 取**上游同步周期**（钉钉/邮件同步是 15 分钟 → 快照 TTL 15 分钟），5 分钟心跳只读本地快照判断提醒，几乎零接口开销。
+1. **节流靠快照 TTL**：本地快照未过期就不碰上游 API。TTL 取**上游同步周期**（实测 2026-10-24：`Dayflow-Work-Sync` 计划任务**每分钟**一轮，LastRunTime 与 NextRunTime 只差 1 分钟；旧记的“15 分钟”不准，建新管线前现查一次），5 分钟心跳只读本地快照判断提醒，几乎零接口开销。
 2. **幂等靠去重键 + 成功才记账**：键用 `事项id|开始时间|日期`；**发送成功才写去重记录**，失败不记以便重试。
 3. **兜底绝不静默**：主通道失败自动转备用通道，并在文案里注明「XX 通道没发出去，这条走 YY」。
 4. **长度预算按拆块线折半**：先查平台分块阈值，主动推送取一半（微信拆块线 1800 → 单条 ≤900），既防截断又少占配额。
@@ -54,6 +54,7 @@ tags: [cron, reminder, briefing, no_agent, delivery, wechat, telegram]
 
 ## 坑
 
+- 🔴 **采集 ≠ 落地**：上游同步器（钉钉日历、邮件采集器）往往**只抓不写**——抓回来落成缓存文件就结束了。早报/心跳读的是本地主库，所以**不仅不报错，还会自信地把过期安排推给用户**。用户质疑“有同步最新邮件吗”时，先分清是采集断了还是落地没做，别看同步任务 exit 0 就答“同步正常”。发现“延期/改期/以此邮件为准”类更新，必须当场回写事项再刷新快照。排查步骤见 `references/dayflow-mail-sync.md`。
 - 脚本自己发 → cron 必须 `deliver='local'`，否则 stdout 被再投递一次，一内容双发。
 - 事项多时不要静默丢行：给列表设上限 + 「还有 N 项未显示」。
 - 别每天甩一次历史清单的数量——用户会反感，改成静默或只追近期。
@@ -63,5 +64,6 @@ tags: [cron, reminder, briefing, no_agent, delivery, wechat, telegram]
 ## 参考
 
 - `references/dayflow-daily-assistant.md` — Dayflow 日程助手实例：脚本清单、cron 参数、状态文件、API 字段实测。
+- `references/dayflow-mail-sync.md` — 邮件→日程链路排查：同步任务、mail-cache 结构、按关键词找信、回写字段实测。
 - `hermes-wechat-delivery` — 微信 iLink 配额、分块线、`hermes send` 实测路径。
 - `hermes-telegram-delivery` — Telegram 投递验证的真相源字段。
