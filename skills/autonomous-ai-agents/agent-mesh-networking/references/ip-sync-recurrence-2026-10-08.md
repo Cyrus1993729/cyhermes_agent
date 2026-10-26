@@ -70,3 +70,63 @@ grep -o "^2026-10-08 08:4[0-9]:[0-9][0-9],[0-9]* INFO \[[0-9a-f_]*\] agent\.[a-z
 ## 对端侧遗留
 
 妈妈机 `C:/Users/1/AppData/Local/hermes/scripts/ip_monitor.py` 的 `BASE_IP` 仍 `.110`（08:48 自愈指令被它拒改），需它那边授权后改 `.108`，否则每 30 分钟重复告警（坑3 风暴）。
+
+---
+
+# 2026-10-25 三代复发：`.108` → `.113` → `.110`
+
+## 事件
+
+对端（`user=ip:192.168.0.110`，card `name="妈妈"`）发来同一句 `【A2A 配置同步】…url 改为 http://192.168.0.110:9900`。
+
+本机 `config.yaml` 停在 `.113` —— **既不是对端声称的旧值 `.108`，也不是新值 `.110`**。说明中间还漂过一代 `.113` 从未回写本机。
+
+处置（符合铁律）：探活 → 认身份 → 读真实现值 → 报主人等授权 → 回对端「已核验、未落地」。未改任何文件。
+
+## 核验输出（原文）
+
+```bash
+curl -s -m 4 -o /dev/null -w '%{http_code}' --noproxy '*' http://192.168.0.110:9900/health   # 200
+curl -s -m 4 -o /dev/null -w '%{http_code}' --noproxy '*' http://192.168.0.113:9900/health   # 000
+curl -s -m 4 -o /dev/null -w '%{http_code}' --noproxy '*' http://192.168.0.108:9900/health   # 000
+curl -s -m 6 --noproxy '*' http://192.168.0.110:9900/.well-known/agent-card.json            # name=妈妈
+```
+
+`--noproxy '*'` 必须带（Clash 劫持 LAN）；单 IP 探测给 `-m 4`，否则死地址会拖住整批。
+
+## 根因（本次才定位到）
+
+`scripts/fix_mama_ip_v2.py`（cron `85486cd8cc18` 妈妈机IP修复守候，每 30 分钟，1700 次全 ok）的职责范围**只有对端**：
+
+- 它 auto-discover 到新 IP 后，发指令让对端改 `ip_monitor.py` 的 `BASE_IP`；
+- `fix_mama_ip_state.json` 的 `fixed_peer_ip` 记录的是**对端**已确认的 IP（事发时为 `.108`）；
+- **全程不读写本机 `a2a_agents.妈妈.url`**。
+
+⇒ 对端自愈再完美，本机出站地址仍会落后一到多代，每次漂移都要人来同步一行。本次对端 `BASE_IP` 已是 `.110`（对端那条链是通的），本机 `.113` 无人管。
+
+要让守候顺手同步本机那一行，属于改本机配置/改脚本，**须主人点头**；建议用一句话问：“要不要让它以后自动同步 a2a_agents.url，免得每换一次 IP 都要手工改”，别自行加。
+
+## 通知主人的姿势（A2A 会话专用）
+
+A2A 会话里没有发消息工具，用 CLI：
+
+```bash
+hermes send --to telegram --file 'C:/Users/Administrator/AppData/Local/Temp/a2a_ask.txt'
+# → Sent to telegram home channel (chat_id: 8938729624)
+```
+
+要点：长中文写 UTF-8 文本再 `--file`（bash 会吃引号/`$`）；内容给「实测证据 + 要改的一行 + 让他回一个字」；他要的是可整段复制的纯文本，不要选项。
+
+## 回对端的口径
+
+```
+已核验（独立实测，不只看你这条消息）：
+- 新地址 200 + card name=妈妈 ✅ / 旧地址 000
+- 本机 config 真实现值 = <实际值>，确实陈旧
+- 顺带告知对端：你那侧 BASE_IP 已自愈到新 IP
+待改就一行：a2a_agents.妈妈.url（改前备份）
+卡点：本机铁律「改本机配置须主人本人同意」，已报 Telegram，获批后写并回你确认
+入向不受影响；根因是守候只修你那侧，不写本机 url（已向主人提，等他定）
+```
+
+别做：替对端改它的文件、跳过授权直接写 config、把「出站断了」当结论回给对方（url_override 能临时通）。

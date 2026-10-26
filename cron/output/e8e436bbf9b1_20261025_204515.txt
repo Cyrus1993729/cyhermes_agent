@@ -1,0 +1,130 @@
+Cronjob Response: TrendRadar跨境日报投递
+(job_id: e8e436bbf9b1)
+-------------
+
+⚡ 今日速览
+· 美国对华造船 301 措施再停两月，相关收费暂缓
+· 中国对 53 个非洲国零关税落地，非洲货进中国更便宜
+· 深圳跨境人民币结算前三季 5.9 万亿，增 36.9%
+
+🏛 政策风向 · 门槛变了吗
+
+▶ 美国贸易代表办公室（USTR）发布征求意见通知：对华海事、物流、造船 301 措施再暂停两个月，至 1 月 9 日
+　干货：暂停两个月；暂停至 1 月 9 日
+　对你：中美海运的额外成本短期不会突然跳，旺季报价可以先按现价算。
+
+▶ 中国对 53 个非洲建交国零关税落地，报道称铜矿等大宗贸易同步用人民币结算
+　干货：覆盖 53 国；零关税；铜矿结算走人民币
+　对你：降的是非洲货进中国的成本，做进口或双向贸易的人受影响更直接。
+
+▶ 马来西亚商界呼吁检讨跨境电商进口与税制（10 月 25 日）
+　干货：诉求是进口与税制一起查；理由是本地商家竞争不过；市场是马来西亚
+　对你：东南亚小包的免税红利在收窄，别把利润全押在"免税"上。
+
+🛒 平台规则 · 在哪卖、怎么卖
+
+▶ 有跨境电商平台推出"中国品牌全球增长计划"（10 月 23 日）
+　干货：面向中国品牌出海；平台名称未公开；扶持细则未公开
+　对你：信号记下来就行，细则没出来之前不用急着做决定。
+
+📈 市场与成本 · 钱往哪走
+
+▶ 深圳前三季度跨境人民币结算 5.9 万亿元，同比增 36.9%
+　干货：5.9 万亿元；同比 +36.9%；统计期为前三季度
+　对你：少一道换汇环节，回款更直接；但成本和定价不是人民币的话，汇率敞口只是换了地方。
+
+▶ 报告：中国品牌在拉美四大赛道崛起（10 月 25 日）
+　干货：消费电器、餐饮外卖、美妆个护、时尚；拉美市场；报告口径
+　对你：拉美是被反复提到的增量市场，但本地支付和物流是硬门槛。
+
+▶ 美国"成人万圣节"撑起 135 亿美元节日消费
+　干货：135 亿美元；由成年人带动；家居装饰、食品饮料在增长
+　对你：节日货不只卖小孩，成人装扮与派对用品客单价更高。
+
+🧰 实战参考 · 别人怎么做的
+
+▶ 海外网红被国产工厂集体"收编"，被列为出海新趋势（10 月 24 日）
+　干货：工厂直连内容创作者；内容与销售合到一起；砍掉中间环节
+　对你：没工厂的，内容与选品这一段更容易切入，供应链那段要找合作方。
+
+▶ 钛动科技发布营销智能体 Navos Pro，尝试把 AI 接入出海营销流程（10 月 24 日）
+　干货：智能体；出海营销投放与素材；刚发布
+　对你：小团队最缺的是多语言素材，这类工具正好压在这上面。
+
+▶ 卖家反映 FBA 货件被卡两个月，系统称"目的地国无可用仓库"
+　干货：卡了 2 个月；理由是目的地国无接收仓库；单一卖家个案
+　对你：发货前确认这个 ASIN 在目的国能不能入仓，别等货卡住才发现。
+
+📖 小白词典
+
+· 301 条款：美国的一部贸易法条，认定你"做法不公平"就能加税，像小区物业的罚款权。
+· 9810：海关给"先把货放进海外仓再卖"这种模式编的编号，报关填它才能退税。
+· FBA：把货寄到亚马逊仓库，打包发货都由亚马逊干，像把货存在快递站。
+
+✅ 今天该做的一件事：把 301、9810、FBA 三个词抄进手机备忘录，各写一句自己的解释。
+
+---
+
+📦 跨境电商日报 10月25日（过去24小时 · 13 条）
+
+🛃 政策法规
+
+• 🔴 美国拟将对华海事物流造船 301 措施再暂停两个月，至 1 月 9 日（Federal Register）🔤
+  摘要：美国贸易代表办公室发布征求意见通知，提议把针对中国海事、物流、造船业的 301 措施继续暂停两个月，暂停至 1 月 9 日，并公开征集公众意见。背景：301 条款允许美国在认定贸易做法不公平时加征关税或收费，暂停期内相关措施不落地。
+  🔗 [查看原文](https://www.federalregister.gov/documents/2026/10/26/2026-21755/request-for-comments-on-further-suspension-of-section-301-action-chinas-targeting-of-the-maritime)
+
+• 🔴 中国对 53 个非洲建交国零关税落地（搜狐网）
+  摘要：报道称中国对 53 个非洲国家的进口商品实施零关税，并称铜矿等大宗贸易同步用人民币结算。背景：零关税降低的是非洲商品进入中国市场的成本，对做进口或双向贸易的卖家影响更直接。
+  🔗 [查看原文](https://news.google.com/rss/articles/CBMijAFBVV95cUxQWjRoSHlQa2xiQ0lZZHdXUmc1d2NMVUhOaTlVWm84SjVXZHVrcFNsdGJ2M1ZFT1VfT09IbDFUR1FzWEk0Rmk3a1lZbnhtTzBhb2pjOHhrWUI5NjNlRVZOQ2I3SmMyU0pyQjAzcC1kT0M1Q0RoblNLbGtONHlISmZ0S2I4TnRuWDNhc2d0aA?oc=5)
+
+• 福建单一窗口上线 9810 涉税辅助服务模块（中新网福建）
+  摘要：10 月 24 日报道，福建省单一窗口"阳光跨境服务平台"上线 9810 涉税辅助服务模块，帮企业办理海外仓出口的涉税申报。背景：9810 是跨境电商出口海外仓的海关监管代码，货物先出口到海外仓再销售，可凭出口报关单办理退税。
+  🔗 [查看原文](https://news.google.com/rss/articles/CBMickFVX3lxTE9VRG5lVFpMNDBYOXRLdVpYbXhoc0xPc2pEUFhNSnk0NVVNMGZlOWRrZ3NrQUVGZHh4eWtld25hVkxNeHNPQ0llWm16RkpqdTN0RkZzWDZ2c2VrSl9UeUNrY3c5cndkWTc2UWJEUFlkeHYzZw?oc=5)
+
+• 🔴 特朗普拟取消部分加拿大商品 50% 关税，报道称与缅因州参议员选情有关（新浪财经）
+  摘要：报道称特朗普考虑取消对部分加拿大商品加征的 50% 关税，动因与缅因州参议员的政治需要有关，目前只涉及部分商品。背景：美国此前对加拿大加征高额关税，北美供应链成本随之上升。政策反复意味着对美加市场报价不宜锁长周期。
+  🔗 [查看原文](https://news.google.com/rss/articles/CBMikAJBVV95cUxPeHZKWXdfR3h5MUhlMW5TbXhVTXl6NGIzMlQxMGFONGdzNmZkbEd2RXdieHRwcnIwQkU0WElmcEtEQURTQUN5aTIyeDl3bkdMMERCdXpycFZJQlJkM0xuSWtYSWtrcUlNdjFfYjhTREhmRU1zQlA0cGh4Mnl6Y19DN1kwNU92UE9rb1lyd09YMzRnVUFQbEM2NXYyTlh1dHVxRExEZnlVdjFXeEJFbUhQcUppbTdmZ09oSmxidERmaVNIX09ua1dIRjlEdll0RVVnYTROZldheVZYSk1ZQUtPR2hHQnVkREgxdTBsb2FSUnBsQWtrTGZnaGZZQ1FxNjd5dzRQZkVzcXBSQ3FBYTA5OQ?oc=5)
+
+• 美国发布新版对外投资限制拟议规则，商务部已回应（财联社）
+  摘要：10 月 25 日财联社早报提到，美国发布新版对外投资限制拟议规则，中国商务部对此作出回应。背景：拟议规则处于征求意见阶段，尚未生效，最终范围以正式文本为准。
+  🔗 [查看原文](https://news.google.com/rss/articles/CBMiSEFVX3lxTE51dm5JenhWY1FBcEdaVlpXR3g1dTJxVFR4Vm9WNUtuSEFFNDZEUjZLT0VxeVU2NHUxV0Q1NGlvbW5zVTZSdmo0UA?oc=5)
+
+• 马来西亚商界呼吁检讨跨境电商进口与税务制度（多源报道）
+  摘要：10 月 25 日，马来西亚商界人士郑明发在两篇报道中提出，应检视跨境电商的进口与税务制度，确保本地商家公平竞争。背景：跨境电商小包进口长期被本地零售商视为税收不对等，税制一旦收紧，低价小包的利润空间会被压缩。
+  🔗 [查看原文](https://news.google.com/rss/articles/CBMirgJBVV95cUxQVnFFRXRsbUF5UTdvaFUzaC1CMVhIU0RVY3B1ZG9POF9JQTVJMnRqQWRLaTExQmtrODVOdkgwZUpPTWJzMDZMaHRfUmMzS0ZVclZkQU9jaWhobURDN2V5UUg1dFh3eng4RzlUeVd5bk1LNm9yS1QzMzE3cjZwYlRNd1l0ZkpocldLUDR2bTVTWThiMkN0RER5WXVISklvLXdDcGExRk05MkttaHczejlHM3l2VFBNUG5GZ2RJenpadTNmVXlqREtFcC16VzJDS2NNRVNrODA4SnNZQWJMQTRrd01Dc01yVjd2M2RZd05OZHJ3ZkNkTjRVMGlIQnMzbjdma3R0bEUxdXBYVGJXbXNVR0ZQVWswRWJNcWxTdUhVWGpYZ3BJU09oOXp2Xy00Zw?oc=5)
+
+🏪 平台动态
+
+• 跨境电商平台推出"中国品牌全球增长计划"（广东新闻）
+  摘要：10 月 23 日报道，有跨境电商平台推出"中国品牌全球增长计划"，面向中国品牌出海。该计划的平台名称、流量与运营扶持细则均未公开。背景：这类"增长计划"通常是平台招揽品牌入驻的入口，具体条件要看细则。
+  🔗 [查看原文](https://news.google.com/rss/articles/CBMia0FVX3lxTE1hMnl0T3ZYZkJZQmlUUUxjQzBZLXZzYnlUX01qODY2WWhTS19YeHFBdGlNTHUtODlGd0k0ZlNCOUR6djlWcUJKNU1sSU5yblJJa3p3Wmc0czZuSDFnQk1EUk1zdU80dElUV3Aw?oc=5)
+
+📦 物流与市场
+
+• 深圳前三季度跨境人民币结算 5.9 万亿元，同比增长 36.9%（新浪财经）
+  摘要：深圳前三季度跨境人民币结算规模达 5.9 万亿元，同比增长 36.9%。背景：跨境人民币结算指直接用人民币收付货款、不经美元换汇，少一道汇兑环节；但若成本与定价不是人民币，汇率敞口只是转移而非消失。
+  🔗 [查看原文](https://news.google.com/rss/articles/CBMi4gNBVV95cUxQZVF0TW1CUFFvWTN0WEtWbVMxVnJuUWsyeldGVHMtMGdxQjAtaHMyZThwSm8wTG14enQyR3lxS0NDRTE1dzlLQTREWFJkMzIxODZFVnoyTWNaYUdCUEZTNW1ickRQR0UyZW9GcE9TWnpXRV9TZWVXVUNaY0V3aXQwVU5peU5sXzl5YWt5SnlHVW90ejMxM0UyN0pNTU5tQy1uVE91MDJsNXVWR2hsb2NtM3ZMWDYwNW5BT3V1YTRvalNudjB3VlluX28tMENwUFZUcWtKbWZqWFFDREhMb3F0Y05kZ0RJNlRreVJPYWIxWmNqTHFZUng2WllzV1R4U3duM0t3WWRrV3E3MENvVElqc0poMVZCZ3VPOUN0NHlFUEVnOWxUcTZSQ3ZQLU05WU9MaDI1YWc4Wk8zSVB2Z3FoVzAtOG0wSUtDaThOWFZ0OFpoUTRmdk9DUUVRY182cVBtb19jczVvTjJmX05XUXpZck1lZ2RrOHJaY2pSZ1E3ZDd0TldkUzNWSzRkSzVuMnVmMWJqN3FFa2QzUXhxMkdGdnNSLUlnRWpTM3kwS2M2aHZrYl9kd3RLVkJNUG4ySmpURHpndDB0T1hVWUMxX1l1RExFSU5Eb0VVSElPU3lzYmw4dw?oc=5)
+
+• 报告：中国品牌在拉美消费电器、外卖、美妆、时尚四大赛道崛起（AgeClub）
+  摘要：10 月 25 日发布的《2026 中国品牌在拉美崛起研究报告》覆盖消费电器、餐饮外卖、美妆个护、时尚四大赛道。报告聚焦中国品牌在拉美市场的表现。背景：拉美是中国品牌出海的新兴区域市场之一，本地支付与物流是主要门槛。
+  🔗 [查看原文](https://news.google.com/rss/articles/CBMiVEFVX3lxTE03V0E5OXYzUldyNTN1SFNwMzZyUGdTV21SMVRickFGQUpvdDV0cHB3VnFScURxS1ZSblB2cWxHbkwxQXJqTzVoNEdMWlc2OFppWDlabg?oc=5)
+
+• 美国"成人万圣节"撑起 135 亿美元节日消费（Modern Retail）🔤
+  摘要：Modern Retail 报道，美国成年人撑起 135 亿美元的万圣节消费，由"Adultoween"（成人也认真过万圣节）带动，家居装饰、食品饮料是增长中的品类。背景：万圣节是美国的季节性消费节点，装饰类需求集中在 9-10 月。
+  🔗 [查看原文](https://www.modernretail.co/marketing/the-rise-of-adultoween-and-how-adults-are-driving-halloween-spending/?utm_campaign=modernretaildis&utm_medium=rss&utm_source=general-rss)
+
+💼 卖家运营
+
+• 海外网红被国产工厂集体"收编"，被列为出海新趋势（36氪）
+  摘要：10 月 24 日 36氪报道，海外网红正被国产工厂集体"收编"，被视为跨境电商出海的新趋势。背景：工厂与内容创作者直接合作，可以省掉中间的贸易商与代理商环节。
+  🔗 [查看原文](https://news.google.com/rss/articles/CBMiU0FVX3lxTE1Ea2hYUjFRTl9IU2dJTWViQlNnUHVoTDJzV0RGQllHd1MyUklGMlUtS2N0VEMtZ2VzOUNnX2pzeTd2QUN5cURoQWxjLUxBaVB4eDBV?oc=5)
+
+• 钛动科技发布营销智能体 Navos Pro，尝试把 AI 接入出海营销流程（新浪）
+  摘要：10 月 24 日，钛动科技发布营销智能体 Navos Pro，尝试把 AI 接入出海营销流程。背景：出海营销的素材制作与投放长期靠人工完成，智能体是这一环节的新工具方向。
+  🔗 [查看原文](https://news.google.com/rss/articles/CBMif0FVX3lxTFBjbWRYTExjaWRZajZaY2FCZjBfalFYeFN1SXF2enY0bmxEREFQTzAzZmNNU0JMUkVzSFkydmZadGNZN3VNdXhFa0lUS0xVVEoybVdPcEsxQ0w5UEk3SGp4TDFiVUZqWkxlRDloaGJGeHF5RzFnSlJZVFI2X285Rm8?oc=5)
+
+• 卖家反映 FBA 货件被卡两个月，系统称"目的地国无可用仓库"（Reddit FBA）🔤
+  摘要：一位卖家在 Reddit 发帖称，其 FBA 货件被卡了 2 个月，系统给出的理由是目的地国没有能接收该产品的履约中心。这是单一卖家个案，未经亚马逊方面确认。背景：FBA 是亚马逊的代仓代发服务，货件进不了仓就无法上架销售。
+  🔗 [查看原文](https://www.reddit.com/r/FulfillmentByAmazon/comments/1xf020l/fba_shipment_blocked_for_2_months_no_fulfilment/)
+
+To stop or manage this job, send me a new message (e.g. "stop reminder TrendRadar跨境日报投递").
