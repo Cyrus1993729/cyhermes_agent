@@ -140,6 +140,23 @@ hermes -p <profile> chat --in ~ -c "Bot Chat" --create-if-missing -Q --query-fil
 - 实测返回 `session_id` + 回复正文，exit 0
 - 这条是 Hermes 源码里官方注明的 *proven* 传输（`hermes -p` / `hermes peer dm`）
 
+🔴 **`-c <名字>` 必须是已存在的会话**（2026-10-26 实踩）：
+带一个自创标题（如 `-c "燕麦评估"`）会直接 **exit 1**，输出只有一句
+`No session found matching '燕麦评估'. ... or pass --create-if-missing`。
+→ **想开新会话就必须带 `--create-if-missing`**；否则用已在用的那个标题（如 `"Bot Chat"`）。
+会话标题写错时不会有任何模型调用，**看 exit code 就能判定是参数问题还是任务问题**。
+
+🔴 **同一会话同时只能有一个执行面（one surface at a time）**（同日实踩）：
+把上一轮 `kill` 掉后**立刻**重启，新进程会撞上
+`Session <id> already has a live owner (cli, pid NNN, running 0m). Only one surface at a time may run a session, because a second one would ...`
+——**输出在那一句处被截断**，前半段任务做完了、后半段静默丢失，而外层可能仍报 exit 0。
+→ **杀进程后先 `ps -W | grep <pid>` 确认真的没了、等几秒再启动**；
+→ 一个重要任务拆成两半时，**宁可串行再发一轮，不要 kill 后立即重启**；
+→ 回读到输出里有 `live owner` / `already has a live owner` 字样，**直接把那轮作废重发**，不要基于截断的输出汇报。
+
+💡 **输出文件不到 200 字节不代表挂了**：实测 126–192 字节时只是开了个头（`Warning: Unknown toolsets: a2a` + `↻ Resumed session ...`），
+正文还没刷出来。**先 `wc -c` 再等一轮，绝不因文件小就重发**（重发＝两条并行，可能双写）。
+
 ### 客户端 Bot Mode 的真实边界（读源码得来，别再猜）
 
 - Bot Mode = `apps/desktop/src/plugins/hermes-bots`，**一个 bot = 一个 profile**，`+` 号即 `profiles.create`

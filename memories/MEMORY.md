@@ -32,13 +32,13 @@ Codex/OpenAI 账号红线:全机仅 1 个账号,牛来+妈妈各自独立 OAuth(
 §
 健康域:「健康助理」→hermes -p health chat -c "Bot Chat" -Q --query-file。数据在~/health/(profile.md=基线)。主Hermes不做健康判断,只派活;见 skill health-nutrition-analysis。他瘦=体脂降非体重(判据腰围+力量);答复须分「指南原文/临床惯例/机制推测」三档,无数据不编数。
 §
-桌面端:Hermes.exe 在 hermes-agent/apps/desktop/release/win-unpacked/(官方);Programs/hermes-desktop 是无关第三方软件,别搞混。其 Bot Mode 里「一个 bot = 一个 Hermes profile」。
+桌面端:Hermes.exe 在 hermes-agent/apps/desktop/release/win-unpacked/(官方);Programs/hermes-desktop 是无关第三方,别混。Bot Mode 一个 bot = 一个 profile。
 §
 要他确认的须是他凭常识能判断的(菜名/份量);专业细节(放多少糖/理化参数)他会拒绝,别落在他判断不了的事上。
 §
 有额度/成本的 API:他会要求先用免费接口做匹配筛选、确认后才查付费接口(薄荷 23 次额度事件他主动提出)。
 §
-派验收任务若会落盘(写文件/记账/发消息),任务书须标「测试数据勿写真实档案」或给隔离路径(踩过:假午餐写进真实 diet)。
+派活若会落盘(写文件/记账/发消息):任务书须标「测试数据勿写真实档案」或给隔离路径(踩过:假午餐写进真实 diet);核算/产出类先返回结果、他确认后才落盘。
 §
 date 不认 TZ(恒报 UTC),北京时间=+8h;state.db messages 用 timestamp(epoch)。
 §

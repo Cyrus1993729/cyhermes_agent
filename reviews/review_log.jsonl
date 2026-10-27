@@ -107,3 +107,6 @@
 {"ts": "2026-10-19T12:37:27.519928", "task": "contract_gold_weekly_2026-10-19", "verdict": "FAIL", "escalate": true, "fail_count": 1, "cond_count": 3, "total_items": 7}
 {"ts": "2026-10-19T12:40:09.056019", "task": "contract_gold_weekly_2026-10-19", "verdict": "PASS", "escalate": false, "fail_count": 0, "cond_count": 0, "total_items": 6}
 {"ts": "2026-10-19T12:43:01.964533", "task": "contract_gold_weekly_2026-10-19", "verdict": "PASS", "escalate": false, "fail_count": 0, "cond_count": 0, "total_items": 11}
+{"ts": "2026-10-26T12:36:47.222062", "task": "contract_gold_weekly_2026-10-26", "verdict": "CONDITIONAL", "escalate": false, "fail_count": 0, "cond_count": 1, "total_items": 8}
+{"ts": "2026-10-26T12:40:51.132718", "task": "contract_gold_weekly_2026-10-26", "verdict": "PASS", "escalate": false, "fail_count": 0, "cond_count": 0, "total_items": 8}
+{"ts": "2026-10-26T12:43:33.864440", "task": "contract_gold_weekly_2026-10-26", "verdict": "PASS", "escalate": false, "fail_count": 0, "cond_count": 0, "total_items": 8}
