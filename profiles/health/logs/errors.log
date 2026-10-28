@@ -1944,3 +1944,485 @@ openai.APIStatusError: Error code: 402 - {'error': {'message': 'Insufficient Bal
 2026-10-27 03:00:19,679 WARNING tools.mcp_tool: MCP server 'x' keepalive failed, triggering reconnect (state: connected → degraded): MCPError: xurl mcp: could not reach the MCP server (transport error)
 2026-10-27 05:00:49,352 WARNING tools.mcp_tool: MCP server 'x' keepalive failed, triggering reconnect (state: connected → degraded): MCPError: xurl mcp: could not reach the MCP server (transport error)
 2026-10-27 07:01:18,539 WARNING tools.mcp_tool: MCP server 'x' keepalive failed, triggering reconnect (state: connected → degraded): MCPError: xurl mcp: could not reach the MCP server (transport error)
+2026-10-27 08:50:52,903 WARNING tools.registry: check_fn check_browser_back_requirements returned False; dependent tools will be unavailable this turn
+2026-10-27 08:50:52,943 WARNING tools.registry: check_fn _browser_cdp_check returned False; dependent tools will be unavailable this turn
+2026-10-27 08:50:52,985 WARNING tools.registry: check_fn check_browser_click_requirements returned False; dependent tools will be unavailable this turn
+2026-10-27 08:50:53,026 WARNING tools.registry: check_fn check_browser_requirements returned False; dependent tools will be unavailable this turn
+2026-10-27 08:50:53,073 WARNING tools.registry: check_fn _browser_dialog_check returned False; dependent tools will be unavailable this turn
+2026-10-27 08:50:53,180 WARNING tools.registry: check_fn check_browser_navigate_requirements returned False; dependent tools will be unavailable this turn
+2026-10-27 08:50:53,238 WARNING tools.registry: check_fn check_browser_press_requirements returned False; dependent tools will be unavailable this turn
+2026-10-27 08:50:53,288 WARNING tools.registry: check_fn check_browser_scroll_requirements returned False; dependent tools will be unavailable this turn
+2026-10-27 08:50:53,342 WARNING tools.registry: check_fn check_browser_snapshot_requirements returned False; dependent tools will be unavailable this turn
+2026-10-27 08:50:53,397 WARNING tools.registry: check_fn check_browser_type_requirements returned False; dependent tools will be unavailable this turn
+2026-10-27 08:50:53,437 WARNING tools.registry: check_fn check_browser_vision_requirements returned False; dependent tools will be unavailable this turn
+2026-10-27 08:50:53,461 WARNING tools.registry: check_fn check_computer_use_requirements returned False; dependent tools will be unavailable this turn
+2026-10-27 08:50:53,486 WARNING tools.registry: check_fn check_image_generation_requirements returned False; dependent tools will be unavailable this turn
+2026-10-27 08:50:53,489 WARNING tools.registry: check_fn _check_kanban_mode returned False; dependent tools will be unavailable this turn
+2026-10-27 08:50:53,493 WARNING tools.registry: check_fn _check_kanban_orchestrator_mode returned False; dependent tools will be unavailable this turn
+2026-10-27 08:52:55,036 WARNING [20261025_141418_f45cd6] agent.tool_executor: Tool terminal returned error (73.91s): {"output": "蒸红薯              zhenghongshu | 蒸红薯              | kcal 65 | P 1.2 | F 0.1 | C 15.1 | 纤 2.3 | Na —\r\n红薯(红心)         ganshu_hongxin | 红薯               | kcal 86 | P 1.6 | F 0.1 | C 20.1 | 
+2026-10-27 09:01:50,943 WARNING tools.mcp_tool: MCP server 'x' keepalive failed, triggering reconnect (state: connected → degraded): MCPError: xurl mcp: could not reach the MCP server (transport error)
+2026-10-27 09:57:25,640 WARNING tools.registry: check_fn check_browser_back_requirements returned False; dependent tools will be unavailable this turn
+2026-10-27 09:57:26,221 WARNING tools.registry: check_fn _browser_cdp_check returned False; dependent tools will be unavailable this turn
+2026-10-27 09:57:26,291 WARNING tools.registry: check_fn check_browser_click_requirements returned False; dependent tools will be unavailable this turn
+2026-10-27 09:57:26,370 WARNING tools.registry: check_fn check_browser_requirements returned False; dependent tools will be unavailable this turn
+2026-10-27 09:57:26,441 WARNING tools.registry: check_fn _browser_dialog_check returned False; dependent tools will be unavailable this turn
+2026-10-27 09:57:26,574 WARNING tools.registry: check_fn check_browser_navigate_requirements returned False; dependent tools will be unavailable this turn
+2026-10-27 09:57:26,644 WARNING tools.registry: check_fn check_browser_press_requirements returned False; dependent tools will be unavailable this turn
+2026-10-27 09:57:26,729 WARNING tools.registry: check_fn check_browser_scroll_requirements returned False; dependent tools will be unavailable this turn
+2026-10-27 09:57:26,848 WARNING tools.registry: check_fn check_browser_snapshot_requirements returned False; dependent tools will be unavailable this turn
+2026-10-27 09:57:26,908 WARNING tools.registry: check_fn check_browser_type_requirements returned False; dependent tools will be unavailable this turn
+2026-10-27 09:57:26,965 WARNING tools.registry: check_fn check_browser_vision_requirements returned False; dependent tools will be unavailable this turn
+2026-10-27 09:57:27,064 WARNING tools.registry: check_fn check_computer_use_requirements returned False; dependent tools will be unavailable this turn
+2026-10-27 09:57:27,134 WARNING tools.registry: check_fn check_image_generation_requirements returned False; dependent tools will be unavailable this turn
+2026-10-27 09:57:27,138 WARNING tools.registry: check_fn _check_kanban_mode returned False; dependent tools will be unavailable this turn
+2026-10-27 09:57:27,143 WARNING tools.registry: check_fn _check_kanban_orchestrator_mode returned False; dependent tools will be unavailable this turn
+2026-10-27 11:02:22,523 WARNING tools.mcp_tool: MCP server 'x' keepalive failed, triggering reconnect (state: connected → degraded): MCPError: xurl mcp: could not reach the MCP server (transport error)
+2026-10-27 13:02:53,960 WARNING tools.mcp_tool: MCP server 'x' keepalive failed, triggering reconnect (state: connected → degraded): MCPError: xurl mcp: could not reach the MCP server (transport error)
+2026-10-27 15:03:38,538 WARNING tools.mcp_tool: MCP server 'x' keepalive failed, triggering reconnect (state: connected → degraded): MCPError: xurl mcp: could not reach the MCP server (transport error)
+2026-10-27 16:30:48,753 WARNING tools.registry: check_fn check_browser_back_requirements returned False; dependent tools will be unavailable this turn
+2026-10-27 16:30:48,800 WARNING tools.registry: check_fn _browser_cdp_check returned False; dependent tools will be unavailable this turn
+2026-10-27 16:30:48,852 WARNING tools.registry: check_fn check_browser_click_requirements returned False; dependent tools will be unavailable this turn
+2026-10-27 16:30:48,905 WARNING tools.registry: check_fn check_browser_requirements returned False; dependent tools will be unavailable this turn
+2026-10-27 16:30:48,951 WARNING tools.registry: check_fn _browser_dialog_check returned False; dependent tools will be unavailable this turn
+2026-10-27 16:30:49,085 WARNING tools.registry: check_fn check_browser_navigate_requirements returned False; dependent tools will be unavailable this turn
+2026-10-27 16:30:49,129 WARNING tools.registry: check_fn check_browser_press_requirements returned False; dependent tools will be unavailable this turn
+2026-10-27 16:30:49,173 WARNING tools.registry: check_fn check_browser_scroll_requirements returned False; dependent tools will be unavailable this turn
+2026-10-27 16:30:49,253 WARNING tools.registry: check_fn check_browser_snapshot_requirements returned False; dependent tools will be unavailable this turn
+2026-10-27 16:30:49,333 WARNING tools.registry: check_fn check_browser_type_requirements returned False; dependent tools will be unavailable this turn
+2026-10-27 16:30:49,413 WARNING tools.registry: check_fn check_browser_vision_requirements returned False; dependent tools will be unavailable this turn
+2026-10-27 16:30:49,519 WARNING tools.registry: check_fn check_computer_use_requirements returned False; dependent tools will be unavailable this turn
+2026-10-27 16:30:49,550 WARNING tools.registry: check_fn check_image_generation_requirements returned False; dependent tools will be unavailable this turn
+2026-10-27 16:30:49,553 WARNING tools.registry: check_fn _check_kanban_mode returned False; dependent tools will be unavailable this turn
+2026-10-27 16:30:49,558 WARNING tools.registry: check_fn _check_kanban_orchestrator_mode returned False; dependent tools will be unavailable this turn
+2026-10-27 16:30:58,465 ERROR agent.chat_completion_helpers: Streaming failed before delivery: Error code: 429 - {'error': {'type': 'server_error', 'message': 'Upstream request failed: [ttft_admission_refused] the cell is at capacity; retry shortly (after 13 s)'}}
+Traceback (most recent call last):
+  File "C:\Users\Administrator\AppData\Local\hermes\hermes-agent\agent\chat_completion_helpers.py", line 5156, in _call
+    result["response"] = _call_chat_completions(stream_attempt_id)
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Administrator\AppData\Local\hermes\hermes-agent\agent\chat_completion_helpers.py", line 4396, in _call_chat_completions
+    relay_llm.stream(
+  File "C:\Users\Administrator\AppData\Local\hermes\hermes-agent\agent\relay_llm.py", line 395, in stream
+    return ManagedLlmStream(
+           ^^^^^^^^^^^^^^^^^
+  File "C:\Users\Administrator\AppData\Local\hermes\hermes-agent\agent\relay_llm.py", line 478, in __init__
+    raw_stream = stream_factory(request)
+                 ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Administrator\AppData\Local\hermes\hermes-agent\agent\chat_completion_helpers.py", line 4305, in _open_stream
+    return request_client.chat.completions.create(**stream_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Administrator\AppData\Local\hermes\hermes-agent\venv\Lib\site-packages\openai\_utils\_utils.py", line 286, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Administrator\AppData\Local\hermes\hermes-agent\venv\Lib\site-packages\openai\resources\chat\completions\completions.py", line 1204, in create
+    return self._post(
+           ^^^^^^^^^^^
+  File "C:\Users\Administrator\AppData\Local\hermes\hermes-agent\venv\Lib\site-packages\openai\_base_client.py", line 1297, in post
+    return cast(ResponseT, self.request(cast_to, opts, stream=stream, stream_cls=stream_cls))
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Administrator\AppData\Local\hermes\hermes-agent\venv\Lib\site-packages\openai\_base_client.py", line 1070, in request
+    raise self._make_status_error_from_response(err.response) from None
+openai.RateLimitError: Error code: 429 - {'error': {'type': 'server_error', 'message': 'Upstream request failed: [ttft_admission_refused] the cell is at capacity; retry shortly (after 13 s)'}}
+2026-10-27 16:30:58,502 WARNING [20261025_141418_f45cd6] agent.conversation_loop: API call failed (attempt 1/3) error_type=RateLimitError thread=MainThread:158540 provider=opencode-go base_url=https://opencode.ai/zen/go/v1 model=deepseek-v4.1-flash summary=HTTP 429: Upstream request failed: [ttft_admission_refused] the cell is at capacity; retry shortly (after 13 s)
+2026-10-27 16:30:58,503 WARNING [20261025_141418_f45cd6] agent.conversation_loop: Retrying API call in 2.4065137464365822s (attempt 1/3) thread=MainThread:158540 provider=opencode-go base_url=https://opencode.ai/zen/go/v1 model=deepseek-v4.1-flash policy=default error=Error code: 429 - {'error': {'type': 'server_error', 'message': 'Upstream request failed: [ttft_admission_refused] the cell is at capacity; retry shortly (after 13 s)'}}
+2026-10-27 16:31:03,635 ERROR agent.chat_completion_helpers: Streaming failed before delivery: Error code: 429 - {'error': {'type': 'server_error', 'message': 'Upstream request failed: [ttft_admission_refused] the cell is at capacity; retry shortly (after 28 s)'}}
+Traceback (most recent call last):
+  File "C:\Users\Administrator\AppData\Local\hermes\hermes-agent\agent\chat_completion_helpers.py", line 5156, in _call
+    result["response"] = _call_chat_completions(stream_attempt_id)
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Administrator\AppData\Local\hermes\hermes-agent\agent\chat_completion_helpers.py", line 4396, in _call_chat_completions
+    relay_llm.stream(
+  File "C:\Users\Administrator\AppData\Local\hermes\hermes-agent\agent\relay_llm.py", line 395, in stream
+    return ManagedLlmStream(
+           ^^^^^^^^^^^^^^^^^
+  File "C:\Users\Administrator\AppData\Local\hermes\hermes-agent\agent\relay_llm.py", line 478, in __init__
+    raw_stream = stream_factory(request)
+                 ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Administrator\AppData\Local\hermes\hermes-agent\agent\chat_completion_helpers.py", line 4305, in _open_stream
+    return request_client.chat.completions.create(**stream_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Administrator\AppData\Local\hermes\hermes-agent\venv\Lib\site-packages\openai\_utils\_utils.py", line 286, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Administrator\AppData\Local\hermes\hermes-agent\venv\Lib\site-packages\openai\resources\chat\completions\completions.py", line 1204, in create
+    return self._post(
+           ^^^^^^^^^^^
+  File "C:\Users\Administrator\AppData\Local\hermes\hermes-agent\venv\Lib\site-packages\openai\_base_client.py", line 1297, in post
+    return cast(ResponseT, self.request(cast_to, opts, stream=stream, stream_cls=stream_cls))
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Administrator\AppData\Local\hermes\hermes-agent\venv\Lib\site-packages\openai\_base_client.py", line 1070, in request
+    raise self._make_status_error_from_response(err.response) from None
+openai.RateLimitError: Error code: 429 - {'error': {'type': 'server_error', 'message': 'Upstream request failed: [ttft_admission_refused] the cell is at capacity; retry shortly (after 28 s)'}}
+2026-10-27 16:31:03,649 WARNING [20261025_141418_f45cd6] agent.conversation_loop: API call failed (attempt 2/3) error_type=RateLimitError thread=MainThread:158540 provider=opencode-go base_url=https://opencode.ai/zen/go/v1 model=deepseek-v4.1-flash summary=HTTP 429: Upstream request failed: [ttft_admission_refused] the cell is at capacity; retry shortly (after 28 s)
+2026-10-27 16:31:04,693 ERROR agent.chat_completion_helpers: Streaming failed before delivery: Error code: 402 - {'error': {'message': 'Insufficient Balance (request_id: e5f42b18-4986-4c76-8364-2843104f293e)', 'type': 'insufficient_balance_error', 'param': None, 'code': 'invalid_request_error'}}
+Traceback (most recent call last):
+  File "C:\Users\Administrator\AppData\Local\hermes\hermes-agent\agent\chat_completion_helpers.py", line 5156, in _call
+    result["response"] = _call_chat_completions(stream_attempt_id)
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Administrator\AppData\Local\hermes\hermes-agent\agent\chat_completion_helpers.py", line 4396, in _call_chat_completions
+    relay_llm.stream(
+  File "C:\Users\Administrator\AppData\Local\hermes\hermes-agent\agent\relay_llm.py", line 395, in stream
+    return ManagedLlmStream(
+           ^^^^^^^^^^^^^^^^^
+  File "C:\Users\Administrator\AppData\Local\hermes\hermes-agent\agent\relay_llm.py", line 478, in __init__
+    raw_stream = stream_factory(request)
+                 ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Administrator\AppData\Local\hermes\hermes-agent\agent\chat_completion_helpers.py", line 4305, in _open_stream
+    return request_client.chat.completions.create(**stream_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Administrator\AppData\Local\hermes\hermes-agent\venv\Lib\site-packages\openai\_utils\_utils.py", line 286, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Administrator\AppData\Local\hermes\hermes-agent\venv\Lib\site-packages\openai\resources\chat\completions\completions.py", line 1204, in create
+    return self._post(
+           ^^^^^^^^^^^
+  File "C:\Users\Administrator\AppData\Local\hermes\hermes-agent\venv\Lib\site-packages\openai\_base_client.py", line 1297, in post
+    return cast(ResponseT, self.request(cast_to, opts, stream=stream, stream_cls=stream_cls))
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Administrator\AppData\Local\hermes\hermes-agent\venv\Lib\site-packages\openai\_base_client.py", line 1070, in request
+    raise self._make_status_error_from_response(err.response) from None
+openai.APIStatusError: Error code: 402 - {'error': {'message': 'Insufficient Balance (request_id: e5f42b18-4986-4c76-8364-2843104f293e)', 'type': 'insufficient_balance_error', 'param': None, 'code': 'invalid_request_error'}}
+2026-10-27 16:31:04,725 WARNING [20261025_141418_f45cd6] agent.conversation_loop: API call failed (attempt 1/3) error_type=APIStatusError thread=MainThread:158540 provider=deepseek base_url=https://api.deepseek.com/v1/ model=deepseek-v4-flash summary=HTTP 402: Insufficient Balance (request_id: e5f42b18-4986-4c76-8364-2843104f293e)
+2026-10-27 16:34:03,520 WARNING [20261027_163322_74a3bf] agent.tool_executor: Tool terminal returned error (0.44s): {"output": "ls: cannot access '/c/Users/Administrator/health/data/foods.json': No such file or directory", "exit_code": 2, "error": null}
+2026-10-27 16:39:58,039 WARNING agent.relay_runtime: Hermes Relay drained 1 orphaned scope(s) before closing ScopeHandle(name='hermes.session', uuid='01a17c84-03bd-7111-a0c2-ce8d5428b26b')
+2026-10-27 16:44:53,961 WARNING tools.mcp_tool: Failed to connect to MCP server 'x' (command=xurl): CancelledError
+2026-10-27 16:44:54,131 WARNING tools.mcp_tool: Failed to connect to MCP server 'amap' (command=npx): CancelledError
+2026-10-27 16:44:55,918 WARNING hermes_cli.main: Background MCP discovery completed with zero connected servers
+2026-10-27 16:45:20,617 WARNING tools.registry: check_fn check_browser_back_requirements returned False; dependent tools will be unavailable this turn
+2026-10-27 16:45:20,701 WARNING tools.registry: check_fn _browser_cdp_check returned False; dependent tools will be unavailable this turn
+2026-10-27 16:45:20,767 WARNING tools.registry: check_fn check_browser_click_requirements returned False; dependent tools will be unavailable this turn
+2026-10-27 16:45:20,846 WARNING tools.registry: check_fn check_browser_requirements returned False; dependent tools will be unavailable this turn
+2026-10-27 16:45:20,914 WARNING tools.registry: check_fn _browser_dialog_check returned False; dependent tools will be unavailable this turn
+2026-10-27 16:45:21,088 WARNING tools.registry: check_fn check_browser_navigate_requirements returned False; dependent tools will be unavailable this turn
+2026-10-27 16:45:21,162 WARNING tools.registry: check_fn check_browser_press_requirements returned False; dependent tools will be unavailable this turn
+2026-10-27 16:45:21,227 WARNING tools.registry: check_fn check_browser_scroll_requirements returned False; dependent tools will be unavailable this turn
+2026-10-27 16:45:21,331 WARNING tools.registry: check_fn check_browser_snapshot_requirements returned False; dependent tools will be unavailable this turn
+2026-10-27 16:45:21,451 WARNING tools.registry: check_fn check_browser_type_requirements returned False; dependent tools will be unavailable this turn
+2026-10-27 16:45:21,573 WARNING tools.registry: check_fn check_browser_vision_requirements returned False; dependent tools will be unavailable this turn
+2026-10-27 16:45:21,655 WARNING tools.registry: check_fn check_computer_use_requirements returned False; dependent tools will be unavailable this turn
+2026-10-27 16:45:21,688 WARNING tools.registry: check_fn check_image_generation_requirements returned False; dependent tools will be unavailable this turn
+2026-10-27 16:45:21,692 WARNING tools.registry: check_fn _check_kanban_mode returned False; dependent tools will be unavailable this turn
+2026-10-27 16:45:21,697 WARNING tools.registry: check_fn _check_kanban_orchestrator_mode returned False; dependent tools will be unavailable this turn
+2026-10-27 17:04:16,845 WARNING tools.mcp_tool: MCP server 'x' keepalive failed, triggering reconnect (state: connected → degraded): MCPError: xurl mcp: could not reach the MCP server (transport error)
+2026-10-27 18:20:38,837 WARNING tools.registry: check_fn check_browser_back_requirements returned False; dependent tools will be unavailable this turn
+2026-10-27 18:20:38,881 WARNING tools.registry: check_fn _browser_cdp_check returned False; dependent tools will be unavailable this turn
+2026-10-27 18:20:38,930 WARNING tools.registry: check_fn check_browser_click_requirements returned False; dependent tools will be unavailable this turn
+2026-10-27 18:20:38,976 WARNING tools.registry: check_fn check_browser_requirements returned False; dependent tools will be unavailable this turn
+2026-10-27 18:20:39,024 WARNING tools.registry: check_fn _browser_dialog_check returned False; dependent tools will be unavailable this turn
+2026-10-27 18:20:39,129 WARNING tools.registry: check_fn check_browser_navigate_requirements returned False; dependent tools will be unavailable this turn
+2026-10-27 18:20:39,170 WARNING tools.registry: check_fn check_browser_press_requirements returned False; dependent tools will be unavailable this turn
+2026-10-27 18:20:39,214 WARNING tools.registry: check_fn check_browser_scroll_requirements returned False; dependent tools will be unavailable this turn
+2026-10-27 18:20:39,265 WARNING tools.registry: check_fn check_browser_snapshot_requirements returned False; dependent tools will be unavailable this turn
+2026-10-27 18:20:39,308 WARNING tools.registry: check_fn check_browser_type_requirements returned False; dependent tools will be unavailable this turn
+2026-10-27 18:20:39,348 WARNING tools.registry: check_fn check_browser_vision_requirements returned False; dependent tools will be unavailable this turn
+2026-10-27 18:20:39,373 WARNING tools.registry: check_fn check_computer_use_requirements returned False; dependent tools will be unavailable this turn
+2026-10-27 18:20:39,398 WARNING tools.registry: check_fn check_image_generation_requirements returned False; dependent tools will be unavailable this turn
+2026-10-27 18:20:39,401 WARNING tools.registry: check_fn _check_kanban_mode returned False; dependent tools will be unavailable this turn
+2026-10-27 18:20:39,406 WARNING tools.registry: check_fn _check_kanban_orchestrator_mode returned False; dependent tools will be unavailable this turn
+2026-10-27 18:20:45,731 ERROR agent.chat_completion_helpers: Streaming failed before delivery: Error code: 429 - {'error': {'type': 'server_error', 'message': 'Upstream request failed: [ttft_admission_refused] the cell is at capacity; retry shortly (after 6 s)'}}
+Traceback (most recent call last):
+  File "C:\Users\Administrator\AppData\Local\hermes\hermes-agent\agent\chat_completion_helpers.py", line 5156, in _call
+    result["response"] = _call_chat_completions(stream_attempt_id)
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Administrator\AppData\Local\hermes\hermes-agent\agent\chat_completion_helpers.py", line 4396, in _call_chat_completions
+    relay_llm.stream(
+  File "C:\Users\Administrator\AppData\Local\hermes\hermes-agent\agent\relay_llm.py", line 395, in stream
+    return ManagedLlmStream(
+           ^^^^^^^^^^^^^^^^^
+  File "C:\Users\Administrator\AppData\Local\hermes\hermes-agent\agent\relay_llm.py", line 478, in __init__
+    raw_stream = stream_factory(request)
+                 ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Administrator\AppData\Local\hermes\hermes-agent\agent\chat_completion_helpers.py", line 4305, in _open_stream
+    return request_client.chat.completions.create(**stream_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Administrator\AppData\Local\hermes\hermes-agent\venv\Lib\site-packages\openai\_utils\_utils.py", line 286, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Administrator\AppData\Local\hermes\hermes-agent\venv\Lib\site-packages\openai\resources\chat\completions\completions.py", line 1204, in create
+    return self._post(
+           ^^^^^^^^^^^
+  File "C:\Users\Administrator\AppData\Local\hermes\hermes-agent\venv\Lib\site-packages\openai\_base_client.py", line 1297, in post
+    return cast(ResponseT, self.request(cast_to, opts, stream=stream, stream_cls=stream_cls))
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Administrator\AppData\Local\hermes\hermes-agent\venv\Lib\site-packages\openai\_base_client.py", line 1070, in request
+    raise self._make_status_error_from_response(err.response) from None
+openai.RateLimitError: Error code: 429 - {'error': {'type': 'server_error', 'message': 'Upstream request failed: [ttft_admission_refused] the cell is at capacity; retry shortly (after 6 s)'}}
+2026-10-27 18:20:45,750 WARNING [20261027_163322_74a3bf] agent.conversation_loop: API call failed (attempt 1/3) error_type=RateLimitError thread=MainThread:157768 provider=opencode-go base_url=https://opencode.ai/zen/go/v1 model=deepseek-v4.1-flash summary=HTTP 429: Upstream request failed: [ttft_admission_refused] the cell is at capacity; retry shortly (after 6 s)
+2026-10-27 18:20:45,751 WARNING [20261027_163322_74a3bf] agent.conversation_loop: Retrying API call in 2.890721870222221s (attempt 1/3) thread=MainThread:157768 provider=opencode-go base_url=https://opencode.ai/zen/go/v1 model=deepseek-v4.1-flash policy=default error=Error code: 429 - {'error': {'type': 'server_error', 'message': 'Upstream request failed: [ttft_admission_refused] the cell is at capacity; retry shortly (after 6 s)'}}
+2026-10-27 18:20:50,688 ERROR agent.chat_completion_helpers: Streaming failed before delivery: Error code: 429 - {'error': {'type': 'server_error', 'message': 'Upstream request failed: [ttft_admission_refused] the cell is at capacity; retry shortly (after 6 s)'}}
+Traceback (most recent call last):
+  File "C:\Users\Administrator\AppData\Local\hermes\hermes-agent\agent\chat_completion_helpers.py", line 5156, in _call
+    result["response"] = _call_chat_completions(stream_attempt_id)
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Administrator\AppData\Local\hermes\hermes-agent\agent\chat_completion_helpers.py", line 4396, in _call_chat_completions
+    relay_llm.stream(
+  File "C:\Users\Administrator\AppData\Local\hermes\hermes-agent\agent\relay_llm.py", line 395, in stream
+    return ManagedLlmStream(
+           ^^^^^^^^^^^^^^^^^
+  File "C:\Users\Administrator\AppData\Local\hermes\hermes-agent\agent\relay_llm.py", line 478, in __init__
+    raw_stream = stream_factory(request)
+                 ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Administrator\AppData\Local\hermes\hermes-agent\agent\chat_completion_helpers.py", line 4305, in _open_stream
+    return request_client.chat.completions.create(**stream_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Administrator\AppData\Local\hermes\hermes-agent\venv\Lib\site-packages\openai\_utils\_utils.py", line 286, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Administrator\AppData\Local\hermes\hermes-agent\venv\Lib\site-packages\openai\resources\chat\completions\completions.py", line 1204, in create
+    return self._post(
+           ^^^^^^^^^^^
+  File "C:\Users\Administrator\AppData\Local\hermes\hermes-agent\venv\Lib\site-packages\openai\_base_client.py", line 1297, in post
+    return cast(ResponseT, self.request(cast_to, opts, stream=stream, stream_cls=stream_cls))
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Administrator\AppData\Local\hermes\hermes-agent\venv\Lib\site-packages\openai\_base_client.py", line 1070, in request
+    raise self._make_status_error_from_response(err.response) from None
+openai.RateLimitError: Error code: 429 - {'error': {'type': 'server_error', 'message': 'Upstream request failed: [ttft_admission_refused] the cell is at capacity; retry shortly (after 6 s)'}}
+2026-10-27 18:20:50,709 WARNING [20261027_163322_74a3bf] agent.conversation_loop: API call failed (attempt 2/3) error_type=RateLimitError thread=MainThread:157768 provider=opencode-go base_url=https://opencode.ai/zen/go/v1 model=deepseek-v4.1-flash summary=HTTP 429: Upstream request failed: [ttft_admission_refused] the cell is at capacity; retry shortly (after 6 s)
+2026-10-27 18:20:51,458 ERROR agent.chat_completion_helpers: Streaming failed before delivery: Error code: 402 - {'error': {'message': 'Insufficient Balance (request_id: 9c1ad0f7-35a0-4cfc-b40b-04afc0972d60)', 'type': 'insufficient_balance_error', 'param': None, 'code': 'invalid_request_error'}}
+Traceback (most recent call last):
+  File "C:\Users\Administrator\AppData\Local\hermes\hermes-agent\agent\chat_completion_helpers.py", line 5156, in _call
+    result["response"] = _call_chat_completions(stream_attempt_id)
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Administrator\AppData\Local\hermes\hermes-agent\agent\chat_completion_helpers.py", line 4396, in _call_chat_completions
+    relay_llm.stream(
+  File "C:\Users\Administrator\AppData\Local\hermes\hermes-agent\agent\relay_llm.py", line 395, in stream
+    return ManagedLlmStream(
+           ^^^^^^^^^^^^^^^^^
+  File "C:\Users\Administrator\AppData\Local\hermes\hermes-agent\agent\relay_llm.py", line 478, in __init__
+    raw_stream = stream_factory(request)
+                 ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Administrator\AppData\Local\hermes\hermes-agent\agent\chat_completion_helpers.py", line 4305, in _open_stream
+    return request_client.chat.completions.create(**stream_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Administrator\AppData\Local\hermes\hermes-agent\venv\Lib\site-packages\openai\_utils\_utils.py", line 286, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Administrator\AppData\Local\hermes\hermes-agent\venv\Lib\site-packages\openai\resources\chat\completions\completions.py", line 1204, in create
+    return self._post(
+           ^^^^^^^^^^^
+  File "C:\Users\Administrator\AppData\Local\hermes\hermes-agent\venv\Lib\site-packages\openai\_base_client.py", line 1297, in post
+    return cast(ResponseT, self.request(cast_to, opts, stream=stream, stream_cls=stream_cls))
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Administrator\AppData\Local\hermes\hermes-agent\venv\Lib\site-packages\openai\_base_client.py", line 1070, in request
+    raise self._make_status_error_from_response(err.response) from None
+openai.APIStatusError: Error code: 402 - {'error': {'message': 'Insufficient Balance (request_id: 9c1ad0f7-35a0-4cfc-b40b-04afc0972d60)', 'type': 'insufficient_balance_error', 'param': None, 'code': 'invalid_request_error'}}
+2026-10-27 18:20:51,483 WARNING [20261027_163322_74a3bf] agent.conversation_loop: API call failed (attempt 1/3) error_type=APIStatusError thread=MainThread:157768 provider=deepseek base_url=https://api.deepseek.com/v1/ model=deepseek-v4-flash summary=HTTP 402: Insufficient Balance (request_id: 9c1ad0f7-35a0-4cfc-b40b-04afc0972d60)
+2026-10-27 19:05:35,685 WARNING tools.mcp_tool: MCP server 'x' keepalive failed, triggering reconnect (state: connected → degraded): MCPError: xurl mcp: could not reach the MCP server (transport error)
+2026-10-27 20:04:38,811 WARNING tools.registry: check_fn check_browser_back_requirements returned False; dependent tools will be unavailable this turn
+2026-10-27 20:04:38,867 WARNING tools.registry: check_fn _browser_cdp_check returned False; dependent tools will be unavailable this turn
+2026-10-27 20:04:38,924 WARNING tools.registry: check_fn check_browser_click_requirements returned False; dependent tools will be unavailable this turn
+2026-10-27 20:04:38,980 WARNING tools.registry: check_fn check_browser_requirements returned False; dependent tools will be unavailable this turn
+2026-10-27 20:04:39,029 WARNING tools.registry: check_fn _browser_dialog_check returned False; dependent tools will be unavailable this turn
+2026-10-27 20:04:39,143 WARNING tools.registry: check_fn check_browser_navigate_requirements returned False; dependent tools will be unavailable this turn
+2026-10-27 20:04:39,202 WARNING tools.registry: check_fn check_browser_press_requirements returned False; dependent tools will be unavailable this turn
+2026-10-27 20:04:39,252 WARNING tools.registry: check_fn check_browser_scroll_requirements returned False; dependent tools will be unavailable this turn
+2026-10-27 20:04:39,303 WARNING tools.registry: check_fn check_browser_snapshot_requirements returned False; dependent tools will be unavailable this turn
+2026-10-27 20:04:39,349 WARNING tools.registry: check_fn check_browser_type_requirements returned False; dependent tools will be unavailable this turn
+2026-10-27 20:04:39,393 WARNING tools.registry: check_fn check_browser_vision_requirements returned False; dependent tools will be unavailable this turn
+2026-10-27 20:04:39,421 WARNING tools.registry: check_fn check_computer_use_requirements returned False; dependent tools will be unavailable this turn
+2026-10-27 20:04:39,456 WARNING tools.registry: check_fn check_image_generation_requirements returned False; dependent tools will be unavailable this turn
+2026-10-27 20:04:39,459 WARNING tools.registry: check_fn _check_kanban_mode returned False; dependent tools will be unavailable this turn
+2026-10-27 20:04:39,463 WARNING tools.registry: check_fn _check_kanban_orchestrator_mode returned False; dependent tools will be unavailable this turn
+2026-10-27 20:05:53,115 WARNING tools.mcp_tool: Failed to connect to MCP server 'amap' (command=npx): CancelledError
+2026-10-27 20:07:09,917 WARNING [20261027_182451_d75aa2] agent.tool_executor: Tool terminal returned error (1.46s): {"output": "### 卤鸭  (2 条)\r\nTraceback (most recent call last):\r\n  File \"C:\\Users\\Administrator\\AppData\\Local\\Temp\\_d1.py\", line 17, in <module>\r\n    print(f\"   {x.get('code','?'):12s} {s
+2026-10-27 20:09:51,258 WARNING [20261027_182451_d75aa2] agent.tool_executor: Tool terminal returned error (0.03s): {"output": "", "exit_code": -1, "error": "BLOCKED: Command flagged as dangerous (script execution via -e/-c flag) but single-query mode (-q) runs without a user present to approve it. Find an alternat
+2026-10-27 20:19:54,144 WARNING agent.relay_runtime: Hermes Relay drained 1 orphaned scope(s) before closing ScopeHandle(name='hermes.session', uuid='01a17d4d-6266-7db2-83fc-c6d9cdab292d')
+2026-10-27 20:28:17,902 WARNING tools.registry: check_fn check_browser_back_requirements returned False; dependent tools will be unavailable this turn
+2026-10-27 20:28:17,947 WARNING tools.registry: check_fn _browser_cdp_check returned False; dependent tools will be unavailable this turn
+2026-10-27 20:28:17,995 WARNING tools.registry: check_fn check_browser_click_requirements returned False; dependent tools will be unavailable this turn
+2026-10-27 20:28:18,038 WARNING tools.registry: check_fn check_browser_requirements returned False; dependent tools will be unavailable this turn
+2026-10-27 20:28:18,083 WARNING tools.registry: check_fn _browser_dialog_check returned False; dependent tools will be unavailable this turn
+2026-10-27 20:28:18,192 WARNING tools.registry: check_fn check_browser_navigate_requirements returned False; dependent tools will be unavailable this turn
+2026-10-27 20:28:18,253 WARNING tools.registry: check_fn check_browser_press_requirements returned False; dependent tools will be unavailable this turn
+2026-10-27 20:28:18,318 WARNING tools.registry: check_fn check_browser_scroll_requirements returned False; dependent tools will be unavailable this turn
+2026-10-27 20:28:18,363 WARNING tools.registry: check_fn check_browser_snapshot_requirements returned False; dependent tools will be unavailable this turn
+2026-10-27 20:28:18,408 WARNING tools.registry: check_fn check_browser_type_requirements returned False; dependent tools will be unavailable this turn
+2026-10-27 20:28:18,452 WARNING tools.registry: check_fn check_browser_vision_requirements returned False; dependent tools will be unavailable this turn
+2026-10-27 20:28:18,496 WARNING tools.registry: check_fn check_computer_use_requirements returned False; dependent tools will be unavailable this turn
+2026-10-27 20:28:18,547 WARNING tools.registry: check_fn check_image_generation_requirements returned False; dependent tools will be unavailable this turn
+2026-10-27 20:28:18,551 WARNING tools.registry: check_fn _check_kanban_mode returned False; dependent tools will be unavailable this turn
+2026-10-27 20:28:18,555 WARNING tools.registry: check_fn _check_kanban_orchestrator_mode returned False; dependent tools will be unavailable this turn
+2026-10-27 20:36:26,359 WARNING tools.registry: check_fn check_browser_back_requirements returned False; dependent tools will be unavailable this turn
+2026-10-27 20:36:26,418 WARNING tools.registry: check_fn _browser_cdp_check returned False; dependent tools will be unavailable this turn
+2026-10-27 20:36:26,465 WARNING tools.registry: check_fn check_browser_click_requirements returned False; dependent tools will be unavailable this turn
+2026-10-27 20:36:26,508 WARNING tools.registry: check_fn check_browser_requirements returned False; dependent tools will be unavailable this turn
+2026-10-27 20:36:26,549 WARNING tools.registry: check_fn _browser_dialog_check returned False; dependent tools will be unavailable this turn
+2026-10-27 20:36:26,639 WARNING tools.registry: check_fn check_browser_navigate_requirements returned False; dependent tools will be unavailable this turn
+2026-10-27 20:36:26,686 WARNING tools.registry: check_fn check_browser_press_requirements returned False; dependent tools will be unavailable this turn
+2026-10-27 20:36:26,738 WARNING tools.registry: check_fn check_browser_scroll_requirements returned False; dependent tools will be unavailable this turn
+2026-10-27 20:36:26,788 WARNING tools.registry: check_fn check_browser_snapshot_requirements returned False; dependent tools will be unavailable this turn
+2026-10-27 20:36:26,839 WARNING tools.registry: check_fn check_browser_type_requirements returned False; dependent tools will be unavailable this turn
+2026-10-27 20:36:26,883 WARNING tools.registry: check_fn check_browser_vision_requirements returned False; dependent tools will be unavailable this turn
+2026-10-27 20:36:26,912 WARNING tools.registry: check_fn check_computer_use_requirements returned False; dependent tools will be unavailable this turn
+2026-10-27 20:36:26,949 WARNING tools.registry: check_fn check_image_generation_requirements returned False; dependent tools will be unavailable this turn
+2026-10-27 20:36:26,952 WARNING tools.registry: check_fn _check_kanban_mode returned False; dependent tools will be unavailable this turn
+2026-10-27 20:36:26,956 WARNING tools.registry: check_fn _check_kanban_orchestrator_mode returned False; dependent tools will be unavailable this turn
+2026-10-27 20:42:03,721 WARNING agent.relay_runtime: Hermes Relay drained 1 orphaned scope(s) before closing ScopeHandle(name='hermes.session', uuid='01a17d61-8a44-7dd3-ae6c-2740507a3a93')
+2026-10-27 21:07:45,347 WARNING tools.mcp_tool: MCP server 'x' keepalive failed, triggering reconnect (state: connected → degraded): MCPError: xurl mcp: could not reach the MCP server (transport error)
+2026-10-27 21:57:11,896 WARNING tools.registry: check_fn check_browser_back_requirements returned False; dependent tools will be unavailable this turn
+2026-10-27 21:57:11,975 WARNING tools.registry: check_fn _browser_cdp_check returned False; dependent tools will be unavailable this turn
+2026-10-27 21:57:12,138 WARNING tools.registry: check_fn check_browser_click_requirements returned False; dependent tools will be unavailable this turn
+2026-10-27 21:57:12,222 WARNING tools.registry: check_fn check_browser_requirements returned False; dependent tools will be unavailable this turn
+2026-10-27 21:57:12,299 WARNING tools.registry: check_fn _browser_dialog_check returned False; dependent tools will be unavailable this turn
+2026-10-27 21:57:12,438 WARNING tools.registry: check_fn check_browser_navigate_requirements returned False; dependent tools will be unavailable this turn
+2026-10-27 21:57:12,516 WARNING tools.registry: check_fn check_browser_press_requirements returned False; dependent tools will be unavailable this turn
+2026-10-27 21:57:12,567 WARNING tools.registry: check_fn check_browser_scroll_requirements returned False; dependent tools will be unavailable this turn
+2026-10-27 21:57:12,624 WARNING tools.registry: check_fn check_browser_snapshot_requirements returned False; dependent tools will be unavailable this turn
+2026-10-27 21:57:12,674 WARNING tools.registry: check_fn check_browser_type_requirements returned False; dependent tools will be unavailable this turn
+2026-10-27 21:57:12,715 WARNING tools.registry: check_fn check_browser_vision_requirements returned False; dependent tools will be unavailable this turn
+2026-10-27 21:57:12,746 WARNING tools.registry: check_fn check_computer_use_requirements returned False; dependent tools will be unavailable this turn
+2026-10-27 21:57:12,787 WARNING tools.registry: check_fn check_image_generation_requirements returned False; dependent tools will be unavailable this turn
+2026-10-27 21:57:12,790 WARNING tools.registry: check_fn _check_kanban_mode returned False; dependent tools will be unavailable this turn
+2026-10-27 21:57:12,794 WARNING tools.registry: check_fn _check_kanban_orchestrator_mode returned False; dependent tools will be unavailable this turn
+2026-10-27 21:59:08,725 ERROR agent.chat_completion_helpers: Streaming failed before delivery: Error code: 429 - {'error': {'type': 'server_error', 'message': 'Upstream request failed: [ttft_admission_refused] the cell is at capacity; retry shortly (after 5 s)'}}
+Traceback (most recent call last):
+  File "C:\Users\Administrator\AppData\Local\hermes\hermes-agent\agent\chat_completion_helpers.py", line 5156, in _call
+    result["response"] = _call_chat_completions(stream_attempt_id)
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Administrator\AppData\Local\hermes\hermes-agent\agent\chat_completion_helpers.py", line 4396, in _call_chat_completions
+    relay_llm.stream(
+  File "C:\Users\Administrator\AppData\Local\hermes\hermes-agent\agent\relay_llm.py", line 395, in stream
+    return ManagedLlmStream(
+           ^^^^^^^^^^^^^^^^^
+  File "C:\Users\Administrator\AppData\Local\hermes\hermes-agent\agent\relay_llm.py", line 478, in __init__
+    raw_stream = stream_factory(request)
+                 ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Administrator\AppData\Local\hermes\hermes-agent\agent\chat_completion_helpers.py", line 4305, in _open_stream
+    return request_client.chat.completions.create(**stream_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Administrator\AppData\Local\hermes\hermes-agent\venv\Lib\site-packages\openai\_utils\_utils.py", line 286, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Administrator\AppData\Local\hermes\hermes-agent\venv\Lib\site-packages\openai\resources\chat\completions\completions.py", line 1204, in create
+    return self._post(
+           ^^^^^^^^^^^
+  File "C:\Users\Administrator\AppData\Local\hermes\hermes-agent\venv\Lib\site-packages\openai\_base_client.py", line 1297, in post
+    return cast(ResponseT, self.request(cast_to, opts, stream=stream, stream_cls=stream_cls))
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Administrator\AppData\Local\hermes\hermes-agent\venv\Lib\site-packages\openai\_base_client.py", line 1070, in request
+    raise self._make_status_error_from_response(err.response) from None
+openai.RateLimitError: Error code: 429 - {'error': {'type': 'server_error', 'message': 'Upstream request failed: [ttft_admission_refused] the cell is at capacity; retry shortly (after 5 s)'}}
+2026-10-27 21:59:08,791 WARNING [20261027_182451_d75aa2] agent.conversation_loop: API call failed (attempt 1/3) error_type=RateLimitError thread=MainThread:162176 provider=opencode-go base_url=https://opencode.ai/zen/go/v1 model=deepseek-v4.1-flash summary=HTTP 429: Upstream request failed: [ttft_admission_refused] the cell is at capacity; retry shortly (after 5 s)
+2026-10-27 21:59:08,793 WARNING [20261027_182451_d75aa2] agent.conversation_loop: Retrying API call in 2.135615123521582s (attempt 1/3) thread=MainThread:162176 provider=opencode-go base_url=https://opencode.ai/zen/go/v1 model=deepseek-v4.1-flash policy=default error=Error code: 429 - {'error': {'type': 'server_error', 'message': 'Upstream request failed: [ttft_admission_refused] the cell is at capacity; retry shortly (after 5 s)'}}
+2026-10-27 21:59:13,066 ERROR agent.chat_completion_helpers: Streaming failed before delivery: Error code: 429 - {'error': {'type': 'server_error', 'message': 'Upstream request failed: [ttft_admission_refused] the cell is at capacity; retry shortly (after 17 s)'}}
+Traceback (most recent call last):
+  File "C:\Users\Administrator\AppData\Local\hermes\hermes-agent\agent\chat_completion_helpers.py", line 5156, in _call
+    result["response"] = _call_chat_completions(stream_attempt_id)
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Administrator\AppData\Local\hermes\hermes-agent\agent\chat_completion_helpers.py", line 4396, in _call_chat_completions
+    relay_llm.stream(
+  File "C:\Users\Administrator\AppData\Local\hermes\hermes-agent\agent\relay_llm.py", line 395, in stream
+    return ManagedLlmStream(
+           ^^^^^^^^^^^^^^^^^
+  File "C:\Users\Administrator\AppData\Local\hermes\hermes-agent\agent\relay_llm.py", line 478, in __init__
+    raw_stream = stream_factory(request)
+                 ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Administrator\AppData\Local\hermes\hermes-agent\agent\chat_completion_helpers.py", line 4305, in _open_stream
+    return request_client.chat.completions.create(**stream_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Administrator\AppData\Local\hermes\hermes-agent\venv\Lib\site-packages\openai\_utils\_utils.py", line 286, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Administrator\AppData\Local\hermes\hermes-agent\venv\Lib\site-packages\openai\resources\chat\completions\completions.py", line 1204, in create
+    return self._post(
+           ^^^^^^^^^^^
+  File "C:\Users\Administrator\AppData\Local\hermes\hermes-agent\venv\Lib\site-packages\openai\_base_client.py", line 1297, in post
+    return cast(ResponseT, self.request(cast_to, opts, stream=stream, stream_cls=stream_cls))
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Administrator\AppData\Local\hermes\hermes-agent\venv\Lib\site-packages\openai\_base_client.py", line 1070, in request
+    raise self._make_status_error_from_response(err.response) from None
+openai.RateLimitError: Error code: 429 - {'error': {'type': 'server_error', 'message': 'Upstream request failed: [ttft_admission_refused] the cell is at capacity; retry shortly (after 17 s)'}}
+2026-10-27 21:59:13,092 WARNING [20261027_182451_d75aa2] agent.conversation_loop: API call failed (attempt 2/3) error_type=RateLimitError thread=MainThread:162176 provider=opencode-go base_url=https://opencode.ai/zen/go/v1 model=deepseek-v4.1-flash summary=HTTP 429: Upstream request failed: [ttft_admission_refused] the cell is at capacity; retry shortly (after 17 s)
+2026-10-27 21:59:13,559 ERROR agent.chat_completion_helpers: Streaming failed before delivery: Error code: 401 - {'error': {'message': 'Authentication Fails, Your api key: ****428a is invalid (request_id: b83591cc-5871-4494-97ef-601ab023486b)', 'type': 'authentication_error', 'param': None, 'code': 'invalid_request_error'}}
+Traceback (most recent call last):
+  File "C:\Users\Administrator\AppData\Local\hermes\hermes-agent\agent\chat_completion_helpers.py", line 5156, in _call
+    result["response"] = _call_chat_completions(stream_attempt_id)
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Administrator\AppData\Local\hermes\hermes-agent\agent\chat_completion_helpers.py", line 4396, in _call_chat_completions
+    relay_llm.stream(
+  File "C:\Users\Administrator\AppData\Local\hermes\hermes-agent\agent\relay_llm.py", line 395, in stream
+    return ManagedLlmStream(
+           ^^^^^^^^^^^^^^^^^
+  File "C:\Users\Administrator\AppData\Local\hermes\hermes-agent\agent\relay_llm.py", line 478, in __init__
+    raw_stream = stream_factory(request)
+                 ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Administrator\AppData\Local\hermes\hermes-agent\agent\chat_completion_helpers.py", line 4305, in _open_stream
+    return request_client.chat.completions.create(**stream_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Administrator\AppData\Local\hermes\hermes-agent\venv\Lib\site-packages\openai\_utils\_utils.py", line 286, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Administrator\AppData\Local\hermes\hermes-agent\venv\Lib\site-packages\openai\resources\chat\completions\completions.py", line 1204, in create
+    return self._post(
+           ^^^^^^^^^^^
+  File "C:\Users\Administrator\AppData\Local\hermes\hermes-agent\venv\Lib\site-packages\openai\_base_client.py", line 1297, in post
+    return cast(ResponseT, self.request(cast_to, opts, stream=stream, stream_cls=stream_cls))
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Administrator\AppData\Local\hermes\hermes-agent\venv\Lib\site-packages\openai\_base_client.py", line 1070, in request
+    raise self._make_status_error_from_response(err.response) from None
+openai.AuthenticationError: Error code: 401 - {'error': {'message': 'Authentication Fails, Your api key: ****428a is invalid (request_id: b83591cc-5871-4494-97ef-601ab023486b)', 'type': 'authentication_error', 'param': None, 'code': 'invalid_request_error'}}
+2026-10-27 21:59:13,738 WARNING [20261027_182451_d75aa2] agent.conversation_loop: API call failed (attempt 1/3) error_type=AuthenticationError thread=MainThread:162176 provider=deepseek base_url=https://api.deepseek.com/v1/ model=deepseek-v4-flash summary=HTTP 401: Authentication Fails, Your api key: ****428a is invalid (request_id: b83591cc-5871-4494-97ef-601ab023486b)
+2026-10-27 22:01:56,356 WARNING [20261027_220123_9519fb] agent.tool_executor: Tool terminal returned error (8.86s): {"output": "", "exit_code": -1, "error": "BLOCKED: Command flagged as dangerous (script execution via -e/-c flag) but single-query mode (-q) runs without a user present to approve it. Find an alternat
+2026-10-27 22:02:19,791 WARNING [20261027_220123_9519fb] agent.tool_executor: Tool terminal returned error (0.04s): {"output": "", "exit_code": -1, "error": "BLOCKED: Command flagged as dangerous (script execution via -e/-c flag) but single-query mode (-q) runs without a user present to approve it. Find an alternat
+2026-10-27 22:04:00,255 WARNING agent.deadline: [deadline] 'terminal.wait:LocalEnvironment' timed out after 62.0s; worker abandoned
+2026-10-27 22:04:28,859 WARNING [20261027_220123_9519fb] agent.tool_executor: Tool terminal returned error (92.87s): {"output": "[Command timed out after 60s]", "exit_code": 124, "error": null, "hint": "Exit 124: the command hit its timeout. Raise timeout= (foreground max 600s) or run it with background=true and not
+2026-10-27 22:07:31,202 WARNING agent.relay_runtime: Hermes Relay drained 1 orphaned scope(s) before closing ScopeHandle(name='hermes.session', uuid='01a17daf-ea13-70b3-a03a-0beb0fee8810')
+2026-10-27 22:18:14,670 WARNING tools.registry: check_fn check_browser_back_requirements returned False; dependent tools will be unavailable this turn
+2026-10-27 22:18:14,779 WARNING tools.registry: check_fn _browser_cdp_check returned False; dependent tools will be unavailable this turn
+2026-10-27 22:18:14,850 WARNING tools.registry: check_fn check_browser_click_requirements returned False; dependent tools will be unavailable this turn
+2026-10-27 22:18:14,896 WARNING tools.registry: check_fn check_browser_requirements returned False; dependent tools will be unavailable this turn
+2026-10-27 22:18:14,950 WARNING tools.registry: check_fn _browser_dialog_check returned False; dependent tools will be unavailable this turn
+2026-10-27 22:18:15,150 WARNING tools.registry: check_fn check_browser_navigate_requirements returned False; dependent tools will be unavailable this turn
+2026-10-27 22:18:15,208 WARNING tools.registry: check_fn check_browser_press_requirements returned False; dependent tools will be unavailable this turn
+2026-10-27 22:18:15,277 WARNING tools.registry: check_fn check_browser_scroll_requirements returned False; dependent tools will be unavailable this turn
+2026-10-27 22:18:15,322 WARNING tools.registry: check_fn check_browser_snapshot_requirements returned False; dependent tools will be unavailable this turn
+2026-10-27 22:18:15,368 WARNING tools.registry: check_fn check_browser_type_requirements returned False; dependent tools will be unavailable this turn
+2026-10-27 22:18:15,413 WARNING tools.registry: check_fn check_browser_vision_requirements returned False; dependent tools will be unavailable this turn
+2026-10-27 22:18:15,493 WARNING tools.registry: check_fn check_computer_use_requirements returned False; dependent tools will be unavailable this turn
+2026-10-27 22:18:15,529 WARNING tools.registry: check_fn check_image_generation_requirements returned False; dependent tools will be unavailable this turn
+2026-10-27 22:18:15,533 WARNING tools.registry: check_fn _check_kanban_mode returned False; dependent tools will be unavailable this turn
+2026-10-27 22:18:15,537 WARNING tools.registry: check_fn _check_kanban_orchestrator_mode returned False; dependent tools will be unavailable this turn
+2026-10-27 22:46:45,310 WARNING tools.registry: check_fn check_browser_back_requirements returned False; dependent tools will be unavailable this turn
+2026-10-27 22:46:45,376 WARNING tools.registry: check_fn _browser_cdp_check returned False; dependent tools will be unavailable this turn
+2026-10-27 22:46:45,437 WARNING tools.registry: check_fn check_browser_click_requirements returned False; dependent tools will be unavailable this turn
+2026-10-27 22:46:45,492 WARNING tools.registry: check_fn check_browser_requirements returned False; dependent tools will be unavailable this turn
+2026-10-27 22:46:45,547 WARNING tools.registry: check_fn _browser_dialog_check returned False; dependent tools will be unavailable this turn
+2026-10-27 22:46:45,667 WARNING tools.registry: check_fn check_browser_navigate_requirements returned False; dependent tools will be unavailable this turn
+2026-10-27 22:46:45,723 WARNING tools.registry: check_fn check_browser_press_requirements returned False; dependent tools will be unavailable this turn
+2026-10-27 22:46:45,784 WARNING tools.registry: check_fn check_browser_scroll_requirements returned False; dependent tools will be unavailable this turn
+2026-10-27 22:46:45,859 WARNING tools.registry: check_fn check_browser_snapshot_requirements returned False; dependent tools will be unavailable this turn
+2026-10-27 22:46:45,927 WARNING tools.registry: check_fn check_browser_type_requirements returned False; dependent tools will be unavailable this turn
+2026-10-27 22:46:46,015 WARNING tools.registry: check_fn check_browser_vision_requirements returned False; dependent tools will be unavailable this turn
+2026-10-27 22:46:46,068 WARNING tools.registry: check_fn check_computer_use_requirements returned False; dependent tools will be unavailable this turn
+2026-10-27 22:46:46,095 WARNING tools.registry: check_fn check_image_generation_requirements returned False; dependent tools will be unavailable this turn
+2026-10-27 22:46:46,099 WARNING tools.registry: check_fn _check_kanban_mode returned False; dependent tools will be unavailable this turn
+2026-10-27 22:46:46,102 WARNING tools.registry: check_fn _check_kanban_orchestrator_mode returned False; dependent tools will be unavailable this turn
+2026-10-27 22:48:14,398 WARNING tools.environments.local: HERMES_GIT_BASH_PATH=C:\Program Files\Git\bin\bash.exe fails to start; using C:\Program Files\Git\usr\bin\bash.EXE instead
+2026-10-27 22:48:16,641 WARNING tools.environments.local: HERMES_GIT_BASH_PATH=C:\Program Files\Git\bin\bash.exe fails to start; using C:\Program Files\Git\usr\bin\bash.EXE instead
+2026-10-27 22:48:25,378 WARNING tools.environments.local: HERMES_GIT_BASH_PATH=C:\Program Files\Git\bin\bash.exe fails to start; using C:\Program Files\Git\usr\bin\bash.EXE instead
+2026-10-27 22:48:29,618 WARNING tools.environments.local: HERMES_GIT_BASH_PATH=C:\Program Files\Git\bin\bash.exe fails to start; using C:\Program Files\Git\usr\bin\bash.EXE instead
+2026-10-27 22:49:04,972 WARNING tools.environments.local: HERMES_GIT_BASH_PATH=C:\Program Files\Git\bin\bash.exe fails to start; using C:\Program Files\Git\usr\bin\bash.EXE instead
+2026-10-27 22:49:06,572 WARNING tools.environments.local: HERMES_GIT_BASH_PATH=C:\Program Files\Git\bin\bash.exe fails to start; using C:\Program Files\Git\usr\bin\bash.EXE instead
+2026-10-27 22:49:07,403 WARNING tools.environments.local: HERMES_GIT_BASH_PATH=C:\Program Files\Git\bin\bash.exe fails to start; using C:\Program Files\Git\usr\bin\bash.EXE instead
+2026-10-27 22:49:08,440 WARNING tools.environments.local: HERMES_GIT_BASH_PATH=C:\Program Files\Git\bin\bash.exe fails to start; using C:\Program Files\Git\usr\bin\bash.EXE instead
+2026-10-27 22:49:08,738 WARNING tools.environments.local: HERMES_GIT_BASH_PATH=C:\Program Files\Git\bin\bash.exe fails to start; using C:\Program Files\Git\usr\bin\bash.EXE instead
+2026-10-27 22:49:14,682 WARNING tools.environments.local: HERMES_GIT_BASH_PATH=C:\Program Files\Git\bin\bash.exe fails to start; using C:\Program Files\Git\usr\bin\bash.EXE instead
+2026-10-27 22:49:15,722 WARNING tools.environments.local: HERMES_GIT_BASH_PATH=C:\Program Files\Git\bin\bash.exe fails to start; using C:\Program Files\Git\usr\bin\bash.EXE instead
+2026-10-27 22:49:16,314 WARNING tools.environments.local: HERMES_GIT_BASH_PATH=C:\Program Files\Git\bin\bash.exe fails to start; using C:\Program Files\Git\usr\bin\bash.EXE instead
+2026-10-27 22:49:18,143 WARNING tools.environments.local: HERMES_GIT_BASH_PATH=C:\Program Files\Git\bin\bash.exe fails to start; using C:\Program Files\Git\usr\bin\bash.EXE instead
+2026-10-27 22:49:18,761 WARNING tools.environments.local: HERMES_GIT_BASH_PATH=C:\Program Files\Git\bin\bash.exe fails to start; using C:\Program Files\Git\usr\bin\bash.EXE instead
+2026-10-27 22:49:23,204 WARNING tools.environments.local: HERMES_GIT_BASH_PATH=C:\Program Files\Git\bin\bash.exe fails to start; using C:\Program Files\Git\usr\bin\bash.EXE instead
+2026-10-27 22:49:23,641 WARNING tools.environments.local: HERMES_GIT_BASH_PATH=C:\Program Files\Git\bin\bash.exe fails to start; using C:\Program Files\Git\usr\bin\bash.EXE instead
+2026-10-27 22:49:24,462 WARNING tools.environments.local: HERMES_GIT_BASH_PATH=C:\Program Files\Git\bin\bash.exe fails to start; using C:\Program Files\Git\usr\bin\bash.EXE instead
+2026-10-27 22:49:25,069 WARNING tools.environments.local: HERMES_GIT_BASH_PATH=C:\Program Files\Git\bin\bash.exe fails to start; using C:\Program Files\Git\usr\bin\bash.EXE instead
+2026-10-27 22:49:25,341 WARNING tools.environments.local: HERMES_GIT_BASH_PATH=C:\Program Files\Git\bin\bash.exe fails to start; using C:\Program Files\Git\usr\bin\bash.EXE instead
+2026-10-27 22:49:34,177 WARNING tools.environments.local: HERMES_GIT_BASH_PATH=C:\Program Files\Git\bin\bash.exe fails to start; using C:\Program Files\Git\usr\bin\bash.EXE instead
+2026-10-27 22:49:34,581 WARNING tools.environments.local: HERMES_GIT_BASH_PATH=C:\Program Files\Git\bin\bash.exe fails to start; using C:\Program Files\Git\usr\bin\bash.EXE instead
+2026-10-27 22:49:35,001 WARNING tools.environments.local: HERMES_GIT_BASH_PATH=C:\Program Files\Git\bin\bash.exe fails to start; using C:\Program Files\Git\usr\bin\bash.EXE instead
+2026-10-27 22:49:39,067 WARNING tools.environments.local: HERMES_GIT_BASH_PATH=C:\Program Files\Git\bin\bash.exe fails to start; using C:\Program Files\Git\usr\bin\bash.EXE instead
+2026-10-27 22:49:45,894 WARNING tools.environments.local: HERMES_GIT_BASH_PATH=C:\Program Files\Git\bin\bash.exe fails to start; using C:\Program Files\Git\usr\bin\bash.EXE instead
+2026-10-28 01:08:25,249 WARNING tools.mcp_tool: MCP server 'x' keepalive failed, triggering reconnect (state: connected → degraded): MCPError: xurl mcp: could not reach the MCP server (transport error)
+2026-10-28 01:14:50,191 WARNING tools.mcp_tool: MCP server 'x' keepalive failed, triggering reconnect (state: connected → degraded): MCPError: xurl mcp: could not reach the MCP server (transport error)
+2026-10-28 03:10:47,760 WARNING tools.mcp_tool: MCP server 'x' keepalive failed, triggering reconnect (state: connected → degraded): MCPError: xurl mcp: could not reach the MCP server (transport error)
+2026-10-28 04:08:55,833 WARNING tools.mcp_tool: MCP server 'x' keepalive failed, triggering reconnect (state: connected → degraded): MCPError: xurl mcp: could not reach the MCP server (transport error)
+2026-10-28 05:10:18,957 WARNING tools.mcp_tool: MCP server 'x' keepalive failed, triggering reconnect (state: connected → degraded): MCPError: xurl mcp: could not reach the MCP server (transport error)
+2026-10-28 07:12:17,670 WARNING tools.mcp_tool: MCP server 'x' keepalive failed, triggering reconnect (state: connected → degraded): MCPError: xurl mcp: could not reach the MCP server (transport error)

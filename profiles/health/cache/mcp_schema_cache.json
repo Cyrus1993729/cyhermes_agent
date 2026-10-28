@@ -172,7 +172,7 @@
       },
       {
         "name": "get_chat_conversations",
-        "description": "Get Chat Conversations; unread state via chat_conversation.fields=unread,last_read_event_id,newest_event_id",
+        "description": "Get Chat Conversations, newest first. All filters must match (AND). A page can hold fewer than max_results while meta.next_token is set: keep paging. Read state: chat_conversation.fields=unread,last_read_event_id,newest_event_id",
         "inputSchema": {},
         "annotations": {
           "readOnlyHint": false
@@ -804,7 +804,7 @@
       }
     ],
     "ttl_ms": 0,
-    "written_at": 1793020551.7286017,
+    "written_at": 1793112393.7548416,
     "cache_scope": "private"
   },
   "amap": {
@@ -909,7 +909,7 @@
     ],
     "utility_tools": [],
     "ttl_ms": 0,
-    "written_at": 1793020566.265186,
+    "written_at": 1793112402.4609349,
     "cache_scope": "private"
   }
 }
