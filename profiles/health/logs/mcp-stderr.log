@@ -923,3 +923,84 @@ Amap Maps MCP Server running on stdio
 [xurl mcp] request failed: Post "https://api.x.com/mcp": net/http: TLS handshake timeout
 
 ===== [2026-10-28 04:08:57] starting MCP server 'x' =====
+[xurl mcp] bridging stdio <-> https://api.x.com/mcp
+[xurl mcp] request error (retrying): token error: Auth Error: RefreshTokenError (cause: oauth2: "invalid_request" "Value passed for the token was invalid.")
+[xurl mcp] request failed: token error: Auth Error: RefreshTokenError (cause: oauth2: "invalid_request" "Value passed for the token was invalid.")
+
+===== [2026-10-28 05:10:19] starting MCP server 'x' =====
+[xurl mcp] bridging stdio <-> https://api.x.com/mcp
+[xurl mcp] request error (retrying): Post "https://api.x.com/mcp": net/http: TLS handshake timeout
+[xurl mcp] request error (retrying): Post "https://api.x.com/mcp": net/http: TLS handshake timeout
+[xurl mcp] request error (retrying): token error: Auth Error: RefreshTokenError (cause: oauth2: "invalid_request" "Value passed for the token was invalid.")
+[xurl mcp] request failed: token error: Auth Error: RefreshTokenError (cause: oauth2: "invalid_request" "Value passed for the token was invalid.")
+
+===== [2026-10-28 07:12:17] starting MCP server 'x' =====
+[xurl mcp] bridging stdio <-> https://api.x.com/mcp
+[xurl mcp] request error (retrying): Post "https://api.x.com/mcp": net/http: TLS handshake timeout
+[xurl mcp] request error (retrying): Post "https://api.x.com/mcp": net/http: TLS handshake timeout
+[xurl mcp] request error (retrying): Post "https://api.x.com/mcp": net/http: TLS handshake timeout
+[xurl mcp] request error (retrying): token error: Auth Error: RefreshTokenError (cause: oauth2: "invalid_request" "Value passed for the token was invalid.")
+[xurl mcp] request failed: token error: Auth Error: RefreshTokenError (cause: oauth2: "invalid_request" "Value passed for the token was invalid.")
+
+===== [2026-10-28 09:11:44] starting MCP server 'x' =====
+[xurl mcp] bridging stdio <-> https://api.x.com/mcp
+[xurl mcp] request error (retrying): Post "https://api.x.com/mcp": net/http: TLS handshake timeout
+[xurl mcp] request error (retrying): token error: Auth Error: RefreshTokenError (cause: oauth2: "invalid_request" "Value passed for the token was invalid.")
+[xurl mcp] request failed: token error: Auth Error: RefreshTokenError (cause: oauth2: "invalid_request" "Value passed for the token was invalid.")
+
+===== [2026-10-28 13:13:13] starting MCP server 'x' =====
+[xurl mcp] bridging stdio <-> https://api.x.com/mcp
+[xurl mcp] request error (retrying): Post "https://api.x.com/mcp": net/http: TLS handshake timeout
+[xurl mcp] request error (retrying): Post "https://api.x.com/mcp": net/http: TLS handshake timeout
+
+===== [2026-10-28 14:27:31] starting MCP server 'x' =====
+[xurl mcp] bridging stdio <-> https://api.x.com/mcp
+[xurl mcp] request error (retrying): token error: Auth Error: RefreshTokenError (cause: oauth2: "invalid_request" "Value passed for the token was invalid.")
+[xurl mcp] request failed: token error: Auth Error: RefreshTokenError (cause: oauth2: "invalid_request" "Value passed for the token was invalid.")
+url mcp] bridging stdio <-> https://api.x.com/mcp
+Amap Maps MCP Server running on stdio
+
+===== [2026-10-28 15:13:46] starting MCP server 'x' =====
+[xurl mcp] bridging stdio <-> https://api.x.com/mcp
+[xurl mcp] request error (retrying): token error: Auth Error: RefreshTokenError (cause: oauth2: "invalid_request" "Value passed for the token was invalid.")
+[xurl mcp] request failed: token error: Auth Error: RefreshTokenError (cause: oauth2: "invalid_request" "Value passed for the token was invalid.")
+
+===== [2026-10-28 17:15:07] starting MCP server 'x' =====
+[xurl mcp] bridging stdio <-> https://api.x.com/mcp
+[xurl mcp] request error (retrying): token error: Auth Error: RefreshTokenError (cause: oauth2: "invalid_request" "Value passed for the token was invalid.")
+[xurl mcp] request failed: token error: Auth Error: RefreshTokenError (cause: oauth2: "invalid_request" "Value passed for the token was invalid.")
+
+===== [2026-10-28 19:15:37] starting MCP server 'x' =====
+[xurl mcp] bridging stdio <-> https://api.x.com/mcp
+[xurl mcp] request error (retrying): Post "https://api.x.com/mcp": net/http: TLS handshake timeout
+[xurl mcp] request error (retrying): Post "https://api.x.com/mcp": net/http: TLS handshake timeout
+[xurl mcp] request error (retrying): token error: Auth Error: RefreshTokenError (cause: oauth2: "invalid_request" "Value passed for the token was invalid.")
+[xurl mcp] request failed: token error: Auth Error: RefreshTokenError (cause: oauth2: "invalid_request" "Value passed for the token was invalid.")
+
+===== [2026-10-28 21:15:08] starting MCP server 'x' =====
+[xurl mcp] bridging stdio <-> https://api.x.com/mcp
+[xurl mcp] request error (retrying): Post "https://api.x.com/mcp": net/http: TLS handshake timeout
+[xurl mcp] request error (retrying): token error: Auth Error: RefreshTokenError (cause: oauth2: "invalid_request" "Value passed for the token was invalid.")
+[xurl mcp] request failed: token error: Auth Error: RefreshTokenError (cause: oauth2: "invalid_request" "Value passed for the token was invalid.")
+CP Server running on stdio
+
+===== [2026-10-29 01:18:28] starting MCP server 'x' =====
+[xurl mcp] bridging stdio <-> https://api.x.com/mcp
+[xurl mcp] request error (retrying): Post "https://api.x.com/mcp": net/http: TLS handshake timeout
+[xurl mcp] request error (retrying): Post "https://api.x.com/mcp": net/http: TLS handshake timeout
+[xurl mcp] request error (retrying): token error: Auth Error: RefreshTokenError (cause: oauth2: "invalid_request" "Value passed for the token was invalid.")
+[xurl mcp] request failed: token error: Auth Error: RefreshTokenError (cause: oauth2: "invalid_request" "Value passed for the token was invalid.")
+
+===== [2026-10-29 03:17:19] starting MCP server 'x' =====
+[xurl mcp] bridging stdio <-> https://api.x.com/mcp
+[xurl mcp] request error (retrying): Post "https://api.x.com/mcp": net/http: TLS handshake timeout
+[xurl mcp] request error (retrying): Post "https://api.x.com/mcp": net/http: TLS handshake timeout
+[xurl mcp] request error (retrying): Post "https://api.x.com/mcp": net/http: TLS handshake timeout
+[xurl mcp] request error (retrying): token error: Auth Error: RefreshTokenError (cause: oauth2: "invalid_request" "Value passed for the token was invalid.")
+[xurl mcp] request failed: token error: Auth Error: RefreshTokenError (cause: oauth2: "invalid_request" "Value passed for the token was invalid.")
+
+===== [2026-10-29 05:16:49] starting MCP server 'x' =====
+[xurl mcp] bridging stdio <-> https://api.x.com/mcp
+[xurl mcp] request error (retrying): Post "https://api.x.com/mcp": net/http: TLS handshake timeout
+[xurl mcp] request error (retrying): Post "https://api.x.com/mcp": net/http: TLS handshake timeout
+[xurl mcp] request error (retrying): Post "https://api.x.com/mcp": net/http: TLS handshake timeout

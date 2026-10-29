@@ -2426,3 +2426,138 @@ openai.AuthenticationError: Error code: 401 - {'error': {'message': 'Authenticat
 2026-10-28 04:08:55,833 WARNING tools.mcp_tool: MCP server 'x' keepalive failed, triggering reconnect (state: connected → degraded): MCPError: xurl mcp: could not reach the MCP server (transport error)
 2026-10-28 05:10:18,957 WARNING tools.mcp_tool: MCP server 'x' keepalive failed, triggering reconnect (state: connected → degraded): MCPError: xurl mcp: could not reach the MCP server (transport error)
 2026-10-28 07:12:17,670 WARNING tools.mcp_tool: MCP server 'x' keepalive failed, triggering reconnect (state: connected → degraded): MCPError: xurl mcp: could not reach the MCP server (transport error)
+2026-10-28 09:11:41,810 WARNING tools.mcp_tool: MCP server 'x' keepalive failed, triggering reconnect (state: connected → degraded): MCPError: xurl mcp: could not reach the MCP server (transport error)
+2026-10-28 09:59:04,921 WARNING hermes_cli.web_server: event loop stalled 5.2s (GIL pressure suspected)
+2026-10-28 13:13:13,670 WARNING tools.mcp_tool: MCP server 'x' keepalive failed, triggering reconnect (state: connected → degraded): MCPError: xurl mcp: could not reach the MCP server (transport error)
+2026-10-28 13:59:12,581 WARNING tools.mcp_tool: MCP server 'amap' shutdown timed out, cancelling task
+2026-10-28 13:59:12,592 WARNING tools.mcp_tool: Failed to connect to MCP server 'amap' (command=npx): CancelledError
+2026-10-28 13:59:53,766 WARNING tools.registry: check_fn check_browser_back_requirements returned False; dependent tools will be unavailable this turn
+2026-10-28 13:59:53,839 WARNING tools.registry: check_fn _browser_cdp_check returned False; dependent tools will be unavailable this turn
+2026-10-28 13:59:53,896 WARNING tools.registry: check_fn check_browser_click_requirements returned False; dependent tools will be unavailable this turn
+2026-10-28 13:59:53,944 WARNING tools.registry: check_fn check_browser_requirements returned False; dependent tools will be unavailable this turn
+2026-10-28 13:59:54,000 WARNING tools.registry: check_fn _browser_dialog_check returned False; dependent tools will be unavailable this turn
+2026-10-28 13:59:54,250 WARNING tools.registry: check_fn check_browser_navigate_requirements returned False; dependent tools will be unavailable this turn
+2026-10-28 13:59:54,301 WARNING tools.registry: check_fn check_browser_press_requirements returned False; dependent tools will be unavailable this turn
+2026-10-28 13:59:54,361 WARNING tools.registry: check_fn check_browser_scroll_requirements returned False; dependent tools will be unavailable this turn
+2026-10-28 13:59:54,422 WARNING tools.registry: check_fn check_browser_snapshot_requirements returned False; dependent tools will be unavailable this turn
+2026-10-28 13:59:54,476 WARNING tools.registry: check_fn check_browser_type_requirements returned False; dependent tools will be unavailable this turn
+2026-10-28 13:59:54,559 WARNING tools.registry: check_fn check_browser_vision_requirements returned False; dependent tools will be unavailable this turn
+2026-10-28 13:59:54,729 WARNING tools.registry: check_fn check_computer_use_requirements returned False; dependent tools will be unavailable this turn
+2026-10-28 13:59:54,778 WARNING tools.registry: check_fn check_image_generation_requirements returned False; dependent tools will be unavailable this turn
+2026-10-28 13:59:54,783 WARNING tools.registry: check_fn _check_kanban_mode returned False; dependent tools will be unavailable this turn
+2026-10-28 13:59:54,788 WARNING tools.registry: check_fn _check_kanban_orchestrator_mode returned False; dependent tools will be unavailable this turn
+2026-10-28 14:00:13,791 ERROR agent.chat_completion_helpers: Streaming failed before delivery: Error code: 429 - {'error': {'type': 'server_error', 'message': 'Upstream request failed: [ttft_admission_refused] the cell is at capacity; retry shortly (after 15 s)'}}
+Traceback (most recent call last):
+  File "C:\Users\Administrator\AppData\Local\hermes\hermes-agent\agent\chat_completion_helpers.py", line 5156, in _call
+    result["response"] = _call_chat_completions(stream_attempt_id)
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Administrator\AppData\Local\hermes\hermes-agent\agent\chat_completion_helpers.py", line 4396, in _call_chat_completions
+    relay_llm.stream(
+  File "C:\Users\Administrator\AppData\Local\hermes\hermes-agent\agent\relay_llm.py", line 395, in stream
+    return ManagedLlmStream(
+           ^^^^^^^^^^^^^^^^^
+  File "C:\Users\Administrator\AppData\Local\hermes\hermes-agent\agent\relay_llm.py", line 478, in __init__
+    raw_stream = stream_factory(request)
+                 ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Administrator\AppData\Local\hermes\hermes-agent\agent\chat_completion_helpers.py", line 4305, in _open_stream
+    return request_client.chat.completions.create(**stream_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Administrator\AppData\Local\hermes\hermes-agent\venv\Lib\site-packages\openai\_utils\_utils.py", line 286, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Administrator\AppData\Local\hermes\hermes-agent\venv\Lib\site-packages\openai\resources\chat\completions\completions.py", line 1204, in create
+    return self._post(
+           ^^^^^^^^^^^
+  File "C:\Users\Administrator\AppData\Local\hermes\hermes-agent\venv\Lib\site-packages\openai\_base_client.py", line 1297, in post
+    return cast(ResponseT, self.request(cast_to, opts, stream=stream, stream_cls=stream_cls))
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Administrator\AppData\Local\hermes\hermes-agent\venv\Lib\site-packages\openai\_base_client.py", line 1070, in request
+    raise self._make_status_error_from_response(err.response) from None
+openai.RateLimitError: Error code: 429 - {'error': {'type': 'server_error', 'message': 'Upstream request failed: [ttft_admission_refused] the cell is at capacity; retry shortly (after 15 s)'}}
+2026-10-28 14:00:13,814 WARNING [20261027_220123_9519fb] agent.conversation_loop: API call failed (attempt 1/3) error_type=RateLimitError thread=MainThread:170824 provider=opencode-go base_url=https://opencode.ai/zen/go/v1 model=deepseek-v4.1-flash summary=HTTP 429: Upstream request failed: [ttft_admission_refused] the cell is at capacity; retry shortly (after 15 s)
+2026-10-28 14:00:13,815 WARNING [20261027_220123_9519fb] agent.conversation_loop: Retrying API call in 2.2641186538814524s (attempt 1/3) thread=MainThread:170824 provider=opencode-go base_url=https://opencode.ai/zen/go/v1 model=deepseek-v4.1-flash policy=default error=Error code: 429 - {'error': {'type': 'server_error', 'message': 'Upstream request failed: [ttft_admission_refused] the cell is at capacity; retry shortly (after 15 s)'}}
+2026-10-28 14:27:28,642 WARNING tools.mcp_tool: MCP server 'x' keepalive failed, triggering reconnect (state: connected → degraded): TimeoutError: 
+2026-10-28 14:36:39,626 WARNING tools.mcp_tool: Failed to connect to MCP server 'amap' (command=npx): CancelledError
+2026-10-28 14:37:12,811 WARNING tools.registry: check_fn check_browser_back_requirements returned False; dependent tools will be unavailable this turn
+2026-10-28 14:37:12,860 WARNING tools.registry: check_fn _browser_cdp_check returned False; dependent tools will be unavailable this turn
+2026-10-28 14:37:12,912 WARNING tools.registry: check_fn check_browser_click_requirements returned False; dependent tools will be unavailable this turn
+2026-10-28 14:37:12,957 WARNING tools.registry: check_fn check_browser_requirements returned False; dependent tools will be unavailable this turn
+2026-10-28 14:37:13,001 WARNING tools.registry: check_fn _browser_dialog_check returned False; dependent tools will be unavailable this turn
+2026-10-28 14:37:13,132 WARNING tools.registry: check_fn check_browser_navigate_requirements returned False; dependent tools will be unavailable this turn
+2026-10-28 14:37:13,182 WARNING tools.registry: check_fn check_browser_press_requirements returned False; dependent tools will be unavailable this turn
+2026-10-28 14:37:13,230 WARNING tools.registry: check_fn check_browser_scroll_requirements returned False; dependent tools will be unavailable this turn
+2026-10-28 14:37:13,273 WARNING tools.registry: check_fn check_browser_snapshot_requirements returned False; dependent tools will be unavailable this turn
+2026-10-28 14:37:13,316 WARNING tools.registry: check_fn check_browser_type_requirements returned False; dependent tools will be unavailable this turn
+2026-10-28 14:37:13,360 WARNING tools.registry: check_fn check_browser_vision_requirements returned False; dependent tools will be unavailable this turn
+2026-10-28 14:37:13,484 WARNING tools.registry: check_fn check_computer_use_requirements returned False; dependent tools will be unavailable this turn
+2026-10-28 14:37:13,523 WARNING tools.registry: check_fn check_image_generation_requirements returned False; dependent tools will be unavailable this turn
+2026-10-28 14:37:13,527 WARNING tools.registry: check_fn _check_kanban_mode returned False; dependent tools will be unavailable this turn
+2026-10-28 14:37:13,532 WARNING tools.registry: check_fn _check_kanban_orchestrator_mode returned False; dependent tools will be unavailable this turn
+2026-10-28 14:46:44,011 WARNING tools.registry: check_fn check_browser_back_requirements returned False; dependent tools will be unavailable this turn
+2026-10-28 14:46:44,059 WARNING tools.registry: check_fn _browser_cdp_check returned False; dependent tools will be unavailable this turn
+2026-10-28 14:46:44,133 WARNING tools.registry: check_fn check_browser_click_requirements returned False; dependent tools will be unavailable this turn
+2026-10-28 14:46:44,194 WARNING tools.registry: check_fn check_browser_requirements returned False; dependent tools will be unavailable this turn
+2026-10-28 14:46:44,243 WARNING tools.registry: check_fn _browser_dialog_check returned False; dependent tools will be unavailable this turn
+2026-10-28 14:46:44,352 WARNING tools.registry: check_fn check_browser_navigate_requirements returned False; dependent tools will be unavailable this turn
+2026-10-28 14:46:44,400 WARNING tools.registry: check_fn check_browser_press_requirements returned False; dependent tools will be unavailable this turn
+2026-10-28 14:46:44,449 WARNING tools.registry: check_fn check_browser_scroll_requirements returned False; dependent tools will be unavailable this turn
+2026-10-28 14:46:44,510 WARNING tools.registry: check_fn check_browser_snapshot_requirements returned False; dependent tools will be unavailable this turn
+2026-10-28 14:46:44,555 WARNING tools.registry: check_fn check_browser_type_requirements returned False; dependent tools will be unavailable this turn
+2026-10-28 14:46:44,600 WARNING tools.registry: check_fn check_browser_vision_requirements returned False; dependent tools will be unavailable this turn
+2026-10-28 14:46:44,655 WARNING tools.registry: check_fn check_computer_use_requirements returned False; dependent tools will be unavailable this turn
+2026-10-28 14:46:44,692 WARNING tools.registry: check_fn check_image_generation_requirements returned False; dependent tools will be unavailable this turn
+2026-10-28 14:46:44,697 WARNING tools.registry: check_fn _check_kanban_mode returned False; dependent tools will be unavailable this turn
+2026-10-28 14:46:44,702 WARNING tools.registry: check_fn _check_kanban_orchestrator_mode returned False; dependent tools will be unavailable this turn
+2026-10-28 14:48:37,287 WARNING [20261027_220123_9519fb] tools.registry: check_fn check_browser_back_requirements returned False; dependent tools will be unavailable this turn
+2026-10-28 14:48:37,437 WARNING [20261027_220123_9519fb] tools.registry: check_fn _browser_cdp_check returned False; dependent tools will be unavailable this turn
+2026-10-28 14:48:37,518 WARNING [20261027_220123_9519fb] tools.registry: check_fn check_browser_click_requirements returned False; dependent tools will be unavailable this turn
+2026-10-28 14:48:37,610 WARNING [20261027_220123_9519fb] tools.registry: check_fn check_browser_requirements returned False; dependent tools will be unavailable this turn
+2026-10-28 14:48:37,705 WARNING [20261027_220123_9519fb] tools.registry: check_fn _browser_dialog_check returned False; dependent tools will be unavailable this turn
+2026-10-28 14:48:37,851 WARNING [20261027_220123_9519fb] tools.registry: check_fn check_browser_navigate_requirements returned False; dependent tools will be unavailable this turn
+2026-10-28 14:48:37,946 WARNING [20261027_220123_9519fb] tools.registry: check_fn check_browser_press_requirements returned False; dependent tools will be unavailable this turn
+2026-10-28 14:48:38,052 WARNING [20261027_220123_9519fb] tools.registry: check_fn check_browser_scroll_requirements returned False; dependent tools will be unavailable this turn
+2026-10-28 14:48:38,123 WARNING [20261027_220123_9519fb] tools.registry: check_fn check_browser_snapshot_requirements returned False; dependent tools will be unavailable this turn
+2026-10-28 14:48:38,171 WARNING [20261027_220123_9519fb] tools.registry: check_fn check_browser_type_requirements returned False; dependent tools will be unavailable this turn
+2026-10-28 14:48:38,231 WARNING [20261027_220123_9519fb] tools.registry: check_fn check_browser_vision_requirements returned False; dependent tools will be unavailable this turn
+2026-10-28 14:48:38,300 WARNING [20261027_220123_9519fb] tools.registry: check_fn check_computer_use_requirements returned False; dependent tools will be unavailable this turn
+2026-10-28 14:48:38,334 WARNING [20261027_220123_9519fb] tools.registry: check_fn check_image_generation_requirements returned False; dependent tools will be unavailable this turn
+2026-10-28 14:48:38,338 WARNING [20261027_220123_9519fb] tools.registry: check_fn _check_kanban_mode returned False; dependent tools will be unavailable this turn
+2026-10-28 14:48:38,343 WARNING [20261027_220123_9519fb] tools.registry: check_fn _check_kanban_orchestrator_mode returned False; dependent tools will be unavailable this turn
+2026-10-28 15:13:46,326 WARNING tools.mcp_tool: MCP server 'x' keepalive failed, triggering reconnect (state: connected → degraded): MCPError: xurl mcp: could not reach the MCP server (transport error)
+2026-10-28 17:15:07,189 WARNING tools.mcp_tool: MCP server 'x' keepalive failed, triggering reconnect (state: connected → degraded): MCPError: xurl mcp: could not reach the MCP server (transport error)
+2026-10-28 18:20:40,614 WARNING hermes_cli.web_server: event loop stalled 5.4s (GIL pressure suspected)
+2026-10-28 19:15:33,851 WARNING tools.mcp_tool: MCP server 'x' keepalive failed, triggering reconnect (state: connected → degraded): MCPError: xurl mcp: could not reach the MCP server (transport error)
+2026-10-28 21:15:08,147 WARNING tools.mcp_tool: MCP server 'x' keepalive failed, triggering reconnect (state: connected → degraded): MCPError: xurl mcp: could not reach the MCP server (transport error)
+2026-10-28 22:06:41,515 WARNING tools.registry: check_fn check_browser_back_requirements returned False; dependent tools will be unavailable this turn
+2026-10-28 22:06:41,557 WARNING tools.registry: check_fn _browser_cdp_check returned False; dependent tools will be unavailable this turn
+2026-10-28 22:06:41,598 WARNING tools.registry: check_fn check_browser_click_requirements returned False; dependent tools will be unavailable this turn
+2026-10-28 22:06:41,638 WARNING tools.registry: check_fn check_browser_requirements returned False; dependent tools will be unavailable this turn
+2026-10-28 22:06:41,680 WARNING tools.registry: check_fn _browser_dialog_check returned False; dependent tools will be unavailable this turn
+2026-10-28 22:06:41,793 WARNING tools.registry: check_fn check_browser_navigate_requirements returned False; dependent tools will be unavailable this turn
+2026-10-28 22:06:41,834 WARNING tools.registry: check_fn check_browser_press_requirements returned False; dependent tools will be unavailable this turn
+2026-10-28 22:06:41,876 WARNING tools.registry: check_fn check_browser_scroll_requirements returned False; dependent tools will be unavailable this turn
+2026-10-28 22:06:41,919 WARNING tools.registry: check_fn check_browser_snapshot_requirements returned False; dependent tools will be unavailable this turn
+2026-10-28 22:06:41,963 WARNING tools.registry: check_fn check_browser_type_requirements returned False; dependent tools will be unavailable this turn
+2026-10-28 22:06:42,012 WARNING tools.registry: check_fn check_browser_vision_requirements returned False; dependent tools will be unavailable this turn
+2026-10-28 22:06:42,040 WARNING tools.registry: check_fn check_computer_use_requirements returned False; dependent tools will be unavailable this turn
+2026-10-28 22:06:42,075 WARNING tools.registry: check_fn check_image_generation_requirements returned False; dependent tools will be unavailable this turn
+2026-10-28 22:06:42,078 WARNING tools.registry: check_fn _check_kanban_mode returned False; dependent tools will be unavailable this turn
+2026-10-28 22:06:42,082 WARNING tools.registry: check_fn _check_kanban_orchestrator_mode returned False; dependent tools will be unavailable this turn
+2026-10-28 22:24:14,684 WARNING tools.registry: check_fn check_browser_back_requirements returned False; dependent tools will be unavailable this turn
+2026-10-28 22:24:14,726 WARNING tools.registry: check_fn _browser_cdp_check returned False; dependent tools will be unavailable this turn
+2026-10-28 22:24:14,770 WARNING tools.registry: check_fn check_browser_click_requirements returned False; dependent tools will be unavailable this turn
+2026-10-28 22:24:14,809 WARNING tools.registry: check_fn check_browser_requirements returned False; dependent tools will be unavailable this turn
+2026-10-28 22:24:14,851 WARNING tools.registry: check_fn _browser_dialog_check returned False; dependent tools will be unavailable this turn
+2026-10-28 22:24:14,943 WARNING tools.registry: check_fn check_browser_navigate_requirements returned False; dependent tools will be unavailable this turn
+2026-10-28 22:24:14,984 WARNING tools.registry: check_fn check_browser_press_requirements returned False; dependent tools will be unavailable this turn
+2026-10-28 22:24:15,026 WARNING tools.registry: check_fn check_browser_scroll_requirements returned False; dependent tools will be unavailable this turn
+2026-10-28 22:24:15,070 WARNING tools.registry: check_fn check_browser_snapshot_requirements returned False; dependent tools will be unavailable this turn
+2026-10-28 22:24:15,113 WARNING tools.registry: check_fn check_browser_type_requirements returned False; dependent tools will be unavailable this turn
+2026-10-28 22:24:15,154 WARNING tools.registry: check_fn check_browser_vision_requirements returned False; dependent tools will be unavailable this turn
+2026-10-28 22:24:15,178 WARNING tools.registry: check_fn check_computer_use_requirements returned False; dependent tools will be unavailable this turn
+2026-10-28 22:24:15,204 WARNING tools.registry: check_fn check_image_generation_requirements returned False; dependent tools will be unavailable this turn
+2026-10-28 22:24:15,208 WARNING tools.registry: check_fn _check_kanban_mode returned False; dependent tools will be unavailable this turn
+2026-10-28 22:24:15,211 WARNING tools.registry: check_fn _check_kanban_orchestrator_mode returned False; dependent tools will be unavailable this turn
+2026-10-29 01:18:28,261 WARNING tools.mcp_tool: MCP server 'x' keepalive failed, triggering reconnect (state: connected → degraded): MCPError: xurl mcp: could not reach the MCP server (transport error)
+2026-10-29 03:17:19,211 WARNING tools.mcp_tool: MCP server 'x' keepalive failed, triggering reconnect (state: connected → degraded): MCPError: xurl mcp: could not reach the MCP server (transport error)
+2026-10-29 05:16:49,321 WARNING tools.mcp_tool: MCP server 'x' keepalive failed, triggering reconnect (state: connected → degraded): MCPError: xurl mcp: could not reach the MCP server (transport error)

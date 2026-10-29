@@ -1,6 +1,6 @@
 {
- "last_warn_msg": "⚠️ 妈妈机(妈妈)回复未确认修复成功，30分钟后重试。回复原文: ⚠️ Provider authentication failed. Check the configured credentials; raw provider deta",
- "last_warn_ts": 1792992910.381887,
+ "last_warn_msg": "⚠️ 妈妈机(妈妈)回复未确认修复成功，30分钟后重试。回复原文: ⚠️ The model provider failed after retries. I kept raw provider details out of chat; c",
+ "last_warn_ts": 1793185592.3229024,
  "fixed_peer_ip": "192.168.0.108",
  "confirmed_at": "2026-10-08 08:53:38",
  "peer_name": "妈妈"

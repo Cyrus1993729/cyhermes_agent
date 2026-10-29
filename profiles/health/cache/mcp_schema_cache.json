@@ -619,6 +619,22 @@
         }
       },
       {
+        "name": "get_users_blocking",
+        "description": "Get blocked Users",
+        "inputSchema": {},
+        "annotations": {
+          "readOnlyHint": false
+        }
+      },
+      {
+        "name": "users_id_block",
+        "description": "Block User",
+        "inputSchema": {},
+        "annotations": {
+          "readOnlyHint": false
+        }
+      },
+      {
         "name": "get_users_bookmarks",
         "description": "Get Users Bookmarks Each returned post includes a `url` deeplinking to it on x.com.",
         "inputSchema": {},
@@ -769,6 +785,14 @@
         "annotations": {
           "readOnlyHint": false
         }
+      },
+      {
+        "name": "users_id_unblock",
+        "description": "Unblock User",
+        "inputSchema": {},
+        "annotations": {
+          "readOnlyHint": false
+        }
       }
     ],
     "utility_tools": [
@@ -804,7 +828,7 @@
       }
     ],
     "ttl_ms": 0,
-    "written_at": 1793112393.7548416,
+    "written_at": 1793197448.2907026,
     "cache_scope": "private"
   },
   "amap": {
@@ -909,7 +933,7 @@
     ],
     "utility_tools": [],
     "ttl_ms": 0,
-    "written_at": 1793112402.4609349,
+    "written_at": 1793197452.263419,
     "cache_scope": "private"
   }
 }
