@@ -2,6 +2,15 @@ model:
   base_url: https://opencode.ai/zen/go/v1
   default: deepseek-v4.1-flash
   provider: opencode-go
+fallback_providers:
+  - provider: opencode-go
+    model: gpt-6-luna
+  - provider: opencode-go
+    model: glm-5.3-flash
+  - provider: opencode-go
+    model: kimi-k3
+  - provider: opencode-go-anthropic
+    model: qwen3.8-max
 providers:
   qwen-bailian:
     api_key: "***REDACTED***"
@@ -11,10 +20,6 @@ providers:
     base_url: https://opencode.ai/zen/go/v1
     api_key: "***REDACTED***"
     api_mode: anthropic_messages
-fallback_providers:
-  - provider: deepseek
-    model: deepseek-flash
-    api_key: "***REDACTED***"
 toolsets:
   - hermes-cli
 max_live_sessions: 16
@@ -415,7 +420,7 @@ moa:
       enabled: true
       max_tokens: 4096
       reference_models:
-        - model: qwen3.7-max
+        - model: qwen3.8-max
           provider: opencode-go-anthropic
         - model: kimi-k2.7-code
           provider: opencode-go
@@ -675,9 +680,6 @@ mcp_servers:
       - '@amap/amap-maps-mcp-server'
     env:
       AMAP_MAPS_API_KEY: 0e0e0ebabf4fd5d94b1129c7791fb5b4
-fallback_model:
-  model: qwen3.7-max
-  provider: opencode-go-anthropic
 platform_toolsets:
   cli:
     - a2a
