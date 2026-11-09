@@ -784,7 +784,7 @@ known_builtin_toolsets:
     - yuanbao
 a2a_agents:
   妈妈:
-    url: http://192.168.0.111:9900
+    url: http://192.168.0.115:9900
     auth:
       type: bearer
       token: "***REDACTED***"
