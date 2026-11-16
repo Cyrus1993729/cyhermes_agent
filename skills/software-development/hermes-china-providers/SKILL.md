@@ -396,6 +396,86 @@ $10/月（首月 $5）订阅：18 个开源模型，全局限制 $12/5h/$30周/$
 - 🔴 **额度表 2026-08-17 大缩水（DeepSeek 涨价后 OpenCode 完全同步，小红书帖 + 用户质疑推动的二次核实才确认）**：DeepSeek 官方 8/17 00:00 涨价生效（峰谷定价：flash 输出 2→4.5/9 元、pro 6→13.5/27 元，高峰=北京 9-12/14-18 点）→ OpenCode Go **同步官方价格**（X 评论"它家基本就是同步官方价格"应验），docs/go 页面更新：**Flash 5h 请求 31,650→3,800（-88%）、月额度 $60→$15（-75%）、价格 $0.14/$0.28 → Off-Peak $0.22/$0.66 / Peak $0.44/$1.32**；Pro 3,450→1,050/5h。⚠️ **第一轮核实曾误判"额度未缩水、零影响"——错在用 web_extract 抓到缓存旧版文档**（见下方核实坑）。对我们实测影响：state.db 稳定期用量按新价 → 月 $9.4（全 Off-Peak=63%）～$19（全 Peak=127% 超限），**从"随便用"变"接近顶格"**；日报 11:00/17:00 生成正好撞 Peak（×2 价格），错峰到 18:00 后成本减半（待用户拍板，旧"避 DeepSeek API 延迟高峰"理由已不适用）。已建议：每周用量预警（>70% 告警）+ 1-2 周观察期（文档明示 "Usage limits may change"）。完整数据表/佐证/核算：`references/opencode-go-price-update-2026-08-17.md`
 - 🔴 **定价/额度核实坑（2026-08-17 实踩，用户凭常识质疑后纠正）**：web_extract `opencode.ai/docs/go` 返回**缓存旧版**（Flash 31,650/$60 涨价前）→ 误判"帖子结论过时、额度富余"。用户质疑"涨价这么多不可能还有 3 万次"→ fresh curl raw HTML 才发现页面已更新（出现 Off-Peak/Peak 新价格列、token 估算 790→410 input 变化）。**教训：①涉及定价/额度/政策变化，默认供应商已更新页面，必须 fresh curl 原始 HTML（web_extract 可能返回缓存），并检查页面版本信号；②用户基于常识的质疑优先于第一轮核实结论——重新抓取、确认版本新鲜度、错了立即纠正而非辩护；③自媒体报道的价格观察往往是当前真实值，核实目标是确认/证伪而非证伪优先。**
 
+### 🔴 兜底链定调：429 优先换 Go 套餐内模型（2026-10-29 用户拍板，已落地两份 config）
+
+用户原话：「**以后 Deepseek 撞上 429 之后，优先换 opencode 套餐里的其他模型（比如 luna 或者 kimi3 等等），实在不行再考虑官方直连或者其他通路作为兜底**。」
+
+当前落地值（`config.yaml` 与 `profiles/health/config.yaml` **两份都已改**）：
+
+```yaml
+fallback_providers:
+  - provider: opencode-go
+    model: gpt-6-luna        # $0.10/$0.50，最便宜
+  - provider: opencode-go
+    model: glm-5.3-flash     # $0.15/$0.50，月额度 $60 最宽
+  - provider: opencode-go
+    model: kimi-k3           # $3/$15，强但贵
+  - provider: opencode-go-anthropic
+    model: qwen3.8-max       # $2/$6
+```
+
+🔴 **`fallback_model` 已移除，全部改放 `fallback_providers`**——因为 `get_fallback_chain` 的顺序是 **`fallback_providers` 在前、`fallback_model` 在后**，想精确控制"官方直连排最后"就只能全用列表（`fallback_model` 只能放一个，放在它后面的层无法表达）。
+
+**实测（2026-10-29，全部 200）**：
+```
+deepseek-v4.1-flash  [openai]     OK 1.7s
+gpt-6-luna           [openai]     OK 2.0s
+glm-5.3-flash        [openai]     OK 2.3s
+kimi-k3              [openai]     OK 1.5s
+qwen3.8-max          [openai]     OK 3.0s   ← 两种协议都通
+qwen3.8-max          [anthropic]  OK 2.3s
+qwen3.7-max          [openai]     HTTP 410 ModelDeprecated
+```
+→ 探针脚本：`scripts/probe_fallback_candidates.py`（读 `.env` 的 `OPENCODE_GO_API_KEY`，两个协议都测）。
+
+🔴 **两个坑（本次实踩）**：
+1. **官方直连 DeepSeek 的 key 已失效**——`Desktop/各类api key/deepseek api key.txt`（6 月的老 key）打 `/v1/models`、`/user/balance`、`/v1/chat/completions` **三个端点全 401** `api key: ****428a is invalid`。这条兜底链之前一直是坏的，触发时白白多花一次调用再失败。**要恢复"官方直连"这一层必须换新 key**。
+2. **`qwen3.7-max` 已被服务端下线**（410 `ModelDeprecated`，官方提示换 `qwen3.8-max`）。2026-10-29 已全部换成 `qwen3.8-max`。
+
+3. 🔴 **`deepseek-v4-flash` 已在网关下线（2026-11-04 实测）**：同一个 key 打 `/zen/go/v1/chat/completions`，`deepseek-v4-flash` → **HTTP 400** `{"type":"server_error","message":"Upstream request failed: Model is unavailable."}`；`deepseek-v4.1-flash` → 200。**退役模型在网关上的状态码不止 410 一种**（qwen 是 410 `ModelDeprecated`，deepseek 是 400 `server_error`）——**排障时别只认 410**，看到 `Model is unavailable` 同样是退役信号。
+
+   🔴 **这类「模型名失效」在下游应用里表现得极具误导性**：第三方服务（如 Dayflow 个人日程）配置了退役模型名后，会把**非 429/401/403** 的上游错误统一兜成一句「**模型服务暂时不可用，已保留输入**」——看起来像服务端挂了 / 网络问题 / 授权过期，实际是模型名过期。
+
+   **判别顺序（三步内必出结论，别去查采集/权限/网络）**：
+   1. 下游报错文案是不是「通用服务不可用」那一类 → 是，就怀疑模型名而非链路
+   2. 去下游自己的配置/只读接口里拿**当前配置的模型名**（Dayflow 是 `GET /api/v1/coach/model` 的 `model` 字段 + `choices[]` 旁证）
+   3. 拿**同一个网关、同一个 key** 直打这个名字，对照换成一个在售名字的结果
+
+   ⚠️ 下游若把切换模型做成网页专用（如 Dayflow `PATCH /api/v1/coach/model` → **403「请从网页切换分析模型」**、`PUT` → 405），agent 改不了，只能把「换哪个名字 + 从哪个页面点」交给用户；**失败的调用不会自动重试**，积压的 `failed` 也要用户在网页上手动重放。
+
+   🔴 **模型下线/改名时必须先 grep 全库，不能只改报错的那一个脚本**。这次真正踩到的顺序：`qwen_review.py` 先报 410 → 只改了它 → 全库扫描又括出**四个仍在跑的引用点**（其中一个是日报链路上的定时任务，会每天静默炋）：
+
+   | 文件 | 影响 | 严重度 |
+   |:--|:--|:--|
+   | `scripts/qwen_review.py` | L1 审查本体（先报 410 的就是它） | 中（报错可见） |
+   | `scripts/daily_report_review.py` | **日报投递前审查**——每天定时炋 | 🔴 高（静默失败） |
+   | `scripts/mem_gc.py` | 记忆整理 | 中 |
+   | `scripts/report_gen_qwen.py` | 日报 DeepSeek 过载时的备用引擎 | 🔴 高 |
+   | `config.yaml` / `profiles/health/config.yaml` | `fallback_model`、MoA `reference_models` | 🔴 高（兜底失效） |
+   | `cron/jobs.json` | 定时任务 prompt 里的**散文标签**（不光是 model 字段） | 中 |
+
+   ```bash
+grep -rln "qwen3.7-max" ~/AppData/Local/hermes/scripts/ \
+     ~/AppData/Local/hermes/config.yaml \
+     ~/AppData/Local/hermes/profiles/health/config.yaml \
+     ~/AppData/Local/hermes/cron/jobs.json
+```
+   → 现成一键扫描用 `scripts/scan_model_references.py`（见下「换主模型的标准动作」）。
+   → **按「是否在定时任务链路上」排序修复**，定时任务里的那个最危险。
+   → 改完必跑 `python -m py_compile`；散文匹名要单独替换（`"model": "qwen3.7-max"` 与文里里的字面量是两回事，后者 grep 得到但 replace 时容易漏）。
+   → 备注：`api_healthcheck.py` / `build_quota_reference.py` 里的 qwen3.7-max 只是**注释/文档字符串**，不是活调用，别白改。
+
+🔴 **改法必须用 Python 直改文本，不能用 `hermes config set`**：`hermes config set fallback_providers '[...]'` 会把 JSON 存成**字符串**，YAML 解析后是 str 非 list → 链条静默为空。改完必须 `yaml.safe_load` 校验 + 从 terminal 用 grep 回读真实文件（`execute_code` 里的写入虽然实测能落到真实路径，但**必须用 terminal 独立复核**，别信同一个沙箱里的自我验证）。
+
+**验证"链真的生效"的唯一硬证据**：`grep "Fallback activated" logs/agent.log`。本次实抓：
+```
+API call failed (attempt 1/3)  429 [ttft_admission_refused] retry after 10 s
+API call failed (attempt 2/3)  429 retry after 12 s
+Fallback activated: deepseek-v4.1-flash → gpt-6-luna (opencode-go)
+API call #1: model=gpt-6-luna provider=opencode-go latency=3.5s
+```
+→ 说明"先重试 2 次、再换 Go 模型"的行为符合预期。⚠️ **fallback 会话级粘性**（`_fallback_activated`）意味着触发后整个会话都留在 gpt-6-luna，要 `/reset` 开新会话才回主链路。
+
 ### fallback_providers 链式机制（2026-08-16 落地，v0.19.1）
 
 主模型 opencode-go 网关整体故障时（2026-08-16 17:00 实踩：deepseek 连接错误 ×2 + qwen 503 Endpoint unavailable ×3），旧 fallback_model（opencode-go-anthropic）同网关失效 → 日报任务失败。已配链式 fallback：
@@ -516,6 +596,57 @@ print(d.get("system_fingerprint"))   # 官方 deepseek-flash → e72d3c7f663d3e1
 **第 4 层（供应商公告）**：查供应商官网有没有发公告。**OpenCode 的答案是「没有」**——2026-10-20 四渠道全查：`/changelog` 最新条目停在 10-16（比 1017 发布早一天，且只记客户端功能）、`/docs/go` 只写「DeepSeek V4.1 Flash」无版本号、`/blog` 和 `/notes` 都是 404。他们静默跟随上游，不发版本公告。
 
 **给用户的表述纪律**：不要说「已同步」或「没同步」——说「**证据到哪一层**」。有 fingerprint 就报 fingerprint；只有行为指纹就明说「倾向于是，但没有硬证据」，并给出拿确证的路径（去 GitHub `anomalyco/opencode` 提 issue / 观察 1017 的 agent 编码特征）。
+
+### 🔬 缓存命中率体检（2026-11-08 实做，用户发 opencode 账单截图问「命中率是否合理」）
+
+**先把口径定死，否则会算错一倍**：opencode console 的 `Input` 列**已排除缓存**，它与 `Cache Read`
+是**并列相加**关系（不是包含）。
+
+```
+总输入 = Input + Cache Read
+命中率 = Cache Read / (Input + Cache Read)          ← 分子分母都别搞反
+```
+
+**基准（本机实测，可直接引用）**：
+
+| 口径 | 命中率 |
+|---|---:|
+| 单会话长跑（健康助理 444 次调用一个会话） | **98.5%** ← 「98% 是常态」的实证 |
+| 主 profile 混合（50 个会话 / 1,864 次） | 93.9% |
+| console 账单（全部客户端，3,162 次） | **95.0%** |
+| 按 task 拆：日常对话 | 95.1% |
+| 按 task 拆：`background_review` | **90.3%**（单次未命中 15.1K，是拉低均值的元凶） |
+| 按 task 拆：`title_generation` | 36.1%（但量小，可忽略） |
+
+→ **结论句式：95% 属于「正常范围偏下」，不是故障。** 拉低它的不是配置，是**使用模式**——
+会话越碎命中越低。主 profile 50 个会话里有 7 个只跑了 2 次调用（新会话首调必然全量未命中）。
+
+**成本含义（Off-Peak 价，DeepSeek V4.1 Flash）**：
+
+```
+未命中 22.3M × $0.15  = $3.35  ← 占输入成本 73%
+缓存读 422.7M × $0.003 = $1.27  ← 占 27%
+```
+**5% 的未命中 token 吃掉 73% 的输入钱。** 每提 1 个百分点 ≈ 省 $0.65/月；95%→98% ≈ 省 $1.97/月。
+
+**定位方法（两条 SQL 就够）**：
+
+```sql
+-- ① 按 task 拆，找谁在拖后腿
+SELECT COALESCE(NULLIF(task,''),'(chat)') t, COUNT(DISTINCT session_id) s,
+       SUM(api_call_count) c, SUM(input_tokens) i, SUM(cache_read_tokens) cr
+FROM session_model_usage WHERE first_seen>=<月初> AND model='deepseek-v4.1-flash'
+GROUP BY 1 ORDER BY c DESC;
+-- ② 每次会话的调用数分布：出现大量 2–4 次的短会话 = 首调未命中占比高
+```
+
+⚠️ **state.db 只记 Hermes 自己发起的调用**，console 账单还包含别的客户端/其它 profile，
+两边数字对不上是正常的（本次 console 3,162 次 vs 主 profile 1,864 次）。
+**以 console 为准算钱，以 state.db 为准解释构成。**
+
+⚠️ **console 右上角的 `Go XX% used` 是按订阅日滚动算的，不是自然月。**
+用户订阅日 10/16、次月 11/8 截图显示 68% → 换成日均 **2.96%/天** → 30 天周期外推 ≈ **88.7%**，
+结论是「紧但不会撞穿」。**不确认周期就断言「这个月才过 8 天就用掉 87%，月底必爆」会被当场纠正。**
 
 ### 🧾 更新额度/价格数据时的完整性要求（2026-10-20 用户明确）
 
@@ -663,6 +794,37 @@ opencode-go 大量 `APIConnectionError`(HTTPX 栈 `connect_tcp` 撞墙)时,**先
 
 完整错误链原文 / 判别表 / 验证脚本 / 换 key 操作：[`references/opencode-key-expiry-and-env-hot-reload-2026-10.md`](references/opencode-key-expiry-and-env-hot-reload-2026-10.md)
 
+### 🔴 「认证失败」vs「模型名过期」：用同一网关的对照实验一次分清（2026-11-09 定案）
+
+排障时最容易搞混的两种错：**key 失效** 和 **模型名已退役**。它们在应用层常被统一兜成一句
+「Provider authentication failed」或「服务不可用」，看着一模一样——**用户也因此经常提出
+「是不是模型名没改」这个合理但错误的猜测**。
+
+**做法：拿同一把「确认可用」的 key，对同一个网关跑对照，错误码分得很干净。**
+
+| 实验组 | 请求 | 实测结果（OpenCode Go `/zen/go/v1/chat/completions`） |
+|:--|:--|:--|
+| **基线** | 有效 key + 在售模型 | **200**（基线不通则整组实验无效） |
+| 假 key | 有效格式、故意写错 | **401** `authentication_error: Invalid credential`（0.7s） |
+| 空凭证 | 不带 Authorization | **401** `Go requires a credential` |
+| 模型名过期 | 有效 key + 退役名（`deepseek-v4-flash` / `deepseek-chat`） | **400** `Upstream request failed: Model is unavailable.` |
+| 模型下线 | 有效 key + 明确下线（`qwen3.7-max`） | **410** `ModelDeprecated`（响应附 `replacement`） |
+
+→ **401 家族 = 凭证问题；400/410 家族 = 模型名问题。** 应用层报「认证失败」就必须先归到 401，
+**这时可以明确排除「模型名没改」**，而不是把用户的猜测当结论。
+
+🔴 **但两者可能同时存在，修复时要一起改。** 2026-11-09 实例：对端报认证失败，用户猜「是不是还是 v4 没改成 v4.1」——
+实测证明这两类错的文案完全不同（排除猜测）；**但顺手一测发现 `deepseek-v4-flash` 现在确实也是 400**，
+即对端同时焊了两个坑：key 过期（401，当前暴露的）＋ 模型名退役（400，修好 key 后才会撞）。
+→ **只换 key 不换名字 = 只拆第一道门。给修复清单时两项都要写。**
+
+🔴 **另一个正交判据是耗时**：`0.7–2.3s 秒拒` = 已连上、走到鉴权就被打回（401/400）；
+`卡到 90–150s` 才是网络不通。**两个判据一起用，三次调用内就能定性**，不用去猜日志。
+
+❌ **反面教训**：本会话第一反应是「对端肯定也是我们换 key 造成的」——方向对了但没验证，
+是对用户自己提出「是不是模型名」后才去跑实验。**别人（含用户）提出的合理假设，正确做法是
+设计对照去证伪/证实，而不是直接采信也不该直接无视。**
+
 🔧 **换 key 后必跑**：`scripts/check_opencode_key_consistency.py`——一次性比对四个来源（`.env` / `config.yaml` 内联 / 5 个硬编码脚本共用的桌面 key 文件 / 运行中进程的 `os.environ`），不一致就打印逐项修复命令；退出码 1 = 还有漏网。支持 `--key-file <路径>` 用用户新存的那份当基准。
 
 ### Telegram 投递链路行为(2026-09-05 实证)
@@ -684,6 +846,62 @@ opencode-go 大量 `APIConnectionError`(HTTPX 栈 `connect_tcp` 撞墙)时,**先
 **修复内容**（评估体积用）：新增 `agent/opencode_affinity.py`（目标检测：内置 zen/go/free、任意 opencode.ai URL；assemble 键：conversation root → session id）；`chat_completion_helpers.py` 的 `build_api_kwargs` 改名 `_build_api_kwargs_for_mode` 再包一层 wrapper 合并 header（chat_completions/codex_responses/anthropic_messages 全带）；`auxiliary_client.py` 同样转发（compression/title/vision 保持同后端）。无新依赖（不改 pyproject）。
 
 🔴 **独立直连脚本同样要加头（2026-09-07 实踩）**：9/6 强制生效后 Hermes 主链路自动带 session 头，但 qwen_review.py / report_gen_qwen.py / daily_report_review.py / api_healthcheck.py / api_probe.py 直连 opencode 的请求缺头 → 400 MissingSessionID（黄金周报周一 L1 审查 12:33 实踩：审查全 FAIL 一路升级 GPT-5.6Sol）。curl 实证：qwen3.7-max 不带头 400 / 带头 200。已修（2026-09-07）：5 脚本 headers 统一加固定值 `x-opencode-session: hermes-script-<名>`。
+
+#### 🔴 同一根因的第三个坑：**辅助视觉（vision）静默退回主模型**（2026-11-08 实锤）
+
+**症状（用户视角）**：「最近识图你都没有调用 minimax-m3，而都是用 deepseek-v4.1-flash 做的。」
+配置检查全对（`auxiliary.vision.provider=opencode-go-anthropic` / `model=minimax-m3`），所以很容易误判成
+「模型没配好 / 主模型能力太强被自动接管」——**都不是**。
+
+**真因**：`agent/opencode_affinity.py` 的 `opencode_session_headers()` 在解析不出会话身份时
+**返回 `{}`（不发这个头）**。而网关在**主对话开始之前**会先跑一遍图片预分析
+（日志行 `Image routing: text (mode=text). Pre-analyzing N image(s) via vision_analyze.`），
+那一刻会话上下文还没绑定、`_runtime_main_value("session_id")` 是空串
+→ 头不发 → 400 → **请求失败后回落主模型识图**，用户只看到「没用 minimax-m3」。
+
+**判别（两步出结论，别去查模型配置）**：
+
+```bash
+# ① 日志里每一次识图的结果，成功/失败一目了然
+grep -a -n "Analyzing image\|Image analysis completed\|Error analyzing image\|MissingSessionID\|Image routing" logs/agent.log | tail -40
+```
+典型失败序列（本次一天 9 次全挂）：
+```
+19:06:44 INFO gateway.run: Image routing: text (mode=text). Pre-analyzing 1 image(s) via vision_analyze.
+19:06:45 INFO tools.vision_tools: Processing image with vision model...
+19:06:46 ERROR tools.vision_tools: Error code: 400 - {'type': 'error', 'error': {'type': 'MissingSessionID', ...}}
+```
+→ **看到 `MissingSessionID` 就停在这里，别再往下猜模型名/协议/额度。**
+
+```bash
+# ② curl A/B 证死这个头是唯一卡点（注意 anthropic 端点用 x-api-key，不是 Bearer）
+```
+| 请求 | 结果 |
+|---|---|
+| 不带 `x-opencode-session` | 400 `MissingSessionID` |
+| 带 session 头但用 `Authorization: Bearer` | 400 `Go requires a credential`（**认错头了**） |
+| `x-api-key` + `x-opencode-session` + `anthropic-version` | ✅ 200，`model: minimax-m3` 正常返回 |
+
+🔴 **`/zen/go/v1/messages` 的鉴权头是 `x-api-key`**。同一个 key 用 Bearer 会报
+`Go requires a credential` —— 这条错误看着像 key 失效，其实是头类型用错了。
+
+**修法**：在 `opencode_session_headers()` 里加进程级兜底键，保证这个头**永不为空**：
+
+```python
+if not key:
+    key = _fallback_session_key()      # 进程内稳定的 uuid，如 "hermes-aux-<hex16>"
+return {OPENCODE_SESSION_HEADER: key}
+```
+
+语义上完全安全：OpenCode 只要求该值**不透明且同一会话内一致**，无会话身份时用一个进程级
+固定值，反而让这些前置 aux 调用彼此钉在同一后端。
+
+**改完必须重启 gateway（这条是改代码，不是改配置）**，见 skill `hermes-config-editing` 第二节。
+⚠️ **在 Telegram/微信等消息平台会话里不要自己 `stop/start gateway`**——那是自己的通讯通道，
+且进程内有防护会直接 BLOCKED。让用户发一句 `/restart`（gateway 自己处理的重启）最稳。
+
+**验证修复真的生效**：发一张图，再 grep 上面那条日志——应出现 `Image analysis completed (N characters)`
+且**没有** `MissingSessionID`。只看配置写没写对不算数。
 
 **更新方案对比（2026-09-03 给用户评估）**：| 方案 | 做法 | 踩升级坑？ | 风险 |
 |:---|:---|:---|:---|

@@ -5,14 +5,44 @@
     "created_by": null,
     "last_patched_at": "2026-10-23T12:13:02.771973+00:00",
     "last_reused_patch_generation": 5,
-    "last_used_at": "2026-10-27T12:06:52.185024+00:00",
-    "last_viewed_at": "2026-10-27T12:06:52.178034+00:00",
+    "last_used_at": "2026-11-04T03:45:58.313608+00:00",
+    "last_viewed_at": "2026-11-04T03:45:56.283047+00:00",
     "patch_count": 5,
     "patch_generation": 5,
     "pinned": false,
     "state": "active",
-    "use_count": 5,
-    "view_count": 5
+    "use_count": 10,
+    "view_count": 10
+  },
+  "health-metric-diet-review": {
+    "archived_at": null,
+    "created_at": "2026-11-04T03:36:45.387323+00:00",
+    "created_by": null,
+    "last_patched_at": "2026-11-06T12:34:13.488200+00:00",
+    "last_reused_patch_generation": 1,
+    "last_used_at": "2026-11-13T01:57:00.043402+00:00",
+    "last_viewed_at": "2026-11-13T01:57:00.035387+00:00",
+    "patch_count": 1,
+    "patch_generation": 1,
+    "pinned": false,
+    "state": "active",
+    "use_count": 8,
+    "view_count": 8
+  },
+  "health-nutrition-analysis": {
+    "archived_at": null,
+    "created_at": "2026-11-02T12:33:11.510298+00:00",
+    "created_by": null,
+    "last_patched_at": null,
+    "last_reused_patch_generation": 0,
+    "last_used_at": "2026-11-02T12:33:11.510298+00:00",
+    "last_viewed_at": "2026-11-02T12:33:11.510298+00:00",
+    "patch_count": 0,
+    "patch_generation": 0,
+    "pinned": false,
+    "state": "active",
+    "use_count": 1,
+    "view_count": 1
   },
   "meal-photo-analysis": {
     "archived_at": null,
@@ -20,13 +50,13 @@
     "created_by": null,
     "last_patched_at": "2026-10-20T01:50:57.981647+00:00",
     "last_reused_patch_generation": 1,
-    "last_used_at": "2026-10-27T12:06:54.634409+00:00",
-    "last_viewed_at": "2026-10-27T12:06:54.629411+00:00",
+    "last_used_at": "2026-11-13T01:56:49.019363+00:00",
+    "last_viewed_at": "2026-11-13T01:56:49.003737+00:00",
     "patch_count": 1,
     "patch_generation": 1,
     "pinned": false,
     "state": "active",
-    "use_count": 4,
-    "view_count": 4
+    "use_count": 11,
+    "view_count": 11
   }
 }

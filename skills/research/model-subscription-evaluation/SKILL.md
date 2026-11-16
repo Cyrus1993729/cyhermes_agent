@@ -14,6 +14,10 @@ metadata:
 
 🔴 **交付节奏（2026-10-25 用户再次当面要求，硬要求）**：这类评估要连抓好几个页面、跑好几段统计，是典型长任务。**每查实一个能独立成立的结论就冒一句**（1–3 行：刚查到什么 → 下面查什么），不要憋到全部查完才甩一份长文。用户原话：「如果是我直接问你的，不是跟健康相关的东西，我还是希望你可以每做一步都及时给我反馈，而不要让我直接等很长时间看你最终的结果。」本会话就先犯了——一口气跑了十几次工具调用才出第一句话，被中途叫停。**中间反馈只给结论和下一步，篇幅仍按精简口径。**
 
+🔴 **2026-11-13 又被当面重申一次——触发条件不是「任务大小」，是「工具调用次数」。** 本次只是查一个 profile 的上下文水位，自我感觉是两分钟的小检查，结果连跑 8 次工具调用才开口，被用户中途插话：「你这个主 agent 你的汇报习惯应该是尽量实时的去汇报你的进展，你的动作只有派给了健康助理的任务才是一次性做完再汇报的。」
+→ **判据改成数调用**：任何要跑 ≥3 次工具调用才出结论的活，第 2 次调用后就冒一句。诊断/审计/核对类任务**最容易被误判成「很快就好」**，恰恰是复发点。
+→ **分工口径**：**主 agent 自己干的活＝边做边说**；**派给健康助理 / 子代理的活＝等它回执、一次性原样搬明细**。两套节奏别搞混——后者憋着是对的，前者憋着就是本条的错。
+
 ## 一、先统计自己的真实用量（数据来源：首选 state.db，次选 agent.log）
 
 ### ✅ 首选：state.db 的 session_model_usage 表（2026-08-15 实测，比 agent.log 精确一个量级）
@@ -62,17 +66,51 @@ cd ~/AppData/Local/hermes/logs
 
 🔴 **核实定价/额度一律 fresh curl 原始 HTML，不要用 `web_extract`**（2026-08-17 实踩：web_extract 返回缓存旧版，导致误判"额度未缩水"）。页面也可能跳转（`opencode.ai/docs/go` → `/v2/docs/console/go/`），要跟 `-L`。
 
-### 🔴 第三方聚合站（OpenDesign / OpenCode Zen / 中转站）比价三条铁律（2026-10-25 实做）
+### 🔴 第三方聚合站（OpenDesign / OpenCode Zen / Kilo / 中转站）比价铁律（2026-10-25 建立，2026-11-09 扩到 7 条）
 
 1. **先看模型清单，再看价格。** 聚合站的便宜档位几乎都把旗舰模型标成 `Not included`，只在顶层开放。2026-10-25 实例：用户问「OpenDesign 用 Opus 5.5 和 Claude 官方 Pro 同样 $20 额度差多少」——抓官方定价页发现 **Plus($20) 卡片上 Claude Opus 5.5 / Claude Fable 5.1 / GPT-6 Astra 三个都明确标 Not included**，用户的前提直接不成立。要用 Opus 5.5 得 Pro 档（$100/月，年付 $60）。**比价第一步永远是确认目标模型落在哪个档位**，不确认就算出再多数字也是错的。
 2. **横幅上的大数字先分清是"价格"还是"加赠额度"。** 同一页 hero 写着 `PRO $20 / MAX $100 / +$20 / +$100`，看着像降价，实际是"限时加赠 $20/$100 credits"。抓原始 HTML 找相邻的 `Limited-time bonus credits` 再定性。同理"限时加赠 20%"要让用户知道 `$120` 的原值是 `$100`。
 3. **额度表按 `<tr>` 逐格解析，不要用去标签后的可见文本顺序。** 纯文本化会让表格列串位（本次中文页把 Plus 的套餐模型额度显示成 $160，实际是 $20，$160 是 Design Plan 额度）。正确姿势：`re.findall(r"<tr[\s\S]*?</tr>", html)` → 每行 `re.findall(r"<t[hd][\s\S]*?</t[hd]>", tr)` → 逐格 `re.sub(r"<[^>]+>"," ",c)`。
-4. **双层额度要问清能不能互相挪用。** 聚合站常拆成「套餐模型额度（无窗口）」+「Design Plan 额度（有 5h/7 天窗口）」，文档明确前者优先/后者兜底、**互不追加**（"在外部工具中调用不会额外获得一份额度"）。用户问"够不够"时必须分别报两个数，不能加总当成一个池。
+4. **双层额度要问清能不能挪用，方向要问反。** 聚合站常拆成「plan-model 额度（无窗口，按周期清零）」+「Design Plan / Coding Plan 额度（有 5h/7 天窗口）」。OpenDesign 的方向是**单向**：Design Plan 用完后可溢出到剩余 plan-model credits，但 **plan-model 调用只吃 plan-model credits，吃不到 Design Plan 池**。2026-11-09 实例：Pro 卡片写「总额度 $480 = Design Plan $360 + plan models $120」，而 Opus 5.5 属于 plan models → **Opus 的硬上限只有 $120，那 $360 一分都用不上**。用户问"够不够"时必须分别报两个数，不能加总当成一个池。
+5. **先分清「额度型」和「充值型」，换算逻辑完全不同。** 额度型（OpenDesign / OpenCode Zen）：月费 → 一笔明码美元额度，折扣体现在杠杆率。充值型（**Kilo Pass**）：订阅额 1:1 进余额、**按 provider 原价消耗、零加价**，它**没有任何价格折扣**，唯一优惠是白送的 bonus credits。用户问"买它能用多少 X 模型"时，充值型的答案是 `(订阅额 + bonus) ÷ 该模型官方价`——别去找"套餐内模型价"，它不存在，直接去模型详情页拿原价。
+6. **比较聚合站只用一个指标：「每 $1 实付换多少目标模型额度」。** 2026-11-09 实测这一栏：Kilo 月付 **1.33×**（另有 5% 处理费）、Kilo 年付 **1.5×**、OpenDesign Pro 月付 **1.2×**、OpenDesign Pro 年付（$720/年 = $60/mo 换 $120/mo）**2.0×**。单看月费或单看额度都会选错。
+7. **充值型必须查 bonus 的领取条件——它常常是拿不到的折扣。** Kilo Pass：bonus 要**先把当月付费 credits 用完才发放**、**月末作废**、月付得**连续订到第 8 个月**才爬满 40%（第 1 月仅 10%，第 2 月一次性 50% 欢迎奖）。把 40%/50% 直接写进结论而不标领取条件 = 虚报，必须同时写"你当月没正好花超，这 40% 就是零"。
+8. **聚合站的模型清单多半是客户端渲染，grep 正文 grep 不到。** 两条正确的取数路径：① 模型名/价格 → 直接抓**单模型详情页**（如 `kilo.ai/models/anthropic-claude-opus-5-5`，价格在 `<dt>`/`<dd>` 里，或 JSON-LD 的 `PriceSpecification`）；② 档位归属 → 按**容器顺序**切 `<ul data-astro-cid-...>` / 卡片 block，再看每个 block 的 header 标签（`Not included` / `Standard · $20/month` / `6× · $120/month`）判断该档开放了哪一层。整页 grep "Opus" 计数为 0 不代表模型不可用，只代表清单不是静态 HTML。
+③ **充值型套餐的规则全在 JSON-LD 里**：Kilo Pass 页面（`kilo.ai/pricing/kilo-pass`）是 Next.js 客户端渲染，但**整套 FAQ 在 `<script type="application/ld+json">` 中**——三档价格、bonus 梯度（10% / 第 2 月 50% 欢迎奖 / 第 8 月满 40%）、年付 50%、bonus 月末作废、5% 处理费、credits 一年过期，**一次 walk `@type == "Question"` 就全拿到**，比抓正文快十倍。同理 `claude.com/pricing` 的额度口径与 `Monthly API credits` 那行也在 `__next_f.push` 内嵌 JSON 里（正文 grep 得到，但 FAQ 答案只在 JSON）。
 
-### 🔴 Claude 官方订阅侧的固有盲区（2026-10-25）
+### 🔴 Claude 官方订阅侧的固有盲区（2026-10-25 建立，**2026-11-09 换掉全部旧数字**）
 
-Anthropic **从不公布** Pro/Max 的 token 数或金额额度，只给相对倍数（Pro ≥5× 免费版每会话；Max 5x = 5× Pro；Max 20x = 20× Pro）。机制是滚动 5 小时窗口 + 每周上限，与网页版共用同一池；Opus / Fable 另有单独的周上限。
-→ 回答「Claude Pro 额度有多少」**必须明说没有官方数字**，只能用第三方实测并标注不确定：博客园 2026-06 实测（Sonnet High）约 **$18/5 小时窗口、约 $180/周**；另一份 GitHub 实测记录推出周限约 **$1000**。两个口径差 5 倍，但方向一致：**订阅的 API 等值远高于月费**。
+Anthropic **从不公布**任何档位的 token 数或金额额度，官方原话 `there's no fixed message count`，并保留「按我们的判断另行限制」的权利。只给相对倍数：**Pro ≥5× Free（每 5 小时会话）；Max = 5× Pro（5h 与每周都是）；Ultra = 10× Pro（每周）**。机制是滚动 5 小时窗口 + 每周上限，与网页版/Claude Code **共用同一池**。
+🔴 **2026-10-30 改过名**：Max 5x → **Max**（$100）、Max 20x → **Ultra**（$200）。用户或旧文章说「Max 5x / Max 20x」时先对到新名字。Pro 仍是 $20/月，年付 $17/月（一次付 $200）。
+🔴 **决定能不能接 Hermes 的不是额度，是 `Monthly API credits` 这一行**：**Pro = No，Max = $100/月，Ultra = $200/月**（Team 最高 $500/月合并池）。**Pro 没有 API access**，只能走官方 Claude Code CLI（`claude -p`）或界面，**不能配 base_url**——额度再大也只能人肉兑现。付费档都能开 `usage credits`：**撞限后按标准 API 价继续用**（有 $2,000/天兑换上限），等于自动降级成按量付费。Fable 在 Max/Ultra 含在每周额度的 50% 内，Pro 只能靠 usage credits。Opus 5.5 从 Pro 起就有（Free 只有 Sonnet/Haiku 级）。
+→ 回答「Claude Pro 额度有多少」**必须明说没有官方数字**。现行最好的第三方口径（wokey.ai，**79 个真实账号**，10/26–11/02 那一周，2026-11-02 更新）：**Pro = 约 $155/周（中间 50% 在 $146–$173）≈ $673/月，是月费的 34 倍**；非缓存 token 24.2M/周、输出 1.7M/周；**一个 5h 窗口约 $12**，每周约 13 个满窗口。**Ultra 实测 $1,549/周 ≈ $6,711/月 = 10.0× Pro（不是 20×）**——官方那个 20× 只作用于 5h 窗口，**每周上限才是长期使用的天花板**。SemiAnalysis 受控测试（2026-10-05）Ultra 全用 Opus 5.5：agentic（96.6% 缓存）≈ **$11,726/月**、chat ≈ $9,200/月；与实测的差全在缓存命中率口径（92% vs 96.6%）。**两套数一起给，别只挑一个。**
+→ ⚠️ **同一账号会漂**：Pro 周值 09-24 $125 → 10-08 $162 → 10-12 $170 → 11-02 $155。**不能拿它做预算**，报数必须带区间 + 测量周 + 账号数。旧的「博客园 $18/5h、$180/周」与「GitHub $1000/周」口径已作废，不要再用。
+→ 与"明码美元额度"的聚合站比价时，把结构性差异摆出来（订阅＝不透明但杠杆 34×、会撞墙；聚合站＝透明可预算、无窗口），别只甩一个换算数字。完整档位表见 `references/opendesign-plans-2026-10.md`，Claude 侧全套数字见 `references/claude-plans-2026-11.md`。
+
+### 🔴 订阅额度是给人用的，聚合站额度是给 agent 用的（2026-11-09）
+
+只比「一美元换多少 Opus 用量」，会得出**官方订阅碾压 17–23 倍**的结论（Pro 34× vs Kilo 年付 1.5× / OpenDesign 年付 2.0×）。**照这个直接推荐会误导**，必须再走两步：
+
+**① 把 5h 窗口换成「调用次数」，和自己的最重一天对撞。**
+```
+窗口内可用调用数 = 窗口美元等值 ÷ 我们的单次成本
+Pro: $12 ÷ $0.070 ≈ 172 次/窗口
+```
+本机最重一天 400–1,100 次（10-21 = 1,116、10-25 = 1,053）→ **一天要撞 2–6 次窗口，只能干等重置**。聚合站的 plan-model 额度反过来**无 5h/周窗口**。这一条经常比总价更能决定选型。
+
+**② 问清额度能不能程序化调用。** 没有 API credits 的档（Pro）进不了 Hermes 主链路。聚合站（Kilo / OpenDesign）天生可配 base_url，这是它们唯一不可替代的价值。
+
+**结论口径**：订阅便宜到不合理但**只能人肉兑现**；聚合站贵，买的是「无窗口 + 可接 API」。**两者不是同一类商品，别比总价**——先问用户是「人在 Claude Code 里干重活」还是「agent 批量跑」。
+
+### 🔴 「两类需求」怎么配：重活旗舰 + 日常便宜模型（2026-11-09 实做）
+
+用户提「Opus 干重活、DeepSeek 这类做日常聊天/简单事项」时的固定三步，**别先报价格**：
+
+1. **先查现有套餐里到底有没有目标模型。** 2026-11-08 现抓 OpenCode Go 文档：全表 33 个模型**没有 Opus 5.5**，Claude 系只有 Haiku 5.5（$15 额度）。→ 「在现有套餐里加 Opus」这条路直接不存在，**别假设同一供应商一定有更高档**。文档里 `Opus` 关键字命中 0 也可能是客户端渲染，要按模型表逐行确认。
+2. **找额度天生分两层的套餐。** OpenDesign 的结构正好对上：`Design Plan` 池（DeepSeek/GLM/MiMo 等，有 7 天窗口）+ `plan models` 池（Opus 5.5 等旗舰，**无窗口**）。Pro 年付 $60/月 = Design Plan $360 + plan models $120，**一个订阅同时喂两类需求**。但**旗舰池是硬顶**（Pro 的 Opus 上限就是 $120，那 $360 一分用不上，方向见铁律 4）。
+3. **算日常那部分真实值多少钱，别被「送了一大池」骗。** 我们 `deepseek-v4.1-flash` 近 30 天 = **$15.87**（全 peak $31.73），Design Plan 的 $360（DeepSeek 倍率 0.5×）只用到 **3–5%**。
+
+**按重活强度分档给方案**（一次深度会话 ≈ 50 次调用 ≈ $3.5）：30 次/月以内 → OpenDesign Pro 年付 $60/月；60–80 次 → Max 年付 $98/月（$300 Opus）；不定量或不想锁年付 → 留 OpenCode Go $10 + Kilo Pass 按需充（**同等 Opus 额度贵 30–40%**）。给完方案必须补一句数据留存风险：聚合站查不到 OpenCode 那种 ZDR 明细，财报/公司业务内容进这类模型前要说清。
 → 与"明码美元额度"的聚合站比价时，把这条结构性差异摆出来（订阅＝不透明但超值、会撞墙；聚合站＝透明可预算、无窗口），别只甩一个换算数字。完整档位表见 `references/opendesign-plans-2026-10.md`。
 
 ### 🔴 官方限额换算公式（2026-10-20 fresh curl 原文确认）
@@ -283,8 +321,125 @@ python -c "…正则 '(\d{4}-\d{2}-\d{2}) .*API call #\d+: .*in=(\d+) out=\d+ to
 
 `wmic process where "name='python.exe'" get ProcessId,CommandLine`：主 profile 通常有 `serve` + `gateway run` 各一对（wrapper + `.hermes-runtime` 真身），每个 profile 再加一对。4 个 Python 运行时 + 若干 Hermes.exe ≈ 1.5GB 内存。**CPU 不是瓶颈，内存和 provider 排队才是。**
 
+### 🔍 非默认 profile 的上下文审计（2026-10-31 实做，健康助理为例）
+
+用户说「检查一下 XX 助理的上下文，过长就整理」时，**别只看主 profile**。每个 profile 是独立的 state.db + 独立 config：
+
+- DB：`~/AppData/Local/hermes/profiles/<name>/state.db`（主 profile 才是 `hermes/state.db`）
+- 记忆上限在**该 profile 自己的 config.yaml**：`memory.memory_char_limit` / `user_char_limit`
+- 记忆文件：`profiles/<name>/memories/MEMORY.md`、`USER.md`
+
+**三个必查数字**（一条 SQL 拿不到，要分开算）：
+
+1. **上下文有多长** → `SUM(cache_read_tokens) / SUM(api_call_count)` = 平均每次调用重放的 prompt tokens。这是最硬的一个数，比数消息条数靠谱。
+2. **有没有被压缩过** → `messages` 的实际列是 **`active` + `_compressed_summary`**（不是 `compacted`，写错直接 no such column）：`SELECT _compressed_summary, active, count(*), sum(length(content)) FROM messages WHERE session_id=? GROUP BY 1,2`。`(_compressed_summary=1, active=1)` 那行就是压缩摘要，**它本身也在上下文里、常有 5–6 万字符**，是容易被忽略的隐藏大户。再对照有没有 `task='compression'` 的 `session_model_usage` 行。
+3. **谁在吃上下文** → 按 `role` + `tool_name` 分组求 `length(content)+length(tool_calls)`。实测健康助理：assistant 自己的回复 35%、terminal 输出 24%、read_file 14%（38KB 的 profile.md 整篇读了好几遍）、patch 7%——**大文件整读是最容易砍的一刀**。
+
+**判断口径**：对照模型窗口（`models_dev_cache.json` 里 `limit.context`；DeepSeek V4.1 Flash 1M、gpt-6-luna 1.05M）。占用 <20% 不叫「爆」，但每次全量重放照样拖延迟；>50%、或**单日暴涨**（本次 270/272 条挤在同一天）才算必须整理。别把「占窗口 16%」说成危险，也别因为「没超窗口」就说没事——要把「慢/贵」和「会崩」分开讲。
+
+### 🔴 最硬的口径：直接读 agent.log 里的压缩记录（2026-11-03 复做）
+
+估算之前先 grep 日志捞**上一次压缩的真实数字**——它一次给出「窗口」「阈值」「压缩后基线」三个数，比按字符折算准得多：
+
+```bash
+grep -aiE "compress|summar" ~/AppData/Local/hermes/profiles/<name>/logs/agent.log | grep -v turn_context
+# Preflight compression: ~218,615 tokens >= 120,000 threshold (model deepseek-v4.1-flash, ctx 1,000,000)
+# Pre-API compression: ~500,929 request tokens >= 500,000 threshold (context=1,000,000, attempt=1/3)
+# context compression done: session=… messages=690->95 rough_tokens=~82,969 awaiting_real_usage=true
+```
+
+- **`ctx 1,000,000` 就是真实窗口**，别再去 `models_dev_cache.json` 查（缓存里的 limit 常比实际配置旧）
+- 压缩后 `messages=95 / rough_tokens=~82,969` 是当前会话的**压缩基线**；此后 `turn_context` 行的 `history=N` 给当前条数，按增长比例估现值即可（混合中英 ≈ 1.5–1.6 字符/token）
+- 两条阈值别混：`Preflight` 那条是「历史闲置后重开」的 120K 前置阈值；`Pre-API` 那条才是硬阈值 = `compression.threshold: 0.5` × 窗口
+
+**答复口径（用户问「是不是满了 / 要不要清理」时直接给这三行）**：① 当前约多少 tokens、占窗口百分之几 ② 压缩阈值是多少、什么时候触发 ③ 上次自动压缩在何时、从多少压到多少。**低于 30% 就明说「没满、不用清」，不要为了显得勤快去做有损的会话归档**——用户要的是判断不是动作；也别说「520 条消息太多了」，条数本身不是指标，tokens 占窗口才是。
+
+**整理手段与顺序**：先修 memory 超限（零风险、可验证），再动会话（有可用性风险）。
+- 会话归档/改名：`hermes -p <name> sessions rename|archive ...`（有 `--dry-run`、`--title` 过滤）
+- ⚠️ 用户固定用 `hermes -p <name> chat -c "Bot Chat"` 续聊时，改名/归档后 `-c` 找不到同名会话的行为**必须先实测**（必要时补 `--create-if-missing`），否则助理直接起不来
+- 能无损清空的前提：所有结论已落盘到工作目录文件（健康域 `~/health/diet|records|reviews`），会话历史只是冗余——这条要主动说给用户，他才会同意归档
+
+详细查询脚本 + 本次基线数字见 `references/profile-context-audit.md`。
+
+### 🔴 2026-11-13 复做：把「当前到底多少 tokens」从估算换成实算（三个抓手）
+
+上一节只给到「按增长比例估」。2026-11-13 又查一次健康助理，摸到三个能把误差压掉的抓手，**优先级从高到低**：
+
+1. **直接调 Hermes 自己的估算器，别手算字符比。** 判阈值用的是同一个函数，调它＝口径一致：
+   ```python
+   import sys; sys.path.insert(0, r'C:/Users/<u>/AppData/Local/hermes/hermes-agent')
+   from agent.model_metadata import estimate_messages_tokens_rough as est
+   # 从 state.db 取 active=1 的消息 → [{'role':..,'content':..}] → est(msgs)
+   ```
+   ⚠️ **本 skill 旧文写的「混合中英 ≈ 1.5–1.6 字符/token」会高估**：本次 348,105 字符估出 176,227 tokens（**≈1.98 字符/token**），估算器还含每条的固定开销。**字符比只能当粗筛，出结论前必须用 `est()` 过一遍。**
+2. **`agent.log` 里的 `tool_search` 延迟加载行＝工具定义的真实开销。**
+   ```
+   tools.tool_search: tool_search activated (tier 1): 17 core/visible tools kept, 124 deferred (~38581 tokens), listing full (budget ~4000 tokens)
+   ```
+   → 工具这块 = 常驻 17 个 + 目录 ~4,000，**别按 MCP 注册的 103 个工具全量算**（那样会凭空多出 3–4 万 tokens，把 19% 说成 25%）。
+3. **压缩健康度看 sessions 的三个字段，不看有没有报错**：`compression_failure_streak` / `compression_ineffective_count` / `compression_failure_cooldown_until`，全 0 或 None = 压缩链路正常，没触发只是因为没到线。
+
+🔴 **`hygiene_hard_message_limit` 是「网关会话」专用的强制压缩线，CLI 会话不适用。**
+本次 `sessions.message_count=418` > 配置里的 `400`，一度以为漏压。查源码确认：它在 `gateway/run.py:21718` 读取、默认值 **5000**（`hermes_cli/config_defaults.py:955`），只作用于微信/Telegram 这类网关会话。健康助理是 `source='cli'` → **418 > 400 是正常状态，不是 bug**。
+→ 但反过来要提醒用户：**把这个 bot 挂到网关那天，400 会立刻变成强制压缩线**，届时要调高或接受更频繁的有损压缩。
+
+🔴 **两个 schema 坑（踩过）**：`sessions` **没有 `created_at`**（用 `started_at` / `last_activity_at`，都是 epoch 秒）；`messages.token_count` **全是 NULL**，算长度只能用 `length(content)`。
+
+## 九、额度百分比与缓存命中率：两个固定判读口径（2026-11-08 实测）
+
+### 🔴 额度百分比是「订阅周期」不是「自然月」
+
+opencode console 右上角那个 `Go NN% used`，**起点是订阅日（本例 2026-10-16）**，不是每月 1 号。
+别看到「本月才过 8 天就用掉 68%」就去 alarm——先确认/询问订阅起始日，再按天折算：
+
+```
+日均% = 已用% ÷ (今天 − 订阅起始日)      本例 68 ÷ 23 天 = 2.96%/天
+推到周期末 = 日均% × 30                → 88.7%
+剩余里程天数 = (100 − 已用%) ÷ 日均%      → 约 10.8 天
+```
+
+判据：**剩余里程 < 7 天才是真警报**；剩 8–15 天属于「紧但够」，只需点一句中后期别爆量。
+（用户 2026-11-08 当场补正了这一点——我先按自然月算错了一版。）
+
+### 缓存命中率：先算分母，再拿基线比
+
+```
+命中率 = cache_read_tokens ÷ (input_tokens + cache_read_tokens)
+```
+`input_tokens` 已是「未命中」口径，与 cache_read **并列相加**，不是包含关系。
+
+| 口径（2026-11 MTD 实测） | 命中率 |
+|---|---|
+| 健康 profile（单会话 444 次调用、上下文连续复用） | **98.52%** |
+| 主 profile（50 个会话，碎） | **93.89%** |
+| opencode console 全账号（3,162 请求） | **94.99%** |
+
+**98% 不是空想——同机就有证据**；低于 95% 必须能解释。本机拉低平均的是 `background_review`：
+20 个会话 / 314 次调用，命中 **90.3%**、未命中均值 **15.1K/次**（每个会话都从头开上下文）；
+`title_generation` 命中只有 36%，但每次 0.3K，量小可忽略。
+→ **结论方向：不是配置问题，是会话碎不碎的问题**（长任务同会话做完、别中途 `/new`）。
+
+**成本敏感度**（DeepSeek V4.1 Flash Off-Peak：in 0.15 / cache 0.003 / out 0.60 $/M）：
+- 未命中那 5% 的 token 吃掉**输入成本的 73%**，缓存读 95% 的 token 只占 27%
+- **每提升 1 个百分点 ≈ 省 $0.65/月**；95%→98% 约省 $2/月
+- 自证口径的办法：全 Off-Peak / 全 Peak 各算一遍，再与实际账单反推峰段占比（本机实测 ≈27%，与工作日 9–12/14–18 峰段吻合）
+
+## 🔴 aux 视觉调用 MissingSessionID：识图会静默换模型（2026-11-08）
+
+**症状**：用户发现「识图没走 minimax-m3，都用主模型了」。
+**根因**：`agent/opencode_affinity.py` 的 `opencode_session_headers()` 在拿不到会话 ID 时返回 `{}`；
+而网关的**图片预分析跑在主对话绑定上下文之前**，`_runtime_main_value("session_id")` 为空 →
+不带 `x-opencode-session` → opencode 400 `MissingSessionID` → **静默退回主模型识图**。
+**判别**：`grep -ai "MissingSessionID" ~/.hermes/logs/agent.log`——每条 `Image routing: text … Pre-analyzing`
+后面紧跟 400 就是它。用 curl 对 `/zen/go/v1/messages` 试两次（带 / 不带头）即可证实是头的问题、不是模型不可用。
+**修法**：key 为空时回落到一个进程内稳定的 fallback 键（`hermes-aux-<hex16>`），保证该头永不为空；
+非 opencode 目标仍返回 `{}`（不能误伤其它供应商）。**改完需重启 gateway 才生效**；
+消息平台会话里不自己 stop/start，让用户发 `/restart`。
+**顺带**：Anthropic 协议的 opencode 端点认证走 **`x-api-key`**；用 `Authorization: Bearer` 会报 `Go requires a credential`。
+
 ## 参考数据
 
+- `references/profile-context-audit.md` — **profile 级上下文审计**：只读查 state.db 的完整脚本、按工具来源拆字符占比、从 `models_dev_cache.json` 取模型窗口、2026-10-31 健康助理实测基线；**2026-11-13 新增：用 `estimate_messages_tokens_rough` 实算当前 tokens（取代字符比估算）、`tool_search` 延迟加载行的真实工具开销、压缩节奏与健康度字段、`hygiene_hard_message_limit` 网关专用误报排除、三处 schema 坑**
 - `scripts/opencode_go_quota_rank.py` — **可直接跑的额度占用排名**（读 state.db + 内置价格表，同时输出「30 天实际」与「活跃日外推」两套口径、最重一天 vs 5h 上限）。选型第一步先跑它
 - `scripts/model_probe.py` — **候选模型的「双探针」体检**（工具调用 + 流式长文本吞吐），判据 3/4 的落地实现。已内置 curl / `User-Agent: curl/8.0.0` / `x-opencode-session` / `stream:true` 四个必需姿势，换主力前对每个候选跑一遍：`python model_probe.py <模型ID> ...`
 - `scripts/extract_aa_scores.py` — **AA 逐模型分项分数提取器**。AA 的图表数字在正文里取不到（客户端渲染），必须从内嵌 JSON 挖，本脚本已封装两种 Next.js JSON 源 + 内置候选模型过滤：
@@ -301,5 +456,7 @@ python -c "…正则 '(\d{4}-\d{2}-\d{2}) .*API call #\d+: .*in=(\d+) out=\d+ to
 - `references/model-strength-vs-quota-2026-10.md` — **「有没有更强的模型且不超限额」的完整实测**：AA 总分/分项对比表、双口径占用排名、长文本吞吐探针结果、逐候选否决理由（2026-10-08）
 - `references/opencode-go-quota-selection-2026-10.md` — **2026-10-08 现抓官方 Go 定价表 + 本机用量画像 + 逐模型性价比排名 + 工具调用探针结果**（选型直接看这份；比下面 8 月那份新）
 - `references/opendesign-plans-2026-10.md` — **OpenDesign（open-design.ai）四档价格/额度表、哪些模型在哪个档位 `Not included`、Opus 5.5 换算、与 Claude 官方 Pro 的口径差异**（2026-10-25 现抓；问聚合站套餐时直接看这份）
+- `references/claude-plans-2026-11.md` — **Claude 官方订阅全套现行数字（2026-11-09 现抓 + 79 账号实测）**：Pro/Max/Ultra 改名与价格、相对倍数、`Monthly API credits` 哪档有哪档没有（决定能不能接 Hermes）、usage credits 撞限续用规则、Pro 每周 $155/**月 $673/34 倍**的实测区间与漂移记录、SemiAnalysis 受控测试口径、Opus 5.5 单价全表、5h 窗口换调用次数的公式。**问「Claude Pro 额度多少 / 订阅和聚合站谁划算」先看这份**
+- `references/aggregator-plans-kilo-opendesign-2026-11.md` — **Kilo Pass 与 OpenDesign Pro 的 Opus 5.5 换算实测（比上面那份新）**：Opus 5.5 官方单价全表、Kilo Pass 三档充值机制与 bonus 领取条件、OpenDesign 四档哪档开 Opus 5.5、两家杠杆率对比、本机近 30 天用量新基线（每次 $0.070、月用量换 Opus 需 $581）与 HTML 解析坑
 - `references/opencode-go-2026-08.md` — OpenCode Go 完整 18 模型定价表、额度机制、DeepSeek 8/17 涨价细节、本机用量画像与分情景测算结果（可直接复用数值）
 - **2026-08-31 官方用量页实测画像**（scode.ai/workspace，半月周期）：5h 9.6% / 周 6.1% / 月 18.2%；模型级 = Flash $4.71/$30（17.9%，绝对主力）· qwen3.7-max $0.10/$60（0.2%）· 其余 <$0.02。含义：① 高峰负载也远不撞 5h 墙；② **同一 qwen3.7-max 走 OpenCode 网关近乎免费**（对比 qwen-bailian 直连烧钱，审查/兜底链路可迁移）；③ 月外推 ~36%，仍处"随便用"档

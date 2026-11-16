@@ -134,14 +134,51 @@ getmsg API 循环分页 → 全量文章（可到建号第一篇）
 
 用户直接给出 `mp.weixin.qq.com/s/xxx` 文章链接时，**不需要搜狗、不需要 Playwright**：
 
-1. **首选 `web_extract` 直接抓** — 微信文章服务端渲染，正文可完整拿到（含图片链接、小标题层级）。一步到位。
-2. **需要元数据（公众号名/作者/发布时间）时**，curl + 浏览器 UA 下载整页：
+### 🔴 `web_extract` 会**静默截断**正文 —— 永远当「预览」用，不要当成品（2026-11-12 实踩）
+
+2026-11-12 抓一味君《我们现在的亚马逊做法》：`web_extract` 返回 4,277 字，**结尾停在句子中间**
+（「认知驱动供应链——因为你知道用户真正在意什么（比如运动产品」戛然而止），
+而全文实际 **4,533 字**，后面还有「四：运营是执行岗位」「五：721 法则总结」「六：推荐工具」三个大节。
+**它不报错、不提示截断**，`char_limit` 调大也没用（不是长度限制，是正文容器被提前闭合）。
+
+**判据**：`web_extract` 结果**最后一句不是句号/问号收尾** → 立刻判定截断，改走 curl 全文路径。
+**代价**：直接拿它存盘 = 用户拿到一份缺三分之一、且看不出缺了一部分的知识库文件。
+
+→ **正解：`web_extract` 只用来 5 秒确认「链接活着、标题对不对」，正式交付一律用下面 curl 全文路径。**
+
+### 交付路径：curl 全文 → `#js_content` 提取 → 缺句校验
+
+1. **curl + 浏览器 UA 下载整页**：
    ```bash
    curl -s --noproxy '*' 'https://mp.weixin.qq.com/s/xxx' \
      -H 'User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36' \
      -o wx_article.html
    ```
    ⚠️ **不带 UA 必挂**：返回 2KB 的「未知错误，请稍后再试」页面（标题"未知错误"、含 `WeixinJSBridgeReady` 脚本）。这不是网络问题也不是链接失效，是 UA 校验——带 Chrome UA 才能拿到完整 ~3MB HTML。
+   ✅ 正常大小参考：3.6 MB / 3.59 M 字符（2026-11-12 实测）。**小于 50 KB 就是被拦了。**
+2. **一键提取**：`python scripts/extract_wechat_article.py wx.html out.md <原文链接>`
+   —— 元数据 + 正文分层 + 图片链接 + **缺句校验**一次出。
+3. **必做完整性校验**（脚本已内置，手工时照抄）：把 `#js_content` 纯文本去空白后按「。！？\n」切句，
+   逐句检查是否出现在成品里；**missing 里出现的都是真缺句**，若只因为加了 Markdown 前缀（`## `/`- `）
+   导致断句，属假阳性，肉眼扫一遍即可。
+   🔴 **假阳性还有第二种成因（2026-11-12 第三篇踩到）**：做比对时把 `-` 也当 Markdown 前缀剔掉了，
+   于是「一条链接在小类目 **100-200** 名」这种带连字符的句子永远匹配不上，白报一条缺句。
+   **比对时只剔 `#` `*`，不要剔 `-`**；或者直接看成品里 `grep` 关键词确认。
+
+### 🔴 微信正文的三个结构坑
+
+| 坑 | 现象 | 处理 |
+|---|---|---|
+| **小标题没有 h 标签** | 「一：xxx」「二、xxx」只是加粗 `<span style="font-weight:bold">` 的普通段落 | 文本层正则识别，**分隔符必须含「、」**：`^[一二三四五六七八九十]{1,2}\s*[：，,:、]` → `## `；`^\d+[.、]` 且 ≤26 字且以 `。？` 结尾 → `### `（2026-11-12 第三篇就是「一、」，漏了「、」整篇标题全没认出来） |
+| **文首有目录** | 正文开头先列一遍「一、二、三…」的框架目录 | 目录那几行转成 `- `，**不要和正文章节一起转 `## `**。🔴 判据用**开头连续 N 行（N≥2）章节标题且后面还有章节标题**，不要用「同名标题出现两次」——目录和正文标题措辞常不同（目录「四：运营是执行岗位和维护岗位」vs 正文「…和优化岗位」），会漏判 |
+| **容器正则可能提前闭合** | `id="js_content"` 里嵌套 div | 🔴 **已修复**：`scripts/extract_wechat_article.py` 改用 `HTMLParser` **按 div 深度计数**截取（2026-11-12 第二篇实测：正则版能跑但理论上会在首个 `</div><script` 提前闭合，不再冒这个险） |
+| **微信表情混进图片清单** | `res.wx.qq.com/.../Expression/*.png` 是表情，不是配图 | 图片清单里过滤 `res.wx.qq.com`；否则「图片数」虚高（实测 5→3）、文末链接表全是表情 |
+| **没有 h 标签的小标题** | 「第一步 先看清盘子有多大」也是普通段落 | 加一条正则：`^第[一二三四五六七八九十\d]{1,2}步\s*\S` 且 ≤30 字 → `### ` |
+
+### 广告段照原文保留，但要在回执里点名
+
+公众号文章常带返佣广告（折扣码、服务商链接）。**用户要「扒正文」就照原文保留**，不要自行删除，
+但回执里要明说「第 N 节是广告/返佣内容，需要纯干货版我可以另存一份」——决定权交回用户。
 
 **元数据提取**（页面变量与 DOM）：
 - 公众号 ID：`var user_name = "gh_xxxxx"`
@@ -150,7 +187,8 @@ getmsg API 循环分页 → 全量文章（可到建号第一篇）
 - 作者：`<span id="js_author_name">跨境三人行</span>`
 - biz：部分页面无 `var __biz`；直接链接场景不需要它
 
-一键提取：`python scripts/extract_wechat_meta.py <html文件>`。
+一键提取：`python scripts/extract_wechat_meta.py <html文件>`（只取元数据）。
+**元数据 + 正文一起出**用 `scripts/extract_wechat_article.py`（见下节）。
 
 ## 文章正文抓取
 
@@ -221,8 +259,25 @@ biz_match = re.search(r'var\s+biz\s*=\s*"([^"]+)"', page_content)
 | 新榜/清博/西瓜数据 | 高 | 付费 |
 | `wechat-article-exporter`（浏览器插件） | 高 | 免费，需用户在浏览器操作 |
 
+## 🔑 UA 不只影响微信——「同一 UA 规则」适用于其它中文平台（2026-11-05）
+
+本文上面那条「不带 UA 必挂」不是微信独有的怪癖，而是中文内容平台的一个**通用模式**：
+站点按 User-Agent 分流，哄回来的 HTML 要么是完整页、要么是登录墙/空壳。
+
+**遇到「HTML 很小 + 关键数据键为空」时，先换 UA 再改解析器**：
+
+| 站点 | 桌面 UA 的结果 | 解法 |
+|---|---|---|
+| 微信公众号 | 2KB 「未知错误」页 | 带 Chrome UA |
+| 小红书 `/discovery/item/` | **302 跳 `/login`**，37KB 空壳（`noteDetailMap` 为空） | **换 iPhone UA** → 165KB 完整页，`__SETUP_SERVER_STATE__` 出现 |
+
+→ 完整症状对照、判定顺序（302/login 或 HTML<50KB → 立即换 UA）、以及配套的「用 python urllib 而非 bash 循环批量下静态资源」：
+见 `references/mobile-ua-fetch-bypass.md`。
+
 ## 参考文件
 
 - `references/getmsg-api-reference.md` — getmsg API 详细说明和返回格式
+- `references/mobile-ua-fetch-bypass.md` — **移动端 UA 降级通用解法**：登录墙/空壳页识别、iPhone UA 实测对照表、批量下载静态资源必用 python 的姿势
 - `references/sogou-playwright-workflow.md` — Sogou + Playwright 完整实操脚本与关键踩坑记录
+- `scripts/extract_wechat_article.py` — **直接链接交付首选**：离线 HTML → Markdown（元数据头 + 小标题分层 + 图链 + 缺句校验）
 - `references/yiweijun-case-study.md` — 一味君抓取实战案例：结果数据、getmsg 权限限制发现、Chrome 崩溃解决方案

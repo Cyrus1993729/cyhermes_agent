@@ -18,7 +18,14 @@ tags: [codex, cli, gpt-5.6, review, windows]
 ## 环境事实
 - 安装：`~/.local/bin/codex` 是 **bash 脚本**；同目录 `codex.cmd` 是 Windows 包装器（内部 `powershell Get-ChildItem $env:LOCALAPPDATA\OpenAI\Codex\bin\*\codex.exe | Sort LastWriteTime | Select -First 1` 定位最新 codex.exe）
 - 版本实测：**codex-cli 0.163.0**（2026-10-17 由 0.146.0-alpha.9.2 手工升级；见下"手工升级"节）
-- 可选模型（`~/.codex/models_cache.json` 的 `models[].slug`）：`gpt-5.6-sol`（config 默认）、`gpt-5.6-luna`、`gpt-5.6-terra`、`gpt-reserve`、**`gpt-6-astra`（需 0.163.0+）**
+- 可选模型（`~/.codex/models_cache.json` 的 `models[].slug`，**2026-11-05 实测全量**）：`gpt-6.1-sol`、`gpt-6.1-terra`、`gpt-6-astra`、`gpt-6-sol`、`gpt-6-luna`、`gpt-5.6-sol`（config 默认）、`gpt-5.6-terra`、`gpt-5.6-luna`、`gpt-reserve`、`codex-auto-review`
+- 🔥 **2026-11-05 起 `gpt-6.1-sol` 可用（当前最强 sol 线）**：用户说「gpt6.1sol high」「用 6.1 sol 跑」= 走这个。**模型名 + 推理档位是两个独立 `-c`**：
+  ```bash
+  codex.cmd exec --skip-git-repo-check --sandbox read-only \
+    -c 'model="gpt-6.1-sol"' -c 'model_reasoning_effort="high"'
+  ```
+  实测（2026-11-05，系统评估类长分析）：high 档 ~4 分钟 / 68K tokens / exit 0。用户只给模型名没给档位时，深度分析默认加 `high`。
+- ⚠️ **模型 slug 会变**：用户报的模型名先核对 `models_cache.json` 里是否存在，别照着旧记录硬调；不存在就如实说「本机没有这个 slug，现有是 …」让他选，不要静默降级到别的型号。
 - 必须走代理（OpenAI 被墙）：`HTTP_PROXY/HTTPS_PROXY=http://127.0.0.1:10808`（10808 = v2rayN 主线路；7897/Clash 已退休作废，别再写进脚本）
 
 ## 手工升级 Codex CLI（2026-10-17 实测；`codex update` 在本机不可用）
@@ -66,6 +73,26 @@ r = subprocess.run(
 4. `--sandbox read-only`：审查类任务只读，够用且安全
 5. 启动可能有无害 ERROR 日志（`codex_models_manager: failed to refresh available models: timeout`）不影响结果
 
+## 🔴 评估「我这套系统 / 这个工具值不值得换」类任务（2026-11-05 定型）
+
+用户发来一个开源项目/工具，问「对我们有什么用」时，走这条：
+
+1. **先把事实喂满**：项目 README 原文 + 作者自述 + 已知限制 + **用户自己的系统现状**（不是他自己猜的现状，是你查到的）。用户画像写在 prompt 里，包括他的**行为约束**（拒绝持续手动记录、不接受复杂架构、要零操作、成本敏感）——只写需求不写约束，它给的方案他一定会否决。
+2. **六要素之外再加两条**：⓪ 明写「**你可以否定提问方已有的判断**」并把我方初步结论列出来给它打；⑦ 明写「**用大白话，禁止堆术语，能用生活类比就用类比**」——用户点名要通俗解释时，这一条不写它就交学术腔。
+3. **它会反过来纠正你**：本次它抓出我两处「只看任务名没看实现就下的判断」。凡是 prompt 里描述用户现有系统的地方，**先自己查证再写进去**，否则被它当众纠正。
+4. **交付结构固定三块**：①它说对的（含它反驳我的地方，附我的核实结果）②它说错/说不准的（标出来）③它对用户的实际结论。**不要把它的话原样转述**——它纠正的是我，转述前必须先回查本机事实，答错了要当场认。
+5. 🔴 **它的定量结论必须回本机原始日志逐项核验再转述**（2026-11-13 实测，gpt-6.1-sol 审「健康助理上下文治理」）：
+   - **它对的地方**：推翻了我「变慢 = 每轮重放 26.8 万 tokens」的诊断，指出「缓存读取量 ≠ 重新计算量」；
+     并抓出我漏统计了助手消息的 `tool_calls`（写文件参数）——实测那一项 376K 字符，**比 content 总量还大**。
+   - **它错的两类（都会误导决策）**：
+     - **拿累计平均值当现状**：它用 `cache_read_tokens ÷ api_call_count` 算出「每次 prompt 27.1 万」，
+       但那是 968 次调用的历史平均；日志里当前末态是 **34.8 万**、峰值 49.8 万。
+     - **用错权重**：它花整节算「剪枝破坏缓存要 1176 次调用才回本」，
+       而按本机计价实测 8 天总花费才 **1.75 美元**——成本根本不是约束，延迟才是。
+   - **正确姿势**：拿 `agent.log` 的 `API call #N: in= out= latency= cache=` 原始行做**双桶对照**，
+     而不是拿它的推算当结论。凡是它给的「平均值 / 累计值 / 回本周期」，先问一句「这是现状还是历史均值」。
+5. 长分析一律 **background + notify**，别用前台；提取按「最后一个 codex 标记 → tokens used」，跑完先看有没有 `usage limit`。
+
 ## 看图 / 写文件执行类任务（2026-09-08 实测：隔玻璃反光去除）
 - 用户说"让 GPT-5.6 处理(图片/任何任务)"→ **一律走 codex exec,不是 API 调用**(用户明示纠正:「不是用api调用gpt5.6sol,是用之前调用codex的方式」)
 - `-i, --image <FILE>...` 把图片附给 GPT-5.6(它能看图;可重复 -i 附多张)。原图先拷成干净文件名放工作目录(用户图在 hermes cache/images/img_*.jpg)
@@ -110,6 +137,44 @@ or try again at 12:39 PM.
 外部审查通道撞限是**用户的决策点**，不是你的降级点：他要的是“这个模型的意见”，
 换一家出来的不是同一件商品。**正确做法 = 如实告知撞限 + 恢复时刻 + 问他等还是换**，
 由他拍板。（同源偏好：fallback 是最后手段，见 `hermes-china-providers`。）
+
+## 🔴 账号存活判别：封号 / 撞限 / 凭证失效 三态分清（2026-11-07 实测）
+
+用户问「听说今天很多人 ChatGPT 账号被封，我这个被封了吗」时走这条。
+
+**① 零成本探针（不耗配额、秒回）**——用 auth.json 里的 access_token 打账号接口：
+
+```python
+d = json.load(open(os.path.expanduser("~/.codex/auth.json"), encoding="utf-8"))
+tok, acct = d["tokens"]["access_token"], d["tokens"]["account_id"]
+# curl -s -w '\n[HTTP %{http_code}]' -H "Authorization: Bearer <tok>" \
+#      -H "chatgpt-account-id: <acct>" -H "User-Agent: Mozilla/5.0" \
+#      https://chatgpt.com/backend-api/me        （env 里必须带 10808 代理）
+```
+
+- `[HTTP 200]` + `{"object":"user","id":"user-...","email":...,"name":...}` → **账号活着**
+- 401/403 → token 过期或账号失效；此时再做一次真实调用（下面 ③）才能区分「需刷新」与「真封」
+
+**② 账号身份/邮箱/套餐从 id_token 解**（不联网、不打印 token 本身）：
+
+```python
+p = d["tokens"]["id_token"].split(".")[1]; p += "=" * (-len(p) % 4)
+j = json.loads(base64.urlsafe_b64decode(p))      # email / name / sub
+j["https://api.openai.com/auth"]                 # chatgpt_plan_type / chatgpt_account_id
+```
+
+本机实测（2026-11-07）：email=`yucui3516@gmail.com`，`sub` 前缀 `google-oauth2|`（= Google OAuth 直接登录，不是邮箱密码注册），plan=`plus`。
+⚠️ `chatgpt_subscription_active_until` 会停在旧日期（实测停在 2026-08-23 但账号照常可用），**别据此判断订阅过期/账号异常**。
+
+**③ 三态判别表**：
+
+- `exit 0` + 有 `codex` 正文标记 + `tokens used` → 正常
+- `You've hit your usage limit` → 撞限（按账号算，换模型无效，见上一节）
+- 401 / `deactivated` / 有报错但无正文标记 → 封号或凭证失效
+
+**④ 验证方式按他的说法来（本次被中途打断纠正）**：他说「你直接问他一个问题，看看能不能回答」时，就真的跑一次问答（例：问 2026 美国中期选举进展），**把他的原话贴给他**——这才是他要的验证。技术探针(skill 里的 ①②)可以跑也可以顺带提一句当旁证，但**不要并列成「两种方法」汇报**：他会打断说「不要用两种方法了」。他要的是直观、自己看得懂的验证，不是我的探测矩阵。
+
+**相关**：ChatGPT 对话/数据有几套存放位置、官方导出怎么走、本机 Codex 会话体量 → [`references/chatgpt-data-backup-paths.md`](references/chatgpt-data-backup-paths.md)
 
 ## 🔴 正文提取的失败守卫（2026-10-19 实踩）
 

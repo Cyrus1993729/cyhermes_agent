@@ -110,3 +110,12 @@
 {"ts": "2026-10-26T12:36:47.222062", "task": "contract_gold_weekly_2026-10-26", "verdict": "CONDITIONAL", "escalate": false, "fail_count": 0, "cond_count": 1, "total_items": 8}
 {"ts": "2026-10-26T12:40:51.132718", "task": "contract_gold_weekly_2026-10-26", "verdict": "PASS", "escalate": false, "fail_count": 0, "cond_count": 0, "total_items": 8}
 {"ts": "2026-10-26T12:43:33.864440", "task": "contract_gold_weekly_2026-10-26", "verdict": "PASS", "escalate": false, "fail_count": 0, "cond_count": 0, "total_items": 8}
+{"ts": "2026-10-29T13:42:42.080145", "task": "contract_food_flow_20261029", "verdict": "CONDITIONAL", "escalate": true, "fail_count": 0, "cond_count": 10, "total_items": 23}
+{"ts": "2026-10-29T13:58:50.389975", "task": "contract_food_flow_20261029", "verdict": "CONDITIONAL", "escalate": true, "fail_count": 0, "cond_count": 11, "total_items": 23}
+{"ts": "2026-10-29T14:12:14.100016", "task": "contract_food_flow_20261029", "verdict": "FAIL", "escalate": true, "fail_count": 1, "cond_count": 9, "total_items": 23}
+{"ts": "2026-11-02T12:40:55.042545", "task": "contract_gold_weekly_2026-11-02", "verdict": "CONDITIONAL", "escalate": true, "fail_count": 0, "cond_count": 11, "total_items": 21}
+{"ts": "2026-11-02T12:47:56.196452", "task": "contract_gold_weekly_2026-11-02", "verdict": "CONDITIONAL", "escalate": true, "fail_count": 0, "cond_count": 6, "total_items": 17}
+{"ts": "2026-11-02T12:55:53.785929", "task": "contract_gold_weekly_2026-11-02", "verdict": "CONDITIONAL", "escalate": true, "fail_count": 0, "cond_count": 4, "total_items": 15}
+{"ts": "2026-11-09T12:43:26.698494", "task": "contract_gold_weekly_2026-11-09", "verdict": "FAIL", "escalate": true, "fail_count": 4, "cond_count": 9, "total_items": 17}
+{"ts": "2026-11-09T12:51:18.484617", "task": "contract_gold_weekly_2026-11-09", "verdict": "FAIL", "escalate": true, "fail_count": 2, "cond_count": 8, "total_items": 19}
+{"ts": "2026-11-09T13:09:22.299166", "task": "contract_gold_weekly_2026-11-09", "verdict": "FAIL", "escalate": true, "fail_count": 2, "cond_count": 11, "total_items": 19}

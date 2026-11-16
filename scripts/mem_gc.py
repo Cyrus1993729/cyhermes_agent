@@ -144,7 +144,7 @@ def llm_pass(flags):
         f"{i+1}. A[{fa}:{la}]={ta[:80]} || B[{fb}:{lb}]={tb[:80]}"
         for i, (r, fa, la, ta, fb, lb, tb) in enumerate(items))
     body = {
-        "model": "qwen3.7-max",
+        "model": "qwen3.8-max",
         "messages": [
             {"role": "system", "content":
              "你是记忆库维护助手。对每对条目判断：MERGE（应合并）/KEEP（各有独立信息）/"

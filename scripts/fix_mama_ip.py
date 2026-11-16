@@ -41,7 +41,7 @@ from pathlib import Path
 
 sys.stdout.reconfigure(encoding="utf-8", errors="replace")
 
-PEER_URL = "http://192.168.0.113:9900"
+PEER_URL = "http://192.168.0.115:9900"
 MAMA_SCRIPT = "C:/Users/1/AppData/Local/hermes/scripts/ip_monitor.py"
 ENV_PATH = r"C:\Users\Administrator\AppData\Local\hermes\.env"
 STATE_PATH = Path(r"C:\Users\Administrator\AppData\Local\hermes\scripts\fix_mama_ip_state.json")

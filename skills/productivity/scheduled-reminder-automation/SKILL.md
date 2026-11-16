@@ -52,6 +52,25 @@ tags: [cron, reminder, briefing, no_agent, delivery, wechat, telegram]
 3. 真实 run 一次，确认对方**真收到**（不是只看脚本 exit 0）。
 4. 查 cron 状态字段（`last_status` / `last_delivery_error` / `last_delivery_unverified`）才算交付。
 
+## 🔴 评估/改造已有 cron 管线前，先读 `jobs.json` 的实际字段（2026-11-05 实踩）
+
+用户问「我这 18 个定时任务怎么样 / 能不能减」时，**绝不能只看任务名就下结论**。本次我凭名字断言「事件驱动几乎为零」「你在用不可靠的东西修不可靠的东西」「能砍 60% 噪音」，被外部模型当场纠正——实际一读就发现：
+
+- 18 个里 **14 个是 `no_agent=true` + `script=xxx.py`**，根本不调模型；只有 4 个是 agent 驱动。
+- cron 数据结构自带 **`monitor_script` / `monitor_state` / `monitor_url`** 三个字段 —— 「先跑便宜检查、有变化才叫醒 AI」这套**本来就有**，只是没用满。
+- 还有 `skill` / `context_from` / `no_agent` / `deliver` / `last_delivery_error` / `last_delivery_unverified` 等字段，不看就不知道投递状态是怎么记的。
+
+**做法**（一条命令）：
+```python
+import json
+jobs = json.load(open(r'C:\Users\<user>\AppData\Local\hermes\cron\jobs.json', encoding='utf-8'))
+for j in jobs:
+    print(j['name'], '| no_agent=', j.get('no_agent'), '| script=', j.get('script'),
+          '| monitor=', j.get('monitor_script'), '| deliver=', j.get('deliver'),
+          '| last_status=', j.get('last_status'))
+```
+**先看清它是“调模型的 agent 任务”还是“纯脚本”，再谈要不要改造。** 任务名只能告诉你它叫什么，不能告诉你它怎么跑。
+
 ## 坑
 
 - 🔴 **采集 ≠ 落地**：上游同步器（钉钉日历、邮件采集器）往往**只抓不写**——抓回来落成缓存文件就结束了。早报/心跳读的是本地主库，所以**不仅不报错，还会自信地把过期安排推给用户**。用户质疑“有同步最新邮件吗”时，先分清是采集断了还是落地没做，别看同步任务 exit 0 就答“同步正常”。发现“延期/改期/以此邮件为准”类更新，必须当场回写事项再刷新快照。排查步骤见 `references/dayflow-mail-sync.md`。

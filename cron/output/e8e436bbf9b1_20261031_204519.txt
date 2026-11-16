@@ -1,0 +1,119 @@
+Cronjob Response: TrendRadar跨境日报投递
+(job_id: e8e436bbf9b1)
+-------------
+
+⚡ 今日速览
+· FCC 封杀中国实验室，射频认证要绕道
+· Shein 营收跌 3.5%，低价快时尚失速
+· 人民币若到 5.5，利润被汇率吃掉
+
+🏛 政策风向 · 门槛变了吗
+▶ FCC 投票禁止中国实验室测试美国电子产品
+　干货：禁令覆盖全部中国实验室，不留例外；FCC 设备授权主要管射频类产品；手机、路由器、蓝牙设备都在范围内。
+　对你：卖无线类产品的，要么换第三国实验室出报告，要么周期和费用一起涨。
+▶ 英国公平付款准则已认证 800 多家企业
+　干货：认证企业超过 800 家；该准则帮企业为《商业付款法案》的变化做准备；法案含 60 天付款期限上限。
+　对你：给英国客户供货，账期方向已经明确，谈条件时有参照。
+
+🛒 平台规则 · 在哪卖、怎么卖
+▶ Temu 上线网红计划，抢黑五流量
+　干货：面向新手创作者开放，按成交拿佣金；主推黑五档期；平台近年把社媒流量当主要获客渠道。
+　对你：没货源也能低成本练手，但佣金收入不稳，别当主业。
+▶ 马来西亚 TikTok Shop：本地卖家 9.9 大促增 140%
+　干货：参与方是本地中小微商家；增长发生在 9.9 大促期间；平台用本地化标签活动给流量位。
+　对你：东南亚站点的本地标签活动是免费流量入口，值得报名。
+▶ 拼多多获德意志银行上调评级
+　干货：评级上调时点，Temu 仍在应对欧盟审查；欧盟此前要求 4 个月内重做风险评估；PDD 股价近期被监管消息压制。
+　对你：平台越被盯，合规门槛越高，入场先看它的整改清单。
+
+📈 市场与成本 · 钱往哪走
+▶ 报道称 Shein 营收下滑 3.5%
+　干货：跌幅 3.5%；被当成快时尚整体走弱的先行指标；同期欧洲多国在收紧小包征税。
+　对你：超低价铺货的窗口在关，别把身家压在 1 美元包邮上。
+▶ 高盛看人民币 5.5，汇损吞七成利润
+　干货：雨果跨境报道以"汇损吃掉七成利润"为题；引用高盛人民币升至 5.5 的预测；未给出预测期限与测算口径。
+　对你：报价前先算清汇率波动对净利的影响，别默认汇率不变。
+▶ 中国二手电动车涌向欧洲，先跟自己人打
+　干货：出口主体是中国车商；欧洲是主要目的地；价格战先在同行之间打起来。
+　对你：大件出海拼本地售后、清关和电池认证，不是拼价格。
+
+🛡 合规与风险 · 别踩线
+▶ 爱尔兰警告别买 Temu 某款热销儿童玩具
+　干货：警告由爱尔兰消费者保护机构发出；理由是安全不达标；针对的是平台在售的一款热销玩具。
+　对你：玩具母婴先查欧盟 CE 与安全标准，别等下架再补救。
+
+🧰 实战参考 · 别人怎么做的
+▶ WeightWorld 在 bol 从 5 万欧做到数百万欧
+　干货：起步年营收约 5 万欧元；平台是荷兰最大电商 bol；靠多品类保健品组合滚量。
+　对你：这是单一个案，能不能复制要看品类、成本和团队。
+▶ 长三角跨境电商招商推介会即将举办
+　干货：面向长三角产业带工厂与卖家；主题是园区落地与招商政策；由地方与行业机构联合主办。
+　对你：想找合规注册地址和园区扶持，这类会是最省事的信息入口。
+
+📖 小白词典
+· FCC 认证：无线设备进美国的准考证，没它不能合法上架卖。
+· 反倾销：邻居嫌你卖太便宜，加一笔税把价格抬回去。
+· 汇损：收美元花人民币，汇率一动利润就缩水，这部分叫汇损。
+
+✅ 今天该做的一件事
+查清你要卖的品类在欧盟是否需 CE、美国是否需 FCC 认证，两项写进成本表。
+
+────────────────────────
+
+📦 跨境电商日报 10月31日（过去24小时 · 11 条）
+
+🛃 政策法规
+
+• 🔴 FCC 投票禁止所有中国实验室测试美国电子产品（FCC votes to ban all Chinese labs from testing US electronics）（The Standard (HK)）[🔤]
+  摘要：美国联邦通信委员会（FCC）投票通过，禁止所有中国实验室为进入美国市场的电子产品做设备认证测试，不留例外。FCC 设备授权主要针对射频类产品，手机、路由器、蓝牙耳机都在范围内。这一刀切的是认证环节：测试报告得换第三国实验室出，周期和费用一起涨。
+  🔗 [查看原文](https://news.google.com/rss/articles/CBMiugFBVV95cUxQUENIRU9rNjBwc21KZzdJSmRzWXlwSjVFS1pHMUJWTTh4TFBvbXBqWGdyTVFOT29mcTBhWVdFTG5zOUxaY2JoODVHQmJOeksxR2hLdnB3Q3FuNzljaWV0WjVQZE9QZnhnS19OdGFsZ2Z5dXI3ZWhPdFJjdUNiM3VlUVdBQ3JRWW9BenV0TGdnbEdLTnVKWXZPMktyM1k3OVNPd2poalFGdExKbFM5NWo4OTc4bkhkM0M3bHc?oc=5)
+
+• 英国公平付款准则已认证 800 多家企业（UK Government awards more than 800 businesses on the Fair Payment Code）（ChannelX）
+  摘要：英国小企业专员公署运营的公平付款准则已向 800 多家企业颁发认证，该准则帮助企业为《商业付款法案》带来的变化做准备，其中包括 60 天付款期限上限。法案尚未全面落地，但账期方向已经明确。对给英国客户供货的卖家，这是谈账期时能摆上桌的参照。
+  🔗 [查看原文](https://channelx.world/2026/10/uk-government-awards-more-than-800-businesses-on-the-fair-payment-code/)
+
+🏪 平台动态
+
+• Temu 推网红带货计划，瞄准黑五（How Beginner Creators Can Earn with the Temu Influencer Program This Black Friday）（TechBullion）[🔤]
+  摘要：Temu 推出面向新手创作者的网红带货计划，主推黑五档期，按成交拿佣金。平台近年把社媒流量当成主要获客渠道，网红内容占比持续上升。对没货源的人是低成本练手入口，但佣金收入波动大，别当主业。
+  🔗 [查看原文](https://news.google.com/rss/articles/CBMiqgFBVV95cUxQOHNOUEttd1ZYRGRBS09JZkczSW1RNzJrUGJ3c0p5bjROWlNFd2ZXM3J1RUwtMnBGbWFvWmFCb2pEWU9tbDQ2UVpnZ0x6Vzd3dzRkVmtrWWZJYnBMOFJWWU5iYndLcmdWcUdjeWFnTlpoQ29xQW1wSS1wQkV0Nm1QcGdSa0tUdkRiTlhTdDV2dl9oeHlrUVgwOWNzWE5WdkxoN2pyd2tjNC1ydw?oc=5)
+
+• 马来西亚 TikTok Shop：JomLokal 商家 9.9 大促增长 140%（JomLokal MSMEs Record 140% Sales Growth On TikTok Shop During 9.9 Campaign）（Pokde.Net）[🔤]
+  摘要：TikTok Shop 马来西亚站的 JomLokal 活动里，本地中小微商家在 9.9 大促期间销售额增长 140%。这类本地标签活动由平台给流量位，报名门槛低。东南亚站点做本地化内容，比纯低价更能吃到平台流量。
+  🔗 [查看原文](https://news.google.com/rss/articles/CBMieEFVX3lxTE0tVzVuYUswSnhqdTBXMEN3bl9zekpzNWtqUG5Ca0t1eDFOdE1yTTZjWHBVRGlhV2RVaU1Dc2twOU5vWERGZlZJc3ptUzQzNFNnM1phU1hUOUdmMDBEZGlLdllpOXVaM3MtdldEcXRZamtvZ0hVUTI5SA?oc=5)
+
+• 拼多多获德意志银行上调评级，Temu 欧盟审查未了（PDD Holdings stock wins Deutsche Bank upgrade as Temu faces EU scrutiny）（ad-hoc-news.de）[🔤]
+  摘要：德意志银行上调拼多多（PDD）评级，理由指向 Temu 的盈利改善；同一时间 Temu 仍在应对欧盟审查，此前被要求 4 个月内重做风险评估。资本市场看多与监管端收紧同时发生，若整改要求落地，平台侧的合规投入会跟着上去。
+  🔗 [查看原文](https://news.google.com/rss/articles/CBMizwFBVV95cUxObXBoT2xIbkxJeVNIZjdZTFg1bmUySUZMZTF3TllkcjJ2SVBSNEd0TTlvaGlScG9yTkhtTktkc0ZVTXdjd09hYldHUFMtWElaanJwVU4zUkswSDJjRFdYX0RJaTJUS2dPT2NiMUNwNWVHTVBGQlhHY0tXQjVNTjllR0xJQko0QUdhNHBlSG9EeFpLXzNLNHUyQXFESFlqRm9iVnZVd0Q5M1NLOVVjTGtidTBUSnRKSUtZRW9qb21vbmZjcWJla2RKRnlwcEFLcTQ?oc=5)
+
+📦 物流与市场
+
+• Shein 营收下滑 3.5%，快时尚或集体失速（Shein's 3.5% Revenue Drop Could Be A Bellwether For Fast-Fashion Losses）（Yahoo Finance）[🔤]
+  摘要：报道称 Shein 营收下滑 3.5%，并把它看作快时尚整体走弱的先行指标。同期欧洲多国在收紧小包征税，低价直邮的成本优势被削。超低价铺货的窗口正在收窄，靠 1 美元包邮冲量的模式越来越难算平。
+  🔗 [查看原文](https://news.google.com/rss/articles/CBMikAFBVV95cUxQNGd4bVgzVmF4Y0dFdVNFM0dOa0xZbm8xbVZDU1ZzUzBZT3JGVmJYREp2TDNpQUI5dklWTGFEeUFfSlZuZWszSEluRFRYWEtHVzk3aHFWWC1tTS1vNXRCWFloeUVoRVVJVHZqMmFuTUxKWW5lWGdNT1h6SVNJVHY1N1BIcHNhWXpNYWhlRTVvYks?oc=5)
+
+• 汇损吃掉七成利润，高盛预测人民币升至 5.5（雨果跨境）
+  摘要：雨果跨境报道以"汇损吃掉跨境电商七成利润"为题，并引用高盛关于人民币升至 5.5 的预测，报道未给出预测期限与测算口径。收美元、结人民币的卖家对汇率最敏感，单量大时几个点就是全部净利。报道的核心提醒是别默认汇率不变。
+  🔗 [查看原文](https://news.google.com/rss/articles/CBMiTEFVX3lxTFAxMnUxSFVJLTFpeVRGVG9tb21icmttTGMxdEFDRU03TC1UUE5xTWRfTEo2cjBTbXlVNWFvdXNaNl9zcjBwWEFSc2pIUzE?oc=5)
+
+• 中国二手电动车闯欧洲，先撞上自己人（凤凰网科技）
+  摘要：中国二手电动车批量进入欧洲市场，先撞上的对手是同样来自中国的同行，价格战先在车商之间打起来。大件出海拼的是本地售后、清关和电池合规认证，不是低价。欧洲对整车和电池的准入要求是硬门槛，没有本地服务网络很难做长。
+  🔗 [查看原文](https://news.google.com/rss/articles/CBMiTEFVX3lxTFBXQTNoekJ4YzZUMGIyU1VpeFB0dDNFVHpSVFhqaFdZUEVpRW5OOWE0eWEtbzFZbEo4X1VzckhLN1hPR3dQeXJiS3Uxb2k?oc=5)
+
+🛡️ 合规与风险
+
+• 爱尔兰警告消费者勿从 Temu 购买某款热销儿童玩具（Irish customers warned against ordering popular children's toy from Temu amid safety concerns）（Extra.ie）[🔤]
+  摘要：爱尔兰消费者保护机构警告消费者不要从 Temu 购买某款热销儿童玩具，理由是安全不达标。玩具类目在欧洲属于高风险品类，抽查频率高于普通商品。欧洲对儿童用品的安全标准是强制项，不合规直接下架加罚款。
+  🔗 [查看原文](https://news.google.com/rss/articles/CBMib0FVX3lxTE9oNHctVS12dXRJTVNLT1YzVDVucEEzaEg5czIybXFQQUNIYUJ5SkwyeHJEcWNhaWowRDR5c0xuY254UWU1QUt3RnhzN1RHVVJJYy1nTExIMk55bjdGeEVGM0Vpcm5iWk1yWURMbWNzSQ?oc=5)
+
+💼 卖家运营
+
+• WeightWorld 在 bol 把年营收从 5 万欧做到数百万欧（How WeightWorld grew a multimillion-euro business on bol）（ChannelX）[🔤]
+  摘要：英国保健品卖家 WeightWorld 在荷兰最大电商平台 bol 上，把年营收从约 5 万欧元做到数百万欧元级别。做法是把多品类保健品组合铺开，靠平台内的搜索流量滚起来。小市场做深一个平台，比同时铺五个站点更快见钱。
+  🔗 [查看原文](https://channelx.world/2026/10/how-weightworld-grew-a-multimillion-euro-business-on-bol/)
+
+• 2026 长三角跨境电商产业招商推介发布会即将举办（中国产业经济信息网）
+  摘要：2026 长三角跨境电商产业招商推介发布会即将举办，面向产业带工厂和卖家，主题是园区落地与招商政策。对想找合规注册地址、园区扶持和落地通道的人来说，这类会是最省事的信息入口，比逐家问园区快得多。
+  🔗 [查看原文](https://news.google.com/rss/articles/CBMiWEFVX3lxTE83c1Fma0Y3U0RRYU4wVnlKNHAwbG9CS2hzZ1lxRTJZZUhVMjlkT293QjlRWnhibnB3X0ZRaG1kbkxFUzFFbmFZT1diTUltc1dCTWdlRGNMZi0?oc=5)
+
+To stop or manage this job, send me a new message (e.g. "stop reminder TrendRadar跨境日报投递").

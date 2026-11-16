@@ -1,0 +1,105 @@
+Cronjob Response: TrendRadar跨境日报投递
+(job_id: e8e436bbf9b1)
+-------------
+
+⚡ 今日速览
+· 欧盟按件收 2 欧元，韩国美妆时尚出口商先承压
+· 黑五 11 月 27 日开局，平台打法各走各路
+· 10 月航空货运量价齐升，电商包裹是主引擎
+
+🏛 政策风向 · 门槛变了吗
+
+▶ 欧盟按件征费，韩国时尚美妆跨境出口商遭重击
+　干货：每件 2 欧元的处理费自 11 月 1 日起对境外直邮小包生效；韩国媒体点名时尚、美妆两类出口企业受冲击最大；这两类货单价低、件数密，按件计费最吃亏。
+　对你：低价小件靠薄利多销在欧洲越来越难，一件多 2 欧元可能直接吃掉全部毛利。
+
+▶ 《人民日报》：跨境电商监管服务升级
+　干货：海关对跨境电商按 9610（直邮/直购）、9710（B2B 直接出口）、9810（海外仓出口）分通道监管；通道不同，退税方式与通关时效不同；服务升级的方向是申报更简、通关更快。
+　对你：通道不是随便选的，做 B2B 大单还用 9610，退税和时效都会吃亏。
+
+🛒 平台规则 · 在哪卖、怎么卖
+
+▶ 亚马逊英国站上线英镑版卖家钱包
+　干货：英国本地和海外卖家都可用；余额直接存英镑；能直接付英国供应商，也能快速转到英国银行账户；过去这笔钱要先换汇，多一道损耗。
+　对你：做英国站回款路径短了，能省掉一次换汇，成本少一截。
+
+📈 市场与成本 · 钱往哪走
+
+▶ 德路里：10 月航空货运量价齐升，AI 与电商是双引擎
+　干货：10 月航空货运运量与运价同步上行；增长由 AI 硬件和跨境电商包裹拉动；旺季舱位偏紧。
+　对你：空运变贵，轻小件还能走，重货要早算海运加海外仓。
+
+▶ 香港机场扩网络与运力，守住跨境门户
+　干货：机管局在超级枢纽博览会上表示会持续扩展航空网络与货运运力；目标是强化香港机场作为跨境电商全球门户的角色；两家港媒报道口径一致。
+　对你：长期看，华南发货经香港中转的运力与线路选择会增加。
+
+▶ CTT：小额免税变化改写 2026 业绩
+　干货：CTT 称 de minimis（最低免税额）变化直接改写 2026 年业绩预期；公司已列出复苏动作，目标指向 2028 年恢复增长；美国 800 美元免税通道已基本关闭。
+　对你：连邮政集团都在重算模型，说明小包免税直邮这条路在美欧都收窄了。
+
+🧰 实战参考 · 别人怎么做的
+
+▶ 黑五 11 月 27 日开局，平台打法已经分化
+　干货：2026 年黑五落在 11 月 27 日；平台侧分两派，一派压价拉新，一派主打本地仓时效；商家侧普遍提前锁库存、把备货节奏前移。
+　对你：第一个黑五别把钱全押一个平台，小批量同时测两三个，看谁的流量真给到你。
+
+▶ 马来西亚连破两个跨国包裹，起获逾 224 万毒品
+　干货：两起案件都是跨境包裹藏毒，涉案市值逾 224 万令吉；雪州关税局与另一地同步执法；包裹渠道正被重点盯。
+　对你：别替人顺手寄件，寄递违禁品会让寄件、收件双方都被调查。
+
+📖 小白词典
+
+· de minimis（最低免税额）：国家规定货值低于多少就不收关税，像停车场满 30 分钟免费，现在美国这条免费线基本没了。
+· 处理费（handling fee）：按件收的固定钱，不看货值。一件 2 欧元，卖 5 欧元和卖 50 欧元的都交 2 欧元，便宜货更疼。
+· 海外仓：先把一批货海运到目标国的仓库，出单后本地发货。运费摊薄了，但货要先压在那儿。
+
+✅ 今天该做的一件事
+挑一款想卖的货，用售价减 2 欧元、再减头程运费，看清还剩多少。
+
+---
+
+📦 跨境电商日报 11月5日（过去24小时 · 8 条）
+
+🛃 政策法规
+
+• 🔴 欧盟对电商进口商品征费，韩国时尚美妆跨境出口企业遭重击（亚洲经济）
+  摘要：欧盟自 11 月 1 日起对境外直邮小包按件征收 2 欧元处理费。韩国媒体称，单价低、件数密的时尚与美妆跨境出口企业受冲击最明显；同样的 2 欧元，对低价商品等于十几个点的成本。
+  🔗 [查看原文](https://news.google.com/rss/articles/CBMiZkFVX3lxTE1pVE5HOG9BZ0hyc0hfcFFxaTJJdVRHc0tlMkVBVHlIcmJDNkVXekcxbXFXd0dtVTI2dGR5V1ZsV2Z2a2NERnNPNUhMOFBpWm8yMnVRSnlaQ3ZxRTY0dmthZUpmMG5TZw?oc=5)
+
+• 《人民日报》：跨境电商监管服务升级（人民日报）
+  摘要：报道称跨境电商监管服务正在升级，通关与申报环节更便利。海关对跨境电商按 9610 直购直邮、9710 B2B 直接出口、9810 海外仓出口分通道监管，通道不同退税与时效都不同。
+  🔗 [查看原文](https://news.google.com/rss/articles/CBMigwFBVV95cUxPdmphZXBQR0FoOHlyN2s0OHFIVTZ1UTh1NThYTldDdmczcUFvc29HM3UyQ2xQXzFnZlVaNlRGYUpPeThEdHIzMTF2bEwyZ05ZYmkyRzJGWm92UjVwNjluWDJuelRMa21mVHc4MHIzaWU1MmFjT2ZpM0NaQ1lGMEdGVUhrSQ?oc=5)
+
+🏪 平台动态
+
+• 亚马逊英国站上线英镑卖家钱包（Amazon Seller Wallet GBP launches for UK sellers）（ChannelX）🔤
+  摘要：亚马逊面向英国站卖家推出英镑版 Seller Wallet，英国本地与海外卖家均可使用。卖家能在卖家中心持有英镑余额，直接支付英国供应商，并快速转入英国银行账户，减少一次换汇。
+  🔗 [查看原文](https://channelx.world/2026/11/amazon-seller-wallet-gbp-launches-for-uk-sellers/)
+
+📦 物流与市场
+
+• 香港机场加码航空网络与运力，强化跨境电商门户角色（星岛头条 · 多源报道）
+  摘要：机管局在超级枢纽博览会上表示会持续扩展航空网络与货运运力。目标是巩固香港机场作为跨境电商全球门户的角色，另一家港媒同日报道口径一致。
+  🔗 [查看原文](https://news.google.com/rss/articles/CBMizgRBVV95cUxOVGlMYTJGbFRkUjBPQk1Bb0NyNVYxMUtCbVhMWXctSS1EMTRtdDFkNEVQOE16NDlta09INnF6UUlmWTE2Um9iRHludXM5T1otYVczRTBNVTJRNFo3YXhBYWt2TmtQdG5OdU9rVUdwM0psbWtWSjFqMFlyaE8tVmMyeFV3UDZrOGhuWFdRc05HcEJxeWtWRHhpVWVoMmtwS1JmR0VHbzdMMFVOdU1zTzJHM200bmZHVzRpcDVCY2FweUQ0MDJsRGVic1lsSGp6VUktQjc2WmdjN2ZwREloNmxmNElISWJ4UVFFeW9oaC03czY1Vl8tQWhhQkU5WUpaNnVGaG81Q0ZkX3d4WFNGNWVfR1R4WjR0OHo3UkF4Y2MyQUxEZXdIdTZDb2pNV1VJdkRTcDNhWUl6STF2alNvaUtjNlBYM2I3NkRpampaWUhOeG4xeWYxVjQyVV9ycVdIaTNmZFU2Z0xwRDNiSlZTOS1IYldmbjF1RHk2RVVjNnVrdXBsaHRwRlV6NVdteUdIbldPRVN1eEo0M1QwMkp2N19sQU5fVHc0dVRCSzY2bklXNlNxMGlfaGgwc0lHWXdqUEN6OFBBWmpmRTZMN3hzTkRfYTNyazdBeHlOVEU5THhWRU84Ni1rSVhFd214N3JrSUJHTTMzMkltUTcwZy1vNVlKN29YSEFjYUpEVksyZHg5Nmp4T216c3haLVpwbUpxS191bm55MzQ0Zzg2T3ZmUVdSS1d1X2Y3c1NmbjZqdUd6dWw4b2JjTFdlWFpIZ2d0Zw?oc=5)
+
+• 德路里：10 月航空货运量价齐升，AI 与跨境电商成核心引擎（新浪财经）
+  摘要：德路里（Drewry，航运与运输研究机构）数据显示 10 月航空货运运量与运价同步上行。增长主要由 AI 硬件与跨境电商包裹拉动，旺季舱位偏紧。
+  🔗 [查看原文](https://news.google.com/rss/articles/CBMigwFBVV95cUxQaUcxTzg3eFN1U3AtSmZ6bmo3X09WVTdPWWE4VXhIUFdGcG9PSnZ4N0xNd25zYnhwME1obURhdXZDaHZFNUdOMHZxWS1IYnVQLWw4VGVZb21ETWszbDNwc3VwOVBQRU1nYjlMcUh0RHp1LWtSeXBka0JWQTk4eUUxTnRtOA?oc=5)
+
+• CTT：小额免税冲击改写 2026 年业绩，复苏动作目标 2028 年增长（CTT: De minimis disruption resets 2026 earnings; recovery actions target growth through 2028）（TradingView）🔤
+  摘要：CTT 表示 de minimis（最低免税额）政策变化直接改写了 2026 年业绩预期。公司列出一组复苏动作，目标是在 2028 年恢复增长，说明小包免税直邮模式的收入基础被削。
+  🔗 [查看原文](https://news.google.com/rss/articles/CBMiiAJBVV95cUxOY1BBdTlGX0pUTVZ3bC1aWF9tVWdVWm1hT2pmbEx1eElwZl9TTENVbUpMcl9hV1g5MWEtaFp1cjhQanA4alR2bUptWkU2cHJ1SS1pZDhuSXRERFR0S2hsRXhOb2dyemR2bEZGb3Bmd05KVDB2MDlYZmNCay1BNkx1MGtUSEY3bjBUWGdtMzlvTlNweGt5dzhqLTJCSEVrMTh6RDByOUFTU25KVUNMWDRaRUpiQ0s3SEduWFk0X2dNai1KZWVUeXUtdDdQRFlReUZnZGFBX2RIYlZ4ZEU5SXBaYXJHRE1oeVFaMjJHazBLb0g2NTBfc3dTN2hLOVM3OW5QOTBKV2Vwa0k?oc=5)
+
+🛡️ 合规与风险
+
+• 马来西亚雪州关税局连破两起跨国包裹藏毒案，起获逾 224 万毒品（星洲日报、东方日报 · 多源报道）
+  摘要：两起案件均为跨境包裹夹藏毒品，涉案市值逾 224 万令吉。雪州关税局与另一地同步展开执法行动，包裹渠道成为查验重点。
+  🔗 [查看原文](https://news.google.com/rss/articles/CBMiZkFVX3lxTE1UNlFkUzFtUkNBSzlhSUM2V19YVE90OVJwdVRXWG9kczJ4XzRad0NfQW1uZG9KcWdaWW1IRTBMN0Fza1Z2cmZidXc4VlVsdmozOGdQazg2cG1qcm1Na0VCNks4a3FUdw?oc=5)
+
+💼 卖家运营
+
+• 2026 黑五开局：跨境电商平台差异化打法与商家侧应对（全球定制网）
+  摘要：2026 年黑五为 11 月 27 日。平台侧分成压价拉新与本地仓时效两条路线，商家侧的对策是提前锁定库存、把备货节奏整体前移。
+  🔗 [查看原文](https://news.google.com/rss/articles/CBMiTkFVX3lxTFBpbXBfbmdTd1YxSlB6aFE3bDZwSWVfS0t1YVR3UnpmcU5Md2UxcGNOS1R2bkxkaklzT1BHTFR4Z1RoemdrakFvenhCMF9aUQ?oc=5)
+
+To stop or manage this job, send me a new message (e.g. "stop reminder TrendRadar跨境日报投递").

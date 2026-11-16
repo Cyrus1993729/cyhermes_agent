@@ -8,7 +8,7 @@ daily_report_review.py — 日报投递前自动质检（L0 硬规则 + L1 双�
 
 流程:
   L0 硬规则脚本（本地正则，零成本）→ L1 模型审查（默认 gpt=GPT-5.6 via Codex CLI；
-  --model both 启用双模型 qwen3.7-max + GPT-5.6）→ 合并 findings
+  --model both 启用双模型 qwen3.8-max + GPT-5.6）→ 合并 findings
 
 输出 JSON:
   {"l0": [{"rule","severity","location","issue"}...],
@@ -106,7 +106,7 @@ def read_qwen_cfg():
 def call_qwen(draft: str, candidates: str):
     key, base = read_qwen_cfg()
     body = {
-        "model": "qwen3.7-max",
+        "model": "qwen3.8-max",
         "messages": [
             {"role": "system", "content": REVIEW_RUBRIC},
             {"role": "user", "content": f"【日报全文】\n{draft}\n\n【候选】\n{candidates[:6000] if candidates else '（未提供）'}"}],

@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-"""qwen3.7-max 日报生成引擎（DeepSeek 过载/不可用时的备用生成器）
+"""qwen3.8-max 日报生成引擎（DeepSeek 过载/不可用时的备用生成器）
 用法:
   python report_gen_qwen.py --candidates <候选JSON> --mode five|cb --out <输出文件>
 规则内嵌（与日报 cron prompt 第 2/3 步一致），直接输出完整日报全文。
@@ -13,7 +13,7 @@ import time
 import urllib.request
 
 CONFIG = r'C:\Users\Administrator\AppData\Local\hermes\config.yaml'
-MODEL = 'qwen3.7-max'
+MODEL = 'qwen3.8-max'
 
 
 def read_qwen_cfg():

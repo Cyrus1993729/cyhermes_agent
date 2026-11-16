@@ -1,0 +1,148 @@
+Cronjob Response: TrendRadar跨境日报投递
+(job_id: e8e436bbf9b1)
+-------------
+
+⚡ 今日速览
+・美国301关税178项豁免全部续期
+・海事物流301再停两月，到2027年1月10日
+・TikTok Shop向100万美国买家卖付费会员
+
+🏛 政策风向 · 门槛变了吗
+▶ 美国把178项中国商品关税豁免全部续期（11月10日）
+　干货：联邦公报当日公告；这批是301调查下仍在效期的全部排除项；此前多数已到期
+　对你：选品前先查是否在名单，在列就不加税
+
+▶ 对越南301调查再延三个月
+　干货：11月10日公告；调查指向越南知识产权保护与执法；延期不等于结案
+　对你：越南转口只是缓期，不是安全港
+
+▶ 海事·物流·造船301行动再停到2027年1月10日
+　干货：美方称要继续与中方磋商；原措施（港口相关收费）继续暂停
+　对你：海运附加费年内不涨，备货窗口开到明年1月
+
+🛒 平台规则 · 在哪卖、怎么卖
+▶ TikTok Shop 黑五前上线付费会员 Shop Plus
+　干货：只放给约100万美国头部买家；付费换专属权益；赶在黑五前
+　对你：流量向老客和高客单集中，新品自然流量更难
+
+▶ 亚马逊黑五周定档11月19—30日
+　干货：覆盖黑五加网一；官方称超100万项折扣；英国站全品类参战
+　对你：调价和备货最晚本周内定死
+
+▶ Shopee 巴西六节点免运费，峰值日处理240万件
+　干货：免运费额度按六个物流节点分摊；峰值产能提到240万件/日
+　对你：巴西低价段还有窗口，但要备本地库存
+
+📈 市场与成本 · 钱往哪走
+▶ 英国Z世代把超三分之一圣诞预算押在黑五
+　干货：eBay 调查2001名英国成年人；48%计划黑五买圣诞礼物；主战场是平台App
+　对你：黑五是英国站全年最大单，别只盯12月
+
+▶ Shein 唐伟承认"长得比建信任快"
+　干货：11月10日《金融时报》访谈；他管对外事务；同期面对欧盟小包费
+　对你：低价冲量这条路，合规成本只会一路加码
+
+🧰 实战参考 · 别人怎么做的
+▶ 广州多名跨境老板被限制出境
+　干货：雨果跨境报道涉及多人；属调查阶段措施；常见于涉税涉汇案件
+　对你：个人账户收款、买单出口，是最容易踩的雷
+
+▶ 上海虹桥跨境电商联盟成立，长宁8家企业首批
+　干货：上海跨境规模增速超67%；联盟做选品、物流、金融对接
+　对你：找产业带资源，这类联盟比跑展会便宜
+
+📖 小白词典
+・301调查：美国以"不公平贸易"为由加关税的调查程序，像开罚单前先立案。
+・TIR：国际公路运输通关证，一证通行多国，货车不必逐国开箱。
+・逆向海淘：海外买家直接买本国货，中文语境常指外国人买中国货。
+
+✅ 今天该做的一件事
+把主推3个SKU对照178项豁免清单，在列的标红，别白交税。
+
+━━━━━━━━━━━━━━━━━━━━
+
+📦 跨境电商日报 11月10日（过去24小时 · 18 条）
+
+🛃 政策法规
+
+• 🔴 🔤 美国301关税：178项中国商品豁免全部续期（Notice of Product Exclusion Extensions: China's Acts, Policies, and Practices Related to Technology Transfer, Intellectual Property, and Innovation）
+  摘要：美国贸易代表办公室11月10日在联邦公报公告，把301调查下仍在效期的全部178项商品排除一次性延长。此前的多数排除已在前几年陆续到期，这批是仍在执行的名单。背景：301条款允许美国对认定"不公平贸易"的国家加征关税，排除清单是给特定商品开的口子。
+  🔗 [查看原文](https://www.federalregister.gov/documents/2026/11/10/2026-22925/notice-of-product-exclusion-extensions-chinas-acts-policies-and-practices-related-to-technology)
+
+• 🔴 🔤 美国对越南301调查再延三个月（Notice of Determination To Extend Section 301 Investigation of Vietnam's Acts, Policies, and Practices Related to Intellectual Property Protection and Enforcement）
+  摘要：美方11月10日公告，把针对越南知识产权保护与执法的301调查再延长三个月，理由是需要更多时间。同一决定另有 Sandler, Travis & Rosenberg 律所解读（多源报道）。背景：调查延期期间通常不加征新关税，但结论一旦落地，越南出口商品可能被加税。
+  🔗 [查看原文](https://www.federalregister.gov/documents/2026/11/10/2026-22868/notice-of-determination-to-extend-section-301-investigation-of-vietnams-acts-policies-and-practices)
+
+• 🔴 🔤 海事·物流·造船301行动再暂停两个月至2027年1月10日（Notice of Modification of Section 301 Action: China's Targeting the Maritime, Logistics, and Shipbuilding Sectors for Dominance）
+  摘要：美国贸易代表办公室11月10日公告，为继续与中方磋商，把针对中国海事、物流与造船业的301行动再暂停两个月，延期至2027年1月10日。这是该行动又一次延期，涉及港口相关收费措施。
+  🔗 [查看原文](https://www.federalregister.gov/documents/2026/11/10/2026-22867/notice-of-modification-of-section-301-action-chinas-targeting-the-maritime-logistics-and)
+
+🏪 平台动态
+
+• 🔤 TikTok Shop 向约100万美国头部买家推付费会员 Shop Plus（Exclusive: TikTok Shop launches a paid premium tier for 1M of its top US shoppers）
+  摘要：TikTok Shop 赶在黑五前上线付费会员 TikTok Shop Plus，首批面向约100万美国头部买家（Modern Retail 与 Google News 收录同源，多源报道）。背景：付费会员是平台把高复购用户单独圈起来的手段，通常配专属折扣与免运费。
+  🔗 [查看原文](https://www.modernretail.co/operations/exclusive-tiktok-shop-launches-a-paid-premium-tier-for-1m-of-its-top-us-shoppers/?utm_campaign=modernretaildis&utm_medium=rss&utm_source=general-rss)
+
+• 🔤 亚马逊黑五周定档11月19—30日，超100万项折扣（Amazon's Black Friday Week runs 19th-30th November）
+  摘要：亚马逊宣布黑五周与网一促销11月19日开跑到30日，官方称覆盖超100万项折扣，英国站全品类参与。这是全年最大流量窗口，价格与库存要在开跑前锁定。
+  🔗 [查看原文](https://channelx.world/2026/11/amazons-black-friday-week-runs-19th-30th-november/)
+
+• 🔤 亚马逊给配送司机配数千副智能眼镜（Amazon deploys thousands of smart glasses to delivery drivers）
+  摘要：亚马逊已向配送司机部署数千副智能眼镜，导航与投递指令直接显示在视野内，目标是提升末端配送效率。末端提速会传导到次日达考核与海外仓补货节奏上。
+  🔗 [查看原文](https://www.retaildive.com/news/amazon-deploys-thousands-of-smart-glasses-to-delivery-drivers/873762/)
+
+• 🔤 泄露的TikTok组织图：中国管理层在美国电商业务权力上升（Leaked TikTok org chart shows how execs from China have gained power in its US e-commerce operations）
+  摘要：Business Insider 11月10日报道，一份泄露的组织图显示来自中国的管理层在 TikTok 美国电商业务的职权扩大。背景：TikTok 美国业务长期受数据安全审查，管理层构成始终是监管关注点之一。
+  🔗 [查看原文](https://news.google.com/rss/articles/CBMilgFBVV95cUxQNlp3SE55N2t4QUxjSEpjeTN4T1RGTGlINC1vVzF4dlpNTlFrY2liTXZDWUhxanpMWVRxQ1YwTjRtbnFEWm9kWWQ2T0xheWx4eWtoNVYzQUxxaE5RZUxHajNTSDMxRmo4YVFpa1hjNi1DWkxITmxpR2dGRHVlYV9iUHY5YkxZRXpxM1RWVUNRSlhVN09KY1E?oc=5)
+
+• 韩国11街联手京东布局中国市场，"逆向海淘"加码（亚洲日报）
+  摘要：韩国电商平台11街11月10日宣布联手京东布局中国市场，把韩国商品直接卖给中国消费者。背景：韩国把"海外消费者直购本国商品"称为逆向海淘（역직구），方向与中国人熟悉的海淘相反。
+  🔗 [查看原文](https://news.google.com/rss/articles/CBMiW0FVX3lxTE5UNWxGYm1JakpZU2ZBLU9VR3dQbEpuSDJRSmx5UWlWRnVEc1FyLXpYZjJQcml3REVVNmtxU0d2YU05a1NzazVFeGFkaXU0Vmdwd2g3WmVMWG14RXc?oc=5)
+
+• Shopee巴西公布六节点免运费方案，峰值日处理240万件（全球定制网）
+  摘要：Shopee 巴西站公布六节点免运费分配方案，把免运费额度按六个物流节点分摊，峰值日处理能力提升至240万件。背景：巴西运费贵、清关慢，本地节点分拨是平台抢份额的主要手段。
+  🔗 [查看原文](https://news.google.com/rss/articles/CBMiT0FVX3lxTE9jX2Y3dElNMWt5cmh2cm44SUgyVFlRVzhnMkUySHU1cTV2aWVodEdIaHJqelJlX2cxZUlDYlZxOXZDbWVQa2tRNHQyZDlObWM?oc=5)
+
+📦 物流与市场
+
+• 广州海关：前10月跨境电商零售进出口清单超6亿票（21财经）
+  摘要：广州海关11月10日披露，前10个月监管跨境电商零售进出口清单超6亿票。背景：清单票数按订单逐票计，是衡量跨境小包业务量最直接的指标。
+  🔗 [查看原文](https://news.google.com/rss/articles/CBMijwFBVV95cUxPZUJCVEc0UlB5T2puSWhNTXo4VkdmcDZrcm5zaW9RTG9tQ0h1SC1oY05sU1laVGx1UU9FN1VlTmMzU3VCVFdBMEZrT0piMmprSGJVVTJyNG9LNmFCNXF2VjVSVzg5RkFEcXNTSWpJc1BIdTd5RUxQblBVV1E5bVhEVFlWdmxTRm5oMzZsQVRSbw?oc=5)
+
+• 西柳跨境电商TIR国际公路运输首发，直达莫斯科（搜狐网）
+  摘要：辽宁西柳11月10日开出首票跨境电商TIR国际公路运输，货物直达莫斯科，为东北外贸增加一条陆路通道。背景：TIR 是国际公路运输通关证，一证通行多国，途中不必逐国开箱查验。
+  🔗 [查看原文](https://news.google.com/rss/articles/CBMijAFBVV95cUxOTmVGTVhiNjBlQklRbFNjeGhnMFpNSmYwRE5zVWVEQlA1UnZlMlZ3SXlrdDBFMEZRdE9KM3dPM0o3Q3lPdkhldURQUE9jZ0pnS3VkMzVyUkM5dkVPQjlGSUpYdVNKWHVyNXNkcEt4bE9kMjI2bDJBb2ZLdEJBMHdiZkFmOG5mSzJWVGFFOQ?oc=5)
+
+• 🔤 英国Z世代把超三分之一圣诞预算投进黑五（Gen Z to put over a third of their Christmas budget into Black Friday）
+  摘要：eBay Advertising UK 调查2001名英国成年人发现，Z世代会把超过三分之一的圣诞预算花在黑五，48%受访者计划在黑五买圣诞礼物。购物主要通过平台App完成。
+  🔗 [查看原文](https://channelx.world/2026/11/gen-z-to-put-over-a-third-of-their-christmas-budget-into-black-friday/)
+
+• 🔤 非洲：本土零售商正面硬扛 Shein 与 Temu（Bash takes the fight to Shein and Temu as TFG grows market share, pauses deals / How can African retailers compete with Shein and Temu?）
+  摘要：南非零售集团 TFG 旗下平台 Bash 公开对标 Shein 与 Temu，靠本地仓与快速上新抢份额，并暂停部分交易；德国之声同期讨论非洲零售商如何应对这两家低价平台（多源报道）。背景：非洲电商渗透率低、年轻人口多，是两家平台近两年的重点扩张市场。
+  🔗 [查看原文](https://news.google.com/rss/articles/CBMizgFBVV95cUxQbXcxNlpGNkMtd0FGQkt4Q3V1SEZ4WnZ2S1cxMXZLNHdnY2t3S3FFdEc5aVQtdlFDQ1hHSmdDZDdXSEZzSC1lOGZmckc3UXptcTA0MXBSQl9tcXEzSEtyczNLQTl2WGxLT19iSFlnMWhCcWlCVjZoMHBTbzdyeU1nTi1jeFowNXpKQkM5MDFVTFlvX1RzTnFYREhPWUw2SUNteEg5LXZVNFlNVE9CNExaU2ZpWXNiclplVVo2NHBBb2wtdUZ5TWpSazRoaktZQQ?oc=5)
+
+• 🔤 Shein 唐伟：我们长得比建信任快（Shein dealmaker Donald Tang: we grew faster than we could build trust）
+  摘要：Shein 高管唐伟（Donald Tang）11月10日接受《金融时报》采访，承认公司扩张速度快于建立信任的速度。背景：Shein 同期面对欧盟小包收费、产品安全诉讼与上市审查，信任问题直接影响估值。
+  🔗 [查看原文](https://news.google.com/rss/articles/CBMihAFBVV95cUxNSVhlenlfN0JWNDZpTVRCeXlCOGlveERNSFI4T1N0SHZoa3VIQWg5OWdsLWRPVnNqblFZcTBVYUN3Vl91dFpqMUVNU3VFTUJ6TmR5S1BPWVcyZjM3UDZORjV6RF8ycE9oVDQ2YTNOVDJtRENuNmZXSjJ3ekhXRzlsQ3ZaTm8?oc=5)
+
+• 上海丝路电商：从"粗放跑量"转向"合规深耕"品牌出海（ThePaper.cn / 上观新闻）
+  摘要：上海11月10日多篇报道称，本地跨境电商正从"粗放跑量"转向"合规深耕"，主打品牌出海（多源报道）。背景：小包免税收窄后，低价铺货的利润被税费吃掉，做品牌是抬客单的必然选择。
+  🔗 [查看原文](https://news.google.com/rss/articles/CBMiXkFVX3lxTE9xc2ltOEhzd3BXbDlHbmMxeVVZbXN6dHZpTXcxOHN2WlhIZDJTajU4a1g3ZGoyTGpMMTJtcVZiSGRMTTlLaFNlUnlyVnNWVjNjVVg0dEhRM1RNNjMtTVE?oc=5)
+
+🛡️ 合规与风险
+
+• 🔴 多个广州跨境电商老板被限制出境（雨果跨境）
+  摘要：雨果跨境11月10日报道，多名广州跨境电商企业主被限制出境。背景：限制出境是司法或行政机关在调查阶段可采取的措施，常见于涉税、涉汇案件；对卖家意味着个人收款路径与出口申报的合规风险在收紧。
+  🔗 [查看原文](https://news.google.com/rss/articles/CBMiTEFVX3lxTFA2UmNCMDBFZm9ZWnkyTDBXWklnNEJvV0YxOUJhazg2UHVMTmVOaHhBR0JycGZtbk5PRXh3V3VkTGNnY2VYODZoM1I5V00?oc=5)
+
+💼 卖家运营
+
+• 虹桥跨境电商联盟成立，长宁8家企业成首批成员（上海市人民政府）
+  摘要：上海虹桥跨境电商联盟11月9日正式成立，长宁8家企业成为首批成员单位；同期披露上海跨境电商规模增速超67%（多源报道）。联盟方向是选品、物流与金融服务的资源对接。
+  🔗 [查看原文](https://news.google.com/rss/articles/CBMiigFBVV95cUxPT1kwZDZONUJPeFdwUEdrZElmY3cwdkpWYUhnMVRuRGI0UUhRR3hRTUVSUXJOVWFoV0pYZ1lRS3pVTHBqX25HSmo4NmlhSjJZaENueFJDQVQwVl9ld1lrZWFON2Z1OUtoYVhUY1dKTjhHRkFscVVrUUlSVEQtNzkweVJrWXBqdXp2eXc?oc=5)
+
+• 🔤 创想三维儿童3D打印机 mBox 只在 TikTok Shop 独家首发（Creality mBox: Kids' 3D Printer Launches Exclusively on TikTok Shop）
+  摘要：创想三维（Creality）的儿童3D打印机 mBox 选择在 TikTok Shop 独家首发，不走传统电商首发。背景：硬件品牌把新品首发押在内容平台，是用达人短视频换冷启动流量的打法。
+  🔗 [查看原文](https://news.google.com/rss/articles/CBMiuwFBVV95cUxPNHQtbDB0dmwxT2V5VXAzRVgwdUVkdkVldG9GWGhLUXUwd3NZZ0YzN2IwR2dMc1RKWUJ4c0ctbVQ5M3BvNTFNYTdwYXB3a3NvVURKZ1Q5aGtDWW5aa2hTMmIyVTlFT3dRVlo0OTBIVmF3RTB0TzJ0WTVfSHY2WE80M3VsRFl0eS1QUFVMQmpmQmEwTXRCbnpRZnVTMVFDSlY1NFNSSkVhc2NmaDhORm96cGdkTjJmM0R6TXhv?oc=5)
+
+To stop or manage this job, send me a new message (e.g. "stop reminder TrendRadar跨境日报投递").

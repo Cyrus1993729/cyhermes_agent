@@ -1,0 +1,122 @@
+Cronjob Response: TrendRadar跨境日报投递
+(job_id: e8e436bbf9b1)
+-------------
+
+⚡ 今日速览
+· 欧盟点头 Temu 整改，违规商品要清
+· TikTok Shop 在东南亚逼近 Shopee
+· 美对华金属储物柜反倾销初裁
+
+🏛 政策风向 · 门槛变了吗
+▶ 美国对华金属储物柜反倾销初裁（11月13日公布）
+　干货：复审期 2024年8月—2025年7月；公告点名 Xingyi Metalworking（浙江）低于正常价值销售；另对 10 家企业部分撤审
+　对你：卖钢制家具走美国线，报价得先留出税率空间
+
+▶ 美国对华光伏反倾销修正终裁（11月13日）
+　干货：美国国际贸易法院 10月29日就 Jinko 案作出判决，维持商务部第三次重审结果；涉案期 2019年12月起
+　对你：光伏这类高门槛类目，新手别碰
+
+▶ 发改委：深化绿色贸易与跨境电商合作（11月12日）
+　干货：明确要推进绿色贸易与跨境电商的国际合作
+　对你：方向仍是鼓励出海，绿色标准可能要提前了解
+
+🛒 平台规则 · 在哪卖、怎么卖
+▶ TikTok Shop 正在抢 Shopee 的东南亚王座（11月13日）
+　干货：报道直指 TikTok Shop 冲击区域头名，东南亚是它增速最快的市场
+　对你：东南亚多一个流量池，可以先开小店试水
+
+▶ TikTok Shop 英国：一场直播抵一周营收（多源报道）
+　干货：61% 中小卖家称一场 LIVE 收入高于其他渠道一周；24% 称超过一整月
+　对你：英国站起量先做直播，不是先磨详情页
+
+▶ Pinterest 上线节日购物工具
+　干货：75% 节日购物者称它帮自己缩小了选择；新上 AI 助手、比价、心愿单
+　对你：家居礼品类可以低成本铺图引流
+
+📈 市场与成本 · 钱往哪走
+▶ HarperCollins 直播带货收入三年涨 225%（11月13日）
+　干货：报告称其来自 TikTok 直播的销售额自 2023 年起增长 225%
+　对你：图书这类低单价标品也有人靠直播跑量，选品别只盯小商品
+
+▶ 英国皇家邮政上线实时追踪
+　干货：收件人能看到快递员还剩几站；临近时送达时间窗自动收窄
+　对你：英国买家催单会变少，客服压力小一些
+
+🧰 实战参考 · 别人怎么做的
+▶ 旺季该发 AWD 还是直发 FBA（Reddit 卖家，11月12日）
+　干货：讨论集中在入库时效与仓储费取舍；旺季两条路成本结构完全不同
+　对你：两条路的取舍要先算库存周转和仓储费，别凭感觉
+
+▶ 亚马逊回款和销售额对不上？5 项对账
+　干货：卖家列出 5 项对账自查，抓的是平台扣费和退款冲减
+　对你：每月对一次账，别等利润表才发现漏钱
+
+▶ 四个主力 listing 一夜被劫持
+　干货：EVIQO 品牌四条主力 listing 一夜之间被改，卖家公开求助
+　对你：先把品牌备案办了，页面被改时才有申诉凭据
+
+📖 小白词典
+· AWD —— 亚马逊的中转仓，货先放那儿，FBA 缺了再补，像快递驿站。
+· VLOP —— 欧盟给超大平台的头衔，欧盟内月活超 4500 万就算，规矩比小站严得多。
+· 反倾销税 —— 进口国认定你卖得太便宜，额外加的一道税，等于进门先交罚款。
+
+✅ 今天该做的一件事
+打开 TikTok Shop 后台，查英国站佣金与直播权限，记进一张表。
+
+---
+
+📦 跨境电商日报 11月13日（过去24小时 · 14 条）
+
+🛃 政策法规
+• 🔴 国家发改委：将深化共建绿色贸易与跨境电商合作（on.cc东网）
+  摘要：国家发改委 11月12日表态，将在绿色贸易与跨境电商领域深化国际合作。这是"十五五"扩大丝路电商信号的延续，方向仍是鼓励企业出海。
+  🔗 [查看原文](https://news.google.com/rss/articles/CBMijwFBVV95cUxNOGE3Y3FDTG16WE00QkVmbWU0cUxwVW02VDh1UWQzaWpzblhObmsxYnd2OWZuU3BkQkd0WHBZNkVwSEF2RGJIUEdZNDFBbDlVLU5VTUU0N0pfeTFScnQ2LUZQeDZ3LWFacjZxUFBBREhtWnp3eWFYbXhwYzJLLW5XSVhDSzdyZ04wZzFRaWxfQQ?oc=5)
+• 🔴 美国对华金属储物柜反倾销初裁：Xingyi（浙江）被判低价销售（Federal Register）[🔤]
+  摘要：美国商务部 11月13日公布初裁，认定 Xingyi Metalworking Technology（浙江）在 2024年8月1日至 2025年7月31日复审期内以低于正常价值的价格销售金属储物柜。同时对 10 家企业部分撤销复审。
+  🔗 [查看原文](https://www.federalregister.gov/documents/2026/11/13/2026-23150/certain-metal-lockers-and-parts-thereof-from-the-peoples-republic-of-china-preliminary-results-and)
+• 🔴 美国对华光伏电池反倾销修正终裁（Federal Register）[🔤]
+  摘要：美国国际贸易法院 10月29日就 Jinko 案作出判决，维持商务部第三次重审结果，涉案期覆盖 2019年12月起的行政复审。11月13日发布修正后的最终结果，税率按修正结果执行。
+  🔗 [查看原文](https://www.federalregister.gov/documents/2026/11/13/2026-23154/crystalline-silicon-photovoltaic-cells-whether-or-not-assembled-into-modules-from-the-peoples)
+
+🏪 平台动态
+• 🔤 TikTok Shop 正在抢 Shopee 的东南亚电商王座（TikTok Shop is coming for Shopee's ecommerce crown）（Tech in Asia）
+  摘要：11月13日报道指 TikTok Shop 已在东南亚逼近 Shopee 的区域第一位置。背景：东南亚电商长期由 Shopee 领跑，TikTok Shop 靠短视频与直播引流快速切走份额。
+  🔗 [查看原文](https://news.google.com/rss/articles/CBMieEFVX3lxTE1vNGNna3A3WURRVGltcGJGZUl2N0tDbTRJMnFKOGlHNk1fcWpfQmxVRTlZanl4ZlNkWlc2Z01OU3Joc01COU1UX09yb25vQmFtOFk4WVZqUTFfakYtR0FvV0xUU2ZGSWp6dkhIUE93SVJZV3VQcmRrdA?oc=5)
+• TikTok Shop 英国首份 LIVE 报告：一场直播抵一周营收（多源报道）[🔤]
+  摘要：TikTok Shop 英国首份 LIVE 购物报告显示，61% 中小卖家称一场直播的收入超过其他渠道一整周的营收，24% 称超过一整月。样本为英国站中小商家。
+  🔗 [查看原文](https://channelx.world/2026/11/tiktok-shop-uk-live-shopping-report-a-weeks-revenue-in-one-live/)
+• 🔤 Pinterest 上线节日购物工具，把"逛"直接变成"买"（Pinterest unveils festive shopping tools）
+  摘要：Pinterest 推出 AI 助手、比价、心愿单和节日主题板等工具。平台称上一季 75% 的节日购物者表示 Pinterest 帮自己缩小了购买选项，57% 的人认为日常采购与"发现式购物"是两件事。
+  🔗 [查看原文](https://channelx.world/2026/11/pinterest-unveils-festive-shopping-tools-to-turn-inspiration-into-purchases/)
+
+📦 物流与市场
+• 🔤 英国皇家邮政上线包裹实时追踪（Royal Mail Live Tracking rolls out）
+  摘要：英国皇家邮政的实时追踪已上线，收件人能看到快递员还剩几站，越接近送达时间窗越窄。对发英国小包的跨境卖家，这能直接减少"我的包裹在哪"的催单。
+  🔗 [查看原文](https://channelx.world/2026/11/royal-mail-live-tracking-rolls-out/)
+• 🔤 出版社 HarperCollins 直播带货收入三年增 225%（HarperCollins' revenue from TikTok live shopping up 225% since 2023）
+  摘要：11月13日报告显示，HarperCollins 来自 TikTok 直播购物的收入自 2023 年以来增长 225%。图书这类低单价标品在 TikTok 上也有成交。
+  🔗 [查看原文](https://news.google.com/rss/articles/CBMitAFBVV95cUxONjVKQzQ2WkxZc3g0Qzl3VkN1NW52M1RlX21ISnEzU3FORzFvc2ZTUGFIejA5Wld0YUpVOWV3LUdtWVpEU1lqZTgyaC1WS1NiSi13bkhUTlZ3TlJQUTM4d0UyN1htbGxaMzl0dzFWY2d2OWlodEQ4c25adGxHTkx3UHpsZUp2QTNFMmk0OFl2ZXV1UlNmUUY0dGlrdzJqcU5zcW1sWXRtb2FEdlBQTU1VLWdyWGU?oc=5)
+
+🛡️ 合规与风险
+• 🔴 欧盟委员会接受 Temu 加强非法商品管控的整改方案（Brussels accepts Temu's plan to strengthen control of illegal products）（Grande Consumo）
+  摘要：欧盟委员会 11月12日接受 Temu 提交的整改计划，内容为加强对平台非法商品的管控。背景：Temu 在欧盟被认定为超大型在线平台（VLOP），须按《数字服务法》对第三方商品承担更重的审核责任。
+  🔗 [查看原文](https://news.google.com/rss/articles/CBMifEFVX3lxTE9QYmlndGRMa05QY2pVZUgxcmhaTEE4NGdfdmxpZXItcnV6c0R2dFBNcUNEQ2oxUHh2VTNHMEtCR1NoN0dkbk11aHlfTHNvaDhmY3BUb3BHY1Y5dF9pYXJ6elR5blU4VE9qVU05Q3FlUEdIdHNCcmRkQnhzWGQ?oc=5)
+• SHEIN 平台销售婴儿牙胶套装被召回，约 2600 套（多源报道）[🔤]
+  摘要：11月13日召回公告显示，SHEIN 平台销售的婴儿牙胶与摇铃套装因窒息风险被召回，涉及约 2600 套。婴幼儿用品是跨境召回高发类目。
+  🔗 [查看原文](https://news.google.com/rss/articles/CBMidEFVX3lxTFByeXVkU01WZkwwcDZaRlBaaUJmQVNLNko1V2w2Mlp3WUVaMnBVLUhUbm9vMGFJLXEzMm9CUDFpb2F4MzBtclFZOUk3WlA0LUlZVktKT2hFM1pmWHpvV2FkZF8zZmFacTdLQlRublotbXhxNGNZ0gF6QVVfeXFMTmFCMjJ3LWtkWGJTT1Z4N1F2UFRVa3YwVXlDZVRsS2pCQmFfNVJOdjhrX0dEZTIxUS1HUWdIdGZCb0dSYVVITm1HbGh5SUdCa2VxRmRQZDFSeWlOUTY4SDFYZ2tLMDdTcEdxeGg1NENOZDFUSjBrVVIxT1E?oc=5)
+
+💼 卖家运营
+• 旺季该发 AWD 还是直发 FBA？卖家在 Reddit 讨论（Reddit FBA）
+  摘要：11月12日有卖家发帖比较旺季把货发进 AWD 中转仓与直接发 FBA 的取舍，核心是入库时效与仓储费。旺季两条路的成本结构差别明显。
+  🔗 [查看原文](https://www.reddit.com/r/FulfillmentByAmazon/comments/1xujm8p/shipping_into_awd_vs_fba_warehouse_during_peak/)
+• 亚马逊回款为什么总对不上销售额？卖家列了 5 项对账清单（Reddit FBA）
+  摘要：11月12日一名卖家发帖总结月度对账的 5 项检查。差额通常来自平台佣金、FBA 费用、退款冲减与广告费四类扣款，建议每月核一次。
+  🔗 [查看原文](https://www.reddit.com/r/FulfillmentByAmazon/comments/1xuo7mo/why_your_amazon_payout_never_matches_your_monthly/)
+• 卖家称 4 条主力 listing 一夜之间被劫持（Reddit FBA）
+  摘要：11月12日有卖家发帖称 EVIQO 品牌四条主力 listing 在一夜之间被改动，公开求助。旺季库存和流量都压在少数链接上，页面被改的损失会很直接。
+  🔗 [查看原文](https://www.reddit.com/r/FulfillmentByAmazon/comments/1xuqv1g/someone_hijacked_all_four_of_our_main_eviqo/)
+• 工具：NameQuick 用 AI 按内容给文件改名（Windows/Mac）（NameQuick AI File renamer）[🔤]
+  摘要：Ecommerce generates 1000s of files each year，命名混乱是常见痛点。NameQuick 读取文件内容后按日期、内容自动命名，支持 Windows 与 Mac。
+  🔗 [查看原文](https://channelx.world/2026/11/namequick-ai-file-renamer-for-windows-mac/)
+
+To stop or manage this job, send me a new message (e.g. "stop reminder TrendRadar跨境日报投递").

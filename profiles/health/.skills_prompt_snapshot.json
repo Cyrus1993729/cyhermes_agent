@@ -6,12 +6,12 @@
       214
     ],
     "health-analysis\\SKILL.md": [
-      1792757582748534100,
-      15328
+      1794553088385359500,
+      23113
     ],
     "meal-photo-analysis\\SKILL.md": [
-      1792462626714994100,
-      32219
+      1794553088400998400,
+      38025
     ]
   },
   "skills": [
@@ -33,7 +33,7 @@
       "skill_name": "meal-photo-analysis",
       "category": "meal-photo-analysis",
       "frontmatter_name": "meal-photo-analysis",
-      "description": "他发餐食照片、或口述吃了什么（「我吃了X克Y」）时用。照片走识别+确认卡，口述直接查；薄荷按两步分工（免费锚定co...",
+      "description": "他发餐食照片、或口述吃了什么（「我吃了X克Y」）时用。🔴核算的算术一律走 tools/nutri_calc.py ...",
       "platforms": [],
       "conditions": {
         "fallback_for_toolsets": [],

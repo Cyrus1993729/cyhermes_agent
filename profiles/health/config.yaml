@@ -11,10 +11,6 @@ providers:
     base_url: https://opencode.ai/zen/go/v1
     api_key: oc_sk_c13bd3924f74_avobrATM7BoSjCs3f7CsjT7EQFmvhWas
     api_mode: anthropic_messages
-fallback_providers:
-  - provider: deepseek
-    model: deepseek-flash
-    api_key: sk-3ed0dac2aefd47288b4a3074bc61428a
 toolsets:
   - hermes-cli
 max_live_sessions: 16
@@ -117,7 +113,7 @@ compression:
   protect_first_n: 3
   abort_on_summary_failure: false
   codex_gpt55_autoraise: true
-  in_place: false
+  in_place: true
 prompt_caching:
   cache_ttl: 5m
 openrouter:
@@ -414,7 +410,7 @@ moa:
       enabled: true
       max_tokens: 4096
       reference_models:
-        - model: qwen3.7-max
+        - model: qwen3.8-max
           provider: opencode-go-anthropic
         - model: kimi-k2.7-code
           provider: opencode-go
@@ -430,7 +426,8 @@ moa:
       provider: opencode-go
   reference_temperature: 0.6
 skills:
-  external_dirs: []
+  external_dirs:
+    - C:/Users/Administrator/AppData/Local/hermes/skills/health
   template_vars: true
   inline_shell: false
   inline_shell_timeout: 10
@@ -673,9 +670,15 @@ mcp_servers:
       - '@amap/amap-maps-mcp-server'
     env:
       AMAP_MAPS_API_KEY: 0e0e0ebabf4fd5d94b1129c7791fb5b4
-fallback_model:
-  model: qwen3.7-max
-  provider: opencode-go-anthropic
+fallback_providers:
+  - provider: opencode-go
+    model: gpt-6-luna
+  - provider: opencode-go
+    model: glm-5.3-flash
+  - provider: opencode-go
+    model: kimi-k3
+  - provider: opencode-go-anthropic
+    model: qwen3.8-max
 platform_toolsets:
   cli:
     - a2a

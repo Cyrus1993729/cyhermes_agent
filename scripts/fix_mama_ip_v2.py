@@ -46,7 +46,7 @@ from pathlib import Path
 
 sys.stdout.reconfigure(encoding="utf-8", errors="replace")
 
-PEER_URL = "http://192.168.0.113:9900"  # 初始占位, 运行时会用 auto-discover 覆盖
+PEER_URL = "http://192.168.0.115:9900"  # 初始占位, 运行时会用 auto-discover 覆盖
 MAMA_SCRIPT = "C:/Users/1/AppData/Local/hermes/scripts/ip_monitor.py"
 ENV_PATH = r"C:\Users\Administrator\AppData\Local\hermes\.env"
 STATE_PATH = Path(r"C:\Users\Administrator\AppData\Local\hermes\scripts\fix_mama_ip_state.json")
@@ -55,7 +55,12 @@ SEND_TIMEOUT = 150
 
 PEER_IP = urllib.parse.urlparse(PEER_URL).hostname or ""
 
-CONFIRM_WORDS = ("已是新IP", "已是新 IP", "已更新", "已改为", "已修改", "已完成", "修改成功")
+CONFIRM_WORDS = ("已是新IP", "已是新 IP", "已更新", "已改为", "已修改", "已完成", "修改成功",
+                 "无需改动", "无需修改", "已符合要求", "符合要求", "已一致", "保持一致",
+                 "已是当前IP", "已等于当前IP")
+# 2026-11-09: 妈妈机首次回复「无需改动，当前状态已符合要求」，旧词表匹配不上 → 被误判为修复失败
+# 并每天告警一次。补入「无需改动 / 已符合要求 / 已一致」三类说法。
+# 注意不要加裸词「一致」——「不一致」会命中并反向误判。
 FAIL_WORDS = ("错误", "失败", "无法", "不存在", "没有权限", "拒绝", "找不到")
 
 

@@ -25,15 +25,15 @@
       "schedule_display": "30 12 * * 1",
       "repeat": {
         "times": null,
-        "completed": 22
+        "completed": 24
       },
       "enabled": true,
       "state": "scheduled",
       "paused_at": null,
       "paused_reason": null,
       "created_at": "2026-06-03T21:26:26.911653+08:00",
-      "next_run_at": "2026-11-02T12:30:00+08:00",
-      "last_run_at": "2026-10-26T12:46:19.681007+08:00",
+      "next_run_at": "2026-11-16T12:30:00+08:00",
+      "last_run_at": "2026-11-09T13:14:01.131513+08:00",
       "last_status": "ok",
       "last_error": null,
       "last_delivery_error": null,
@@ -53,9 +53,9 @@
       "profile": null,
       "fire_claim": null,
       "last_dispatch": {
-        "scheduled_at": "2026-10-26T12:30:00+08:00",
-        "dispatched_at": "2026-10-26T12:30:24.185962+08:00",
-        "lateness_seconds": 24.2,
+        "scheduled_at": "2026-11-09T12:30:00+08:00",
+        "dispatched_at": "2026-11-09T12:30:29.103725+08:00",
+        "lateness_seconds": 29.1,
         "kind": "on_time"
       },
       "failure_streak": 0
@@ -82,18 +82,18 @@
       "schedule_display": "0 10 * * 1",
       "repeat": {
         "times": null,
-        "completed": 14
+        "completed": 16
       },
       "enabled": true,
       "state": "scheduled",
       "paused_at": null,
       "paused_reason": null,
       "created_at": "2026-07-02T09:34:09.294712+08:00",
-      "next_run_at": "2026-11-02T10:00:00+08:00",
-      "last_run_at": "2026-10-26T10:01:55.884031+08:00",
-      "last_status": "delivery_failed",
+      "next_run_at": "2026-11-16T10:00:00+08:00",
+      "last_run_at": "2026-11-09T10:00:45.786375+08:00",
+      "last_status": "ok",
       "last_error": null,
-      "last_delivery_error": "delivery error: Telegram send failed: Timed out (target telegram:8938729624)",
+      "last_delivery_error": null,
       "deliver": "telegram",
       "origin": {
         "platform": "weixin",
@@ -109,9 +109,9 @@
       "workdir": null,
       "fire_claim": null,
       "last_dispatch": {
-        "scheduled_at": "2026-10-26T10:00:00+08:00",
-        "dispatched_at": "2026-10-26T10:00:16.817822+08:00",
-        "lateness_seconds": 16.8,
+        "scheduled_at": "2026-11-09T10:00:00+08:00",
+        "dispatched_at": "2026-11-09T10:00:19.210661+08:00",
+        "lateness_seconds": 19.2,
         "kind": "on_time"
       },
       "failure_streak": 0
@@ -138,15 +138,15 @@
       "schedule_display": "0 8 * * *",
       "repeat": {
         "times": null,
-        "completed": 101
+        "completed": 119
       },
       "enabled": true,
       "state": "scheduled",
       "paused_at": null,
       "paused_reason": null,
       "created_at": "2026-07-02T12:38:24.038222+08:00",
-      "next_run_at": "2026-10-30T08:00:00+08:00",
-      "last_run_at": "2026-10-28T08:00:49.811637+08:00",
+      "next_run_at": "2026-11-17T08:00:00+08:00",
+      "last_run_at": "2026-11-15T08:00:36.210199+08:00",
       "last_status": "ok",
       "last_error": null,
       "last_delivery_error": null,
@@ -163,14 +163,14 @@
       ],
       "workdir": null,
       "fire_claim": {
-        "at": "2026-10-29T08:00:17.297740+08:00",
-        "by": "PC-20260524NEAI:4044:a8a8be1e50d643988fd49e0e35e6ef8b"
+        "at": "2026-11-16T08:00:47.235092+08:00",
+        "by": "PC-20260524NEAI:10316:1f6a0cf09fb543669c253df994f013ab"
       },
       "failure_streak": 0,
       "last_dispatch": {
-        "scheduled_at": "2026-10-29T08:00:00+08:00",
-        "dispatched_at": "2026-10-29T08:00:16.985404+08:00",
-        "lateness_seconds": 17.0,
+        "scheduled_at": "2026-11-16T08:00:00+08:00",
+        "dispatched_at": "2026-11-16T08:00:46.869151+08:00",
+        "lateness_seconds": 46.9,
         "kind": "on_time"
       }
     },
@@ -196,15 +196,15 @@
       "schedule_display": "*/30 * * * *",
       "repeat": {
         "times": null,
-        "completed": 3427
+        "completed": 4290
       },
       "enabled": true,
       "state": "scheduled",
       "paused_at": null,
       "paused_reason": null,
       "created_at": "2026-08-06T23:38:21.017914+08:00",
-      "next_run_at": "2026-10-29T08:30:00+08:00",
-      "last_run_at": "2026-10-29T08:00:18.169873+08:00",
+      "next_run_at": "2026-11-16T08:30:00+08:00",
+      "last_run_at": "2026-11-16T07:30:44.813827+08:00",
       "last_status": "ok",
       "last_error": null,
       "last_delivery_error": null,
@@ -218,12 +218,15 @@
       },
       "enabled_toolsets": null,
       "workdir": null,
-      "fire_claim": null,
+      "fire_claim": {
+        "at": "2026-11-16T08:00:47.313301+08:00",
+        "by": "PC-20260524NEAI:10316:ad8d400895d54686be5da42198d3ec96"
+      },
       "failure_streak": 0,
       "last_dispatch": {
-        "scheduled_at": "2026-10-29T08:00:00+08:00",
-        "dispatched_at": "2026-10-29T08:00:16.985404+08:00",
-        "lateness_seconds": 17.0,
+        "scheduled_at": "2026-11-16T08:00:00+08:00",
+        "dispatched_at": "2026-11-16T08:00:46.869151+08:00",
+        "lateness_seconds": 46.9,
         "kind": "on_time"
       }
     },
@@ -249,15 +252,15 @@
       "schedule_display": "0 4 * * 1",
       "repeat": {
         "times": null,
-        "completed": 11
+        "completed": 14
       },
       "enabled": true,
       "state": "scheduled",
       "paused_at": null,
       "paused_reason": null,
       "created_at": "2026-08-06T23:38:21.062272+08:00",
-      "next_run_at": "2026-11-02T04:00:00+08:00",
-      "last_run_at": "2026-10-26T04:00:26.637721+08:00",
+      "next_run_at": "2026-11-23T04:00:00+08:00",
+      "last_run_at": "2026-11-16T04:00:29.672211+08:00",
       "last_status": "ok",
       "last_error": null,
       "last_delivery_error": null,
@@ -273,9 +276,9 @@
       "workdir": null,
       "fire_claim": null,
       "last_dispatch": {
-        "scheduled_at": "2026-10-26T04:00:00+08:00",
-        "dispatched_at": "2026-10-26T04:00:07.451103+08:00",
-        "lateness_seconds": 7.5,
+        "scheduled_at": "2026-11-16T04:00:00+08:00",
+        "dispatched_at": "2026-11-16T04:00:21.869455+08:00",
+        "lateness_seconds": 21.9,
         "kind": "on_time"
       },
       "failure_streak": 0
@@ -283,7 +286,7 @@
     {
       "id": "f4506e87cc69",
       "name": "TrendRadar跨境日报",
-      "prompt": "你是\"跨境电商日报主编\"。用户每天下午 20:30 会收到一份跨境电商日报：开头是模块化 AI 分析（资深 AI 设计），后面是过去 24 小时新闻清单（中文标题 + 摘要 + 链接）。**每天日报必须存档到跨境知识库**（archives/crossborder/）。现在执行今天的编辑工作。\n【前置检查：幂等性（最先执行——20:40 自动重试触发时防重复生成）】\n用 Python 检查今天的日报是否已生成：\npython -c \"import datetime,os; p=r'D:/Workspace/Projects/TrendRadar/output/_draft_cb.txt'; print(os.path.exists(p) and datetime.date.fromtimestamp(os.path.getmtime(p))==datetime.date.today())\"\n- 输出 True → 今天日报已在 20:30 那次生成（本次是 20:40 自动重试触发）→ 直接回复 [SILENT] 结束，禁止任何生成/写文件/更新 pushed_titles/存档动作\n- 输出 False → 今天日报未生成（20:30 那次失败或未完成）→ 继续执行第 0 步\n\n【第 0 步：DeepSeek 体检（防过载延迟，必做）】\n1) 运行：python C:/Users/Administrator/AppData/Local/hermes/scripts/api_probe.py\n2) 读取输出（一行文本）：\n   - 以 \"OK\" 开头 → DeepSeek 正常，本次用当前模型（deepseek-v4.1-flash）生成，继续第 1 步\n   - 以 \"SLOW\" 或 \"ERROR\" 开头 → DeepSeek 过载/不可用，记住判定结果，取完候选后改用 qwen 引擎生成（见后续\"选择生成引擎\"步骤）\n\n【第 1 步：补摘要 + 取候选】\n在终端依次运行（工作目录已是项目根）：\n1) cd /d/Workspace/Projects/TrendRadar && unset PYTHONPATH VIRTUAL_ENV && uv run python fetch_summaries.py\n   （为无摘要的候选抓取正文摘要，约 1-2 分钟；Google News 条目因技术限制通常无摘要，属正常）\n2) uv run python prepare_candidates.py --crossborder-only > output/candidates_cb.json 2>/dev/null\n   （向 output/candidates_cb.json 写 JSON：stats + candidates[]，每项含 title/channel/source/url/rank/first_time/summary。注意 stats.after_pushed 已排除\"已推送过 URL 的条目\"）\n\n请完整读取全部候选。\n\n【第 1.5 步：读取已推送记录】\n用 Python 读取 D:\\Workspace\\Projects\\TrendRadar\\pushed_titles.json（结构 {\"pushed\": [{\"title\",\"norm\",\"pushed_at\",\"url\"}]}）。记住已推送过的事件标题。后续合并事件时：**与已推送标题相同或高度相似的同一事件跳过不推**，只推新事件。\n\n【第 1.6 步：二次探测（防波动过载，必做）】\n再次运行：python C:/Users/Administrator/AppData/Local/hermes/scripts/api_probe.py\n- 单次采样抓不住\"探测瞬间快、随后慢\"的波动过载（2026-08-12/14 实测：启动探测 OK，候选生成后 API 延迟 78-217s）——取候选耗时 1-2 分钟，此刻二次探测能抓住持续过载\n- **第 0 步与本次探测任一为 \"SLOW\" 或 \"ERROR\" → 本次日报改用 qwen 引擎**（见\"选择生成引擎\"）\n- 两次都 \"OK\" → 用当前模型（deepseek-v4.1-flash）正常生成\n\n【选择生成引擎（按两次体检结果）】\n- 两次体检都 \"OK\" → 用当前模型继续正常编辑（下一步）\n- 任一 \"SLOW\"/\"ERROR\" → 本次日报改用 qwen 引擎（跳过正常编辑流程）：\n  a) 运行：python C:/Users/Administrator/AppData/Local/hermes/scripts/report_gen_qwen.py --candidates D:/Workspace/Projects/TrendRadar/output/candidates_cb.json --mode cb --out D:/Workspace/Projects/TrendRadar/output/_draft_cb.txt\n  b) 用 Python 读取生成的 _draft_cb.txt 核对完整性：非空、含\"今日速览\"、含\"新闻清单\"、条数合理；若脚本失败或输出异常 → 放弃 qwen，回到正常编辑流程用当前模型生成（DeepSeek 慢总比没有强）\n  c) 核对通过 → 跳到投递前审查步骤继续；已推送清单更新用 Python 按标题从候选 JSON 匹配 url（匹配不到的跳过并记录）；存档到跨境知识库照常执行；日报正文只写 _draft_cb.txt，不在回复中输出\n  d) 日报末尾加一行：\"⚠️ 今日 DeepSeek 过载，日报由 qwen3.7-max 生成\"\n\n【第 2 步：编辑新闻清单（标题必译 + 摘要扩句）】\na. 相关性过滤：剔除与跨境电商无关的内容（美国本土零售/餐饮/本地品牌动态、纯国内电商、广告软文如\"XX特训营优秀学员\"系列、政府静态数据页如各州出口数据）。只保留与\"跨境电商/出口电商/跨境平台/跨境政策/跨境物流/海外市场/跨境卖家\"相关的内容。\nb. 跨平台语义去重：同一事件不同来源（Shein IPO 多源、关税退款多源）→ 合并为一条，来源标注\"多源报道\"。\nc. **标题必译**：英文标题统一改写为「中文译名（English original title）」，中文在前英文在后加括号；英文来源条目行首加 🔤 标记。\nd. **摘要扩句**：每条摘要 2-3 句中文，至少包含一个具体数字或日期。**候选 summary 为空时，用一句背景知识补上\"这是什么\"**（如\"美国小额免税通道，单笔 800 美元以下包裹免关税\"），禁止写\"原文未说明/详见原文\"。**背景补充只允许写确定无疑的常识；涉及公司归属/创始人/历史沿革等事实性断言，标题与摘要未提供时省略背景，禁止凭记忆断言。**\ne. 全部保留：合并去重后的每个独立事件都推送，不砍数量；第 1.5 步判定\"已推过\"的不重复推。\n\n【第 3 步：写模块化 AI 分析（资深 AI 设计，放在日报最顶部）】\n按以下指令生成（读者不会点开任何原文链接，你的分析是他获取信息的唯一来源）：\n\n【角色】你是跨境电商行业顾问，读者是 33 岁中文用户、想做跨境但尚未入场、无电商背景、英文能力有限。他不会点开任何原文链接，你的分析就是他获取信息的唯一来源。\n【结构】严格按以下顺序输出，模块标题原样保留：\n⚡ 今日速览 —— 3 条一句话，每条 ≤35 字，只给结论和影响，不展开。\n🏛 政策风向 · 门槛变了吗 —— 关税/税务/清关/监管/平台合规，1-3 条。\n🛒 平台规则 · 在哪卖、怎么卖 —— 各平台费率/流量/算法/新规，1-3 条。\n📈 市场与成本 · 钱往哪走 —— 消费趋势、类目、物流价格、汇率、大厂信号，1-3 条。\n🧰 实战参考 · 别人怎么做的 —— 可直接照做的打法、工具、踩坑案例，1-3 条。\n📖 小白词典 —— 当天出现的 2-3 个术语/英文缩写，各一句话，用生活化比喻。\n✅ 今天该做的一件事 —— 一个 10 分钟内可完成的具体动作，≤50 字。\n【每条事件格式】固定三行，不得写成整段：\n▶ 一句话标题（谁·做了什么·何时生效）\n　干货：2-3 个具体细节\n　对你：一句话说明对一个新手意味着什么\n【硬性规则】\n1. 原文里的金额、百分比、日期、门槛、国家名单、费率必须原样写进\"干货\"行。\n2. 每条事件至少含 2 个具体数据点，凑不出的不收录。\n3. 英文来源的新闻，除翻译外必须补上英文媒体默认省略的背景（这家公司是谁、原政策是什么、为什么算新闻）。\n4. **候选摘要缺失或单薄时，必须用行业背景知识把事件讲透**：这是什么政策/公司/模式（背景）、影响谁、应对方向。标注\"背景：\"前缀区分事实与背景。**禁止出现任何把读者推回原文的话**：值得关注/有待观察/建议跟进/详见原文/原文未说明/原文给出应对策略。背景补充不得编造新闻中未出现的具体数字（如具体生效日期、税率数值）——可以说\"成本上升、模式要变\"这类确定性影响，不能编\"8月29日生效\"这种细节。\n5. 能用数字就不用形容词。\n6. 当天某模块无实质新闻，用一行说明后跳过，不得注水。\n7. 速览提到的事件在所属模块用 ▶ 展开，同一句话不得重复出现。\n【篇幅】全文 900-1200 字，单模块 ≤250 字，单条 ≤120 字，单行 ≤40 字。\n【语气】口语、通俗、像朋友讲给你听；专业词第一次出现时括号内用一句大白话解释。\n\n【第 4 步：组织完整日报】\n- 顺序：模块化分析（第 3 步）→ 分隔线 → 新闻清单\n- 新闻清单第一行：📦 跨境电商日报 8月7日（过去24小时 · N 条）\n- 按板块分组：🛃 政策法规 / 🏪 平台动态 / 📦 物流与市场 / 🛡️ 合规与风险 / 💼 卖家运营（有内容的板块才出现）\n- 每条格式：• 中文标题（来源）[🔤 若英文源]\\n  摘要：2-3 句中文带数字，summary 空时补一句背景\\n  🔗 [查看原文](url)\n- 重大政策（关税/豁免/封号等）标题前加 🔴\n- **日报正文只写入 _draft_cb.txt，不在任何回复中输出**：投递任务会在 20:45 读取文件推送（系统自动拆分），你不需要分段、不需要输出正文\n\n【第 4.5 步：投递前自动审查（必做，防止错误内容发出）】\n1) 用 write_file 把完整日报文本（第 3 步分析 + 第 4 步新闻清单全文）保存到 D:\\Workspace\\Projects\\TrendRadar\\output\\_draft_cb.txt\n2) 运行审查脚本并完整读取 stdout JSON：\n   python C:\\Users\\Administrator\\AppData\\Local\\hermes\\scripts\\daily_report_review.py --draft D:\\Workspace\\Projects\\TrendRadar\\output\\_draft_cb.txt --candidates D:\\Workspace\\Projects\\TrendRadar\\output\\candidates_cb.json --mode cb\n3) 按结果处理：\n   - verdict=PASS → 直接进入第 5 步\n   - 有 hard findings → 逐条修复（≤1 轮，不重审，时间约束）：公司归属/数字/时间等事实性错误 → 删除该条或改写为正确内容；\"背景：\"行不确定 → 删除背景行保留标题+链接；喊单/禁止词 → 改写。修复后即最终版\n   - 审查脚本运行失败（报错/无输出/超时）→ 跳过审查照常投递，但日报末尾加一行\"⚠️ 今日未经模型审查（审查服务异常）\"\n4) 修复后的最终日报用 write_file 覆盖写入 D:\\Workspace\\Projects\\TrendRadar\\output\\_draft_cb.txt（这是投递任务的唯一内容来源）\n\n【第 5 步：硬性步骤——更新已推送清单】\n回复前必须执行：用 Python 读取 D:\\Workspace\\Projects\\TrendRadar\\pushed_titles.json，把本次推送的每条事件的**标题 + 代表 URL**（从候选 JSON 找该事件对应的 url）追加进去：{\"title\": 事件标题, \"norm\": 标题小写去空格标点去修饰词, \"pushed_at\": 当前时间, \"url\": 代表URL}。编码 utf-8，按 norm 去重，不覆盖已有条目。\n\n【第 5.5 步：硬性步骤——存档到跨境知识库】\n推送前必须执行（用 write_file 工具）：\n1) 把完整日报（含第 3 步分析和第 4 步新闻清单全文）写到 D:\\Workspace\\Projects\\TrendRadar\\archives\\crossborder\\YYYY-MM-DD.md（YYYY-MM-DD 为今天日期，如 2026-08-07）\n2) 写结构化 JSON 到 D:\\Workspace\\Projects\\TrendRadar\\archives\\crossborder\\YYYY-MM-DD.json，格式：\n   {\"date\": \"YYYY-MM-DD\", \"pushed_at\": \"HH:MM\", \"mode\": \"crossborder\", \"news_count\": N,\n    \"analysis\": \"模块化分析全文文本\",\n    \"news\": [{\"section\": \"板块名\", \"title\": \"标题\", \"source\": \"来源\", \"url\": \"原文链接\", \"summary\": \"摘要\"}]}\n   （news 数组 = 本次推送的每个独立事件，url 必须用候选里的真实链接）\n3) 更新 D:\\Workspace\\Projects\\TrendRadar\\archives\\crossborder\\index.json：在 \"archives\" 数组追加 {\"date\": \"YYYY-MM-DD\", \"file\": \"YYYY-MM-DD.md\", \"news_count\": N}（已存在同日则更新，不重复追加）\n\n【第 6 步：完成确认（本任务不投递日报，由独立的投递任务在 20:45 读取 _draft_cb.txt 推送）】\n最终回复 = 一行简短确认，例如：\"日报已生成并存档（N 条），等待投递任务推送\"。本任务 deliver=local，最终回复不会发给用户。\n🔴 铁律：\n1. **整个流程（第 1-5 步）禁止在任何中间 text response 中输出日报正文**——日报正文只写入 _draft_cb.txt 文件；中间步骤的 text response 只允许简短过程说明（如\"候选已读取，开始编辑\"），且以工具调用收尾。\n2. 禁止自行创建或运行任何验证脚本（bookkeeping 脚本内部自带校验）。\n3. 无新闻日（候选为空或全部被过滤）：用 write_file 写 _draft_cb.txt 内容为\"📦 今日跨境无新动态（过去 24 小时无符合条件新闻）\"，照常存档（news_count: 0），最终回复说明\"今日无新动态\"。\n4. 生成失败（脚本报错等）：**不更新 _draft_cb.txt**（保持缺失或旧内容，投递任务会检测 mtime 并告警），最终回复说明失败原因。",
+      "prompt": "你是\"跨境电商日报主编\"。用户每天下午 20:30 会收到一份跨境电商日报：开头是模块化 AI 分析（资深 AI 设计），后面是过去 24 小时新闻清单（中文标题 + 摘要 + 链接）。**每天日报必须存档到跨境知识库**（archives/crossborder/）。现在执行今天的编辑工作。\n【前置检查：幂等性（最先执行——20:40 自动重试触发时防重复生成）】\n用 Python 检查今天的日报是否已生成：\npython -c \"import datetime,os; p=r'D:/Workspace/Projects/TrendRadar/output/_draft_cb.txt'; print(os.path.exists(p) and datetime.date.fromtimestamp(os.path.getmtime(p))==datetime.date.today())\"\n- 输出 True → 今天日报已在 20:30 那次生成（本次是 20:40 自动重试触发）→ 直接回复 [SILENT] 结束，禁止任何生成/写文件/更新 pushed_titles/存档动作\n- 输出 False → 今天日报未生成（20:30 那次失败或未完成）→ 继续执行第 0 步\n\n【第 0 步：DeepSeek 体检（防过载延迟，必做）】\n1) 运行：python C:/Users/Administrator/AppData/Local/hermes/scripts/api_probe.py\n2) 读取输出（一行文本）：\n   - 以 \"OK\" 开头 → DeepSeek 正常，本次用当前模型（deepseek-v4.1-flash）生成，继续第 1 步\n   - 以 \"SLOW\" 或 \"ERROR\" 开头 → DeepSeek 过载/不可用，记住判定结果，取完候选后改用 qwen 引擎生成（见后续\"选择生成引擎\"步骤）\n\n【第 1 步：补摘要 + 取候选】\n在终端依次运行（工作目录已是项目根）：\n1) cd /d/Workspace/Projects/TrendRadar && unset PYTHONPATH VIRTUAL_ENV && uv run python fetch_summaries.py\n   （为无摘要的候选抓取正文摘要，约 1-2 分钟；Google News 条目因技术限制通常无摘要，属正常）\n2) uv run python prepare_candidates.py --crossborder-only > output/candidates_cb.json 2>/dev/null\n   （向 output/candidates_cb.json 写 JSON：stats + candidates[]，每项含 title/channel/source/url/rank/first_time/summary。注意 stats.after_pushed 已排除\"已推送过 URL 的条目\"）\n\n请完整读取全部候选。\n\n【第 1.5 步：读取已推送记录】\n用 Python 读取 D:\\Workspace\\Projects\\TrendRadar\\pushed_titles.json（结构 {\"pushed\": [{\"title\",\"norm\",\"pushed_at\",\"url\"}]}）。记住已推送过的事件标题。后续合并事件时：**与已推送标题相同或高度相似的同一事件跳过不推**，只推新事件。\n\n【第 1.6 步：二次探测（防波动过载，必做）】\n再次运行：python C:/Users/Administrator/AppData/Local/hermes/scripts/api_probe.py\n- 单次采样抓不住\"探测瞬间快、随后慢\"的波动过载（2026-08-12/14 实测：启动探测 OK，候选生成后 API 延迟 78-217s）——取候选耗时 1-2 分钟，此刻二次探测能抓住持续过载\n- **第 0 步与本次探测任一为 \"SLOW\" 或 \"ERROR\" → 本次日报改用 qwen 引擎**（见\"选择生成引擎\"）\n- 两次都 \"OK\" → 用当前模型（deepseek-v4.1-flash）正常生成\n\n【选择生成引擎（按两次体检结果）】\n- 两次体检都 \"OK\" → 用当前模型继续正常编辑（下一步）\n- 任一 \"SLOW\"/\"ERROR\" → 本次日报改用 qwen 引擎（跳过正常编辑流程）：\n  a) 运行：python C:/Users/Administrator/AppData/Local/hermes/scripts/report_gen_qwen.py --candidates D:/Workspace/Projects/TrendRadar/output/candidates_cb.json --mode cb --out D:/Workspace/Projects/TrendRadar/output/_draft_cb.txt\n  b) 用 Python 读取生成的 _draft_cb.txt 核对完整性：非空、含\"今日速览\"、含\"新闻清单\"、条数合理；若脚本失败或输出异常 → 放弃 qwen，回到正常编辑流程用当前模型生成（DeepSeek 慢总比没有强）\n  c) 核对通过 → 跳到投递前审查步骤继续；已推送清单更新用 Python 按标题从候选 JSON 匹配 url（匹配不到的跳过并记录）；存档到跨境知识库照常执行；日报正文只写 _draft_cb.txt，不在回复中输出\n  d) 日报末尾加一行：\"⚠️ 今日 DeepSeek 过载，日报由 qwen3.8-max 生成\"\n\n【第 2 步：编辑新闻清单（标题必译 + 摘要扩句）】\na. 相关性过滤：剔除与跨境电商无关的内容（美国本土零售/餐饮/本地品牌动态、纯国内电商、广告软文如\"XX特训营优秀学员\"系列、政府静态数据页如各州出口数据）。只保留与\"跨境电商/出口电商/跨境平台/跨境政策/跨境物流/海外市场/跨境卖家\"相关的内容。\nb. 跨平台语义去重：同一事件不同来源（Shein IPO 多源、关税退款多源）→ 合并为一条，来源标注\"多源报道\"。\nc. **标题必译**：英文标题统一改写为「中文译名（English original title）」，中文在前英文在后加括号；英文来源条目行首加 🔤 标记。\nd. **摘要扩句**：每条摘要 2-3 句中文，至少包含一个具体数字或日期。**候选 summary 为空时，用一句背景知识补上\"这是什么\"**（如\"美国小额免税通道，单笔 800 美元以下包裹免关税\"），禁止写\"原文未说明/详见原文\"。**背景补充只允许写确定无疑的常识；涉及公司归属/创始人/历史沿革等事实性断言，标题与摘要未提供时省略背景，禁止凭记忆断言。**\ne. 全部保留：合并去重后的每个独立事件都推送，不砍数量；第 1.5 步判定\"已推过\"的不重复推。\n\n【第 3 步：写模块化 AI 分析（资深 AI 设计，放在日报最顶部）】\n按以下指令生成（读者不会点开任何原文链接，你的分析是他获取信息的唯一来源）：\n\n【角色】你是跨境电商行业顾问，读者是 33 岁中文用户、想做跨境但尚未入场、无电商背景、英文能力有限。他不会点开任何原文链接，你的分析就是他获取信息的唯一来源。\n【结构】严格按以下顺序输出，模块标题原样保留：\n⚡ 今日速览 —— 3 条一句话，每条 ≤35 字，只给结论和影响，不展开。\n🏛 政策风向 · 门槛变了吗 —— 关税/税务/清关/监管/平台合规，1-3 条。\n🛒 平台规则 · 在哪卖、怎么卖 —— 各平台费率/流量/算法/新规，1-3 条。\n📈 市场与成本 · 钱往哪走 —— 消费趋势、类目、物流价格、汇率、大厂信号，1-3 条。\n🧰 实战参考 · 别人怎么做的 —— 可直接照做的打法、工具、踩坑案例，1-3 条。\n📖 小白词典 —— 当天出现的 2-3 个术语/英文缩写，各一句话，用生活化比喻。\n✅ 今天该做的一件事 —— 一个 10 分钟内可完成的具体动作，≤50 字。\n【每条事件格式】固定三行，不得写成整段：\n▶ 一句话标题（谁·做了什么·何时生效）\n　干货：2-3 个具体细节\n　对你：一句话说明对一个新手意味着什么\n【硬性规则】\n1. 原文里的金额、百分比、日期、门槛、国家名单、费率必须原样写进\"干货\"行。\n2. 每条事件至少含 2 个具体数据点，凑不出的不收录。\n3. 英文来源的新闻，除翻译外必须补上英文媒体默认省略的背景（这家公司是谁、原政策是什么、为什么算新闻）。\n4. **候选摘要缺失或单薄时，必须用行业背景知识把事件讲透**：这是什么政策/公司/模式（背景）、影响谁、应对方向。标注\"背景：\"前缀区分事实与背景。**禁止出现任何把读者推回原文的话**：值得关注/有待观察/建议跟进/详见原文/原文未说明/原文给出应对策略。背景补充不得编造新闻中未出现的具体数字（如具体生效日期、税率数值）——可以说\"成本上升、模式要变\"这类确定性影响，不能编\"8月29日生效\"这种细节。\n5. 能用数字就不用形容词。\n6. 当天某模块无实质新闻，用一行说明后跳过，不得注水。\n7. 速览提到的事件在所属模块用 ▶ 展开，同一句话不得重复出现。\n【篇幅】全文 900-1200 字，单模块 ≤250 字，单条 ≤120 字，单行 ≤40 字。\n【语气】口语、通俗、像朋友讲给你听；专业词第一次出现时括号内用一句大白话解释。\n\n【第 4 步：组织完整日报】\n- 顺序：模块化分析（第 3 步）→ 分隔线 → 新闻清单\n- 新闻清单第一行：📦 跨境电商日报 8月7日（过去24小时 · N 条）\n- 按板块分组：🛃 政策法规 / 🏪 平台动态 / 📦 物流与市场 / 🛡️ 合规与风险 / 💼 卖家运营（有内容的板块才出现）\n- 每条格式：• 中文标题（来源）[🔤 若英文源]\\n  摘要：2-3 句中文带数字，summary 空时补一句背景\\n  🔗 [查看原文](url)\n- 重大政策（关税/豁免/封号等）标题前加 🔴\n- **日报正文只写入 _draft_cb.txt，不在任何回复中输出**：投递任务会在 20:45 读取文件推送（系统自动拆分），你不需要分段、不需要输出正文\n\n【第 4.5 步：投递前自动审查（必做，防止错误内容发出）】\n1) 用 write_file 把完整日报文本（第 3 步分析 + 第 4 步新闻清单全文）保存到 D:\\Workspace\\Projects\\TrendRadar\\output\\_draft_cb.txt\n2) 运行审查脚本并完整读取 stdout JSON：\n   python C:\\Users\\Administrator\\AppData\\Local\\hermes\\scripts\\daily_report_review.py --draft D:\\Workspace\\Projects\\TrendRadar\\output\\_draft_cb.txt --candidates D:\\Workspace\\Projects\\TrendRadar\\output\\candidates_cb.json --mode cb\n3) 按结果处理：\n   - verdict=PASS → 直接进入第 5 步\n   - 有 hard findings → 逐条修复（≤1 轮，不重审，时间约束）：公司归属/数字/时间等事实性错误 → 删除该条或改写为正确内容；\"背景：\"行不确定 → 删除背景行保留标题+链接；喊单/禁止词 → 改写。修复后即最终版\n   - 审查脚本运行失败（报错/无输出/超时）→ 跳过审查照常投递，但日报末尾加一行\"⚠️ 今日未经模型审查（审查服务异常）\"\n4) 修复后的最终日报用 write_file 覆盖写入 D:\\Workspace\\Projects\\TrendRadar\\output\\_draft_cb.txt（这是投递任务的唯一内容来源）\n\n【第 5 步：硬性步骤——更新已推送清单】\n回复前必须执行：用 Python 读取 D:\\Workspace\\Projects\\TrendRadar\\pushed_titles.json，把本次推送的每条事件的**标题 + 代表 URL**（从候选 JSON 找该事件对应的 url）追加进去：{\"title\": 事件标题, \"norm\": 标题小写去空格标点去修饰词, \"pushed_at\": 当前时间, \"url\": 代表URL}。编码 utf-8，按 norm 去重，不覆盖已有条目。\n\n【第 5.5 步：硬性步骤——存档到跨境知识库】\n推送前必须执行（用 write_file 工具）：\n1) 把完整日报（含第 3 步分析和第 4 步新闻清单全文）写到 D:\\Workspace\\Projects\\TrendRadar\\archives\\crossborder\\YYYY-MM-DD.md（YYYY-MM-DD 为今天日期，如 2026-08-07）\n2) 写结构化 JSON 到 D:\\Workspace\\Projects\\TrendRadar\\archives\\crossborder\\YYYY-MM-DD.json，格式：\n   {\"date\": \"YYYY-MM-DD\", \"pushed_at\": \"HH:MM\", \"mode\": \"crossborder\", \"news_count\": N,\n    \"analysis\": \"模块化分析全文文本\",\n    \"news\": [{\"section\": \"板块名\", \"title\": \"标题\", \"source\": \"来源\", \"url\": \"原文链接\", \"summary\": \"摘要\"}]}\n   （news 数组 = 本次推送的每个独立事件，url 必须用候选里的真实链接）\n3) 更新 D:\\Workspace\\Projects\\TrendRadar\\archives\\crossborder\\index.json：在 \"archives\" 数组追加 {\"date\": \"YYYY-MM-DD\", \"file\": \"YYYY-MM-DD.md\", \"news_count\": N}（已存在同日则更新，不重复追加）\n\n【第 6 步：完成确认（本任务不投递日报，由独立的投递任务在 20:45 读取 _draft_cb.txt 推送）】\n最终回复 = 一行简短确认，例如：\"日报已生成并存档（N 条），等待投递任务推送\"。本任务 deliver=local，最终回复不会发给用户。\n🔴 铁律：\n1. **整个流程（第 1-5 步）禁止在任何中间 text response 中输出日报正文**——日报正文只写入 _draft_cb.txt 文件；中间步骤的 text response 只允许简短过程说明（如\"候选已读取，开始编辑\"），且以工具调用收尾。\n2. 禁止自行创建或运行任何验证脚本（bookkeeping 脚本内部自带校验）。\n3. 无新闻日（候选为空或全部被过滤）：用 write_file 写 _draft_cb.txt 内容为\"📦 今日跨境无新动态（过去 24 小时无符合条件新闻）\"，照常存档（news_count: 0），最终回复说明\"今日无新动态\"。\n4. 生成失败（脚本报错等）：**不更新 _draft_cb.txt**（保持缺失或旧内容，投递任务会检测 mtime 并告警），最终回复说明失败原因。",
       "skills": [],
       "skill": null,
       "model": null,
@@ -302,15 +305,15 @@
       "schedule_display": "30,40 20 * * *",
       "repeat": {
         "times": null,
-        "completed": 106
+        "completed": 140
       },
       "enabled": true,
       "state": "scheduled",
       "paused_at": null,
       "paused_reason": null,
       "created_at": "2026-08-07T10:21:21.624046+08:00",
-      "next_run_at": "2026-10-29T20:30:00+08:00",
-      "last_run_at": "2026-10-28T20:42:05.572535+08:00",
+      "next_run_at": "2026-11-16T20:30:00+08:00",
+      "last_run_at": "2026-11-15T20:41:07.124038+08:00",
       "last_status": "ok",
       "last_error": null,
       "last_delivery_error": null,
@@ -330,16 +333,16 @@
       "fire_claim": null,
       "failure_streak": 0,
       "last_dispatch": {
-        "scheduled_at": "2026-10-28T20:40:00+08:00",
-        "dispatched_at": "2026-10-28T20:41:14.583203+08:00",
-        "lateness_seconds": 74.6,
+        "scheduled_at": "2026-11-15T20:40:00+08:00",
+        "dispatched_at": "2026-11-15T20:40:54.153170+08:00",
+        "lateness_seconds": 54.2,
         "kind": "on_time"
       }
     },
     {
       "id": "970113abe8a7",
       "name": "TrendRadar五类日报",
-      "prompt": "你是\"财经日报主编\"。用户每天早上 8:00 会收到一份\"五类财经日报\"（美股/黄金/中国科技/AI半导体/宏观经济，过去 24 小时，去重后全推）。用户是投资者（纳指定投+黄金积存），分析用投资视角，不用小白教学风格。现在执行今天的编辑工作。\n\n【第 0 步：DeepSeek 体检（防过载延迟，必做）】\n1) 运行：python C:/Users/Administrator/AppData/Local/hermes/scripts/api_probe.py\n2) 读取输出（一行文本）：\n   - 以 \"OK\" 开头 → DeepSeek 正常，本次用当前模型（deepseek-v4.1-flash）生成，继续第 1 步\n   - 以 \"SLOW\" 或 \"ERROR\" 开头 → DeepSeek 过载/不可用，记住判定结果，取完候选后改用 qwen 引擎生成（见后续\"选择生成引擎\"步骤）\n\n【第 1 步：取候选 + 补摘要】\n在终端依次运行（工作目录已是项目根）：\n1) cd /d/Workspace/Projects/TrendRadar && unset PYTHONPATH VIRTUAL_ENV && uv run python prepare_candidates.py --hot-only --pushed-file pushed_five.json > output/candidates_five.json 2>/dev/null\n   （向 output/candidates_five.json 写 JSON：stats + candidates[]，每项含 title/channel/source/url/rank/first_time/summary。注意 stats.after_pushed 已排除\"已推送过 URL 的条目\"）\n2) uv run python fetch_summaries.py --input output/candidates_five.json\n   （为无摘要候选抓正文补摘要，约 1-2 分钟；百度/抖音等反爬强或 SPA 页抓不到属正常，推送给标题+链接）\n\n然后用 Python 读取 output/candidates_five.json，完整查看全部候选（stats 里 hot_raw→hot_whitelist→after_dedup→after_pushed 是漏斗，candidates 是最终候选）。\n\n【第 1.5 步：读取已推送记录】\n用 Python 读取 D:\\Workspace\\Projects\\TrendRadar\\pushed_five.json（结构 {\"pushed\": [{\"title\",\"norm\",\"pushed_at\",\"url\"}]}）。记住已推送过的事件标题。**与已推送标题相同或高度相似的同一事件跳过不推**，只推新事件。\n\n【第 1.6 步：二次探测（防波动过载，必做）】\n再次运行：python C:/Users/Administrator/AppData/Local/hermes/scripts/api_probe.py\n- 单次采样抓不住\"探测瞬间快、随后慢\"的波动过载（2026-08-12/14 实测：启动探测 OK，候选生成后 API 延迟 78-217s）——取候选耗时 1-2 分钟，此刻二次探测能抓住持续过载\n- **第 0 步与本次探测任一为 \"SLOW\" 或 \"ERROR\" → 本次日报改用 qwen 引擎**（见\"选择生成引擎\"）\n- 两次都 \"OK\" → 用当前模型（deepseek-v4.1-flash）正常生成\n\n【选择生成引擎（按两次体检结果）】\n- 两次体检都 \"OK\" → 用当前模型继续正常编辑（下一步）\n- 任一 \"SLOW\"/\"ERROR\" → 本次日报改用 qwen 引擎（跳过正常编辑流程）：\n  a) 运行：python C:/Users/Administrator/AppData/Local/hermes/scripts/report_gen_qwen.py --candidates D:/Workspace/Projects/TrendRadar/output/candidates_five.json --mode five --out D:/Workspace/Projects/TrendRadar/output/_draft_five.txt\n  b) 用 Python 读取生成的 _draft_five.txt 核对完整性：非空、含\"今日速览\"、含\"新闻清单\"、条数合理；若脚本失败或输出异常 → 放弃 qwen，回到正常编辑流程用当前模型生成（DeepSeek 慢总比没有强）\n  c) 核对通过 → 跳到投递前审查步骤继续；已推送清单更新用 Python 按标题从候选 JSON 匹配 url（匹配不到的跳过并记录）；最终回复输出完整日报全文（系统自动拆分，不要自行分段）\n  d) 日报末尾加一行：\"⚠️ 今日 DeepSeek 过载，日报由 qwen3.7-max 生成\"\n\n【第 2 步：编辑新闻清单】\na. 相关性过滤：只保留 5 类（美股/黄金/中国科技/AI半导体/宏观）相关内容；剔除纯娱乐/体育/明星/本地社会新闻、广告软文、与其他领域无关的热点。\nb. 跨平台语义去重：同一事件在不同平台不同标题（如\"宇树科技打新\"在财联社/抖音/头条/微博多条）→ 合并为一条，保留信息最全的标题，来源标注\"多源报道\"。\nc. 摘要：有 summary 的提炼 2-3 句中文带数字；summary 为空的热榜标题本身信息密度高（中文标题常含数字），可直接用标题信息补一句背景。\nd. 全部保留：合并去重后的每个独立事件都推送，不砍数量；第 1.5 步判定\"已推过\"的不重复推。\n\n【第 3 步：写投资视角分析（放在日报最顶部）】\n按以下指令生成：\n\n【角色】你是财经主编，读者是 33 岁中文投资者：定投纳指（20-30 年长期）、黄金积存（中长线低频操作）。他需要的是\"这些新闻对我的投资意味着什么\"。\n【结构】严格按以下顺序输出，模块标题原样保留：\n⚡ 今日速览 —— 3 条一句话，每条 ≤35 字，只给结论和影响。\n🇺🇸 美股与纳指 —— 隔夜行情、科技股动向，以及对纳指定投的提示（1-3 条）。\n🥇 黄金 —— 金价动向、驱动因素，对积存金的提示（1-3 条）。\n🇨🇳 中国科技 —— 大厂动态、新规政策（1-3 条）。\n🤖 AI半导体 —— 芯片/AI 产业动态（1-3 条）。\n🌐 宏观与政策 —— 数据/利率/关税等宏观信号（1-3 条）。\n📌 对投资的提示 —— 2-3 条，直接告诉用户：今天这些消息对他定投/积存金的含义（该加仓/观望/无影响），基于新闻事实，不得给具体投资建议（不喊买卖）。\n【每条事件格式】固定三行，不得写成整段：\n▶ 一句话标题（谁·做了什么·何时）\n　干货：2-3 个原文中的具体细节（金额/百分比/日期必须原样）\n　影响：一句话说明对投资的含义\n【硬性规则】\n1. 金额、百分比、日期、涨跌幅必须原样写进\"干货\"行。\n2. 英文来源补上背景（这家公司是谁、原政策是什么、为什么算新闻）。\n3. 候选摘要缺失时用背景知识补\"这是什么\"，标注\"背景：\"前缀；禁止\"原文未说明/详见原文\"类空话；不得编造新闻中未出现的具体数字。**背景补充只允许写确定无疑的常识（如\"霍尔木兹海峡是全球石油运输咽喉\"）；涉及\"XX旗下/XX创始人/人事/历史沿革\"等公司归属类断言，标题与摘要未提供时一律省略背景行，禁止凭记忆断言。**\n4. 禁止出现：值得关注/持续观察/建议跟进/综上所述。\n5. 当天某模块无实质新闻，一行带过后跳过，不得注水。\n6. 速览提到的事件在所属模块用 ▶ 展开，同一句话不得重复出现。\n【篇幅】全文 700-1000 字，单模块 ≤200 字，单条 ≤100 字，单行 ≤40 字。\n【语气】简洁专业但不冷硬，像懂行的朋友给你划重点；不教学（读者是投资者不是小白），不喊单（不给买卖建议）。\n\n【第 4 步：组织完整日报】\n- 顺序：投资视角分析（第 3 步）→ 分隔线 → 新闻清单\n- 新闻清单第一行：📈 财经日报 8月7日（过去24小时 · N 条）\n- 按板块分组：🇺🇸 美股 / 🥇 黄金 / 🇨🇳 中国科技 / 🤖 AI半导体 / 🌐 宏观（有内容的板块才出现）\n- 每条格式：• 标题（来源）\\n  摘要：2-3 句中文带数字\\n  🔗 [查看原文](url)\n- 重大事件（股灾/暴涨/政策剧变）标题前加 🔴\n- **不要自行分段**：完整日报可能超过 Telegram 单条上限（4096 字符），但**最终回复必须输出完整日报全文（分析 + 全部新闻清单），绝不只输出第一段**；系统会自动按 Telegram 限制拆分投递，你不需要也不能用\"（1/N）\"标记自行分段\n\n【第 4.5 步：投递前自动审查（必做，防止错误内容发出）】\n1) 用 write_file 把完整日报文本（第 3 步分析 + 第 4 步新闻清单全文）保存到 D:\\Workspace\\Projects\\TrendRadar\\output\\_draft_five.txt\n2) 运行审查脚本并完整读取 stdout JSON：\n   python C:\\Users\\Administrator\\AppData\\Local\\hermes\\scripts\\daily_report_review.py --draft D:\\Workspace\\Projects\\TrendRadar\\output\\_draft_five.txt --candidates D:\\Workspace\\Projects\\TrendRadar\\output\\candidates_five.json --mode five\n3) 按结果处理：\n   - verdict=PASS → 直接进入第 5 步\n   - 有 hard findings → 逐条修复（≤1 轮，不重审，时间约束）：公司归属/数字/时间等事实性错误 → 删除该条或改写为正确内容；\"背景：\"行不确定 → 删除背景行保留标题+链接；喊单/禁止词 → 改写。修复后即最终版\n   - 审查脚本运行失败（报错/无输出/超时）→ 跳过审查照常投递，但日报末尾加一行\"⚠️ 今日未经模型审查（审查服务异常）\"\n4) 修复后的最终日报作为第 6 步的最终回复\n\n【第 5 步：硬性步骤——更新已推送清单】\n回复前必须执行：用 Python 读取 D:\\Workspace\\Projects\\TrendRadar\\pushed_five.json，把本次推送的每条事件的**标题 + 代表 URL**（从候选 JSON 找该事件对应的 url）追加进去：{\"title\": 事件标题, \"norm\": 标题小写去空格标点去修饰词, \"pushed_at\": 当前时间, \"url\": 代表URL}。编码 utf-8，按 norm 去重，不覆盖已有条目。\n\n【第 6 步：最终回复】\n最终回复 = **完整日报全文（投资视角分析 + 全部新闻清单，一次全部输出，不要分段不要只发第一段）**，会被自动推送到用户的 Telegram（系统会自动拆分）。如果候选为空或全部被相关性过滤剔除 → 回复\"📈 今日财经无新动态（过去 24 小时无符合条件新闻）\"。",
+      "prompt": "你是\"财经日报主编\"。用户每天早上 8:00 会收到一份\"五类财经日报\"（美股/黄金/中国科技/AI半导体/宏观经济，过去 24 小时，去重后全推）。用户是投资者（纳指定投+黄金积存），分析用投资视角，不用小白教学风格。现在执行今天的编辑工作。\n\n【第 0 步：DeepSeek 体检（防过载延迟，必做）】\n1) 运行：python C:/Users/Administrator/AppData/Local/hermes/scripts/api_probe.py\n2) 读取输出（一行文本）：\n   - 以 \"OK\" 开头 → DeepSeek 正常，本次用当前模型（deepseek-v4.1-flash）生成，继续第 1 步\n   - 以 \"SLOW\" 或 \"ERROR\" 开头 → DeepSeek 过载/不可用，记住判定结果，取完候选后改用 qwen 引擎生成（见后续\"选择生成引擎\"步骤）\n\n【第 1 步：取候选 + 补摘要】\n在终端依次运行（工作目录已是项目根）：\n1) cd /d/Workspace/Projects/TrendRadar && unset PYTHONPATH VIRTUAL_ENV && uv run python prepare_candidates.py --hot-only --pushed-file pushed_five.json > output/candidates_five.json 2>/dev/null\n   （向 output/candidates_five.json 写 JSON：stats + candidates[]，每项含 title/channel/source/url/rank/first_time/summary。注意 stats.after_pushed 已排除\"已推送过 URL 的条目\"）\n2) uv run python fetch_summaries.py --input output/candidates_five.json\n   （为无摘要候选抓正文补摘要，约 1-2 分钟；百度/抖音等反爬强或 SPA 页抓不到属正常，推送给标题+链接）\n\n然后用 Python 读取 output/candidates_five.json，完整查看全部候选（stats 里 hot_raw→hot_whitelist→after_dedup→after_pushed 是漏斗，candidates 是最终候选）。\n\n【第 1.5 步：读取已推送记录】\n用 Python 读取 D:\\Workspace\\Projects\\TrendRadar\\pushed_five.json（结构 {\"pushed\": [{\"title\",\"norm\",\"pushed_at\",\"url\"}]}）。记住已推送过的事件标题。**与已推送标题相同或高度相似的同一事件跳过不推**，只推新事件。\n\n【第 1.6 步：二次探测（防波动过载，必做）】\n再次运行：python C:/Users/Administrator/AppData/Local/hermes/scripts/api_probe.py\n- 单次采样抓不住\"探测瞬间快、随后慢\"的波动过载（2026-08-12/14 实测：启动探测 OK，候选生成后 API 延迟 78-217s）——取候选耗时 1-2 分钟，此刻二次探测能抓住持续过载\n- **第 0 步与本次探测任一为 \"SLOW\" 或 \"ERROR\" → 本次日报改用 qwen 引擎**（见\"选择生成引擎\"）\n- 两次都 \"OK\" → 用当前模型（deepseek-v4.1-flash）正常生成\n\n【选择生成引擎（按两次体检结果）】\n- 两次体检都 \"OK\" → 用当前模型继续正常编辑（下一步）\n- 任一 \"SLOW\"/\"ERROR\" → 本次日报改用 qwen 引擎（跳过正常编辑流程）：\n  a) 运行：python C:/Users/Administrator/AppData/Local/hermes/scripts/report_gen_qwen.py --candidates D:/Workspace/Projects/TrendRadar/output/candidates_five.json --mode five --out D:/Workspace/Projects/TrendRadar/output/_draft_five.txt\n  b) 用 Python 读取生成的 _draft_five.txt 核对完整性：非空、含\"今日速览\"、含\"新闻清单\"、条数合理；若脚本失败或输出异常 → 放弃 qwen，回到正常编辑流程用当前模型生成（DeepSeek 慢总比没有强）\n  c) 核对通过 → 跳到投递前审查步骤继续；已推送清单更新用 Python 按标题从候选 JSON 匹配 url（匹配不到的跳过并记录）；最终回复输出完整日报全文（系统自动拆分，不要自行分段）\n  d) 日报末尾加一行：\"⚠️ 今日 DeepSeek 过载，日报由 qwen3.8-max 生成\"\n\n【第 2 步：编辑新闻清单】\na. 相关性过滤：只保留 5 类（美股/黄金/中国科技/AI半导体/宏观）相关内容；剔除纯娱乐/体育/明星/本地社会新闻、广告软文、与其他领域无关的热点。\nb. 跨平台语义去重：同一事件在不同平台不同标题（如\"宇树科技打新\"在财联社/抖音/头条/微博多条）→ 合并为一条，保留信息最全的标题，来源标注\"多源报道\"。\nc. 摘要：有 summary 的提炼 2-3 句中文带数字；summary 为空的热榜标题本身信息密度高（中文标题常含数字），可直接用标题信息补一句背景。\nd. 全部保留：合并去重后的每个独立事件都推送，不砍数量；第 1.5 步判定\"已推过\"的不重复推。\n\n【第 3 步：写投资视角分析（放在日报最顶部）】\n按以下指令生成：\n\n【角色】你是财经主编，读者是 33 岁中文投资者：定投纳指（20-30 年长期）、黄金积存（中长线低频操作）。他需要的是\"这些新闻对我的投资意味着什么\"。\n【结构】严格按以下顺序输出，模块标题原样保留：\n⚡ 今日速览 —— 3 条一句话，每条 ≤35 字，只给结论和影响。\n🇺🇸 美股与纳指 —— 隔夜行情、科技股动向，以及对纳指定投的提示（1-3 条）。\n🥇 黄金 —— 金价动向、驱动因素，对积存金的提示（1-3 条）。\n🇨🇳 中国科技 —— 大厂动态、新规政策（1-3 条）。\n🤖 AI半导体 —— 芯片/AI 产业动态（1-3 条）。\n🌐 宏观与政策 —— 数据/利率/关税等宏观信号（1-3 条）。\n📌 对投资的提示 —— 2-3 条，直接告诉用户：今天这些消息对他定投/积存金的含义（该加仓/观望/无影响），基于新闻事实，不得给具体投资建议（不喊买卖）。\n【每条事件格式】固定三行，不得写成整段：\n▶ 一句话标题（谁·做了什么·何时）\n　干货：2-3 个原文中的具体细节（金额/百分比/日期必须原样）\n　影响：一句话说明对投资的含义\n【硬性规则】\n1. 金额、百分比、日期、涨跌幅必须原样写进\"干货\"行。\n2. 英文来源补上背景（这家公司是谁、原政策是什么、为什么算新闻）。\n3. 候选摘要缺失时用背景知识补\"这是什么\"，标注\"背景：\"前缀；禁止\"原文未说明/详见原文\"类空话；不得编造新闻中未出现的具体数字。**背景补充只允许写确定无疑的常识（如\"霍尔木兹海峡是全球石油运输咽喉\"）；涉及\"XX旗下/XX创始人/人事/历史沿革\"等公司归属类断言，标题与摘要未提供时一律省略背景行，禁止凭记忆断言。**\n4. 禁止出现：值得关注/持续观察/建议跟进/综上所述。\n5. 当天某模块无实质新闻，一行带过后跳过，不得注水。\n6. 速览提到的事件在所属模块用 ▶ 展开，同一句话不得重复出现。\n【篇幅】全文 700-1000 字，单模块 ≤200 字，单条 ≤100 字，单行 ≤40 字。\n【语气】简洁专业但不冷硬，像懂行的朋友给你划重点；不教学（读者是投资者不是小白），不喊单（不给买卖建议）。\n\n【第 4 步：组织完整日报】\n- 顺序：投资视角分析（第 3 步）→ 分隔线 → 新闻清单\n- 新闻清单第一行：📈 财经日报 8月7日（过去24小时 · N 条）\n- 按板块分组：🇺🇸 美股 / 🥇 黄金 / 🇨🇳 中国科技 / 🤖 AI半导体 / 🌐 宏观（有内容的板块才出现）\n- 每条格式：• 标题（来源）\\n  摘要：2-3 句中文带数字\\n  🔗 [查看原文](url)\n- 重大事件（股灾/暴涨/政策剧变）标题前加 🔴\n- **不要自行分段**：完整日报可能超过 Telegram 单条上限（4096 字符），但**最终回复必须输出完整日报全文（分析 + 全部新闻清单），绝不只输出第一段**；系统会自动按 Telegram 限制拆分投递，你不需要也不能用\"（1/N）\"标记自行分段\n\n【第 4.5 步：投递前自动审查（必做，防止错误内容发出）】\n1) 用 write_file 把完整日报文本（第 3 步分析 + 第 4 步新闻清单全文）保存到 D:\\Workspace\\Projects\\TrendRadar\\output\\_draft_five.txt\n2) 运行审查脚本并完整读取 stdout JSON：\n   python C:\\Users\\Administrator\\AppData\\Local\\hermes\\scripts\\daily_report_review.py --draft D:\\Workspace\\Projects\\TrendRadar\\output\\_draft_five.txt --candidates D:\\Workspace\\Projects\\TrendRadar\\output\\candidates_five.json --mode five\n3) 按结果处理：\n   - verdict=PASS → 直接进入第 5 步\n   - 有 hard findings → 逐条修复（≤1 轮，不重审，时间约束）：公司归属/数字/时间等事实性错误 → 删除该条或改写为正确内容；\"背景：\"行不确定 → 删除背景行保留标题+链接；喊单/禁止词 → 改写。修复后即最终版\n   - 审查脚本运行失败（报错/无输出/超时）→ 跳过审查照常投递，但日报末尾加一行\"⚠️ 今日未经模型审查（审查服务异常）\"\n4) 修复后的最终日报作为第 6 步的最终回复\n\n【第 5 步：硬性步骤——更新已推送清单】\n回复前必须执行：用 Python 读取 D:\\Workspace\\Projects\\TrendRadar\\pushed_five.json，把本次推送的每条事件的**标题 + 代表 URL**（从候选 JSON 找该事件对应的 url）追加进去：{\"title\": 事件标题, \"norm\": 标题小写去空格标点去修饰词, \"pushed_at\": 当前时间, \"url\": 代表URL}。编码 utf-8，按 norm 去重，不覆盖已有条目。\n\n【第 6 步：最终回复】\n最终回复 = **完整日报全文（投资视角分析 + 全部新闻清单，一次全部输出，不要分段不要只发第一段）**，会被自动推送到用户的 Telegram（系统会自动拆分）。如果候选为空或全部被相关性过滤剔除 → 回复\"📈 今日财经无新动态（过去 24 小时无符合条件新闻）\"。",
       "skills": [],
       "skill": null,
       "model": null,
@@ -358,15 +361,15 @@
       "schedule_display": "0 8 * * *",
       "repeat": {
         "times": null,
-        "completed": 72
+        "completed": 90
       },
       "enabled": true,
       "state": "scheduled",
       "paused_at": null,
       "paused_reason": null,
       "created_at": "2026-08-07T11:42:39.642261+08:00",
-      "next_run_at": "2026-10-30T08:00:00+08:00",
-      "last_run_at": "2026-10-28T08:08:59.215541+08:00",
+      "next_run_at": "2026-11-17T08:00:00+08:00",
+      "last_run_at": "2026-11-15T08:06:34.652193+08:00",
       "last_status": "ok",
       "last_error": null,
       "last_delivery_error": null,
@@ -384,14 +387,14 @@
       ],
       "workdir": null,
       "fire_claim": {
-        "at": "2026-10-29T08:00:17.428368+08:00",
-        "by": "PC-20260524NEAI:4044:d470ceb68cae405ea12b5560be8c65c3"
+        "at": "2026-11-16T08:00:47.344478+08:00",
+        "by": "PC-20260524NEAI:10316:925003809fb940dab13d2b94fcdb89b8"
       },
       "failure_streak": 0,
       "last_dispatch": {
-        "scheduled_at": "2026-10-29T08:00:00+08:00",
-        "dispatched_at": "2026-10-29T08:00:16.985404+08:00",
-        "lateness_seconds": 17.0,
+        "scheduled_at": "2026-11-16T08:00:00+08:00",
+        "dispatched_at": "2026-11-16T08:00:46.869151+08:00",
+        "lateness_seconds": 46.9,
         "kind": "on_time"
       }
     },
@@ -417,15 +420,15 @@
       "schedule_display": "45 8 * * *",
       "repeat": {
         "times": null,
-        "completed": 69
+        "completed": 87
       },
       "enabled": true,
       "state": "scheduled",
       "paused_at": null,
       "paused_reason": null,
       "created_at": "2026-08-10T08:44:38.851263+08:00",
-      "next_run_at": "2026-10-29T08:45:00+08:00",
-      "last_run_at": "2026-10-28T08:45:09.110271+08:00",
+      "next_run_at": "2026-11-16T08:45:00+08:00",
+      "last_run_at": "2026-11-15T08:45:31.814306+08:00",
       "last_status": "ok",
       "last_error": null,
       "last_delivery_error": null,
@@ -442,9 +445,9 @@
       "fire_claim": null,
       "failure_streak": 0,
       "last_dispatch": {
-        "scheduled_at": "2026-10-28T08:45:00+08:00",
-        "dispatched_at": "2026-10-28T08:45:06.313359+08:00",
-        "lateness_seconds": 6.3,
+        "scheduled_at": "2026-11-15T08:45:00+08:00",
+        "dispatched_at": "2026-11-15T08:45:30.785455+08:00",
+        "lateness_seconds": 30.8,
         "kind": "on_time"
       }
     },
@@ -470,15 +473,15 @@
       "schedule_display": "0 21 * * *",
       "repeat": {
         "times": null,
-        "completed": 70
+        "completed": 88
       },
       "enabled": true,
       "state": "scheduled",
       "paused_at": null,
       "paused_reason": null,
       "created_at": "2026-08-10T08:44:38.873706+08:00",
-      "next_run_at": "2026-10-29T21:00:00+08:00",
-      "last_run_at": "2026-10-28T21:00:23.675015+08:00",
+      "next_run_at": "2026-11-16T21:00:00+08:00",
+      "last_run_at": "2026-11-15T21:00:21.158419+08:00",
       "last_status": "ok",
       "last_error": null,
       "last_delivery_error": null,
@@ -495,9 +498,9 @@
       "fire_claim": null,
       "failure_streak": 0,
       "last_dispatch": {
-        "scheduled_at": "2026-10-28T21:00:00+08:00",
-        "dispatched_at": "2026-10-28T21:00:22.800784+08:00",
-        "lateness_seconds": 22.8,
+        "scheduled_at": "2026-11-15T21:00:00+08:00",
+        "dispatched_at": "2026-11-15T21:00:11.399262+08:00",
+        "lateness_seconds": 11.4,
         "kind": "on_time"
       }
     },
@@ -523,15 +526,15 @@
       "schedule_display": "*/30 * * * *",
       "repeat": {
         "times": null,
-        "completed": 3262
+        "completed": 4126
       },
       "enabled": true,
       "state": "scheduled",
       "paused_at": null,
       "paused_reason": null,
       "created_at": "2026-08-10T10:20:34.277336+08:00",
-      "next_run_at": "2026-10-29T08:30:00+08:00",
-      "last_run_at": "2026-10-29T07:30:29.514088+08:00",
+      "next_run_at": "2026-11-16T08:30:00+08:00",
+      "last_run_at": "2026-11-16T07:30:49.419661+08:00",
       "last_status": "ok",
       "last_error": null,
       "last_delivery_error": null,
@@ -546,14 +549,14 @@
       "enabled_toolsets": null,
       "workdir": null,
       "fire_claim": {
-        "at": "2026-10-29T08:00:17.469086+08:00",
-        "by": "PC-20260524NEAI:4044:b8ecb09e74d14f5897abe9930f6a64d8"
+        "at": "2026-11-16T08:00:47.422609+08:00",
+        "by": "PC-20260524NEAI:10316:f6644eb1973c4baf92ea9f0b5e616793"
       },
       "failure_streak": 0,
       "last_dispatch": {
-        "scheduled_at": "2026-10-29T08:00:00+08:00",
-        "dispatched_at": "2026-10-29T08:00:16.985404+08:00",
-        "lateness_seconds": 17.0,
+        "scheduled_at": "2026-11-16T08:00:00+08:00",
+        "dispatched_at": "2026-11-16T08:00:46.869151+08:00",
+        "lateness_seconds": 46.9,
         "kind": "on_time"
       }
     },
@@ -579,15 +582,15 @@
       "schedule_display": "45 20 * * *",
       "repeat": {
         "times": null,
-        "completed": 70
+        "completed": 88
       },
       "enabled": true,
       "state": "scheduled",
       "paused_at": null,
       "paused_reason": null,
       "created_at": "2026-08-13T22:23:11.925554+08:00",
-      "next_run_at": "2026-10-29T20:45:00+08:00",
-      "last_run_at": "2026-10-28T20:45:27.398249+08:00",
+      "next_run_at": "2026-11-16T20:45:00+08:00",
+      "last_run_at": "2026-11-15T20:46:01.306870+08:00",
       "last_status": "ok",
       "last_error": null,
       "last_delivery_error": null,
@@ -604,9 +607,9 @@
       "fire_claim": null,
       "failure_streak": 0,
       "last_dispatch": {
-        "scheduled_at": "2026-10-28T20:45:00+08:00",
-        "dispatched_at": "2026-10-28T20:45:24.386716+08:00",
-        "lateness_seconds": 24.4,
+        "scheduled_at": "2026-11-15T20:45:00+08:00",
+        "dispatched_at": "2026-11-15T20:45:55.906069+08:00",
+        "lateness_seconds": 55.9,
         "kind": "on_time"
       }
     },
@@ -632,15 +635,15 @@
       "schedule_display": "0 9 * * 1",
       "repeat": {
         "times": null,
-        "completed": 10
+        "completed": 12
       },
       "enabled": true,
       "state": "scheduled",
       "paused_at": null,
       "paused_reason": null,
       "created_at": "2026-08-17T08:27:19.980696+08:00",
-      "next_run_at": "2026-11-02T09:00:00+08:00",
-      "last_run_at": "2026-10-26T09:00:08.624704+08:00",
+      "next_run_at": "2026-11-16T09:00:00+08:00",
+      "last_run_at": "2026-11-09T09:00:15.564157+08:00",
       "last_status": "ok",
       "last_error": null,
       "last_delivery_error": null,
@@ -656,9 +659,9 @@
       "workdir": null,
       "fire_claim": null,
       "last_dispatch": {
-        "scheduled_at": "2026-10-26T09:00:00+08:00",
-        "dispatched_at": "2026-10-26T09:00:07.597742+08:00",
-        "lateness_seconds": 7.6,
+        "scheduled_at": "2026-11-09T09:00:00+08:00",
+        "dispatched_at": "2026-11-09T09:00:14.747874+08:00",
+        "lateness_seconds": 14.7,
         "kind": "on_time"
       },
       "failure_streak": 0
@@ -688,15 +691,15 @@
       "schedule_display": "every 30m",
       "repeat": {
         "times": null,
-        "completed": 2127
+        "completed": 2988
       },
       "enabled": true,
       "state": "scheduled",
       "paused_at": null,
       "paused_reason": null,
       "created_at": "2026-09-02T23:09:23.529313+08:00",
-      "next_run_at": "2026-10-29T08:02:44.030319+08:00",
-      "last_run_at": "2026-10-29T07:32:44.030319+08:00",
+      "next_run_at": "2026-11-16T08:09:45.277039+08:00",
+      "last_run_at": "2026-11-16T07:39:45.277039+08:00",
       "last_status": "ok",
       "last_error": null,
       "last_delivery_error": null,
@@ -714,9 +717,9 @@
       "workdir": null,
       "fire_claim": null,
       "last_dispatch": {
-        "scheduled_at": "2026-10-29T07:31:49.189749+08:00",
-        "dispatched_at": "2026-10-29T07:31:51.959801+08:00",
-        "lateness_seconds": 2.8,
+        "scheduled_at": "2026-11-16T07:39:42.422620+08:00",
+        "dispatched_at": "2026-11-16T07:39:44.442028+08:00",
+        "lateness_seconds": 2.0,
         "kind": "on_time"
       }
     },
@@ -745,15 +748,15 @@
       "schedule_display": "every 30m",
       "repeat": {
         "times": null,
-        "completed": 1879
+        "completed": 2715
       },
       "enabled": true,
       "state": "scheduled",
       "paused_at": null,
       "paused_reason": null,
       "created_at": "2026-09-07T10:01:57.455353+08:00",
-      "next_run_at": "2026-10-29T08:24:19.328180+08:00",
-      "last_run_at": "2026-10-29T07:54:19.328180+08:00",
+      "next_run_at": "2026-11-16T08:18:50.333622+08:00",
+      "last_run_at": "2026-11-16T07:48:50.333622+08:00",
       "last_status": "ok",
       "last_error": null,
       "last_delivery_error": null,
@@ -771,9 +774,9 @@
       "enabled_toolsets": null,
       "workdir": null,
       "last_dispatch": {
-        "scheduled_at": "2026-10-29T07:53:52.005470+08:00",
-        "dispatched_at": "2026-10-29T07:54:14.207537+08:00",
-        "lateness_seconds": 22.2,
+        "scheduled_at": "2026-11-16T07:47:47.406778+08:00",
+        "dispatched_at": "2026-11-16T07:48:45.372667+08:00",
+        "lateness_seconds": 58.0,
         "kind": "on_time"
       },
       "fire_claim": null
@@ -803,15 +806,15 @@
       "schedule_display": "30 7 * * *",
       "repeat": {
         "times": null,
-        "completed": 9
+        "completed": 27
       },
       "enabled": true,
       "state": "scheduled",
       "paused_at": null,
       "paused_reason": null,
       "created_at": "2026-10-21T10:03:56.790773+08:00",
-      "next_run_at": "2026-10-30T07:30:00+08:00",
-      "last_run_at": "2026-10-29T07:30:43.834323+08:00",
+      "next_run_at": "2026-11-17T07:30:00+08:00",
+      "last_run_at": "2026-11-16T07:31:04.125075+08:00",
       "last_status": "ok",
       "last_error": null,
       "last_delivery_error": null,
@@ -830,9 +833,9 @@
       "workdir": null,
       "fire_claim": null,
       "last_dispatch": {
-        "scheduled_at": "2026-10-29T07:30:00+08:00",
-        "dispatched_at": "2026-10-29T07:30:25.756126+08:00",
-        "lateness_seconds": 25.8,
+        "scheduled_at": "2026-11-16T07:30:00+08:00",
+        "dispatched_at": "2026-11-16T07:30:43.393390+08:00",
+        "lateness_seconds": 43.4,
         "kind": "on_time"
       }
     },
@@ -861,15 +864,15 @@
       "schedule_display": "every 5m",
       "repeat": {
         "times": null,
-        "completed": 2065
+        "completed": 6435
       },
       "enabled": true,
       "state": "scheduled",
       "paused_at": null,
       "paused_reason": null,
       "created_at": "2026-10-21T10:04:15.764994+08:00",
-      "next_run_at": "2026-10-29T08:04:18.920389+08:00",
-      "last_run_at": "2026-10-29T07:59:18.920389+08:00",
+      "next_run_at": "2026-11-16T08:03:47.824233+08:00",
+      "last_run_at": "2026-11-16T07:58:47.824233+08:00",
       "last_status": "ok",
       "last_error": null,
       "last_delivery_error": null,
@@ -888,9 +891,9 @@
       "workdir": null,
       "fire_claim": null,
       "last_dispatch": {
-        "scheduled_at": "2026-10-29T07:57:47.462156+08:00",
-        "dispatched_at": "2026-10-29T07:58:35.398641+08:00",
-        "lateness_seconds": 47.9,
+        "scheduled_at": "2026-11-16T07:57:46.783903+08:00",
+        "dispatched_at": "2026-11-16T07:58:46.227610+08:00",
+        "lateness_seconds": 59.4,
         "kind": "on_time"
       }
     },
@@ -919,15 +922,15 @@
       "schedule_display": "30 21 * * *",
       "repeat": {
         "times": null,
-        "completed": 8
+        "completed": 26
       },
       "enabled": true,
       "state": "scheduled",
       "paused_at": null,
       "paused_reason": null,
       "created_at": "2026-10-21T10:04:17.262623+08:00",
-      "next_run_at": "2026-10-29T21:30:00+08:00",
-      "last_run_at": "2026-10-28T21:30:53.542828+08:00",
+      "next_run_at": "2026-11-16T21:30:00+08:00",
+      "last_run_at": "2026-11-15T21:31:31.569759+08:00",
       "last_status": "ok",
       "last_error": null,
       "last_delivery_error": null,
@@ -945,9 +948,9 @@
       "enabled_toolsets": null,
       "workdir": null,
       "last_dispatch": {
-        "scheduled_at": "2026-10-28T21:30:00+08:00",
-        "dispatched_at": "2026-10-28T21:30:35.488561+08:00",
-        "lateness_seconds": 35.5,
+        "scheduled_at": "2026-11-15T21:30:00+08:00",
+        "dispatched_at": "2026-11-15T21:30:51.933084+08:00",
+        "lateness_seconds": 51.9,
         "kind": "on_time"
       },
       "fire_claim": null
@@ -977,15 +980,15 @@
       "schedule_display": "0 22 * * *",
       "repeat": {
         "times": null,
-        "completed": 9
+        "completed": 27
       },
       "enabled": true,
       "state": "scheduled",
       "paused_at": null,
       "paused_reason": null,
       "created_at": "2026-10-21T10:41:27.474380+08:00",
-      "next_run_at": "2026-10-29T22:00:00+08:00",
-      "last_run_at": "2026-10-28T22:00:35.216037+08:00",
+      "next_run_at": "2026-11-16T22:00:00+08:00",
+      "last_run_at": "2026-11-15T22:00:56.950245+08:00",
       "last_status": "ok",
       "last_error": null,
       "last_delivery_error": null,
@@ -1004,12 +1007,12 @@
       "workdir": null,
       "fire_claim": null,
       "last_dispatch": {
-        "scheduled_at": "2026-10-28T22:00:00+08:00",
-        "dispatched_at": "2026-10-28T22:00:33.412796+08:00",
-        "lateness_seconds": 33.4,
+        "scheduled_at": "2026-11-15T22:00:00+08:00",
+        "dispatched_at": "2026-11-15T22:00:54.449164+08:00",
+        "lateness_seconds": 54.4,
         "kind": "on_time"
       }
     }
   ],
-  "updated_at": "2026-10-29T08:00:18.177872+08:00"
-}                                                                                                                                
+  "updated_at": "2026-11-16T08:00:47.422609+08:00"
+}

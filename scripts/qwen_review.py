@@ -78,7 +78,7 @@ def read_qwen_cfg():
 def call_qwen(contract: str, deliverable: str):
     key, base = read_qwen_cfg()
     body = {
-        "model": "qwen3.7-max",
+        "model": "qwen3.8-max",
         "messages": [
             {"role": "system", "content": RUBRIC},
             {"role": "user", "content":
@@ -94,7 +94,7 @@ def call_qwen(contract: str, deliverable: str):
                  "User-Agent": "curl/8.0.0",
                  "x-opencode-session": "hermes-script-review"})
     try:
-        with urllib.request.urlopen(req, timeout=300) as resp:
+        with urllib.request.urlopen(req, timeout=600) as resp:
             raw = json.loads(resp.read())
         return raw["choices"][0]["message"]["content"]
     except urllib.error.HTTPError as e:

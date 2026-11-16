@@ -281,6 +281,54 @@ ffmpeg -i video.mp4 -map 0:a -acodec pcm_s16le -ar 16000 -ac 1 audio.wav
 
 当笔记引用了 GitHub 等外部项目但图片不含完整 URL 时，参考 [github-repo-discovery.md](references/github-repo-discovery.md) 的搜索策略（DuckDuckGo 是中文内容最可靠的后备方案）。
 
+## 评论区提取（2026-11-15 实踩，已推翻旧结论）
+
+旧版 skill 写「网页版评论需登录，当前版本不抓评论」——**这是错的**。
+`__SETUP_SERVER_STATE__` 里的 `LAUNCHER_SSR_STORE_PAGE_DATA.commentData` 直接带首屏评论，
+连楼中楼回复都在。不需要 cookie、不需要签名。
+
+```python
+cd = data.get('LAUNCHER_SSR_STORE_PAGE_DATA', {}).get('commentData', {})
+comments = cd.get('comments') or []        # 首屏主评（通常 5 条）
+print(cd.get('commentCount'))               # 真实总数（如 33）
+for c in comments:
+    c['content']                              # 主评正文
+    c['subComments']                          # 楼中楼，同样含 content
+    (c.get('user') or {}).get('nickname')
+    c.get('ipLocation')
+```
+
+**能拿多少**：首屏约 5 条主评 + 其下全部回复（一次拿到 14 条）。
+**拿不到**：剩余评论（本例 33 − 14 = 19 条）——必须签名或登录。
+**汇报纪律**：必须向用户说明「共 N 条，我只拿到 M 条，剩下 N−M 条爬不到」，
+不要让用户以为你翻完了全部。
+
+### 补全评论的三条死路（都试过，别再试）
+
+| 尝试 | 结果 |
+|:---|:---|
+| `edith.xiaohongshu.com/api/sns/web/v2/comment/page` | 无签名 → `{"code":-1,"success":false}` |
+| 桌面版 Chrome UA 抓 `/explore/{id}` | 有 `__INITIAL_STATE__` 但**无 commentData**，登录墙 |
+| 浏览器打开笔记页 | **撞风控**：`300012 当前网络存在风险，请切换可靠网络后重试`（约 41 字符的 body） |
+
+### 🚨 浏览器 vs curl：走代理会被小红书拦
+
+同一台机器同一时刻：
+- **curl 直连**（不走代理）→ 正常拿到完整 SSR 数据 ✅
+- **浏览器**（继承了 v2rayN 等代理）→ `300012` 风控页 ❌，`local=true` 用真实登录态也一样
+
+**结论：小红书抓取一律用 curl 直连，不要用 browser_***。既然浏览器拿不到，就别为了评论去开浏览器。
+
+### 依赖缺失：rapidocr 需手动装
+
+`rapidocr_onnxruntime` 常常没装，而 hermes venv 里 **没有 pip**：
+
+```bash
+uv pip install --python "C:/Users/<user>/AppData/Local/hermes/hermes-agent/venv/Scripts/python.exe" rapidocr-onnxruntime
+```
+
+装完会带 opencv-python / shapely / pyclipper，约 1 分钟。OCR 85 帧约 2–3 分钟。
+
 ## 常见陷阱
 
 ### __INITIAL_STATE__ 数据路径：noteDetailMap 在 data['note'] 下，非顶层
@@ -520,7 +568,7 @@ python -c "import imageio_ffmpeg; print(imageio_ffmpeg.get_ffmpeg_exe())"
 |:---|:---|
 | 登录墙 | 部分帖子需要登录才能看，需提供 cookie（未来版本） |
 | 视频时效 | CDN URL 带 sign 参数有时效，下载需在获取后尽快完成 |
-| 评论 | 网页版评论需登录，当前版本不抓评论 |
+| 评论 | ⚠️ 已修正：**SSR 首屏能直接拿到 5 条主评 + 全部楼中楼回复**，见下方「评论区提取」；剩余评论需 `x-s` 签名或登录 |
 | ASR 精度 | faster-whisper tiny 模型中文识别有误差，关键内容 OCR 可校正 |
 | **Hermes 0.17.0 send_message 移除** | v0.17.0 把 `send_message` 从 Agent 工具箱中移除（网关发送能力仍在）。报告通过 `send_message` 分段的逻辑会失效。修复方案：直接把报告作为普通回复输出，由网关自动送达，不再手动调用 send_message 分段。升级到 0.17.0 后需要更新 SKILL.md 中的发送逻辑。 |
 

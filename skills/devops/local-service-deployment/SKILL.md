@@ -268,6 +268,99 @@ $DWS mail +recent-mail / +unread-mail
 
 残留锁：`runtime/scripts/work-lock.mjs` 的 `acquireRunnerLock` 在确认旧 PID 已不存在时会自动回收，返回 `{skipped:'active_runner'}` 说明真有活进程。所以**先核对「锁文件是否存在 + status 文件 finishedAt 是否推进」，等待一次自然分钟轮即可**；不手删、不强杀、不改锁算法。
 
+## 常驻同步任务「在跑但每轮失败」的停摆排查（2026-11-04 实案，Dayflow 家庭同步端静默停了 6 天）
+
+**症状**：用户报「某条上游来的数据没进系统」。先分辨是**漏一条**还是**整条管道停了**——后者是静默的，没有告警，可能已经停了几天。
+
+判定顺序（一次抓全，别只看一个文件）：
+
+1. **计划任务**（PowerShell，别用 `schtasks`）：`Get-ScheduledTaskInfo` 的 `LastTaskResult`。`0`=真成功；`1`=被调用但失败；`267009`=正在运行；`State=Ready` 什么都不说明。
+2. **本轮状态文件**：`<release>/runtime/.local/work-automation-status.json` 的 `error` 是当轮异常原文。字段只有 `{startedAt,hostId,calendar,commands,error,finishedAt}`。`calendar:null` + `commands:[]` ⇒ 死在流程前段（runner 顺序 state → auth status → heartbeat → **maintenance** → claim → 采集）。
+3. **上次成功时间**：`work-host.json` 的 `lastCalendar/lastMail` + 云端 `state.sync.lastSuccess`，三者一致才可信；别拿状态文件的 mtime 当证据。
+4. 🔴 **轮转日志的首条时间不是故障起点**：`work-automation-observation.jsonl` 按 `slice(-3000)` 轮转，每分钟一条 = 只覆盖最近 50 小时。数首条时间会把「停了 6 天」误读成「才停两天」。
+
+**把范围缩到具体调用**：能访问远端时，用**健康接口**比读日志快。Dayflow 的 `GET /api/v1/sync/work/health` 一次给 `counters`（各 kind 条数/上限）+ `bytes`（分组字节/上限），哪个池子贴顶一目了然。
+
+🔴 **容量型死锁：清理动作本身被容量校验挡住**
+- 本案：`POST /api/v1/sync/work/maintenance` → **413「工作来源或运行记录超过字节容量」**；临时运行记录 2,095,036 / 2,097,152 字节（99.90%，余 2KB），`run` 2,042 条（**条数上限 3000 没超，超的是字节**）
+- 上限在 `runtime/lib/work-records.ts`：`WORK_BYTES=12MB`（全部）+ `WORK_RUNTIME_BYTES=2MB`（仅非 portable 的 run/command/host/summary）
+- 于是 maintenance 永远写不进 → 日志只增不减 → 每轮都 413 → 采集一步都没跑到。**凡「清理动作也要过被清理对象的校验」，就是死锁，只能服务端改成「先裁剪再校验」**
+- 试过没用的（别再重复）：maintenance 带 `{prune}/{keepRuns}/{compact}/{dryRun}` 一律 413；`DELETE .../runs/<id>` → 405；`.../runs/prune`、`.../prune` → 404。**接口层没有裁剪入口时别硬凿，直接报服务端**
+- 🔴 **不要用「恢复备份」腾容量**：`controlledRestore` 会把业务数据整体回滚到备份时点，为清日志丢几天数据不划算
+
+**答复用户时必须分清的三件事**（本案差点答错的方向）：
+- **写通道是分级的**：`sync/work/*` 全挂的同时，普通业务写入 `client create/patch` 完全可能正常（本案改日程一次成功、`status:saved`、version 递增）→ 说成「系统全坏了」会让用户白白停手；说清「哪部分还能用」才是有用的话
+- **上游授权要单独验**，别把「管道停」当成「token 过期」：跑一次第三方 CLI 的 `auth status --format json`，返回 `authenticated:true, token_valid:true` 就排除授权，免得让用户白扫码
+- **停摆是静默的**：先问「上次看到它正常是什么时候」，再决定是补录几条还是查管道
+
+**探针脚本的几个硬性姿势**（用 `pwsh` 发 HTTP 的这类程序通用）：
+- `runtime/scripts/http-request.mjs` 用 `spawn('pwsh', …)`，PATH 没 pwsh 时报 `PowerShell 7 is required for Windows HTTP requests`——**是 PATH 问题，不是网络问题**；把程序 config 里的 `pwshExe` 目录前置进 PATH 即可
+- 脚本要放**程序根目录**（相对 `import './runtime/scripts/…'`），用完删，再用其自带 `verify` 命令确认包完整性（多余文件不影响校验，但别留在包里）
+- 探路由用**不存在的 id**（全零 UUID），不要拿真实记录试写；`405 请求方法不正确`= 路由存在但方法不对，`404 接口不存在`= 没有这个路由
+- 连接地址/key 从程序的私有 json 读，**只打印状态码与 error 文案，绝不回显 key**
+
+完整探针脚本、接口状态码矩阵、本案实数与时间线：`references/sync-stall-capacity-deadlock-2026-11-04.md`。
+
+### 上游来源字段锁定：只能取消，不能改期（同案后续）
+
+管道修好后立刻暴露的下一个问题：用户说「某条上游同步来的会议实际改到别的日子了」。
+
+🔴 **`source=dingtalk` 这类带外部来源的事项，日程字段写不进去**。`client patch` 传 `date`/`start`/`end` 被服务端拒绝（HTTP 400）：`请到钉钉修改工作日程；这里可以记录完成情况和关联目标`。—— 不是版本冲突、不是权限，是这个字段归上游所有。
+
+✅ 但 **`status` 是本地可控的**：`{"status":"cancelled","version":N}` → 200 `saved`。
+
+所以正确姿势是「**取消原条 + 本地重建**」，不去改上游：
+
+1. `patch` 原上游条 → `status=cancelled`，notes 写「实际已于 X 日召开 / 该时段改为 Y」
+2. `client create` 一条 `source=hermes` 新事项，按用户口述的真实时间建
+3. 回读 `client items`，确认「新条 pending + 老条 cancelled」两条都在
+4. **等一轮自然同步再宣布完成**（见下节）
+
+🔴 **用户边界**：他明确说过「我不需要你在我的钉钉里修改工作日程，我只需要你把我告诉你的真实的工作日程在我的日程系统里修改就好了」。**不要建议用户去上游改，也不要驱动浏览器改上游**——本地能表达多少就表达多少，表达不了的部分如实说明。
+
+### 改完必须等一轮自然同步，再宣布「改好了」
+
+带上游同步的事项，本地改完不等于稳了——下一轮重扫可能把改动覆盖回去。
+
+- 判据在 `work-automation-observation.jsonl` 里**带 `"calendar":{...}` 的那一行**（不是每行都有；短周期空转行是 `calendar:null`），看 `outcomes[].added / updated / cancelled`
+- 全 0 + `complete:true` ⇒ 同步没覆盖你的改动，可以宣布完成
+- 出现 `updated` ⇒ 改动被同步改回去了，必须告知用户并换方案
+- `work-host.json` 的 `lastCalendar` 距现在 <15 min 时**这一轮还没跑**，此时读到的状态没有验证价值。宁可多等 10 分钟，也别让用户按一个已被覆盖的日程出门
+
+### 汇报节奏（长链路运维/改数据类任务通用）
+
+**边做边说**：每完成一个可验证的小步骤就发一条短进展（查到什么 → 判据是什么 → 下一步做什么），不要攒到最后一次性交卷。用户原话：「你似乎又忘了汇报习惯」——已被提醒过不止一次。派活给子助理（如健康域）时相反：一次派完、等回执，不要逐条催。
+
+### 云端地址迁移（换域名/重建站点后）
+
+服务方把站点迁到新域名、**连接 key 不变**时，本机要做三处对齐，顺序不能反：
+
+1. 备份 `<release>/deployment/home.mjs` 与 `<release>/manifest.json`
+2. 改 `home.mjs` 顶部的 `publicURL` 常量（连接地址除了私有 json，还有这份写死的副本）
+3. **重算该文件的 sha256 与 bytes，写回 `manifest.json` 对应条目**——`verifyManifest()` 只比对「文件 vs manifest 声明的哈希」，manifest 自身没有签名，所以这样改组包是合法且能被 `verify` 接受的做法
+4. `node deployment/home.mjs verify` → `verified:true`
+5. `node deployment/home.mjs preflight` → 端到端验（`cloudReachable:true` / `identityMatches:true` / `selectedCalendars:N` / `noCloudWrites:true`），顺带确认上游授权与数据源仍匹配
+
+⚠️ **三份地址各有各的校验，别串味**：
+- `runtime/.local/hermes-cloud-connection.json`（`{url,key}`）= 同步链路真正读的地址；`work-runner.mjs` 直读它，**不走 publicURL 校验**
+- `home.mjs` 的 `publicURL` = 只有 `connection()` 用，卡的是 `preflight`/`activate`/`connection-import`
+- 所以「连接文件改了、home.mjs 没改」时**同步照常能跑，而预检会报** `Unexpected cloud connection; not changed`。别因为同步正常就以为没事，也别反过来因为预检报错就以为同步坏了
+
+迁完等一轮自然 calendar 同步，确认 `lastCalendar` 推进且 `error:null` 才算收敛。
+
+### 上游模型下线：应用层错误文案把真因盖住
+
+同一族的另一个故障：管道全绿，只有 AI 分析那一步空转。
+
+- **症状**：`observation.jsonl` 里 `mail.complete:true / observed:24 / bodyFailures:0 / analyzed:0 / analysisStopped:"模型服务暂时不可用，已保留输入"`。采集是好的，别报成整体故障。
+- **先看文案的抛出条件，别猜**：`grep -rn "模型服务暂时不可用" runtime/lib/` → `model-client.ts`，这句**只在非 2xx 且不是 429/401/403 时**抛。⇒ 直接排除限流、授权、网络。剩下的就是模型名/上游本身。
+- **读配置 + 对打网关**：`GET /api/v1/coach/model` 拿 `model` 和 `choices[]`（白名单，同时告诉你换成哪个是合法的）；再用同 base_url、同 key、**只换 model** 各打一次。实测 `deepseek-v4-flash` → 400 `Model is unavailable`，`deepseek-v4.1-flash` → 200。**两个都打才叫实锤**，只打一个分不清是模型名还是额度/网络。
+- 🔴 网关探针两个坑：缺 `x-opencode-session` 头 → 400 `MissingSessionID`；Python `urllib` 默认 UA 被 Cloudflare 拦成 **403 `error code: 1010`**（看着像鉴权失败，其实是指纹拦截），换 curl 带 UA 即通。
+- **修不了就直说**：切模型被锁在网页（`PATCH /api/v1/coach/model` → 403「请从网页切换分析模型」），网页用的是**页面访问密钥**（≠ 后台连接 key）。找不到就让用户自己点，**不要为了拿密钥去翻浏览器存档然后把 Cloudflare cookie 当登录态**。
+- **切完不等于完事**：`mail/status` 里 `failed` 的条目服务端「不自动重试」，要用户在网页手动重试；验到 `analysisStopped` 消失 + `analyzed>0` 才算闭合。
+
+完整定位链、探针命令、网关返回原文：`references/upstream-model-retirement-2026-11-04.md`。
+
 ## 交付物清单（本类任务的验收）
 - D1 代码+依赖跑通（具体命令 + 退出码 0）
 - D2 密钥安全（config 无明文；密钥独立文件被 gitignore）
@@ -293,6 +386,9 @@ $DWS mail +recent-mail / +unread-mail
 - `templates/apply_patch_guarded.mjs` — 增量补丁运行器模板（等空闲 → 停任务 → apply → finally 恢复 → 落 install-result.json）
 - `scripts/verify_manifest.py` — 通用 manifest 只读校验器（verify / diff / triage，不写不联网）
 - `scripts/log_freshness_watchdog.py` — 通用日志新鲜度看门狗模板（参数化，复制改 BASE/LOG/START_CMD 即可）
+- `references/sync-stall-capacity-deadlock-2026-11-04.md` — 常驻同步任务「每轮失败但仍在跑」的排查实录：计划任务/状态文件/轮转日志的判读、云端 health 容量池、413 容量死锁、探针脚本与接口状态码矩阵
+- `references/upstream-field-lock-and-url-migration-2026-11-04.md` — 上游来源事项字段锁定（只能取消不能改期）的取消+重建实操、改完等一轮同步验 `outcomes` 的判据、云端域名迁移的三处对齐命令与回执
+- `references/upstream-model-retirement-2026-11-04.md` — 上游模型下线（AI 分析环节静默失败）的完整定位链：错误文案的抛出条件、`coach/model` 白名单、网关对打探针与 CF 1010 / MissingSessionID 两个坑、网页端切换与手动重试的收尾
 - `templates/start_service.bat` — 启动脚本模板（PYTHONPATH 清理 + 密钥加载 + 日志重定向）
 
 ## See Also

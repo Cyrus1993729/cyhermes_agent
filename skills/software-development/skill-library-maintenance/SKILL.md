@@ -15,6 +15,7 @@ metadata:
 - 用户说「这个 skill 太长了 / 巨长无比 / 精简一下」，或抱怨 agent 变慢而定位到 skill 加载
 - 一个 SKILL.md **超过 30KB**（加载一次就是几万 token，之后每次 API 调用都重复付这笔过路费）
 - skill 里「坑 1→坑 18」这类条目在无限追加，**已经变成日记而不是操作册**
+- 🔴 **一个 SKILL.md 接近或超过 100,000 字符 = 已经无法再改**（见下「硬上限」节），必须立刻拆
 - 写完/更新完 skill 后自查：这次是不是又往 SKILL.md 里塞了只该放 references 的细节
 
 ## 目标形态（先定标准再动手）
@@ -34,6 +35,73 @@ metadata:
 2. **源文件固定为原始备份。** 脚本从 `SKILL.md.bak_slim_<时间戳>` 读，不从当前 SKILL.md 读——否则第二次运行会把「已经瘦完的版本」当原文，越跑越少。
 3. **按标题行号切片，不按内容猜。** 先 `grep -n '^## \|^### ' SKILL.md` 拿到全部标题行号，再按区间切片。**区间边界必须包含标题行本身**——漏掉标题就是一个整节没了（本 skill 的诞生原因，见下）。
 4. **零丢失是校验出来的，不是保证出来的。** 见「校验」节，缺失行数必须为 0 才算完。
+
+## 🔴 硬上限：100,000 字符会让 skill 变成只读
+
+2026-10-30 实踩：`health-nutrition-analysis` 的 SKILL.md 涨到 **100,578 字符**，
+只想加 3 行 references 索引都被 `skill_manage` 拒绝：
+
+```
+SKILL.md content is 100,578 characters (limit: 100,000).
+Consider splitting into a smaller SKILL.md with supporting files in references/ or templates/.
+```
+
+**这不是「体积太大很慢」的软问题，是「从此再也改不动」的硬阻塞**——
+包括补一行索引这种最小改动。拒绝发生在写入前，**整批 operation 一起回滚**。
+
+🔴 **净减少也不一定能改：判的是「写入后的字符数」，不是增量。**
+2026-10-30 实测：该文件 100,372 字符，连做三次「删掉一段旧文 + 加一行索引」的
+**净负补丁全部被拒**（结果分别是 100,292 / 100,253 / 100,356）。公式是硬阈值：
+
+```
+可写  ⇔  当前字符数 − (old_string 长度 − new_string 长度)  ≤  100,000
+```
+
+即**必须一次砍掉至少「当前 − 100,000」个字**。超 372 字就得一次砍 ≥ 372 字，
+几十上百字的微调永远不够。**这种情况下不要反复试小补丁**（实测连吃四次拒绝、
+触发 loop 告警），直接按本文流程做一次完整拆分。
+
+✅ **例外（很重要）**：`write_file` 新增 `references/` / `scripts/` / `templates/`
+**不经过 SKILL.md 体量检查**。所以文件超限时新知识**仍然可以下沉**，而且
+`skill_view` 返回的 `linked_files` 会自动列出它们——不会因为 SKILL.md 里加不了索引就被埋没。
+2026-10-30 就是这样把 `health-nutrition-analysis/references/branded-drink-no-label.md` 加进去的。
+→ **超限时的工作方式：新知识全部先写成 references 文件，指针等拆分时一并补上。**
+
+连带影响：
+
+- `skill_view` 加载 >100KB 的 SKILL.md 会 **spillover 到磁盘**（104.5KB 时实测），
+  只返回前 ~1500 字符预览，正文要靠读 spillover 文件。
+- 🔴 **别用 `read_file` 翻 spillover —— 那是一个「单行 JSON」**，整个文件只有 1 行，
+  `offset/limit` 等于每次把 110KB 重新倒一遍进上下文。
+  ✅ 正确读法（2026-11-02 实测，`health-nutrition-analysis` 110,438 字符那次的 spillover）：
+
+  ```python
+  import json
+  d = json.load(open(spillover_path, encoding="utf-8"))   # 路径在 skill_view 返回里
+  c = d["content"]        # SKILL.md 正文全文，是字符串不是行列表
+  d["linked_files"]       # references / scripts 清单，一次全拿到
+  i = c.find("派活")       # 先定位关键词
+  print(c[i-200 : i+2500]) # 再切字符窗口
+  ```
+
+  两三次 `find` + 切片就能把要用的几节读全，不必整篇入上下文。
+  **任何「按行号定位」的思路在这里全部失效**（行号恒为 1）。
+- 但 `read-before-write` 门槛只认 `skill_view`，不认 `read_file` 翻 spillover——
+  于是「读全文再改」这条门槛的单次代价被放大到 ~27K token，而且**读了也改不了**。
+
+**判据（比上面的 30KB 硬得多）**：
+
+| `wc -c SKILL.md` | 该做什么 |
+|---|---|
+| > 30KB | 排期拆分（软触发，本文上半部分） |
+| > 80KB | **立即**拆分，不要再往里加任何内容 |
+| > 95KB | 已经进入不可写区，先拆再说 |
+| ≥ 100,000 | **`skill_manage` 完全拒绝修改**，连一行都加不了 |
+
+**当前超限清单**：`health-nutrition-analysis` = **100,379 字符**（2026-10-30 晚再次实测；当日上午为 100,578，
+中途一次成功的「坑 1→✅ 已修复」改写把它降到了 100,379，仍在硬限之上），
+需要按本文流程拆分后才能继续维护。新内容一律先下沉到 `references/`——
+拆完之前 `skill_view` 的 `linked_files` 仍会自动列出新 references，所以**下沉不会被埋没**。
 
 ## 六步流程
 

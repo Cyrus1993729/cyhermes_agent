@@ -31,9 +31,81 @@ metadata:
 | 3 | 定时任务 | `Enabled` / `State` / `LastResult` / `NextRun`；`LastResult` 要会翻译（Windows `267009`=实例在跑，不是失败） |
 | 4 | 在途锁 | 锁文件里一般带 pid：读 pid → 判进程存活；**不删锁不停进程**；检查期间锁消失=那轮已正常收尾 |
 | 5 | 最近一轮结果 | 服务自写的 status/observation 日志取末几条，比翻大日志快 |
-| 6 | 远端状态版本 | 调一次只读 GET（state/status），只取 revision 与各类计数 + 最近成功时间 |
+| 6 | 远端状态版本 | 调一次只读 GET（state/status），只取 revision 与各类计数 + 最近成功时间；容量类故障改打 `GET /api/v1/sync/work/health`，看 `bytes[]`/`counters[]` 谁顶格（见下节） |
+| 7 | 容量顶格 | `临时运行`/`主业务` 字节 vs limit、`run` 条数 vs limit；占用率**带余量字节**一起报，卡顶只剩几千字节时 99% 说明不了问题 |
 
 Windows 具体命令、Dayflow 家主机实测基准值、pwsh PATH 坑：见 `references/dayflow-home-preflight-ops.md`。
+
+**容量顶格型故障**（现象：定时任务每分钟 `LastTaskResult=1`、observation 里同一句容量错误反复出现）
+走该 references 的「3b. 容量顶格诊断」：`GET /api/v1/sync/work/health` 用连接 key 直接 Bearer 调用，
+按 `bytes[]` / `counters[]` 数组逐条对 limit 定位是谁顶格，回执只给对端点名的字段。
+只读任务里绝不自行删日志/清 run 来「腾地方」——服务端语义是停新增保原数据，处置要用户决定。
+
+## 验收类只读：脚本返回 `natural:null` 的判读
+
+对端给的验收单行脚本（按 `startedAt > cut` 过滤 observation，命中才填 `natural`）返回 null 时，
+**null 有四种成因，必须只读区分后才能下结论**：
+
+1. 真没跑（cut 落在本机时钟未来、任务被禁用）；
+2. 日志行**全部解析失败**——`ConvertFrom-Json` 抛错被 `catch{}` 吞掉，`$rows` 为空，
+   `preFixErrors` 与 `natural` 会同时为 null，这是**假信号**；
+3. 跑了但判据不满足（`calendar.complete`/`mail.complete` 非 true、`error` 非空、`commands` 非空）；
+4. **空轮**——分钟级心跳轮本就不填 `calendar`/`mail`（设计如此，不是故障），见下节
+   「补丁后独立复验 / observation 里的 `calendar:null` 第 4 种成因」。
+
+区分手段（全部只读）：`date -u` 对比 cut（本机与对端时钟常有 1–2 分钟偏差）；日志 mtime 是否 > cut；
+`Get-ScheduledTaskInfo` 的 `LastRunTime` / `LastTaskResult` / `State`；逐行 parse 成功计数；
+任务 action 的 `WorkingDirectory` 是否就是对端发布的那份 release。
+
+实测坑：`error` 字段按字节截断，中文字符被切成半个（`连接未完�?`）且丢了收尾引号 → 整行 JSON 非法 →
+上面那条链一路 null。看法：用 `(?<=":")[^"]*(?=")` 掩掉字符串值只看结构，再用
+`"error":"(?<e>[\s\S]*?)"\s*,?\s*"finishedAt"` 把 error 抠出来（不依赖 JSON 合法）。
+
+回执纪律：
+
+- 对端说「原样返回此脱敏 JSON」就原样给，但**必须紧跟一句诚实判定**（如 FAIL），
+  不能让规定的格式把假 null 洗成「尚未跑完」；
+- 读日志一律掩码，**绝不 `Get-Content -Raw` 凭据类文件**（本次差点把明文 key 打进回执）；
+  发现明文凭据只报「存在明文凭据」，不给值；
+- 顺带发现的上游缺陷（如 dump 截断丢引号会让所有 JSON 型验收永久失真）单列「附带发现」，
+  不混进验收结论。
+
+现成探针 `scripts/verify-natural-run.ps1 -ReleasePath <release> -Cut <ISO8601>`：ASCII 键 JSON，
+含任务状态、日志 mtime/行数/解析失败数、cut 之后逐轮 startedAt/finishedAt/掩码 error、判定 pass/fail/not_run。
+实测时间线与原文见 `references/observation-jsonl-null-verdict.md`。
+
+## 「没有云端心跳 / 没有新行」的判读（心跳缺口）
+
+触发：对端说「T 时刻之后为什么还没有心跳/没有新记录」，怀疑进程卡住、任务跑错 release 或代理报错。
+**默认假设是「记录落盘时机」问题，不是故障**——必须按下面四步证伪后才敢下「卡住」结论。
+完整判定树、实测时间线与码表见 `references/heartbeat-gap-verdict.md`；逐轮时间线直接跑
+`scripts/observe-run-timeline.py <observation.jsonl> [N]`（只读，输出指定字段 + 尾部连续失败计数）。
+
+1. **任务侧**：`Get-ScheduledTask` + `Get-ScheduledTaskInfo` 取 State / LastRunTime / NextRunTime / LastTaskResult。
+   `0x800710E0`(2147946720) = 触发被拒：上一轮没结束且 `MultipleInstances=IgnoreNew`，**不是失败**；
+   `0x41301`(267009) = 实例在跑；`0x0` = 成功。所以同一任务前后两次采样结果不同是常态，要连时间和
+   State 一起报。
+2. **release 一致性**：磁盘 `releases/` 只有一个目录 ⇒ 不存在「跑错 release」。再用
+   `Get-CimInstance Win32_Process` 看**真实进程的 cmdline** 是否也指向它——Action、WorkingDirectory、
+   实际进程三者都要对上，只看 Action 不够（wscript→node 两层包装，容易只看到 wscript）。
+3. **心跳是否真发出去**：多数 runner 把 heartbeat 放在一轮的**最开头**。若该轮 `error=null` 且其后
+   云端调用全部 2xx，心跳必然已送达；此时「没有心跳」只是**观测文件没落盘**，不要写成发送失败。
+4. **为什么没落盘**：observation 一般在 `finally` 里写 ⇒ 一轮跑长就留下「上一行之后空白」的窗口。
+   实测：当日备份 + 隔离恢复演练把一轮从 7s 拉到 134s（备份 00:13:48Z 完成、演练 00:14:00Z），
+   期间每分钟触发全被 `IgnoreNew` 拒掉（就是上面那个 `0x800710E0`），对端在两分半钟里查文件当然看不到新行。
+
+在途但尚未落盘的证据（不依赖 status 文件，因为它也常在末尾才写）：进程 `CreationDate` 与
+`TotalProcessorTime` 在增长、`Responding=True`、`Get-NetTCPConnection` 无异常连接；**同目录兄弟文件的
+mtime 比 observation 新**（host 元数据 / mail-cache / client-diagnostics / automatic-backups）⇒ 那轮正在干活。
+
+**错误字符串的归属**：`grep -rn "<错误原文>" runtime/ deployment/`。本地搜不到 ⇒ 是云端返回的 `v.error`
+业务错误（如容量类），不是本地崩溃；回执里要写「远端 API 返回」，不能写成「代码抛错」。
+
+**滚动窗口**：observation 常被裁到最近 N 行（实测 3000 行 ≈ 50 小时，`finishedAt` 早于 30/90 天的行被丢）。
+窗口首行**不是**故障起点，只能报「窗口内连续失败 N 次」，不能报「从某日某时起一直失败」。
+
+脱敏：连接配置只报 **mtime**（域名迁移发生的时刻往往就是它，本次 `00:11:07.6Z` 正是新连接配置的写入时间），
+不给 url / key；给 runId、布尔、计数、时间戳就够对端定位。
 
 ## Windows/MSYS 通用坑（会让预检本身出错）
 
@@ -54,6 +126,9 @@ Windows 具体命令、Dayflow 家主机实测基准值、pwsh PATH 坑：见 `r
   别硬改写那一行，把 JS 落成 `.mjs` runner 传路径（已固化：`scripts/verify-backup-readable.mjs`）。
 - **原生命令 stderr 被 `ErrorActionPreference='Stop'` 吞成一行**（只剩 `file:///...[eval1]:1`，
   真正的 SyntaxError 丢了）：原生调用期间用 `'Continue'`，加 `1> out.txt 2> err.txt` 重定向再 `Get-Content -Raw`。
+- **PowerShell 5.1 缺 .NET Core 的静态方法**：`[Convert]::ToHexString` 在 5.1 里不存在
+  （`MethodNotFound`），算哈希统一 `[BitConverter]::ToString($sha.ComputeHash($bytes)).Replace('-','')`。
+  脚本自己回传的 JSON **只用 ASCII 键与布尔**：PS 5.1 的中文报错经 bash 是 GBK 乱码，读不出原文。
 
 ## 备份 / 读取器兼容性核验（只读）
 
@@ -72,6 +147,80 @@ Windows 具体命令、Dayflow 家主机实测基准值、pwsh PATH 坑：见 `r
 现成脚本 `scripts/verify-backup-readable.mjs`：`node <runner> <runtime/lib/backup.ts> <backup.json>`。
 node ≥23 默认开类型擦除，`.ts` 可直接 `import()`，不需要额外 flag。
 踩坑原文与 PowerShell 包装见 `references/backup-reader-verify.md`。
+
+### 云端直取 + 内存演练（`GET /api/v1/backup` + `isolatedBackupDrill`）
+
+触发：对端说「用活动 release 和已有私有连接 GET /api/v1/backup，**只把响应留在内存**，
+调 `runtime/scripts/work-backup.mjs` 的 `isolatedBackupDrill(backup)` 在内存 SQLite 做空库/非空恢复核对，
+绝不调云端 restore/POST」。—— 与上一节的区别：那份读的是**磁盘上最新备份文件**，这份读的是**云端实时备份**。
+一键探针 `scripts/backup-drill-verify.mjs <release> <connection.json>`（stdout 单行脱敏 JSON）；
+实测数值、403 取证与 drill 内部流程见 `references/backup-drill-api-verify.md`。
+
+1. **传输层必须用 release 自己那份，别用裸 `fetch`。** `runtime/scripts/http-request.mjs` 在 win32 上
+   `spawn('pwsh',['-File','http-request.ps1'])`，只有非 Windows 才走 `fetch`。裸 `fetch` 打云端会拿
+   `403 text/html`（`server: cloudflare` + `cf-ray`），**且同一把 key 打 `/api/v1/state`、
+   `/api/v1/sync/work/status` 同样 403** —— 这是边缘层挡 undici 指纹，不是 key 过期、不是接口不存在
+   （同一分钟定时任务每轮全 2xx、`error:null`）。看到 403 HTML 别报「鉴权失败/无此接口」，也别去绕校验：
+   换成 `import('…/scripts/http-request.mjs').httpRequest(url,{method:'GET',headers:{Authorization:'Bearer '+key,
+   Accept:'application/json'}})` 即 200。`spawn('pwsh')` 走 PATH ⇒ 先把 `<root>/tools/pwsh7` 前置，
+   否则报 `runtime_missing`。这条差异要作为「附带发现」写进回执。
+2. **响应只留内存**：`body` 字符串进变量 → `Buffer.byteLength` 报字节、`createHash('sha256')` 报全量哈希；
+   不落盘、不打印正文/标题。脚本体可落 `$LOCALAPPDATA/Temp/*.mjs`（原生 node 才认该路径），跑完删。
+3. **计数口径**：items/goals/reviews 在 `data.*`，history/coach/work 在**顶层**，`requiredFeatures` 也在顶层
+   （`[]` = 无门槛）。`GET /api/v1/backup` 给的是 v5 全量，不是 `backup/transfers/*` 分片——只读任务别碰分片。
+4. **空库/非空都由 drill 覆盖，不要自己写恢复**：它 `new DatabaseSync(':memory:')` → 建 `planner_state`
+   +`STORAGE_SCHEMA`（真空库）→ `recoveryPreview`/`controlledRestore` → `fullBackup()` 回读并逐段
+   `isDeepStrictEqual(data/history/coach/work)` → 再带 `recoveryEpoch` 二次恢复。回执取
+   `status/isolated/nonemptyRestore/items/workRecords`，并**交叉核对 `drill.items==counts.items`、
+   `drill.workRecords==counts.work`**（实测 61/139 全等）；不相等就是丢数据，比它自报 complete 更可信。
+5. **时间戳两个来源**：`exportedAt` 是服务端时钟（实测快本机 2–3 分钟），`drill.at` 是本机时钟；
+   「备份比演练晚」是时钟差，不是顺序错乱，回执里标清来源。
+6. **`requiredFeatures` 只是门槛标记，载荷在 `coach[]` 里。** `["ai-models-v1"]` 的真实内容不占顶层字段：
+   `coach[]` 中 `purpose:'ai_model_configuration'` 的 body 只有 `{purpose, selection:{schema,defaultModel,overrides}}`，
+   另有若干 `purpose:'model_operation'`（`operation/status/model/requestId/configurationVersion/finishedAt`）测试回执。
+   要证明「新配置 + 测试回执都能读」，必须同时给 selection 摘要、回执条数、最近一条 status；只给 requiredFeatures 不算证据。
+7. **导出的 SHA256 只属本次。** 每次 `GET /api/v1/backup` 的 `exportedAt` 都变 ⇒ 字节数与哈希随之变。
+   回执里写「SHA 为本次导出专属」并附 `exportedAt`，否则对端拿另一时刻的哈希来对必然对不上。
+8. **自然同步取证走云端，别只翻 observation。** `GET /api/v1/sync/work/status` 的 `runs[]` 取 `type` 为 calendar / mail
+   各最后一条（`status` / `updatedAt` / `error`），再带 `checkpoints[].sequence`、`hosts[].authStatus`、`commands[]`（历史回执）。
+   `work-host.json` 的 `lastCalendar`/`lastMail` 是**本机落盘时刻**，与云端 `runs[].updatedAt` 常差几十秒，以云端为准。
+
+## 成对写读：临时锁 → 对端独立核验 → 还原
+
+触发：A2A 对端要「先证明配置能被独立读取，再原样还原」，典型是把某用途的模型 override 临时设成它**当前 effective 的同一型号**、
+等对端用自己的 HTTP 通道回读确认，再用一次新写入把 override 置回 `null`。实测回执与坑见
+`references/model-override-pair-write.md`。
+
+1. **两步语义别搞混**：第一步只让 `source` 由 `default` 变 `independent`，型号一字不改；第二步才是还原
+   （`overrides.<用途>=null`）。写前必核 version / epochDigest / defaultModel / 四个用途 effective 全部等于对端口述值，
+   任一不符或 409 就停，不覆盖。
+2. **每步用新 request id**（`--request-id <uuid>`，env 变量在 MSYS 里不生效），payload 走 `--json-file`。
+3. **调用姿势**：bash 里 `export PATH=<root>/tools/pwsh7:$PATH` **不生效**（传进 node 后 spawn 仍找不到 pwsh）。要
+   `pwsh.exe -Command "$env:PATH='<root>\tools\pwsh7;'+$env:PATH; & '<root>\tools\node24\node.exe' 'scripts\hermes-local.mjs'
+   --connection '.local\hermes-cloud-connection.json' --request-id <uuid> --json-file '.local\<payload>.json' models-set; 'EXIT='+$LASTEXITCODE"`，
+   cwd 设到 `runtime/`。首调报 `runtime_missing`（30ms 级失败）先改这条，别怀疑 key。
+4. **回执给四段**：before DTO、payload、写入响应、after DTO，各带 requestId 与退出码；再补一句 version 连续性
+   （如 0→1→2 无跳号）——连续性本身就是「没有第三方插队」的证据，比口述可信。
+5. 临时 payload 写 `runtime/.local/`，跑完删掉，release 里不留残留；回执声明「未输出连接文件/密钥」。
+
+## 私有连接配置的 URL 迁移（校验 → 原子替换 → 独立回读）
+
+触发：对端说「原域名 307 跳到新域名、客户端拒绝跟随重定向，只改私有连接配置里的 `url`，
+不换密钥、不改清单/脚本/Hermes 配置、不重启、不触发同步、不发消息」。
+完整实测流程、回执样例与坑见 `references/connection-url-migration.md`；
+可直接复制改的骨架：`templates/atomic-config-url-swap.ps1`。
+
+1. **先证明是新域名还是同一生产库，再动手**：`GET <new>/api/v1/sync/work/status` 必须 200，且
+   `MaximumRedirection = 0`（默认跟随会把 307 洗成 200，等于没验证）；身份指纹对得上才算过——
+   已知同步 host key 在 `hosts[]` 里、`sources[]` 中 `body.selected` 的条数 == 对端说的数。不符就停。
+2. **写操作只有 `url` 一个字段**。`ConvertTo-Json` 会重排整个文件，所以「只动了 url」靠
+   写前记下「除 url 外每个字段的哈希串」、写后逐项比对来证明，不能眼看 diff。
+3. **原子替换**：`.tmp`（UTF-8 无 BOM）→ `Set-Acl` 拷原 ACL → `[IO.File]::Replace($tmp,$p,$bak)`。
+   所有哈希/校验放在写入分支最前面，任何 throw 都落在写盘前 → 失败即零改动。
+4. **换一个独立只读脚本回读**，不要拿同一个脚本的自报当结论：url 已新、JSON 仍可解析、
+   key 与 `.bak` 逐字符相同、ACL 的 Sddl 与 `.bak` 一致、`.bak` 恰好 1 个、残留 `.tmp` 为 0。
+5. 回执只给对端点名的布尔 + 时间戳；另附一句「首次失败是否发生在写前」，以及
+   「未改清单/脚本/配置、未重启、未触发同步、未发消息」。下一轮由对端自然核验，不主动补跑。
 
 ## 交付形状
 
@@ -110,14 +259,95 @@ node ≥23 默认开类型擦除，`.ts` 可直接 `import()`，不需要额外 
    否则脚本里 `$env:LOCALAPPDATA` 为空，报 `Unexpected release path`。
 5. **失败只回报，不重跑。** 脚本超时/报错时回报错误 + 任务是否已复原 Enabled，不自行强装、不第二次执行。
 6. **装完三项核验**：新 `manifest.json` SHA256 == 对端给的值；`verifyManifest` 文件数 == 期望数（缺失/不匹配 0）；
-   技能标记注释**成对出现**（grep 开/闭两条，不是重复追加）。
+   技能标记按 patch 自己的约定核验——**单 marker 恰好出现 1 次** + `startsWith(旧全文)` 为真（追加型），
+   或**开/闭注释成对**（包裹型）。不要假定是哪一种，看 `skill-append.md` 里写的是哪种。
+   - 对端说的「N 文件」= `manifest.json` 的 `files[]` 条数，**不是** `find -type f | wc -l` 的结果
+     （release 里还有 `runtime/.local/` 的缓存、备份、锁，实测同一 release 两种算法 55 vs 192）。
+     报数前先说明口径，否则对端会因为 192≠55 判你装错了。
+   - 核验别只信自己的 python/sha256sum 循环：用部署自带的 `deployment/home.mjs` 的 `verifyManifest()`
+     再独立跑一遍（`node -e "import('file:///…/home.mjs').then(m=>m.verifyManifest('<release>'))"`），两个都过才算过。
+     **它的返回形状要注意**：成功时把 manifest 对象原样返回（带 `files[]`），**没有** `missing`/`mismatch`
+     这类判定字段，不匹配就直接 throw。所以「verify=ok」的判据是**没抛异常**，别去找字段、也别把
+     `files.length` 当成第二重校验结果（实测 `{files:[…56 条], …}` 就是全部输出）。
+   - **「只动了对端点名的那 N 个文件」用升级自身的备份清单做 path 级 diff**：`<backupDirectory>/manifest.json`
+     是安装前清单（driver 在 apply 之前拷的），装后按 path 逐条比 `bytes+sha256`，报 `changed / added / removed`。
+     实测单文件补丁得到 `diffVsBackup ["CHANGED runtime/scripts/hermes-local.mjs 1780->1957"]`、其余 55 条零差异——
+     这就是「未重装两个已装 CLI 与读取器」的正面证据，比口述「我没动它们」可信得多。
 7. **回报形状**：upgrade 的脱敏 receipt JSON（`installed` / `originalEnabled` / `enabledRestored` /
    `taskDefinitionUnchanged` / `privateConfigurationsUnchanged` / `noReboot` / `noCloudWrites`）+ apply 的
    `patched` / `files` / `sourceCommit` + 上面三条核验结论。原文摘录，不要转述成「都成功了」。
+   apply 的那行 JSON **不在 upgrade 的 stdout 里**——`upgrade.ps1` 用 `*>` 把它重定向进了备份目录的
+   `install.log`，要从 `<backup>/install.log` 末尾 tail 出来（备份目录路径在 receipt 的 `backupDirectory`）。
+
+## 补丁后「独立复验」（不改文件、不重装、不联网）
+
+触发：对端说「只读独立补验，不重复安装、不改文件/任务、不触发模型或云端写入」，并给出上次备份
+manifest 路径 + 两个文件的 expected SHA256 + 要核的原任务状态。**不要重跑 upgrade.ps1/apply.mjs**，
+核对全部靠读。一键探针：`scripts/reverify-patch-manifest.py --release <release> --backup-manifest <backup>/manifest.json
+--expect runtime/scripts/x.mjs=<sha> --old-skill <backup>/SKILL.md --skill <hermes>/skills/.../SKILL.md --marker DAYFLOW-XXX-`
+（stdout 就是脱敏 JSON；`--install-write-utc` 不给时取变更文件的最大 mtime 当安装时刻）。
+
+1. **先定位部署根，别盲搜。** 不知道 root 时直接按活动 release 目录名搜：
+   `find /c /d -maxdepth 7 -type d -name "sites29-afdf902-home1"`（Dayflow 家主机实测 =
+   `C:/Users/Administrator/AppData/Local/DayflowHome`）。`maxdepth 3–4` 搜 `patches`/`releases`/`ai-models*` 会全空，
+   别据此认为「部署不在这台机器」。根目录那份 `manifest.json` 是安装初版，活动清单在 `releases/<name>/manifest.json`。
+2. **manifest 对差按 path 逐条比全字段**（不是只比 sha256）：报 `changed / addedPaths / missingPaths /
+   unchangedCount`，并声明「其余 N 条逐项零差异（path+bytes+sha256 全字段）」——对端问的正是这个数。
+3. **顶层字段单列**：`missingInCurrent` 必须为空；`preservedIdentical` 逐项列（`compatibilityPatch`、`fix66Patch`、
+   `fix66SiteVersion`、`fix66SourceCommit` 这类旧官方兼容补丁元数据要在里面）；`addedOnly` 只应对端点名的那几个
+   （如 `patches`、`aiModels69SourceCommit`）。**`patches` 是新增数组时只表示「本轮标记」，不是「旧元数据被删」，
+   回执里要写清这句**，否则对端会判你丢字段。
+4. **私有配置「未变」的独立证据只能靠 mtime**：receipt 只有 `privateConfigurationsUnchanged` 布尔，upgrade 不落
+   前后哈希。做法＝按安装器里的候选路径表探针（实测 8 个候选、7 个存在），逐个 mtime 全部早于安装写入时刻 →
+   `unchanged: true`。报布尔 + 文件数 + 最新 mtime，**不报哈希列表、不报路径正文**。
+5. **技能前缀用字节比**：`new_bytes[:len(old_bytes)] == old_bytes`，不要 decode 后比字符串（会掩盖 BOM/换行差异）；
+   marker 用 `count` 报恰好 1 次，另报 `name:` 行仍在。
+6. **任务与运行面**：`Get-ScheduledTask`/`-Info` 报 State/Enabled/LastRunTime/LastTaskResult(=0 才算成功)/NextRun，
+   并核 `WorkingDirectory` 就是对端那份 release。运行面报「装后 N 轮、errors 0、首个完整周期」的时间。
+7. **回执**：脱敏 JSON + 一句判定；末尾声明「零网络、零写入、未重跑安装」，并补一句任务自身分钟级轮次是
+   它的常规同步、不是本次检查发起的写入。
+
+### observation 里的 `calendar:null` 第 4 种成因：空轮
+
+除「没跑 / JSON 解析全失败 / 判据不满足」外，还有一种是**设计如此**：分钟级 cheap tick 只做心跳，
+`calendar`/`mail`/`runId` 全为 null；只有完整工作日周期才填。所以「最后一行 calendar=null」**不是故障**。
+判法：取窗口内**最后一条 `calendar` 非空**的记录，报它的 `startedAt`/`finishedAt` + `calendar.complete` +
+`mail.complete` + `mail.observed`/`bodyFailures`；再配 `work-host.json` 的 `lastCalendar`/`lastMail`/`lastMailFull`。
+实测同一 release：21 轮里只有 1 轮完整周期（`07:23:59Z→07:25:15Z`，两源 complete、0 变更，mail observed 5/失败 0），
+其余全 null 仍 error 0——把它写成「有 20 轮缺 calendar」就是误报。
 
 ### 安装类任务的坑
 
+- **复原任务状态的二次核对脚本里，路径必须写 `C:/…`**。从 bash 传 `/c/Users/...` 进 `pwsh -Command "…"`
+  会变成 `C:\c\Users\...`，`[IO.File]::ReadAllText` 报 `Could not find a part of the path`，
+  于是 `definitionSame` 算出 **false**——这是路径错，不是任务被改坏。别急着回报「定义未恢复」，
+  先看报错里的路径是不是多了个 `\c\`，改用原生 `C:/…` 重跑（实测重跑即 true，两边都是 2233 字符）。
+  同一坑也吃 `-File <脚本>`、`Get-FileHash`、`Test-Path` 的一切参数。
+
+- **预检时 `work-sync.lock` 存在≠停止条件**：分钟级任务每轮都建/删锁，实测 4 秒后自己消失。做法是
+  `Test-Path` 一次、隔几秒再 stat 一次（`ls` 报 `No such file` 即那轮已收尾）就当它不存在；driver 自己会
+  disable 后轮询 120s（超时只 throw，不 kill 不删锁）。真正该停的是「disable 后等满 120s 锁仍在」。
+- **跑 driver 前先算 payload 哈希**：`hash(<patch>/<change.path>) == change.after`（apply 会 throw
+  `File baseline/payload mismatch`）。连同 manifest 基线、每类标记的顶层键一起预核，避免白暂停一次任务。
 - **复原 `Enabled` 后分钟级任务会立刻自然跑起来**，可能产生它自己的云端同步。必须主动声明「这是它自身的常规同步，不是我发起的写入」，
   否则对端会以为你违反了「不做云端写入」。
 - **对端常明确说「先不做整套长验收」**——那就只给要求的三项，不要顺手跑全套用例把回执淹掉。
 - 私有配置改动只能报**布尔**（`privateConfigUnchanged: true`）与文件数，不能报哈希列表、路径内容、凭据。
+- **补丁可以改到 Hermes 自己的技能文件**（`%LOCALAPPDATA%/hermes/skills/<cat>/<skill>/SKILL.md` 末尾追加段）。
+  这是合法范围，不要事后再手工「整理」那段文字——那会让 `startsWith(旧全文)` 的前缀证明失效；
+  只核验「前缀零改动 + marker 恰好一次 + YAML `name:` 行仍在」。
+
+- **系统 PATH 里没有 `pwsh` 是常态：别装 PowerShell 7、也别退回 5.1 硬跑。** 部署自带便携版在
+  `<root>/tools/pwsh7/pwsh.exe`（实测 7.6.7，`tools/` 下同目录还有 `node24/node.exe`）。定位别靠
+  `find /c -maxdepth 5 -name pwsh.exe`——实测全空，是深度不够（在 `AppData\Local\DayflowHome\tools` 第 6 层）；
+  直接 `ls <root>/tools` 或 `grep -n pwsh <root>/logs/deploy-log.md`（部署日志里就写着 `tools/pwsh7/`）。
+  driver 用了 PS7 专用语法（`[Text.UTF8Encoding]::new(...)`、`*>`），5.1 会静默错。
+
+- **跑 driver 前先自己把 apply 会 throw 的前置全核一遍**（否则要等它先 disable 了任务才炸）：
+  `manifest.json` 的 SHA256 == 对端给的基线（本例 55 条 / `1772c065…a5c6`）；`changes[]` 每条 `before`
+  等于活动 release 现文件哈希；`before:null` 的新文件**确实不存在**；`work-sync.lock` 不存在；
+  记下任务 `Enabled` 真值（`finally` 就靠它复原）；apply 会读的那个 skill 文件存在
+  （缺了直接 `throw 'Unexpected skill'`，白暂停一次）。
+  第三种补丁形状（只换读取器模块 + 新增一个 schema 模块、不含技能追加、带 `check-reader.mjs` 内存演练）
+  与第四种形状（单文件包装替换、`changes` 只 1 条、manifest 只追加 marker + 一个 sourceCommit 键）
+  的实测值与回执见 `references/patch-install-a2a.md` 末两节。

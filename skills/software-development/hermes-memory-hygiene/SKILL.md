@@ -35,7 +35,10 @@ The most common failure mode: the same preference gets saved every time the user
 
 ## Memory Store Basics
 
-Memory files: `hermes/memories/MEMORY.md` + `hermes/memories/USER.md`，entries separated by standalone `§` lines. See `references/memory-storage-architecture.md` for complete layout + review system data boundary (review_log.jsonl, lessons.md, safety_invariants.md — all stored outside memory).
+Memory files: `hermes/memories/MEMORY.md` + `hermes/memories/USER.md`，entries separated by standalone `§` lines.
+
+⚠️ **上限是 per-profile 的，不是全局常量。** 上面 2200 / 1375 只是**主 profile** `config.yaml` 里的 `memory.memory_char_limit` / `user_char_limit`。每个 profile 在自己的 `profiles/<name>/config.yaml` 里有独立的值，文件在 `profiles/<name>/memories/`。
+🔴 **文件超过上限时 memory 工具会静默拒绝写入**——不报错、内容不落盘，看起来像「记住了」其实没记。所以审计任何 profile 时，第一步是 `len(open('memories/MEMORY.md', encoding='utf-8').read())` 对比该 profile config 里的 limit（2026-10-31 实测健康 profile：MEMORY.md 3403 字符 vs 上限 2200，超 55%，长期写不进）。**先精简到限内，它才写得进去。** See `references/memory-storage-architecture.md` for complete layout + review system data boundary (review_log.jsonl, lessons.md, safety_invariants.md — all stored outside memory).
 
 ### User Profile (`target='user'`)
 
@@ -155,6 +158,48 @@ See `references/cleanup-example.md` for a real before/after: 83%→16% (user pro
 See `references/stale-tool-reference-example.md` for a real case where memory entries fell behind the skill library.
 See `references/pointer-to-file-pattern.md` for the two-tier storage technique: keep a short pointer in memory, full details in a reference file.
 See `references/skill-library-conventions.md` for the skill description format, dependency declarations, workflow recipes, and cross-cutting conventions established 2026-07-01.
+
+## 写入 ≠ 生效：子 profile 的长会话看不到新 memory（2026-11-04 实测）
+
+给某个 profile（尤其 `health` 这种长期 `-c "Bot Chat"` 的 bot）加完 memory 条目后，
+**磁盘写对了，运行中的会话仍然读不到**——Hermes 的 system prompt 在会话生命周期内是快照，
+不会每轮重读 `memories/*.md`。
+
+症状：问它「你 memory 里有没有 X 条」，它答「没有，现有 7 条」，而磁盘上是 8 条。
+
+🔴 **更危险的是伪装成成功**：此时派活它可能照样输出正确格式（因为任务书写了），
+看起来像学会了，其实没进持久记忆；下次不写任务书就退回原样。
+**所以「问它一次它答对了」不足以证明规则生效。**
+
+### 三步验证（缺一不可）
+
+1. **磁盘**：`len(open(...).read())` 看**字符数**（不是文件字节数，中文 3 字节/字）+ 条目数。
+2. **新会话**：`--create-if-missing` 开一个临时会话，让它**原文抄出**那条 memory。抄不出来 = 没写对。
+   验证完删掉：`hermes -p <profile> sessions delete <id> --yes`（**删子 profile 的会话必须带 `-p`**，
+   不带会报 `Session not found`——主 profile 的 sessions 命令找不到它）。
+3. **真跑**：派一个**不带任何提示**的任务，只说「按你自己 memory 里定的规矩来」。
+   输出对了才算真学会。
+
+### 让老会话生效
+
+```bash
+# 1. 先导出备份（几百条对话，删了就没了）
+hermes -p <profile> sessions export --session-id <id> --format jsonl "<路径>.jsonl" --no-redact
+# 2. 删
+hermes -p <profile> sessions delete <id> --yes
+# 3. 重建（-c 名字不存在会 fail loudly，必须加 --create-if-missing）
+hermes -p <profile> chat -c "Bot Chat" --create-if-missing -m <当前模型> -Q --query-file <任务书>
+```
+
+替代方案（不推荐）：不动会话，等上下文压缩时 Hermes 会重建漂移的 system prompt
+（日志 `Compaction rebuilt a drifted system prompt ... memory/skills growth`），
+但压缩阈值默认 50%，可能等好几天，**期间规则形同虚设**。
+
+**判据**：改的是 **memory / skill 里的硬规则** → 必须刷新会话；
+只是**一次性任务口径**（某餐克数、某天安排）→ 写在任务书里就行，不用动会话。
+
+完整实录（含健康助理的实测原话与命令）见 skill `health-nutrition-analysis` 的
+`references/memory-write-then-session-refresh.md`。
 
 ## Common Pitfalls
 

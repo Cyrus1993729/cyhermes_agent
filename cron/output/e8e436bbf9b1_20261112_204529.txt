@@ -1,0 +1,114 @@
+Cronjob Response: TrendRadar跨境日报投递
+(job_id: e8e436bbf9b1)
+-------------
+
+⚡ 今日速览
+- 欧盟加收入境小包费，匈牙利小包量明显下滑
+- 京东收购MediaMarkt母公司获欧盟放行
+- AGL中国至欧盟海运价卡，今日起执行
+
+🏛 政策风向 · 门槛变了吗
+▶ 欧盟加收入境小包费，匈牙利包裹量掉头向下
+　干货：匈牙利按每件3欧元收；Temu、Shein、AliExpress 抵匈小包锐减；有商家请愿取消
+　背景：费用落在包裹入境环节，小包到手价随之抬高
+　对你：小包直邮的单票成本要重算，9.9欧包邮最先受伤
+▶ 海关口径：上半年跨境电商进出口1.45万亿元
+　干货：2026年上半年1.45万亿元；同比增5.8%；为进出口合计
+　对你：个位数增速，增量不再普惠，选品要更窄更深
+
+🛒 平台规则 · 在哪卖、怎么卖
+▶ 京东收购MediaMarkt母公司，交易获欧盟附条件批准
+　干货：条件期长达10年；标的为欧洲家电3C连锁；获批不等于交割完成
+　对你：这仗是资本在打的，个人别硬拼线下渠道
+▶ eBay英国给二手手机加“成色保证”
+　干货：覆盖iPhone、安卓机、iPad；黑五前上线；平台为标注成色背书
+　对你：二手3C的售后争议多一层平台依据，可小批量试
+▶ 亚马逊以“差评操纵”停用卖家账号
+　干货：卖家称被指诱导顾客给竞品留差评；账号已停用；需先“承认”
+　对你：评论是红线，别委托服务商刷，也别碰竞品
+
+📈 市场与成本 · 钱往哪走
+▶ 亚马逊全球物流发布中国至欧盟海运公开价卡
+　干货：11月12日生效；中国至欧盟海运报价公开可查
+　背景：价卡是公开运价表，卖家可提前按航线查价
+　对你：头程报价有了公开基准，跟货代谈价能对上数
+▶ TikTok Shop越南直邮价卡最高降88.2%
+　干货：直邮运价表下调；部分线路最高降88.2%；越南站先落地
+　对你：东南亚试单的运费门槛降了，前期投入更小
+▶ 有卖家统计33.7万次改价，涨价多于降价
+　干货：6个月、多个账号、33.7万次；多数是往上调
+　对你：旺季别默认“降价才有量”，先看同行报价方向
+
+🧰 实战参考 · 别人怎么做的
+▶ eBay上线“拍照即上架”，AI自动生成listing
+　干货：拍几张图；AI写标题、填属性、给建议价；旺季前上线
+　对你：上架步骤被压缩，新手少踩标题和属性填错的坑
+▶ Dimension用AI接管TikTok Shop运营决策
+　干货：判断哪些卖家能跑出来；选品、达人、投放被模型化
+　对你：运营在工具化，新手可先用工具补经验
+▶ Anthropic收紧封号，11月12日全面生效
+　干货：Claude账号批量被封；11月12日起生效
+　对你：写listing的活别全押在一个账号上
+▶ 卖家称FBA入库丢货，索赔3个月无回音
+　干货：自述承运商过失丢货；提交索赔近3个月无进展
+　对你：入库前后拍照留证，发现差异尽快提索赔
+
+📖 小白词典
+- FBA：把货发到亚马逊仓库，平台替你打包、发货、处理退货，你只管卖。
+- 直邮价卡：平台和物流商谈好的跨境运费表，像快递的公开价目单，按线路和重量报价。
+- 附条件批准：监管同意交易，但要承诺几年内照做，违约可追责，等于带条件放行。
+
+✅ 今天该做的一件事
+打开亚马逊全球物流官网，查中国至欧盟海运价卡，抄下你品类的一个报价。
+
+—————————————————————
+
+📦 跨境电商日报 11月12日（过去24小时 · 12 条）
+
+🛃 政策法规
+• 🔴 欧盟对入境小包加收额外费用，匈牙利小包量锐减（多源报道）
+  摘要：欧盟对入境跨境包裹加收额外费用，匈牙利按每件 3 欧元统一收取后，Temu、Shein 与 AliExpress 抵匈的小包数量锐减。费用全面铺开前，已有商家发起请愿要求取消。背景：费用落在包裹入境环节，小包到手价随之抬高。
+  🔗 [查看原文](https://news.google.com/rss/articles/CBMihAFBVV95cUxQUjZqclN5bWU3UGhWbndQM1JxU2o3SDJNUGVtRkJER0RLczBRdGdlMnpqWFJ5Y2FlWnQtNWVldGNpRUdnSm1aNHduVFVNQ3RUMWJqUWkxdXZULWFrWXlJU2txbExTQmdnay1CaHR0djZlUTFtc1dZNWxiM3lHNWNvWkw2Tko?oc=5)
+• 海关：2026年上半年跨境电商进出口1.45万亿元，同比增5.8%（观点网）
+  摘要：海关数据显示，2026 年上半年跨境电商进出口 1.45 万亿元，同比增长 5.8%，为进出口合计口径。背景：5.8% 是进出口合计增速，不是单看出口的增速。
+  🔗 [查看原文](https://news.google.com/rss/articles/CBMiYkFVX3lxTE5WandXSGthTjF5clhYekp2Qm5GT1NvbS1LSmdOcm56QnR0SjBHUDdzNk5BZVVjX19hNUVtTW1RcHRFNmV2a3lHYnJMVnJLWDNyWHRUOUFhbm93YUU5LV9mbnl3?oc=5)
+
+🏪 平台动态
+• 🔤 京东收购 MediaMarkt 母公司获欧盟附条件批准，条件期 10 年（JD.com wins EU approval to buy MediaMarkt owner on 10-year conditions）（PPC Land）
+  摘要：欧盟委员会批准京东收购 MediaMarkt 母公司，条件期长达 10 年，京东需按承诺履约；获批不等于交易已交割。背景：MediaMarkt 是欧洲家电 3C 连锁。
+  🔗 [查看原文](https://news.google.com/rss/articles/CBMikAFBVV95cUxNb3JtWjFEZ2pNVUlOc2wtQ0EzRWR2R0wtZ3ZuclFYSDNVMEM4Qlo1RWxPRko0OS12d0ZDa2wySjBReklOZmY0WnpGRkVCTjlEV2lFRXJxeFZGOTRrT2doVlQ1TWtyVTBwT1pxbEtHd2lQdk55TjFNUGhZa1ZYTjhKd0VobHRidHMxT0JVTnQzZTg?oc=5)
+• 🔤 eBay 英国推二手手机与 iPad“成色保证”（eBay UK launches Condition Guarantee for phones & iPads）（ChannelX）
+  摘要：eBay 英国站上线二手手机与 iPad 的“成色保证”，赶在黑五前推出，由平台为卖家标注的成色等级背书。背景：成色保证指买家收到的机器与标注等级不符时，可依平台规则维权。
+  🔗 [查看原文](https://channelx.world/2026/11/ebay-uk-launches-condition-guarantee-for-phones-ipads/)
+• 🔤 eBay 上线“拍照即上架”相机优先刊登（eBay Magical Listing New Camera-First Experience）（ChannelX）
+  摘要：eBay 推出相机优先的刊登入口，卖家拍几张照片，AI 自动写出标题、填好属性并给出建议售价，直接生成可上架的 listing。官方称赶在年末旺季上线，目的是压低新卖家的上架门槛。
+  🔗 [查看原文](https://channelx.world/2026/11/ebay-magical-listing-new-camera-first-experience/)
+• TikTok Shop 越南直邮价卡最高降 88.2%（雨果跨境）
+  摘要：TikTok Shop 越南站调整跨境直邮价卡，部分线路运费最高下调 88.2%。背景：直邮价卡是平台与物流商约定的跨境运费表，价卡下调等于每单履约成本直接减少。
+  🔗 [查看原文](https://news.google.com/rss/articles/CBMiTEFVX3lxTE1nT0JrXzNpV29MVmdzY3hYb1Jwc1VVb3RxZDVrZm5RSERuVWNzREVNV1ZKNlhId3FkSUw4azdvdFlXdFl0TlpiUEUzaEk?oc=5)
+
+📦 物流与市场
+• 亚马逊全球物流发布中国至欧盟海运公开价卡，11月12日生效（观点网）
+  摘要：亚马逊全球物流（AGL）发布中国至欧盟的海运公开价卡，自 11 月 12 日起生效。背景：公开价卡是可查的公开运价表，卖家能提前测算头程成本。
+  🔗 [查看原文](https://news.google.com/rss/articles/CBMiTkFVX3lxTFBKTDdkQ3p4Q2JWSGJDemd0OTFwbV9jNDhJMjgzT1p4MGtvUXhrU3hzZEJma2EtdFpGRDVyUDg3UThpb3hYem83ZkRPVUhrdw?oc=5)
+
+🛡️ 合规与风险
+• 🔴 Anthropic 收紧 Claude 账号封禁，11月12日全面生效（华尔街见闻）
+  摘要：Anthropic 收紧 Claude 账号风控，被称为“最严封号潮”，11 月 12 日全面生效，属平台侧单方面调整。对拿 Claude 写 listing、做翻译的用户，账号连续性成了新风险。
+  🔗 [查看原文](https://wallstreetcn.com/articles/3785747)
+• 🔤 卖家称因“诱导顾客给竞品差评”被亚马逊停用账号（Amazon accuses me of "influencing customers to post negative reviews on a competitor"）（Reddit FBA）
+  摘要：一位卖家称亚马逊指控其“诱导顾客给竞争对手留差评”，账号已被停用，账号健康团队还要求其先“承认”违规。背景：评论操纵在亚马逊属严重违规，通常直接停号，申诉需要完整证据链。
+  🔗 [查看原文](https://www.reddit.com/r/FulfillmentByAmazon/comments/1xtro2s/amazon_accuses_me_of_influencing_customers_to/)
+
+💼 卖家运营
+• 🔤 卖家称 FBA 库存因承运商过失丢失，近 3 个月无进展（FBA inventory lost due to carrier's negligence）（Reddit FBA）
+  摘要：卖家称一批 FBA 库存因承运商过失丢失，提交索赔后近 3 个月没有新进展。背景：FBA 入库差异需按平台流程提交索赔，拖得越久取证越难。
+  🔗 [查看原文](https://www.reddit.com/r/FulfillmentByAmazon/comments/1xtj6sm/fba_inventory_lost_due_to_carriers_negligence_and/)
+• 🔤 卖家统计 6 个月 33.7 万次改价，多数为涨价（Logged every price change on our Amazon accounts for 6 months (337k of them)）（Reddit FBA）
+  摘要：一位卖家记录了多个亚马逊账号 6 个月内共 33.7 万次价格变动，结果多数是涨价，与其预期相反。背景：数据来自单个卖家的后台，不能代表全行业。
+  🔗 [查看原文](https://www.reddit.com/r/FulfillmentByAmazon/comments/1xttvep/logged_every_price_change_on_our_amazon_accounts/)
+• 🔤 Dimension 用 AI 接管 TikTok Shop 运营决策（Dimension Is Building AI to Run the TikTok Shop Operations That Decide Which Sellers Break Out）（Net Influencer）
+  摘要：服务商 Dimension 在用 AI 接管 TikTok Shop 的运营决策，包括判断哪些卖家能跑出来。背景：TikTok Shop 的选品、达人匹配与投放正在工具化。
+  🔗 [查看原文](https://news.google.com/rss/articles/CBMiwwFBVV95cUxQTzJxUTlCMnpfOVMtWDZsMGpwVVJoeFBPd0J5b01wNnBYVUdKUHJJaDlEbW9XWHBBem44dlhDN1R5Y3ZEX2loTElxRzA0TWRnSFZubEljUm4zdThieXhsem1jWm8yeUNXNnA0R1Zia3hvb1B6UEY4Mmg3WjhnZ1BvdHBrck9WNjZXNV9kZXpGenIwVnNuelBJMVFHNDVZdVlOQlJkclhIUjU0cU11NTNNOHVDN0ZmMDRnbXhXaEd6bTVPRVk?oc=5)
+
+To stop or manage this job, send me a new message (e.g. "stop reminder TrendRadar跨境日报投递").

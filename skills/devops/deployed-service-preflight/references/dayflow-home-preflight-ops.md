@@ -66,6 +66,48 @@ print({'revision': d['revision'], 'counts': {k: len(d.get(k, [])) for k in ('ite
 `state` 是 GET，无需 request-id；写入类命令才要 `--request-id`。汇报只给 revision + 四类计数 + `sync.lastSuccess`。
 2026-10-22 基准：revision 53817；items 39 / goals 2 / reviews 1 / drafts 0；storageVersion 5；bridgeConnected true。
 
+## 3b. 容量顶格诊断：GET /api/v1/sync/work/health（只读）
+
+触发措辞：「Dayflow 同步容量故障」「同步每分钟报错」「只返回临时运行和主业务字节、run 条数」。
+
+服务端电话就在同一份凭据里，直接走 `Authorization: Bearer <key>`，不必经客户端 spawn（更快、不碰 pwsh PATH）：
+
+```python
+import json, subprocess
+c = json.load(open(R + '/runtime/.local/hermes-cloud-connection.json', encoding='utf-8'))
+r = subprocess.run(['curl', '-s', '--max-time', '30', '-H', 'Authorization: Bearer ' + c['key'],
+                    c['url'].rstrip('/') + '/api/v1/sync/work/health'], capture_output=True, text=True)
+d = json.loads(r.stdout)
+```
+
+key 只经 `-H` 传给子进程，不打印、不出现在回执里；`curl` 在 MSYS 下能用，不必开浏览器。
+
+返回形状（**数组，不是字典**，别按名字取）：
+
+- `bytes[]`：`{label, bytes, limit}` —— 四条 `主业务` / `分析记录` / `来源业务与运行` / `临时运行`
+- `counters[]`：`{label, count, limit}` —— 16 条 `事项/复盘/历史/分析及讨论/application/call/candidate/checkpoint/command/decision/event/host/mail/run/setting/source`
+- 标量：`at` `revision` `operations` `recordLimit` `attention` `notice`；`backup{bytes,limit,recoverable,revision}`
+
+用法要点：
+- 先 `for x in d['bytes']: print(x)` 全量看，再只挑对端要的字段拼回执；**不要把整个 d 丢出去**（counters 带 mail/event 计数、notice 是长文案）。
+- 用 `round(used/limit*100,2)` 算占用率，并给 `headroom = limit - bytes` —— 卡顶时余量只有几千字节，光说 99% 看不出「还剩多少」。
+
+### 报错签名对照（实测 2026-11-04 牛来端）
+
+| 现象 | 含义 |
+|---|---|
+| `LastTaskResult=1` + 每分钟重复 | 进程非零退出，不是「在跑」；Windows 里 0 才是成功 |
+| observation `error="工作来源或运行记录超过字节容量"` | 服务端容量保护触发，**每分钟都失败**，`calendar:null`、`commands:[]` 是后果不是原因 |
+| `临时运行` 字节 ≈ limit（99.90%，剩 2116 B） | **真正的顶格项**，与上面那句错一一对应 |
+| `run` 条数 2042/3000（68%） | 尚未触顶，别当成主因 |
+| `主业务` 1,079,272/1,500,000（71.95%） | 仍有余量，别误报成主业务爆了 |
+
+保护语义（服务端 notice 原文要点）：达容量时**停止新增、保留原数据**；正确处置是**先下载完整备份，再缩小处理范围或联系维护**，
+日志清理不影响业务历史与用户决定。→ 只读任务里**不要**自行删日志/清 run、不要改配置、不要触发任务。
+
+2026-11-04 基准：revision 97248，operations 16701 / recordLimit 20000，attention=true；
+临时运行 2,095,036/2,097,152；主业务 1,079,272/1,500,000；来源业务与运行 2,215,709/12,582,912；run 2042/3000。
+
 ## 4. 安装前对照快照（本机私有）
 
 `DayflowHome/backup/preflight-66-<YYYYmmdd-HHMMSS>/`：

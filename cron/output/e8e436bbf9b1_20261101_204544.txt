@@ -1,0 +1,108 @@
+Cronjob Response: TrendRadar跨境日报投递
+(job_id: e8e436bbf9b1)
+-------------
+
+⚡ 今日速览
+· 欧盟2欧元/件处理费11月1日开征，小包直邮成本抬升。
+· 小额免税已终止，低价直邮的价格优势被削弱。
+· 中国皮卡货箱盖反倾销初裁被修正，汽配要重算税。
+
+🏛 政策风向 · 门槛变了吗
+
+▶ 欧盟11月1日起对境外直邮包裹收2欧元/件处理费
+　干货：按报关商品项（税则行）计费，不是按包裹总价收，一单里不同税则的商品分别算；路透看到的文件测算，这套收费一年最多可带来约60亿欧元；10月30日还只是"拟征"，今天是正式落地。
+　对你：9.9欧元以下的直邮小件，成本表里必须先加上这2欧元，再谈毛利。
+
+▶ 美国商务部修正中国皮卡货箱盖反倾销初裁
+　干货：官方理由是初裁存在"重大计算错误"，需要修正；调查期为2025年7月1日至12月31日；初裁一旦成立，进口商要先按保证金率交钱才能清关。
+　对你：卖这类汽配的，报价里得预留反倾销税空间，只按出厂价算利润会翻车。
+
+🛒 平台规则 · 在哪卖、怎么卖
+
+▶ TikTok Shop 把"好退货"当成拉销量手段
+　干货：2026年秋季，TikTok Shop 与 DoorDash 先后加码退货体验，都把便捷退货当作提升转化的抓手；这是行业报道里同一批动作。
+　对你：退货率从售后指标变成选品指标，服装、鞋这类高退货类目要重算一遍账。
+
+▶ eBay Live 直播伦敦卡展
+　干货：10月30日至11月1日，eBay Live 在伦敦卡展现场直播；内容含稀有宝可梦卡开箱、游戏王藏品、英超球星卡拆卡；面向英国买家。
+　对你：卡牌、收藏品这类靠"看货"成交的垂类，直播是现成的展示位，能顺带看看同行怎么讲品。
+
+📈 市场与成本 · 钱往哪走
+
+▶ 小额免税终止后的黑五：Shein 美国站涨价
+　干货：执行了10年的小额免税通道（单笔800美元以下包裹免关税）已终止；Shein 美国站价格随之明显上调；国内媒体称今年黑五中国卖家"变天"。
+　对你：直邮小包的成本优势被削弱，备货海外仓和做高客单这两条路会更常被提起。
+
+🧰 实战参考 · 别人怎么做的
+
+▶ 卖家讨论：单价降12%要不要换供应商
+　干货：Reddit 亚马逊卖家板块的提问，条件是"新供应商便宜12%"；回复集中在换厂隐性成本——重新打样、验货、交期波动、断货；主流建议是先小批量试单。
+　对你：12%是账面数字，打样、验货、断货这些隐性成本要自己逐项算完再决定。
+
+▶ 有卖家怀疑亚马逊有"隐形日销上限"
+　干货：发帖人称观察了两年，单量涨到某个水平就不再动；帖内没有平台官方说法；回复多指向库存周转、广告位、类目竞争。
+　对你：单量卡住先查库存和广告位，别急着归因到"平台限流"。
+
+▶ 德国买家账号被标记，卖家担心连累卖家号
+　干货：该账号同时触发身份验证、事件报告、退货警告三项标记；发帖人担心同一身份下的卖家账号被连坐审核；平台未证实会连带处理。
+　对你：目前只是卖家担忧，但账号被要求核验时，采购单和物流凭证最有用。
+
+📖 小白词典
+· 处理费：不是关税，更像"过路费"，按件收，跟你卖多少钱无关。
+· 小额免税（de minimis）：国家给低价值包裹的免税额，低于这条线不用交税，线一关，所有小包都得交。
+· 反倾销税：别国认定你卖得太便宜，额外加的惩罚性关税，按百分比算。
+
+✅ 今天该做的一件事
+把欧洲站9.9欧元以下的单品列出来，逐件把2欧元处理费加进成本表，看还剩多少毛利。
+
+━━━━━━━━━━━━━━━━━━━━
+
+📦 跨境电商日报 11月1日（过去24小时 · 9 条）
+
+🛃 政策法规
+
+• 🔴 欧盟11月1日起对境外直邮小包按件收2欧元处理费（多源报道）
+  摘要：欧盟自11月1日起，对境外直邮的B2C电商包裹按"申报品项"每件征收2欧元联盟处理费，一单多件按件累计。路透看到的文件测算，这笔费用一年可为欧盟带来约60亿欧元收入，DW 的测算同样是每年增收60亿欧元。欧洲多家媒体指出，Temu、Shein、AliExpress 的低价小包受冲击最大。
+  🔗 [查看原文](https://news.google.com/rss/articles/CBMiX0FVX3lxTE5sSklnaG45bXVwZWZySmpJaHZVc2RZU3JObUpIdmRJRWJQNlV2M3lUSVA5QXNQRC1FdlpIcWtqeVZWV1Z2YmtiQVpZRmtPbEZ2VHR3N1R5WFV2QW5BckFN?oc=5)
+
+• 🔤 美国商务部修正中国皮卡货箱盖反倾销初裁（Truck Bed Covers From China: Amended Preliminary Determination）（Federal Register）
+  摘要：美国商务部以初裁存在"重大计算错误"为由，修改对中国产皮卡货箱盖低于公平价值（LTFV）调查的初裁结论，调查期为2025年7月1日至12月31日。初裁结果直接决定进口商清关时需缴纳的保证金比例，修正后该调查期内中国出口商的对美报价要按新比例重算。
+  🔗 [查看原文](https://www.federalregister.gov/documents/2026/11/02/2026-22353/truck-bed-covers-from-the-peoples-republic-of-china-amended-preliminary-determination-of-the)
+
+🏪 平台动态
+
+• 🔤 eBay Live 直播伦敦卡展，主打拆卡（eBay Live to broadcast from London Card Show）（ChannelX）
+  摘要：10月30日至11月1日，eBay Live 在伦敦卡展（London Card Show）现场直播，内容包括稀有宝可梦卡开箱、游戏王藏品和英超球星卡拆卡。这是 eBay 把直播带货用在收藏品垂类的又一次尝试，面向英国买家。
+  🔗 [查看原文](https://channelx.world/2026/10/ebay-live-to-broadcast-from-london-card-show/)
+
+• 🔤 TikTok Shop 把便捷退货当成拉销量工具（Why returns are becoming a bigger focus for TikTok Shop and DoorDash）（Modern Retail）
+  摘要：2026年秋季，TikTok Shop 与 DoorDash 先后加码退货体验，都把"好退货"当作提升转化的手段。对跨境卖家来说，退货率正从售后指标变成选品和定价的前置变量。
+  🔗 [查看原文](https://www.modernretail.co/operations/why-returns-are-becoming-a-bigger-focus-for-tiktok-shop-and-doordash/?utm_campaign=modernretaildis&utm_medium=rss&utm_source=general-rss)
+
+📦 物流与市场
+
+• 🔴 小额免税终止后的黑五：Shein 美国站涨价（多源报道）
+  摘要：美国执行了10年的小额免税通道（单笔800美元以下包裹免关税）终止后，Shein 美国站价格出现明显上涨（Mashable）。国内媒体称今年黑五中国卖家"变天"：直邮小包的价格优势被削弱，履约被迫转向海外仓。两个来源指向同一件事——低客单直邮的成本压力正在显现。
+  🔗 [查看原文](https://news.google.com/rss/articles/CBMiUEFVX3lxTFBiUkdXY0NoRzZkOGxpSmdMRzVrNG9CMkF5ekFPYTA3Q3ZMaU9PWXVRRDJHenBfRENKTV83ejVlUThOdVE5TmxQU2VOSW1tQjh2?oc=5)
+
+🛡️ 合规与风险
+
+• 🔤 德国买家账号被标记，卖家担心牵连店铺（Amazon German buyer account flagged (ID verify + incident report + return warning)）（Reddit FBA）
+  摘要：一位卖家发帖称，其德国买家账号同时触发身份验证、事件报告和退货警告三项标记，担心同一身份信息下的卖家账号被连带审核。三项标记分别涉及身份、账户行为和退货记录，任何一项未清都可能卡住后续操作。
+  🔗 [查看原文](https://www.reddit.com/r/FulfillmentByAmazon/comments/1xl116a/amazon_german_buyer_account_flagged_id_verify/)
+
+• 保税仓进口商品能否七天无理由退货，关键看商品是否属除外品类（广州日报新花城）
+  摘要：广州日报的消费维权案例指出，保税仓发货的进口商品原则上同样适用法定的七日无理由退货，能否排除主要取决于商品是否属于法定除外情形、以及消费者下单时是否依法确认。商家额外承诺"可退"不能替代法定权利，但会直接影响执行时的争议成本。
+  🔗 [查看原文](https://news.google.com/rss/articles/CBMiigFBVV95cUxPZUpDeDF5VlYtcjJiTHFEMTVEZjY4VFRWWFd2SmZFWFpFdmZaZ05VR181Zng3N255cVpkU19IaFB0TmFPak55bEJPXzZiQUk2RmtuY1E5d3RfemoxOE45RGtXZWo0T0dhSDJBcEtJUWVPbDExREdjcFJNb0YzOWRTVEJZWFZjeXJBOEE?oc=5)
+
+💼 卖家运营
+
+• 🔤 卖家讨论：单价降12%要不要换供应商（Would you switch suppliers for 12% less per unit?）（Reddit FBA）
+  摘要：Reddit 亚马逊卖家板块有帖子提问：新供应商报价比现价低12%，是否值得切换。回复集中在换厂的隐性成本——重新打样、验货、交期波动和断货风险，主流建议是先小批量试单再决定。
+  🔗 [查看原文](https://www.reddit.com/r/FulfillmentByAmazon/comments/1xk8nle/would_you_switch_suppliers_for_12_less_per_unit/)
+
+• 🔤 有卖家怀疑亚马逊存在"隐形日销上限"（Does Amazon Have an Invisible Daily Sales Cap?）（Reddit FBA）
+  摘要：一位卖家称自己观察了两年，发现单量涨到某一水平后就不再上升，怀疑平台存在未公开的每日销量上限。帖中没有平台官方回应，回复多指向库存周转、广告位和类目竞争等常规因素。
+  🔗 [查看原文](https://www.reddit.com/r/FulfillmentByAmazon/comments/1xkazd2/does_amazon_have_an_invisible_daily_sales_cap_ive/)
+
+To stop or manage this job, send me a new message (e.g. "stop reminder TrendRadar跨境日报投递").

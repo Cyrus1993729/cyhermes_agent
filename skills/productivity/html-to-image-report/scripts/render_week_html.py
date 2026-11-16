@@ -8,15 +8,23 @@
 items.json = `client items` 输出的 JSON 数组（list[dict]）。
 默认周起点取最早事项所在周的周一；也可显式传第三个参数。
 
-2026-10-25 实测：1520x1186 画布，@2x 截图 3040x2372，中文正常。
+实测：2026-10-25 1520x1186 → @2x 3040x2372；
+      2026-11-04 1520x782（时间轴收窄到 08–18）→ @2x 3040x1564。
 换别的报表也能照抄这套结构（固定画布 + 绝对定位 + data-* 属性供校验）。
+
+设计约束（别改）：
+  * START_H / END_H **每次从当周数据算**，不写死——写死会把范围外的安排整条丢掉，
+    用户不会告诉你「图里少了一条」，他会以为你没记。
+  * 每元素带 data-col / data-day，否则 DOM 包围盒校验做不了。
+  * 标题 >20 字挂 .long 降字号，否则 90 分钟块装不下会被裁。
 """
 import json
 import sys
 import html
+import math
 from datetime import date, timedelta
 
-START_H, END_H = 7, 22
+START_H, END_H = 7, 22          # 仅作无数据时兜底，真正取值在 render() 里算
 PX_H = 58
 LEFT = 90
 COLW = 200
@@ -38,15 +46,33 @@ def is_allday(it):
     return bool(it.get("allDay")) or (bool(it.get("endDate")) and not it.get("start"))
 
 
+def axis_range(week_timed):
+    """时间轴上下界：从当周数据算，前后各留 1 小时，夹到 0–24。"""
+    if not week_timed:
+        return START_H, END_H
+    lo = min(math.floor(hm(i["start"])) for i in week_timed) - 1
+    hi = max(math.ceil(hm(i["end"]) if i.get("end") else hm(i["start"]) + 1)
+             for i in week_timed) + 1
+    lo = max(0, lo)
+    hi = min(24, hi)
+    if hi - lo < 3:
+        hi = min(24, lo + 3)
+    return lo, hi
+
+
 def render(items, week_start):
     WEEK = [week_start + timedelta(days=i) for i in range(7)]
     rows = [i for i in items if i.get("status") != "cancelled"]
     allday = [i for i in rows if is_allday(i)]
     timed = [i for i in rows if (not is_allday(i)) and i.get("start")]
 
+    week_timed = [i for i in timed
+                  if 0 <= (date.fromisoformat(i["date"]) - week_start).days <= 6]
+    start_h, end_h = axis_range(week_timed)
+
     W = LEFT + COLW * 7 + 30
     lane_h = 56 if allday else 0
-    GH = (END_H - START_H) * PX_H
+    GH = (end_h - start_h) * PX_H
     H = 150 + lane_h + GH + 110
 
     p = ['<!doctype html><html><head><meta charset="utf-8"><style>',
@@ -75,6 +101,9 @@ def render(items, week_start):
          ".ev.short{padding:4px 8px}",
          ".ev.short .t{font-size:10.5px}",
          ".ev.short .n2{font-size:11.5px;margin-top:1px;line-height:1.2}",
+         # 长标题：光换行不够，块高受时长限制，必须降字号
+         ".ev.long .t{font-size:11px}",
+         ".ev.long .n2{font-size:10.5px;line-height:1.16;margin-top:1px}",
          ".lane{position:relative;height:%dpx;border-bottom:1px solid #e2e8f0;"
          "background:#fbfdff}" % lane_h,
          ".adev{position:absolute;top:8px;height:%dpx;border-radius:8px;display:flex;"
@@ -112,9 +141,9 @@ def render(items, week_start):
     p.append('<div class="grid">')
     for i in range(7):
         p.append('<div class="col" style="left:%dpx"></div>' % (LEFT + i * COLW))
-    # 注意 range 到 END_H 为止，别 +1，否则最后一个整点标签压在画布下沿
-    for h in range(START_H, END_H):
-        y = (h - START_H) * PX_H
+    # 注意 range 到 end_h 为止，别 +1，否则最后一个整点标签压在画布下沿
+    for h in range(start_h, end_h):
+        y = (h - start_h) * PX_H
         p.append('<div class="hr" style="top:%dpx"></div>'
                  '<div class="hrlbl" style="top:%dpx">%02d:00</div>' % (y, y, h))
 
@@ -142,20 +171,24 @@ def render(items, week_start):
         placed.extend([(i2, it2, si, n) for i2, it2, si in mine])
 
     for idx, it, col, ncol in placed:
-        y0 = (hm(it["start"]) - START_H) * PX_H
-        y1 = (hm(it["end"]) - START_H) * PX_H
+        y0 = (hm(it["start"]) - start_h) * PX_H
+        y1 = (hm(it["end"]) - start_h) * PX_H
         c, bg = COLORS.get(it.get("category"), ("#64748b", "#f1f5f9"))
         inner = COLW - 12
         w = inner / ncol - 4 if ncol > 1 else inner
         x = LEFT + idx * COLW + 6 + col * (inner / ncol)
         real = y1 - y0 - 4
         hgt = max(real, 50)
-        short = " short" if real < 40 else ""
+        extra = ""
+        if real < 40:
+            extra += " short"
+        if len(it["title"]) > 20:
+            extra += " long"
         p.append('<div class="ev%s" data-day="%d" style="left:%.1fpx;top:%.1fpx;width:%.1fpx;'
                  'height:%.1fpx;background:%s;border-left-color:%s">'
                  '<div class="t" style="color:%s">%s–%s</div>'
                  '<div class="n2">%s</div></div>' % (
-                     short, idx, x, y0 + 2, w, hgt, bg, c, c,
+                     extra, idx, x, y0 + 2, w, hgt, bg, c, c,
                      it["start"], it["end"], html.escape(it["title"])))
 
     p.append("</div></div>")
@@ -164,7 +197,8 @@ def render(items, week_start):
              '<span><span class="dot" style="background:#f97316"></span>运动</span>'
              '<span><span class="dot" style="background:#2563eb"></span>全天/多日事项</span>'
              '<span style="color:#94a3b8">注：跨日事项为全天未定钟点；'
-             '时长不足 40 分钟的事项做了加高以便看清标题</span></div>')
+             '时长不足 40 分钟的事项做了加高、标题超 20 字的字号降一档，'
+             '均为排版处理，不改时间含义</span></div>')
     p.append("</body></html>")
     return "".join(p), W, H
 

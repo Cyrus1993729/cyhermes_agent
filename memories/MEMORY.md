@@ -1,55 +1,57 @@
-PowerShell 经 bash 会吃 $ 和 -e 内双引号,写 .ps1/.mjs 跑。
+PowerShell经bash吃$和双引号,写.ps1/.mjs跑。
 §
-网络:v2rayN 10808=主线路,已全局指向;Google需CAPTCHA,Bing可直连(curl --noproxy '*')。
+网络:v2rayN 10808 主线路;Google需CAPTCHA,Bing可直连(curl --noproxy '*')。
 §
-长 prompt 用 --query-file 传文件(勿用 $(cat f))。delegate_task 无 per-call provider,子代理继承父模型。L1 审查见 skill l1-review。
+长 prompt 用 --query-file(勿 $(cat f))。delegate_task 无 per-call provider,子代理继承父模型。L1 见 skill l1-review。
 §
-路径:项目→D:\Workspace\;API key→Desktop/各类api key/;归档 YYYY-MM-DD_主题.md;复盘写文件不写 skill。
+路径:项目→D:\Workspace\;密钥→Desktop/各类api key/(从文件读不写死);归档 YYYY-MM-DD_主题.md;复盘写文件不写 skill。
 §
-外部服务:Tavily=搜索后端;高德 MCP 已配(静态地图参数用 location 非 center)。key 均在 API key 目录。
+外部:Tavily=搜索;高德MCP已配(静态地图用location非center)。
 §
 备份仓库 Cyrus1993729/cyhermes_agent,见 skill hermes-backup。
 §
-小红书→skill xiaohongshu-analysis。坑:站内搜索空,只能靠分享链接。
+小红书见skill xiaohongshu-analysis(搜索空靠分享链接);抓页面用移动Safari UA,桌面UA撞登录墙。
 §
 TG丢消息/补发看门狗见 skill hermes-telegram-delivery。
 §
 日报:5类8:00/跨境20:30(+20:40重试)/黄金周报周一12:30;生成投递分离+mtime幂等。
 §
-投资/技术方案须外部大模型 sign-off:GPT-5.6 主导,全自动 ≤3 轮。姿势见 skill hermes-china-providers。
+外部大模型 sign-off/深分析:用户会点名模型(现用 gpt-6.1-sol + -c model_reasoning_effort="high"),全自动 ≤3 轮;姿势见 skill codex-cli。
 §
-API 故障:先排查+自动重试,fallback 是最后手段(按量付费)。兜底链结构见 skill hermes-china-providers。
+金价认上海金。API故障先重试,429换Go模型:gpt-6-luna→glm-5.3-flash→kimi-k3→qwen3.8-max;官方直连排最后;qwen3.7-max已下线(410)。
 §
-金价认上海金;deepseek 卡顿→换 Go 套餐内其他模型,禁官方直连兜底(多费且照卡)。
-§
-v2只修对端,本机url必落后
-§
-Codex/OpenAI 账号红线:全机仅 1 个账号,牛来+妈妈各自独立 OAuth(不互拷 auth.json);不跨机复制凭证、不切地域 IP、base_url 不指中转。
+Codex/OpenAI 红线:全机 1 账号,牛来+妈妈各自独立 OAuth(不互拷 auth.json);不跨机复制凭证、不切 IP、base_url 不指中转。
 §
 苏州人,爸妈住芜湖。
 §
-主模型+cron=deepseek-v4.1-flash/opencode-go;fallback 官方侧 ID=deepseek-flash(≠网关名)。核算见 skill model-subscription-evaluation。
+主模型+cron=deepseek-v4.1-flash/opencode-go;fallback 官方 ID=deepseek-flash(≠网关名)。Go 档无 Opus(仅 Haiku 5.5),重活要 Opus 5.5 须另开口子(OpenDesign Pro/Kilo/Claude Max)。核算见 skill model-subscription-evaluation。
 §
-健康域:「健康助理」→hermes -p health chat -c "Bot Chat" -Q --query-file。数据在~/health/(profile.md=基线)。主Hermes不做健康判断,只派活;见 skill health-nutrition-analysis。他瘦=体脂降非体重(判据腰围+力量);答复须分「指南原文/临床惯例/机制推测」三档,无数据不编数。
+健康域:「健康助理」→hermes -p health chat -c "Bot Chat" -m deepseek-v4.1-flash -Q --query-file;会话保留不重建;新规则须写进任务书(它不读skill);回执须逐项明细(压成摘要他说没看到回执)。
 §
-桌面端:Hermes.exe 在 hermes-agent/apps/desktop/release/win-unpacked/(官方);Programs/hermes-desktop 是无关第三方,别混。Bot Mode 一个 bot = 一个 profile。
+桌面端 Hermes.exe=hermes-agent/apps/desktop/release/win-unpacked/(官方);Programs/hermes-desktop 是第三方别混。一 bot=一 profile。
 §
 要他确认的须是他凭常识能判断的(菜名/份量);专业细节(放多少糖/理化参数)他会拒绝,别落在他判断不了的事上。
 §
-有额度/成本的 API:他会要求先用免费接口做匹配筛选、确认后才查付费接口(薄荷 23 次额度事件他主动提出)。
+有成本API先免费筛再查付费。
 §
-派活若会落盘(写文件/记账/发消息):任务书须标「测试数据勿写真实档案」或给隔离路径(踩过:假午餐写进真实 diet);核算/产出类先返回结果、他确认后才落盘。
+说「记一下」=直接落盘;否则(含「口/占比高」等模糊量)先出核算稿等确认。
 §
-date 不认 TZ(恒报 UTC),北京时间=+8h;state.db messages 用 timestamp(epoch)。
+SKILL.md≥100K 时 skill_manage patch 拒改,但 patch 工具能直接改它;write_file 进 references/ 亦可。
 §
-skill 保持精简:踩坑原文搬 references/ 建索引;搬后做零丢失校验。
-§
-Dayflow-Work-Sync 每分钟采集钉钉/邮件，但只抓不落日程（落地要助手判断）；他2026-10 明确否决邮件转日程自动化，勿另建 cron。
+Dayflow-Work-Sync每分钟采集钉钉/邮件,只抓不落日程;否决邮件转日程自动化,勿建cron。
 §
 微信端=日程秘书(只办日程/复盘,其他话题引到TG);TG=总管。日程类请求必须先加载 skill dayflow-personal-planner 用 client 写云端库,禁自建 cron 充当提醒;编号回复读 state/dayflow/evening_<日期>.json。
 §
-通知路由:日程/提醒→微信;运维、故障、备份、日报→Telegram。cron 运维类 deliver 用 telegram,禁用 origin(旧 origin 指向微信)。
+通知路由:日程/提醒→微信;运维/故障/备份/日报→Telegram。cron运维类deliver=telegram,禁origin(旧指微信)。
 §
-家里奶类:全脂纯牛奶+全脂无糖酸奶(2026-10起换BASIC希腊酸奶:11g蛋白/0脂/0乳糖);没有蛋白粉;一律按全脂算,勿建议脱脂。
+家里奶:全脂纯牛奶/无糖酸奶(品牌不固定,按他发的标签算),无蛋白粉——一律按全脂算勿建议脱脂。
 §
-「打算吃/要吃」≠已吃：未发生的餐和事不许进统计（蛋糕未吃被当面纠正）。
+「打算吃/要吃」≠已吃:未发生的餐不进统计。
+§
+本机 cron 18 个:14 no_agent/4 agent,自带 monitor_script+webhook。评估必读 jobs.json,勿凭任务名判断。
+§
+他报份量常用「口/个/碗」模糊单位,须换算成克给他核;「没怎么吃」通常=没吃,先问零或非零;给区间他自己指定取哪头,别取中值
+§
+Dayflow client items=JSON数组+行诊断JSONL,raw_decode读(loads报Extra data)。
+§
+TG汇报:接活先应答(收到+怎么拆)再动工具,不能等第一个产出;自己动手每步报进展,子bot那步可一次等结果(skill work-progress-reporting)。

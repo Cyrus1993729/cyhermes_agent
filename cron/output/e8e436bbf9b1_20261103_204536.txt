@@ -1,0 +1,145 @@
+Cronjob Response: TrendRadar跨境日报投递
+(job_id: e8e436bbf9b1)
+-------------
+
+⚡ 今日速览
+· 欧盟2欧小包费生效，直邮利润被削
+· 支付机构结售汇有望放开，收款更省
+· 英国买家更在意运费，时效可以往后放
+
+🏛 政策风向 · 门槛变了吗
+
+▶ 欧盟2欧元小包费落地，卖家黑五备货大减
+　干货：11月1日起每件收2欧元；欧盟测算一年增收约60亿欧元
+　对你：直邮成本抬升，平台改走欧洲本地仓，你跟不跟？
+
+▶ 外汇局拟拓宽支付机构跨境电商结售汇
+　干货：12月1日前征求意见；跨境电商等新业态纳入结售汇
+　对你：收美元换人民币的通道多一条，费率有望更低
+
+▶ 美国拟把卢旺达、南非移出AGOA
+　干货：11月2日USTR发声明；AGOA只对部分非洲国家、指定商品免关税
+　对你：做非洲货源或转口美国，关税成本要重算
+
+🛒 平台规则 · 在哪卖、怎么卖
+
+▶ TikTok Shop 新增14天直播归因
+　干货：14天内符合条件的品牌官网成交计入；归因窗口拉长；达人ROI口径变宽
+　对你：报表数字变大不代表赚钱，要看退款和毛利
+
+▶ Shopify 秋季版主打AI工具
+　干货：第10次半年更新；AI改商品描述、辅助选品；独立站少手工
+　对你：建站门槛再降，粗活让工具干
+
+▶ Temu 就欧盟2亿欧元罚款提诉
+　干货：欧盟按DSA罚2亿欧元；PDD与Whaleco已提诉；申诉理由公开
+　对你：欧盟盯平台，平台就把合规压力转给卖家
+
+📈 市场与成本 · 钱往哪走
+
+▶ 英国67%买家愿用慢送换低运费
+　干货：Scurri调查英国消费者；67%愿牺牲时效；零售商却猛追AI效率
+　对你：新手别急着囤海外仓，便宜运费更留客
+
+▶ 五分之一英国品牌被AI购物助手忽略
+　干货：测75个品牌、6个助手；15个从未被推荐；50个站点七成AI下不了单
+　对你：商品信息不规范，AI就不会替你推荐
+
+▶ 亚马逊广告基准：中位ACoS 28.4%
+　干货：150个美国品牌、90天；ACoS中位28.4%；TACoS中位10.6%
+　对你：广告花费约占广告销售额三成，先算毛利再谈规模
+
+🧰 实战参考 · 别人怎么做的
+
+▶ Cotopaxi 用11天隔天上新预热黑五
+　干货：11月1-11日；每隔一天发一款新品；为黑五网一蓄水
+　对你：没预算就靠节奏，频繁上新刷存在感
+
+▶ Rackhams 上线AI搜索，公司称销售额翻倍
+　干货：赶在旺季前切换；与Luigi's Box合作；销售额翻倍
+　对你：站内搜得到货，转化率自然上来
+
+▶ 卖家自述：投了一年广告还在亏
+　干货：低出价没曝光；出价到1.5美元以上CPC；ACoS仍超100%
+　对你：先算单件利润，再决定抢不抢词
+
+📖 小白词典
+▸ ACoS：广告花费占广告销售额的比例，花100卖300，就是33%。
+▸ DSA：欧盟数字服务法，像商场物业规矩，卖假货平台要挨罚。
+▸ AGOA：非洲部分商品免关税进美国的名单制优惠，会被除名。
+
+✅ 今天该做的一件事
+打开汇率App，算一件20美元商品到手人民币，扣掉运费还剩多少。
+
+———————————————
+
+📦 跨境电商日报 11月3日（过去24小时 · 19 条）
+
+🛃 政策法规
+• 🔴 欧盟2欧元小包费落地后：中国卖家黑五备货大减，平台加速欧洲本地仓（联合早报 / 虎嗅 / Il Sole 24 ORE 多源报道）
+  摘要：欧盟11月1日起对入境小包每件收2欧元处理费，并同步推进固定关税。多家媒体报道，中国跨境卖家今年黑五备货量明显减少，Shein、Temu 等平台转而在欧洲加建本地仓。欧盟测算，这项收费一年可带来约60亿欧元收入。
+  🔗 [查看原文](https://news.google.com/rss/articles/CBMiakFVX3lxTE5zd1RrZ2FUYk5kQnFIUkNQenpHaVpQTklJekNOMTdlRXUxWk9TdXo4WkMyNXZaeU53XzNaMGctcVVHWlpKVmUxYnJaTGNHdE43b0JabVZ1VkJtbnh6ckNZTllnLTN0Mm5sNXc?oc=5)
+• 🔴 外汇局拟拓宽支付机构跨境电商结售汇业务，12月1日前征求意见（全球定制网）
+  摘要：国家外汇管理局拟允许支付机构为跨境电商等新业态办理结售汇，意见反馈截止12月1日。背景：结售汇就是把收到的美元换成人民币，此前这类业务主要由银行办理。
+  🔗 [查看原文](https://news.google.com/rss/articles/CBMiTkFVX3lxTFA0b21ja1pwUlAyT1U3dVJHR0ZMOHphcndtQlhyb0tiVVJiclVxaVhMMTRlSG5nNEFEMkRxa2lkU0lmenJtOWFTM0Z1Tlg3Zw?oc=5)
+• 🔤 🔴 美国拟将卢旺达、南非移出AGOA关税优惠（Ambassador Greer Issues Statement on President Trump's Intent to Terminate Rwanda and South Africa from the AGOA Trade Preference Program）（USTR）
+  摘要：美国贸易代表办公室11月2日发表声明，总统已通知国会，拟终止卢旺达与南非的AGOA受惠资格。背景：AGOA 是非洲增长与机会法案，符合条件国家对美出口可免关税，被除名后相关商品要按正常税率缴税。
+  🔗 [查看原文](https://ustr.gov/about/policy-offices/press-office/press-releases/2026/november/ambassador-greer-issues-statement-president-trumps-intent-terminate-rwanda-and-south-africa-agoa)
+• 韩国关税厅启动八周海外直购专项稽查，撞上双十一与黑五（风闻）
+  摘要：韩国关税厅针对海外直购包裹启动为期八周的专项稽查，时间覆盖双十一与黑色星期五的订单高峰。稽查期与年末大促重合，对韩发货的通关查验会趋严。
+  🔗 [查看原文](https://news.google.com/rss/articles/CBMiakFVX3lxTE42X1lYYnBld21CSEoyNHIzdnhYSVNzT0RSWlM2MldTQTBrZEsyLVRwLWwtYi0yd2VlR1Vxa2xqTXFiSjB5bjlNNWxBaHZ5WFNJZGF1UXFPS1U1Q2oyWWt6X1BTOVB0eXpyVlE?oc=5)
+• 🔤 美国FTC要求Target、沃尔玛等9家公司提交定价资料（FTC orders Target, Walmart to provide details in personalized pricing inquiry）（Retail Dive）
+  摘要：美国联邦贸易委员会向9家公司发出调令，要求说明是否借助会员计划等个人数据给不同消费者定不同价格，Target 与沃尔玛在列。若被认定构成歧视性定价，平台的促销与定价玩法都会收紧。
+  🔗 [查看原文](https://www.retaildive.com/news/ftc-orders-target-walmart-personalized-pricing-inquiry/873173/)
+
+🏪 平台动态
+• 🔤 TikTok Shop 新增14天直播归因指标，把品牌官网成交算进来（TikTok Shop counts brand website sales in a new 14-day LIVE metric）（PPC Land）
+  摘要：TikTok Shop 上线新的"14天LIVE"归因指标，直播后14天内符合平台归因条件的品牌官网成交会计入直播效果。对卖家意味着达人的带货范围被放大，评估合作时要扣掉退款和毛利再看。
+  🔗 [查看原文](https://news.google.com/rss/articles/CBMijAFBVV95cUxQdV9WRjl3RUpwNkducU96cnNQY1YzZUVvWkN5OExjOU92VnJDd3BfTTZuMGllN1FCVTdCc0dLeFRmOG1EYjZlWmNhdXFIMnZBbVphZWIxTjdzYU1jb0FNbVluZVljV3FjNVZoMFJqb1ZZcEw4eDdNN3Y5dlBLVUVfZEZyblU0d2o3V3Qzag?oc=5)
+• 🔤 Shopify 发布秋季26版，主打AI与商务工具（Shopify unveils new AI and commerce tools in Autumn '26 Edition）（ChannelX）
+  摘要：Shopify 推出第10次半年更新 Autumn '26 Edition，代号 Exponential，新增多项AI选品、商品描述与运营工具。背景：Shopify 是独立站建站系统，卖家不用写代码就能开店，这类更新直接影响建站成本。
+  🔗 [查看原文](https://channelx.world/2026/11/shopify-unveils-new-ai-and-commerce-tools-in-autumn-26-edition/)
+• 🔤 Temu 就欧盟2亿欧元罚款提起申诉，理由已公开（Temu companies' challenges to €200m EU digital services law fine published）（EU Law Live / MLex 多源报道）
+  摘要：欧盟此前依《数字服务法》对 Temu 开出2亿欧元罚单，PDD Holdings 与运营主体 Whaleco 已提起申诉，申诉理由近日在欧盟官方公报披露。案件走向会影响欧盟对整个低价平台阵营的执法尺度。
+  🔗 [查看原文](https://news.google.com/rss/articles/CBMipgFBVV95cUxNUExTNk9SZWh1T0dMc2FIZ3BwNFZHQ25FWUF2dlN2d3Fnam1mbXlHeXUwQ3cxa01ORVN5a2lBUjBaVnpWdENlQTRxVmUxQktGZkpTT1MyUEZuTkpfQnFka2UxRmdReEFwTThEbVllSnBmYTdQbUxvN2c5N2ljaGR1djBycVlGdmtQc3RGS3dlOVJFaFYyQWRpRmJPdW1SSG9pbEQ5VVVR?oc=5)
+• 🔤 SHEIN 与美国创作者家庭推节日童装联名（SHEIN and The Chavez Family Festive Holiday Collection）（PR Newswire / ChannelX 多源报道）
+  摘要：SHEIN 与创作者夫妇 Madison、Josh Chavez 合作推出节日童装系列"A Family Haul-iday"，并已在平台开售。
+  🔗 [查看原文](https://channelx.world/2026/11/shein-and-the-chavez-family-festive-holiday-collection/)
+
+📦 物流与市场
+• 🔤 调查：67%英国消费者愿用更慢配送换更低运费（67% of shoppers will trade delivery speed for lower costs）（ChannelX / Scurri）
+  摘要：物流服务商 Scurri 的两项研究显示，67%的英国消费者愿意接受更慢的配送以换取更低运费。报告提醒，零售商把预算压在AI效率上，可能忽略了消费者最在意的运费。
+  🔗 [查看原文](https://channelx.world/2026/11/67-of-shoppers-will-trade-delivery-speed-for-lower-costs/)
+• 🔤 五分之一英国知名品牌在AI购物助手里"搜不到"（One in five of Britain's best known brands is invisible when shoppers ask AI what to buy）（ChannelX / Human Forward）
+  摘要：Human Forward 用6个AI助手测试75个英国品牌，其中15个从未被任何助手推荐；可检测的50个网站里，七成无法让AI助手直接完成下单。能被AI读懂的商品信息，才有机会被推荐。
+  🔗 [查看原文](https://channelx.world/2026/11/one-in-five-of-britains-best-known-brands-is-invisible-when-shoppers-ask-ai-what-to-buy/)
+• 🔤 亚马逊广告基准：150个美国品牌90天中位ACoS 28.4%（90 days of ad data from 150 US Amazon brands: median ACoS 28.4%, median TACoS 10.6%）（Reddit FBA）
+  摘要：一位卖家汇总150个年营收100万至2000万美元的美国亚马逊品牌、90天广告数据，中位ACoS为28.4%，中位TACoS为10.6%。背景：ACoS是广告花费占广告销售额的比例，TACoS是广告花费占全部销售额的比例。
+  🔗 [查看原文](https://www.reddit.com/r/FulfillmentByAmazon/comments/1xlyb4l/90_days_of_ad_data_from_150_us_amazon_brands_1m/)
+• 全球每3把伞就有1把产自绍兴，跨境电商推动设计升级（中华网 / 搜狐 多源报道）
+  摘要：浙江绍兴占全球伞具产量约三分之一，当地工厂正借跨境电商改设计、做自有品牌，从代工转向直接卖到海外。小品类加产业带，是这轮出海被反复验证的路径。
+  🔗 [查看原文](https://news.google.com/rss/articles/CBMicEFVX3lxTE9KMWowM3RvQWZKZl9JZ0ZDQTFVeTNjaG9lbWVfU2FyVldIS2R3akg4ZHhqaFhSMExUdDV5Nl9OdmxiaEZWS01rWE9HX3NMeWhDMjRONjRBbHAyT29USExtMl9EUmstNnVLVFNndFBPN0Q?oc=5)
+• 🔤 DoorDash 以170亿美元收购 Instacart（DoorDash to buy Instacart for $17B）（Retail Dive）
+  摘要：美国即时配送平台 DoorDash 宣布以170亿美元收购 Instacart，合并后进一步向零售技术、广告和数据业务延伸。两家合并后美国当日达市场的玩家更少，卖家可选的本地配送服务商随之减少。
+  🔗 [查看原文](https://www.retaildive.com/news/doordash-buys-instacart-delivery-seventeen-billion/873151/)
+
+🛡️ 合规与风险
+• 🔤 BBC调查：亚马逊、Temu上标"纯银"首饰检出有毒化学物质（Jewellery sold as sterling silver on Amazon and Temu found to contain toxic chemicals）（BBC）
+  摘要：BBC 调查发现，亚马逊和 Temu 上以"纯银"名义销售的部分首饰含有有毒化学物质。背景：首饰是欧美市场监管的重点抽检类目。
+  🔗 [查看原文](https://news.google.com/rss/articles/CBMiXkFVX3lxTE9WRWpNYXhqNlJ0bGhBVnB6M05GTWZuQm1GV2RLc1Byc0xUTkx1X25XSGhrQkNWTGowUHNUVXgtWE5YVm11eXlLTlBuREUtbUNUOGpmWjBzVEpXRUJ4OVE?oc=5)
+
+💼 卖家运营
+• 🔤 卖家讨论：10月15日费用调整后，有没有人重算单件利润（after the oct 15 fee change, did anyone actually redo their per unit profit?）（Reddit FBA）
+  摘要：亚马逊10月15日的费用调整生效后，有卖家在论坛发问：到底有多少人真的重算了每件产品的利润。背景：FBA 费用按尺寸、重量和仓储周期分档计算。
+  🔗 [查看原文](https://www.reddit.com/r/FulfillmentByAmazon/comments/1xmaggi/after_the_oct_15_fee_change_did_anyone_actually/)
+• 🔤 卖家困局：低出价没曝光，出到1.5美元CPC仍超100% ACoS（Amazon PPC: low bids get no impressions, higher bids get impressions at $1.50+ CPC and 100%+ ACOS）（Reddit FBA）
+  摘要：一位卖家描述，出价低时广告完全没有曝光，出价抬高后单次点击成本升到1.5美元以上、ACoS 超过100%，投放一年仍未盈利。帖子里的共识是：先算清毛利，再定广告上限。
+  🔗 [查看原文](https://www.reddit.com/r/FulfillmentByAmazon/comments/1xmfkch/amazon_ppc_low_bids_get_no_impressions_higher/)
+• 🔤 Cotopaxi 用11天"隔天上新"预热黑五网一（Cotopaxi adopts a drop strategy to build buzz ahead of BFCM）（Modern Retail）
+  摘要：户外品牌 Cotopaxi 在11月1日至11日发起"Cotodays"活动，每隔一天发布一款新品，为黑五网一蓄水。活动把新品分散到11天里，正好卡在节日流量的入口。
+  🔗 [查看原文](https://www.modernretail.co/marketing/cotopaxi-adopts-a-drop-strategy-to-build-buzz-ahead-of-bfcm/?utm_campaign=modernretaildis&utm_medium=rss&utm_source=general-rss)
+• 🔤 Rackhams 上线AI搜索，公司称销售额翻倍（Rackhams doubles sales and invests in AI search）（ChannelX）
+  摘要：英国线上百货 Rackhams 与搜索服务商 Luigi's Box 合作上线AI站内搜索，赶在全年最忙的几周前完成切换，公司称销售额已翻倍。站内搜索解决的是"顾客找不到货"这个最便宜的转化漏点。
+  🔗 [查看原文](https://channelx.world/2026/11/rackhams-doubles-sales-and-invests-in-ai-search/)
+
+To stop or manage this job, send me a new message (e.g. "stop reminder TrendRadar跨境日报投递").
