@@ -16,6 +16,7 @@ Node：`C:/Users/Administrator/AppData/Local/DayflowHome/tools/node24/node.exe`�
 🔴 实测坑（2026-10-21 微信端验证，务必先看）：
 - **每次写都必须带 `--request-id <uuid>`**（`create`/`patch`/`execution`/`review` 都一样）。MSYS bash 里 `export DAYFLOW_REQUEST_ID=x` 或 `VAR=x node ...` / 管道 stdin **都不生效**，客户端照报「写入前设置 DAYFLOW_REQUEST_ID」；只有 `--request-id` flag 可靠。JSON 用 `--json-file` 传（stdin 也行但同样要 flag）。
 - `client execution <id>` 的 JSON 必须有 `status`：只认 `completed` / `partial`（`done`/`full` 报「请选择执行状态」）；`minutes` 是本次分钟，**会累加到 actualMinutes**。
+- 🔴 **`execution` 还必须带 `date`（2026-11-16 实测）**：只传 `{"status":"completed","minutes":100}` → **400「实际投入或日期无效」**，什么都没写。正确体是 `{"date":"YYYY-MM-DD","status":"completed","minutes":100}`。400 是校验失败、未落库，补 `date` 后用新 request-id 重提即可（不算「换键绕冲突」）。成功回执里 `executions` 数组会多一条 `{id,date,minutes,status}`，`actualMinutes` 同步累加。
 - 🔴 **execution 不可删不可改**：patch 传 `actualMinutes` 无效，patch 传 `executions` 数组也无效（回执原样不动）。试错多记一次就永久多了。补救=把该事项 `status=cancelled`＋notes 写「作废原因」，同内容重新 create 一条正式的，只跑一次 execution。
 - `client review` 的正文 JSON 字段名是 **`text`**（配 `date`）；填 content/body/note/summary 都报「请输入复盘内容」。
 - 无钟点的待办：`start`/`end` 都不传（`plannedMinutes:0`），这类拿不到提前提醒。

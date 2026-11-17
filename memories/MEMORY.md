@@ -2,7 +2,7 @@ PowerShell经bash吃$和双引号,写.ps1/.mjs跑。
 §
 网络:v2rayN 10808 主线路;Google需CAPTCHA,Bing可直连(curl --noproxy '*')。
 §
-长 prompt 用 --query-file(勿 $(cat f))。delegate_task 无 per-call provider,子代理继承父模型。L1 见 skill l1-review。
+长 prompt 用 --query-file(勿 $(cat f))。delegate 子代理继承父模型。L1 见 skill l1-review。
 §
 路径:项目→D:\Workspace\;密钥→Desktop/各类api key/(从文件读不写死);归档 YYYY-MM-DD_主题.md;复盘写文件不写 skill。
 §
@@ -26,9 +26,9 @@ Codex/OpenAI 红线:全机 1 账号,牛来+妈妈各自独立 OAuth(不互拷 au
 §
 主模型+cron=deepseek-v4.1-flash/opencode-go;fallback 官方 ID=deepseek-flash(≠网关名)。Go 档无 Opus(仅 Haiku 5.5),重活要 Opus 5.5 须另开口子(OpenDesign Pro/Kilo/Claude Max)。核算见 skill model-subscription-evaluation。
 §
-健康域:「健康助理」→hermes -p health chat -c "Bot Chat" -m deepseek-v4.1-flash -Q --query-file;会话保留不重建;新规则须写进任务书(它不读skill);回执须逐项明细(压成摘要他说没看到回执)。
+健康域:健康助理→hermes -p health chat -c "Bot Chat" -m deepseek-v4.1-flash -Q --query-file;会话保留;它读 profiles/health/skills/(规则写这+任务书双保险);回执须逐项明细;自报验证必复核。
 §
-桌面端 Hermes.exe=hermes-agent/apps/desktop/release/win-unpacked/(官方);Programs/hermes-desktop 是第三方别混。一 bot=一 profile。
+桌面端 Hermes.exe=release/win-unpacked(官方);Programs/hermes-desktop 是第三方。一 bot=一 profile。
 §
 要他确认的须是他凭常识能判断的(菜名/份量);专业细节(放多少糖/理化参数)他会拒绝,别落在他判断不了的事上。
 §
@@ -48,7 +48,7 @@ Dayflow-Work-Sync每分钟采集钉钉/邮件,只抓不落日程;否决邮件转
 §
 「打算吃/要吃」≠已吃:未发生的餐不进统计。
 §
-本机 cron 18 个:14 no_agent/4 agent,自带 monitor_script+webhook。评估必读 jobs.json,勿凭任务名判断。
+本机 cron 18 个:14 no_agent/4 agent,评估必读 jobs.json。
 §
 他报份量常用「口/个/碗」模糊单位,须换算成克给他核;「没怎么吃」通常=没吃,先问零或非零;给区间他自己指定取哪头,别取中值
 §

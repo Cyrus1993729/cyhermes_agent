@@ -146,6 +146,13 @@ getmsg API 循环分页 → 全量文章（可到建号第一篇）
 
 → **正解：`web_extract` 只用来 5 秒确认「链接活着、标题对不对」，正式交付一律用下面 curl 全文路径。**
 
+✅ **同效替代（2026-11-16 实测）：已经开着浏览器时，不用 curl，直接用 browser_exec 取 `#js_content` innerText**：
+`js("(() => { const e=document.querySelector('#js_content')||document.body; return e.innerText; })()")`
+——本次同一篇链接：`web_extract` 只返回概述版（丢了「01/02/03」三节正文），
+`#js_content` innerText 拿到 **2,193 字的完整正文**（含鱼尾「欢迎来吹牛」）。
+判据同上：看结尾是不是句号收尾；不放心就用 `document.querySelector('#activity-name').innerText` 核对标题、
+比对长度是否明显大于 web_extract 返回值。适合只是要「读文章内容做分析」、不需要落盘成知识库的场景。
+
 ### 交付路径：curl 全文 → `#js_content` 提取 → 缺句校验
 
 1. **curl + 浏览器 UA 下载整页**：
