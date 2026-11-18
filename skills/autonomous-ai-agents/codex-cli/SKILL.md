@@ -201,6 +201,43 @@ j["https://api.openai.com/auth"]                 # chatgpt_plan_type / chatgpt_a
 
 **必须加两道守卫（缺一不可）**：
 
+🔴 **2026-11-17 实测：这套守卫本身有两个坑，必须按下面的写法改。**
+
+坑1——**关键词守卫会误伤自己写的 prompt**：prompt 正文会被几乎原样回显进 stdout，只要你的 prompt 里
+出现 `usage limit` / `hit your usage` 这类字样（比如你正在讨论限额政策），守卫就把**正常跑完的任务判成撞限**，
+exit 2 且不落盘产物（本次 114K tokens 的正常回答因此被判死）。
+坑2——**长任务 stdout 的正文在最前面，不在 codex 标记后面**：带中间思考的深度任务结构是
+`<最终回答>\nReading prompt from stdin...\n<header>\nuser\n<回显prompt>\ncodex\n<过程>\ncodex\n<重复的最终回答>\ntokens used\n<N>`。
+取「最后一个 codex 标记之后」拿到的是**重复正文**（内容相同但前面可能带工具痕迹）；最稳的是取 `tokens used` **之前**
+全部，再截到 `Reading prompt from stdin` 为止。
+
+正确的守卫 + 提取（双条件判定 + 回声截断）：
+
+```python
+has_tokens = re.search(r"tokens used\r?\n([\d,]+)", raw) is not None
+quota = re.search(r"(You've hit your usage limit|hit your usage limit at)", raw)
+if quota and not has_tokens:                      # ① 只有「报错误串」且「无 tokens used」才算撞限
+    print("QUOTA_BLOCKED"); sys.exit(2)
+m = list(re.finditer(r"(?:^|\n)codex\n", raw))  # ② 正则要兼容“行首无前缀”
+body = raw[m[-1].end():] if m else ""
+if not m:                                        # ③ 没标记就砍 header，而不是全留
+    i = raw.find("\n--------\n")
+    j = raw.find("\n--------\n", i + 1) if i != -1 else -1
+    body = raw[j + 10:] if j != -1 else ""
+# ④ 长任务专用：正文在最前面，取 tokens used 之前并截掉回声
+end = raw.find("tokens used")
+if end > 0:
+    cand = raw[:end]
+    cut = cand.find("Reading prompt from stdin")
+    if cut > 0:
+        cand = cand[:cut]
+    if len(cand.strip()) > len(body.strip()):
+        body = cand
+body = re.sub(r'\ntokens used\n[\d,]+.*$', '', body, flags=re.S).strip()
+```
+
+原守卫（**已废弃，勿再用**，保留作对照）：
+
 ```python
 if "usage limit" in raw or "hit your usage" in raw:
     print("QUOTA_BLOCKED"); sys.exit(2)          # ① 先判失败，别进提取逻辑

@@ -16,7 +16,7 @@ TG丢消息/补发看门狗见 skill hermes-telegram-delivery。
 §
 日报:5类8:00/跨境20:30(+20:40重试)/黄金周报周一12:30;生成投递分离+mtime幂等。
 §
-外部大模型 sign-off/深分析:用户会点名模型(现用 gpt-6.1-sol + -c model_reasoning_effort="high"),全自动 ≤3 轮;姿势见 skill codex-cli。
+外部大模型 sign-off:点名模型(gpt-6.1-sol + effort=high),全自动≤3轮;见 skill codex-cli。
 §
 金价认上海金。API故障先重试,429换Go模型:gpt-6-luna→glm-5.3-flash→kimi-k3→qwen3.8-max;官方直连排最后;qwen3.7-max已下线(410)。
 §
@@ -26,7 +26,7 @@ Codex/OpenAI 红线:全机 1 账号,牛来+妈妈各自独立 OAuth(不互拷 au
 §
 主模型+cron=deepseek-v4.1-flash/opencode-go;fallback 官方 ID=deepseek-flash(≠网关名)。Go 档无 Opus(仅 Haiku 5.5),重活要 Opus 5.5 须另开口子(OpenDesign Pro/Kilo/Claude Max)。核算见 skill model-subscription-evaluation。
 §
-健康域:健康助理→hermes -p health chat -c "Bot Chat" -m deepseek-v4.1-flash -Q --query-file;会话保留;它读 profiles/health/skills/(规则写这+任务书双保险);回执须逐项明细;自报验证必复核。
+健康域:一律派给 health bot,见 skill health-assistant-delegation(命令/任务书八段/两段式/校验器坑);主Hermes禁识图(走recognize.py);菜名克数以他口述为准(识图冲突作废);同会话勿并发派活。
 §
 桌面端 Hermes.exe=release/win-unpacked(官方);Programs/hermes-desktop 是第三方。一 bot=一 profile。
 §
@@ -34,9 +34,9 @@ Codex/OpenAI 红线:全机 1 账号,牛来+妈妈各自独立 OAuth(不互拷 au
 §
 有成本API先免费筛再查付费。
 §
-说「记一下」=直接落盘;否则(含「口/占比高」等模糊量)先出核算稿等确认。
+记账:核算稿→他明确说「写/存档」才入档;说「记一下」=直接落盘;模糊量先出稿。回执/记账一律不建md不发MEDIA。
 §
-SKILL.md≥100K 时 skill_manage patch 拒改,但 patch 工具能直接改它;write_file 进 references/ 亦可。
+SKILL.md≥100K 时 patch 拒改,改动只能写 references/。
 §
 Dayflow-Work-Sync每分钟采集钉钉/邮件,只抓不落日程;否决邮件转日程自动化,勿建cron。
 §
@@ -55,3 +55,5 @@ Dayflow-Work-Sync每分钟采集钉钉/邮件,只抓不落日程;否决邮件转
 Dayflow client items=JSON数组+行诊断JSONL,raw_decode读(loads报Extra data)。
 §
 TG汇报:接活先应答(收到+怎么拆)再动工具,不能等第一个产出;自己动手每步报进展,子bot那步可一次等结果(skill work-progress-reporting)。
+§
+gateway 无看护(Windows无服务/计划任务):看门狗 exit 75 后不自恢复,只能重启;取证见 skill daemon-outage-forensics

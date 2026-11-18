@@ -1,6 +1,6 @@
 ---
 name: hermes-telegram-delivery
-description: "Use when Telegram 消息丢失/只收到几个字。诊断 gateway.log，Bot API 补发。"
+description: "Use when Telegram 丢消息/只收到几个字/长时间没反应。"
 category: productivity
 tags: [hermes, telegram, delivery, debugging, send_path_degraded]
 ---
@@ -20,6 +20,14 @@ Telegram 上「长回复只收到几个字 / 开头片段」**≠ 内容被截�
 同样先 grep 日志确认，再决定是**补发**还是**重答**——**不要一上来就重新回答一遍**（浪费一轮，用户更困惑）。
 判定链：`response ready: ... response=2295 chars` + `Failed to deliver response after 2 retries: send_path_degraded` = 内容存在、只是没送到 → 走补发。
 文本不用重新研究：它还在你自己的会话上下文里，直接重建补发即可。
+
+**第三种症状（2026-11-17）：「几十分钟完全没反应」**
+这**既不是**生成失败也**不是**投递失败，而是 **gateway 进程已经退出**。
+判据：该时段 `gateway.log` 里**只有 cron、没有任何消息处理行**，而 `agent.log` 里 cron 照跑
+→ 进程没了，没人在听。此时补发、重答都没用，先看是不是看门狗 `exit code 75` 自杀 +
+本机没有 supervisor 把它拉起来。
+完整五步定位法（看门狗参数、`state.db` 心跳表/消息表取证、`tg_delivery_watchdog.log` 当独立目击证人）
+见 [`references/gateway-process-dead-2026-11-17.md`](references/gateway-process-dead-2026-11-17.md)。
 
 关键日志模式（gateway.log）：
 

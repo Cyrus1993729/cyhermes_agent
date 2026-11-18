@@ -1,0 +1,96 @@
+Cronjob Response: TrendRadar跨境日报投递
+(job_id: e8e436bbf9b1)
+-------------
+
+⚡ 今日速览
+· Temu 在欧盟吃初裁，罚款上限 6% 全球营收
+· TikTok Shop 推出付费会员，覆盖 100 万买家
+· 大桥口岸 10 个月跨境出口破千亿，通道在放量
+
+🏛 政策风向 · 门槛变了吗
+▶ 欧盟初裁认定 Temu 违反《数字服务法》，最高可罚全球营业额 6%
+　干货：11月17日欧委会公布初裁结论，指 Temu 对非法、不安全商品管控不足；若最终认定违规，罚款上限是全球营业额的 6%。
+　对你：平台挨罚会往下压卖家，资质和检测报告以后查得更细。
+▶ 苏州再添跨境电商政策助力
+　干货：11月17日苏州发布支持"外贸新业态"的新举措；11月14日当地跨境电商产业园刚开园，三天内政策接续落地。
+　对你：你在苏州，园区和政策同向加码，值得先去核对准入条件。
+
+🛒 平台规则 · 在哪卖、怎么卖
+▶ TikTok Shop 推出付费会员，覆盖 100 万买家
+　干货：新会员档叫 TikTok Shop+，权益是免运费加专属折扣，已向 100 万购物者开放。
+　对你：会员单的运费和折扣谁承担，直接决定你的到手利润。
+▶ Temu 与斯洛伐克 IT 行业协会签约，拉本地商家入驻
+　干货：同一天，Temu 在布鲁塞尔挨初裁，在斯洛伐克却签协会招募当地企业上平台开店。
+　对你：本地商家供给在扩，纯铺货卖家的位置会被挤。
+
+📈 市场与成本 · 钱往哪走
+▶ 港珠澳大桥口岸 1-10 月跨境电商出口破 1000 亿元
+　干货：今年前 10 个月经大桥口岸的跨境电商出口额突破千亿，走的是珠江西岸往港澳的陆路通道。
+　对你：通道业务量在涨，具体品类需求还得自己核。
+▶ 美国玩具前 9 个月销售额涨 20%，靠成年人收藏品撑起
+　干货：美国玩具行业今年前 9 个月美元销售额同比增长 20%，增长由收藏品和粉丝周边带动，而非儿童日常玩具。
+　对你：卖给成年人的收藏向玩具，比儿童玩具更适合小卖家切。
+
+🛡 合规与风险
+▶ SHEIN 因 PFAS 限值下架儿童夹克，安全组织称还不够
+　干货：SHEIN 下架一批儿童夹克，原因是 PFAS（永久化学品）超出限值；消费者安全组织认为只下架、不全面回收不够。
+　对你：儿童、贴身两类被点名抽检的概率最高，检测报告提前备。
+
+💼 实战参考 · 别人怎么做的
+▶ 澳洲 POD：车库起步的店做到年入 4.76 亿澳元
+　干货：原文以一家从车库起步、年营收 4.76 亿澳元的澳洲店铺为例，另附 4 类跨境 POD（按需打印，卖出才生产）入局路径。
+　对你：POD 不用备货，是新手验"能不能卖出去"最便宜的试法。
+▶ 加拿大雨衣品牌停美站 3 个月后重启，教训是分散市场
+　干货：Fairechild 做了 9 年，8 月中因贸易摩擦暂停对美发货，上周重启；重启面对的是新问题，不是回到从前。
+　对你：只押美国一个市场，政策一变就停摆，第二市场要提前铺。
+
+📖 小白词典
+· DSA（数字服务法）：欧盟给平台定的"必须管住自家货架"的规矩，卖危险品平台要挨罚。
+· PFAS（全氟化合物）：让衣服防水防油的化学涂层，号称"永久化学品"，欧美正在限值。
+· POD（按需打印）：先接单再生产，印一件卖一件，不压库存。
+
+✅ 今天该做的一件事
+把手上品类过一遍：儿童、贴身、防水三类先备好检测报告。
+
+──────────────
+
+📦 跨境电商日报 11月17日（过去24小时 · 9 条）
+
+🛃 政策法规
+• 🔴 欧盟初裁认定 Temu 违反《数字服务法》，最高可罚全球营业额 6%（多源报道）
+  摘要：11月17日欧盟委员会公布初裁结论，认定 Temu 在拦截非法、不安全商品上措施不足、控件薄弱。按 DSA 规定，若最终认定违规，罚款上限可达其全球营业额的 6%。欧委会此前对 Temu 已有过一次调查行动，本次初裁是最新一步，最终结论与罚金仍待后续裁定。
+  🔗 [查看原文](https://news.google.com/rss/articles/CBMiqgFBVV95cUxQLXJNVzQxVUoxYVMzdndPay1nWjVDU2VydXZSdnk1SUJ6b0F6WWptQnE5aVJIVFA4NWtpeWNENXU4Z0pwWnJDZXdkNTZ2X2JSRVFzZWNCUE9ueUdXQmNackxVZHVpQmNtaDFVWU5vWS15cDAyQjF6T0UxWnpLWVhKemJmQjJTemNWckhNTk5uYlA5NEczT0dhMlNlQlpSLUU5SlRMNmJ3MmM5Zw?oc=5)
+• 苏州再添跨境电商政策助力，聚焦外贸新业态（苏州新闻）
+  摘要：11月17日苏州发布新一轮支持外贸新业态的举措，方向仍是跨境电商。往前三天，11月14日苏州跨境电商产业园刚开园；本地园区加市级政策在一周内接连落地，苏州把跨境当成稳外贸的主要抓手。
+  🔗 [查看原文](https://news.google.com/rss/articles/CBMiYkFVX3lxTE1hRHNYdDhxZDVaQnBiZjRVR1V0TkYyWGhVb1lKdDltVDMwZnZUTU9fN0VybUdlanU5eEpmTGwzdkVkNUxpY1RZNmdSd3ZpNlB4Z3lLQTNRWDBUNEpiSmoyUk5B?oc=5)
+
+🏪 平台动态
+• 🔤 TikTok Shop 推出付费会员，覆盖 100 万买家（TikTok Shop pilots paid membership）
+  摘要：TikTok Shop 近期向 100 万购物者开放付费会员档，会员可享免运费和专属折扣。对平台来说，这一步是想把直播间里的冲动购买，转成有年费锁定的长期复购。
+  🔗 [查看原文](https://www.retaildive.com/news/tiktok-shop-plus-paid-membership/874451/)
+• 🔤 Temu 联手斯洛伐克 IT 行业协会，扶持本地商家入驻（Temu Partners with IT Asociácia Slovenska to Support Slovakia Businesses）
+  摘要：Temu 与斯洛伐克 IT 行业协会签署合作，帮助当地企业上平台开店，扩充的是欧洲本地商家供给。这与同一天欧盟对 Temu 的 DSA 初裁形成对照：监管压力下，本地卖家在平台上的分量在上升。
+  🔗 [查看原文](https://news.google.com/rss/articles/CBMixwFBVV95cUxOME9ueGxsTWFfR0FOTmRHOGlXbGZVaHVrTFNKQ3VEX1ExR1ZNVzJ6a21KMlBfMVFDLVRCYTFYRDlIS0ZHUWIzUHc3bmtjUjZGRDRoS2ptZlVSZVBGSjNRQjdYNmJUX2szeXFCMEtVeFRRSzVEc2k5QUtseTkxYnVraVRrSUdMelJNR0h5dmFKMHRUdUkwUWJ3dFBqY2FSLXN3U0ktSmVGbHVzeFZuRGVJNjJ1MkdSOTBBOHhPRmVZSVJkZTFtSkdB?oc=5)
+
+📦 物流与市场
+• 港珠澳大桥口岸 1-10 月跨境电商出口破 1000 亿元（珠海网）
+  摘要：今年 1 至 10 月，经港珠澳大桥口岸的跨境电商出口额突破 1000 亿元。该口岸是珠江西岸货物往港澳的陆路通道，出口多经香港机场和海运中转，10 个月破千亿说明这条通道的业务量仍在放大。
+  🔗 [查看原文](https://news.google.com/rss/articles/CBMid0FVX3lxTE9WOVc3RzJPRzlFLV82eGtDWU5SZUVsMFNkdVpWNXdzNUtuZ21UQjZPV2pHb2JkV0lWZmlDTXFleUxVQlJEXzR3TkJPS29YQUtBUEVYd04zd0kzYjNIOWM0TGJpSUUyNVZvZjlqU0tCUUdQR2RhYUE0?oc=5)
+• 🔤 美国玩具销售前 9 个月增长 20%，主力是成年人（Toy sales aren't just about kids anymore）
+  摘要：据 Retail Dive 报道，美国玩具行业今年前 9 个月美元销售额同比增长 20%。增量来自收藏品和粉丝周边，买家是成年人和收藏群体，而非儿童日常玩具，品类结构正从"给孩子的礼物"转向"给自己收的藏品"。
+  🔗 [查看原文](https://www.retaildive.com/news/toy-sales-growth-adults-circana/874706/)
+
+🛡️ 合规与风险
+• 🔤 SHEIN 因 PFAS 限值下架儿童夹克，安全组织称还不够（Shein removed children's jackets over PFAS limits — a safety group says that's not enough）
+  摘要：SHEIN 下架了一批儿童夹克，原因是 PFAS（一类防水防油的"永久化学品"）超出限值。消费者安全组织认为，只做下架、没有全面通知买家并回收，力度不足；儿童服装的化学残留正成为欧美监管重点。
+  🔗 [查看原文](https://news.google.com/rss/articles/CBMikgFBVV95cUxQM2NCcGlRYXpIQVo1RkMxYWNPQlJpcGZkVTFLLWJLNWRKUDl3WlBCMFdNN2xGUGo0d3UxWFlqYkJfbEpmenpvTEdYMWRIVVhObmdLQ0stQURhbVRsdERscHdGdnp6eTNmb1Vwamc4aVJzTTBHZEJfNkhUOGhGeXVreUZlQVZiWlpGaERRTTNzR2o2UQ?oc=5)
+
+💼 卖家运营
+• 澳洲 POD 样本：车库起步的店做到年入 4.76 亿澳元（全球定制网）
+  摘要：原文以一家从车库起步、年营收 4.76 亿澳元的澳洲店铺为例，拆解当地市场的物流时效与客单价特点，并附 4 类跨境 POD（按需打印，接单后才生产）入局路径，属于可照着做的打法清单。
+  🔗 [查看原文](https://news.google.com/rss/articles/CBMiTkFVX3lxTFBHVmVlR01DbW5ESEFhN0NCR3FReUtqU3psLUl6WkV0cHplNVNsV0t1STJmT3N6bFR0NXJCdnFGZ3k0dXNBQks3STVHamk4QQ?oc=5)
+• 🔤 加拿大雨衣品牌暂停美国业务 3 个月后重启，教训是别只押一个市场（'Diversify your markets': Learnings from a Canadian brand rebuilding its US business）
+  摘要：做儿童雨衣的 Fairechild 成立 9 年，8 月中旬因贸易摩擦暂停对美发货，上周重启美国业务。重启后遇到的是新问题而非回到从前，创始人给跨境同行的建议就一句：市场要分散，别把出货全压在单一国家。
+  🔗 [查看原文](https://www.modernretail.co/operations/diversify-your-markets-learnings-from-a-canadian-brand-rebuilding-its-us-business/)
+
+To stop or manage this job, send me a new message (e.g. "stop reminder TrendRadar跨境日报投递").

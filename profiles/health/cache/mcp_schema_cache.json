@@ -276,7 +276,7 @@
       },
       {
         "name": "chat_media_download",
-        "description": "Downloads encrypted media bytes from an XChat conversation. The response body contains raw binary bytes. Returns JSON with the response bytes base64-encoded in `data`, plus `content_type` and `size_bytes`. Needs the OAuth2 scope `media.write`.",
+        "description": "Downloads encrypted media bytes from an XChat conversation. The response body contains raw binary bytes. A media item too large to return in one response fails with a 413 problem of type `https://api.x.com/2/problems/response-too-large`, and a retry fails the same way. Returns JSON with the response bytes base64-encoded in `data`, plus `content_type` and `size_bytes`. A response over 16 MiB is not returned: the call fails with a 413 `response-too-large` problem. Needs the OAuth2 scope `media.write`.",
         "inputSchema": {},
         "annotations": {
           "readOnlyHint": false
@@ -844,7 +844,7 @@
       }
     ],
     "ttl_ms": 0,
-    "written_at": 1794839719.1927884,
+    "written_at": 1794923093.517791,
     "cache_scope": "private"
   },
   "amap": {
@@ -949,7 +949,7 @@
     ],
     "utility_tools": [],
     "ttl_ms": 0,
-    "written_at": 1794839724.5817165,
+    "written_at": 1794923095.201893,
     "cache_scope": "private"
   }
 }
