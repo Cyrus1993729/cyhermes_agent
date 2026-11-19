@@ -5477,3 +5477,906 @@ openai.APITimeoutError: Request timed out.
 2026-11-17 21:47:11,499 INFO [20261104_114345_190ce9] tools.terminal_tool: Manually cleaned up environment for task: session:agent:main:telegram:dm:8938729624
 2026-11-17 21:47:11,502 INFO [20261104_114345_190ce9] tools.terminal_tool: Cleaned 1 environments
 2026-11-17 21:47:13,602 INFO [20261104_114345_190ce9] cli: CLI cleanup calling memory shutdown for session 20261104_114345_190ce9 with 324 message(s)
+2026-11-18 08:25:23,080 INFO hermes_cli.plugins: Plugin 'browser-browser-use' registered browser provider: browser-use
+2026-11-18 08:25:23,100 INFO hermes_cli.plugins: Plugin 'browser-browserbase' registered browser provider: browserbase
+2026-11-18 08:25:23,108 INFO hermes_cli.plugins: Plugin 'browser-firecrawl' registered browser provider: firecrawl
+2026-11-18 08:25:24,643 INFO hermes_cli.plugins: Plugin 'deepinfra' registered image_gen provider: deepinfra
+2026-11-18 08:25:24,646 INFO hermes_cli.plugins: Plugin 'fal' registered image_gen provider: fal
+2026-11-18 08:25:24,649 INFO hermes_cli.plugins: Plugin 'krea' registered image_gen provider: krea
+2026-11-18 08:25:24,652 INFO hermes_cli.plugins: Plugin 'meta-ai-image-gen' registered image_gen provider: meta-ai
+2026-11-18 08:25:24,655 INFO hermes_cli.plugins: Plugin 'openai' registered image_gen provider: openai
+2026-11-18 08:25:24,658 INFO hermes_cli.plugins: Plugin 'openai-codex' registered image_gen provider: openai-codex
+2026-11-18 08:25:24,662 INFO hermes_cli.plugins: Plugin 'openrouter' registered image_gen provider: openrouter
+2026-11-18 08:25:24,663 INFO hermes_cli.plugins: Plugin 'openrouter' registered image_gen provider: nous
+2026-11-18 08:25:24,674 INFO hermes_cli.plugins: Plugin 'xai' registered image_gen provider: xai
+2026-11-18 08:25:24,692 INFO hermes_cli.plugins: Plugin 'deepinfra' registered video_gen provider: deepinfra
+2026-11-18 08:25:24,694 INFO hermes_cli.plugins: Plugin 'fal' registered video_gen provider: fal
+2026-11-18 08:25:24,699 INFO hermes_cli.plugins: Plugin 'xai' registered video_gen provider: xai
+2026-11-18 08:25:24,715 INFO hermes_cli.plugins: Plugin 'web-brave-free' registered web provider: brave-free
+2026-11-18 08:25:24,719 INFO hermes_cli.plugins: Plugin 'web-ddgs' registered web provider: ddgs
+2026-11-18 08:25:24,723 INFO hermes_cli.plugins: Plugin 'web-exa' registered web provider: exa
+2026-11-18 08:25:24,730 INFO hermes_cli.plugins: Plugin 'web-firecrawl' registered web provider: firecrawl
+2026-11-18 08:25:24,734 INFO hermes_cli.plugins: Plugin 'web-keenable' registered web provider: keenable
+2026-11-18 08:25:24,738 INFO hermes_cli.plugins: Plugin 'web-parallel' registered web provider: parallel
+2026-11-18 08:25:24,742 INFO hermes_cli.plugins: Plugin 'web-searxng' registered web provider: searxng
+2026-11-18 08:25:24,746 INFO hermes_cli.plugins: Plugin 'web-tavily' registered web provider: tavily
+2026-11-18 08:25:24,750 INFO hermes_cli.plugins: Plugin 'web-xai' registered web provider: xai
+2026-11-18 08:25:24,785 INFO hermes_cli.plugins: Plugin discovery complete: 56 found, 50 enabled
+2026-11-18 08:25:27,522 INFO tools.mcp_tool: MCP server 'x' (stdio): registered 103 tool(s): mcp__x__article_create_draft, mcp__x__list_broadcasts, mcp__x__get_chat_moderators, mcp__x__add_chat_moderator, mcp__x__remove_chat_moderator, mcp__x__list_scheduled_broadcasts, mcp__x__create_scheduled_broadcast, mcp__x__delete_scheduled_broadcast, mcp__x__get_scheduled_broadcast, mcp__x__update_scheduled_broadcast, mcp__x__go_live_scheduled_broadcast, mcp__x__get_broadcast, mcp__x__get_broadcast_chat, mcp__x__mute_broadcast_chat_user, mcp__x__unmute_broadcast_chat_user, mcp__x__list_scheduled_calls, mcp__x__schedule_call, mcp__x__cancel_scheduled_call, mcp__x__get_scheduled_call, mcp__x__update_scheduled_call, mcp__x__respond_to_scheduled_call, mcp__x__get_chat_conversations, mcp__x__get_chat_conversation, mcp__x__unarchive_chat_conversation, mcp__x__archive_chat_conversation, mcp__x__get_chat_conversation_events, mcp__x__add_conversation_keys, mcp__x__send_chat_message, mcp__x__mark_chat_conversation_read, mcp__x__send_chat_typing_indicator, mcp__x__mark_chat_conversation_unread, mcp__x__chat_media_upload_initialize, mcp__x__chat_media_upload_append, mcp__x__chat_media_upload_finalize, mcp__x__chat_media_download, mcp__x__get_chat_message_requests, mcp__x__get_chat_message_request, mcp__x__accept_chat_message_request, mcp__x__search_communities, mcp__x__get_communities_by_id, mcp__x__create_lists, mcp__x__get_lists_by_id, mcp__x__update_lists, mcp__x__get_lists_followers, mcp__x__get_lists_members, mcp__x__add_lists_member, mcp__x__remove_lists_member_by_user_id, mcp__x__get_lists_posts, mcp__x__media_upload, mcp__x__search_news, mcp__x__get_news, mcp__x__list_sources, mcp__x__create_source, mcp__x__delete_source, mcp__x__get_source, mcp__x__update_source, mcp__x__get_spaces_by_ids, mcp__x__get_spaces_by_creator_ids, mcp__x__search_spaces, mcp__x__get_spaces_by_id, mcp__x__get_spaces_posts, mcp__x__get_trends_by_woeid, mcp__x__get_posts_by_ids, mcp__x__create_posts, mcp__x__get_posts_counts_recent, mcp__x__search_posts_all, mcp__x__get_posts_by_id, mcp__x__get_posts_liking_users, mcp__x__get_posts_quoted_posts, mcp__x__get_posts_reposted_by, mcp__x__get_usage_credits, mcp__x__get_users_by_usernames, mcp__x__get_users_by_username, mcp__x__get_users_me, mcp__x__get_users_me_followers, mcp__x__get_users_me_following, mcp__x__get_users_public_keys, mcp__x__search_users, mcp__x__get_users_by_id, mcp__x__get_users_blocking, mcp__x__users_id_block, mcp__x__get_users_bookmarks, mcp__x__create_users_bookmark, mcp__x__get_users_bookmark_folders, mcp__x__create_users_bookmark_folder, mcp__x__get_users_bookmarks_by_folder_id, mcp__x__delete_users_bookmark, mcp__x__get_users_followed_lists, mcp__x__follow_list, mcp__x__unfollow_list, mcp__x__get_users_liked_posts, mcp__x__get_users_list_memberships, mcp__x__get_users_mentions, mcp__x__get_users_owned_lists, mcp__x__get_users_pinned_lists, mcp__x__pin_list, mcp__x__unpin_list, mcp__x__get_users_public_key, mcp__x__get_users_timeline, mcp__x__get_users_posts, mcp__x__users_id_unblock, mcp__x__list_resources, mcp__x__read_resource
+2026-11-18 08:25:30,755 INFO tools.mcp_tool: MCP server 'amap' (stdio): registered 12 tool(s): mcp__amap__maps_regeocode, mcp__amap__maps_geo, mcp__amap__maps_ip_location, mcp__amap__maps_weather, mcp__amap__maps_search_detail, mcp__amap__maps_bicycling, mcp__amap__maps_direction_walking, mcp__amap__maps_direction_driving, mcp__amap__maps_direction_transit_integrated, mcp__amap__maps_distance, mcp__amap__maps_text_search, mcp__amap__maps_around_search
+2026-11-18 08:25:30,756 INFO tools.mcp_tool: MCP: registered 115 tool(s) from 2 server(s)
+2026-11-18 08:25:30,757 INFO tools.mcp_tool:   MCP: 115 tool(s) from 2 server(s)
+2026-11-18 08:25:30,865 INFO run_agent: Loaded environment variables from C:\Users\Administrator\AppData\Local\hermes\profiles\health\.env
+2026-11-18 08:25:32,189 INFO run_agent: OpenAI client created (agent_init, shared=True) thread=MainThread:16700 provider=opencode-go base_url=https://opencode.ai/zen/go/v1 model=deepseek-v4.1-flash
+2026-11-18 08:25:32,245 WARNING tools.registry: check_fn check_browser_back_requirements returned False; dependent tools will be unavailable this turn
+2026-11-18 08:25:32,298 WARNING tools.registry: check_fn _browser_cdp_check returned False; dependent tools will be unavailable this turn
+2026-11-18 08:25:32,338 WARNING tools.registry: check_fn check_browser_click_requirements returned False; dependent tools will be unavailable this turn
+2026-11-18 08:25:32,380 WARNING tools.registry: check_fn check_browser_requirements returned False; dependent tools will be unavailable this turn
+2026-11-18 08:25:32,417 WARNING tools.registry: check_fn _browser_dialog_check returned False; dependent tools will be unavailable this turn
+2026-11-18 08:25:32,511 WARNING tools.registry: check_fn check_browser_navigate_requirements returned False; dependent tools will be unavailable this turn
+2026-11-18 08:25:32,557 WARNING tools.registry: check_fn check_browser_press_requirements returned False; dependent tools will be unavailable this turn
+2026-11-18 08:25:32,600 WARNING tools.registry: check_fn check_browser_scroll_requirements returned False; dependent tools will be unavailable this turn
+2026-11-18 08:25:32,639 WARNING tools.registry: check_fn check_browser_snapshot_requirements returned False; dependent tools will be unavailable this turn
+2026-11-18 08:25:32,688 WARNING tools.registry: check_fn check_browser_type_requirements returned False; dependent tools will be unavailable this turn
+2026-11-18 08:25:32,759 WARNING tools.registry: check_fn check_browser_vision_requirements returned False; dependent tools will be unavailable this turn
+2026-11-18 08:25:32,812 WARNING tools.registry: check_fn check_computer_use_requirements returned False; dependent tools will be unavailable this turn
+2026-11-18 08:25:32,844 WARNING tools.registry: check_fn check_image_generation_requirements returned False; dependent tools will be unavailable this turn
+2026-11-18 08:25:32,847 WARNING tools.registry: check_fn _check_kanban_mode returned False; dependent tools will be unavailable this turn
+2026-11-18 08:25:32,851 WARNING tools.registry: check_fn _check_kanban_orchestrator_mode returned False; dependent tools will be unavailable this turn
+2026-11-18 08:25:34,150 INFO tools.tool_search: tool_search activated (tier 1): 17 core/visible tools kept, 124 deferred (~38713 tokens), listing full (budget ~4000 tokens)
+2026-11-18 08:25:34,513 INFO [20261104_114345_190ce9] agent.turn_context: conversation turn: session=20261104_114345_190ce9 model=deepseek-v4.1-flash provider=opencode-go platform=cli history=324 msg='【任务：核算 2026-11-18 早餐 —— 只核算，不落盘】  你是健康助理。用户报今天的早餐。**按老规矩：本轮只出核算稿，他确认后下一轮才写入。**  ...'
+2026-11-18 08:25:34,757 INFO run_agent: OpenAI client created (chat_completion_stream_request, shared=False) thread=Thread-22 (<lambda>):18572 provider=opencode-go base_url=https://opencode.ai/zen/go/v1 model=deepseek-v4.1-flash
+2026-11-18 08:25:58,138 INFO [20261104_114345_190ce9] agent.conversation_loop: API call #1: model=deepseek-v4.1-flash provider=opencode-go in=292613 out=3702 total=296315 latency=23.4s cache=286464/292613 (98%)
+2026-11-18 08:25:59,609 INFO tools.file_tools: Creating new local environment for task session:...
+2026-11-18 08:26:00,569 INFO tools.environments.base: Session snapshot created (session=756cad68581e, cwd=C:\Users\Administrator)
+2026-11-18 08:26:00,572 INFO tools.file_tools: local environment ready for task session:
+2026-11-18 08:26:01,584 INFO [20261104_114345_190ce9] agent.tool_executor: tool write_file completed (2.00s, 266 chars)
+2026-11-18 08:26:05,678 INFO [20261104_114345_190ce9] agent.conversation_loop: API call #2: model=deepseek-v4.1-flash provider=opencode-go in=296418 out=95 total=296513 latency=4.1s cache=292608/296418 (99%)
+2026-11-18 08:26:06,788 INFO [20261104_114345_190ce9] agent.tool_executor: tool terminal completed (1.09s, 3227 chars)
+2026-11-18 08:26:11,979 INFO [20261104_114345_190ce9] agent.conversation_loop: API call #3: model=deepseek-v4.1-flash provider=opencode-go in=298496 out=436 total=298932 latency=5.2s cache=296320/298496 (99%)
+2026-11-18 08:26:12,453 INFO [20261104_114345_190ce9] agent.tool_executor: tool terminal completed (0.46s, 397 chars)
+2026-11-18 08:26:30,253 INFO [20261104_114345_190ce9] agent.conversation_loop: API call #4: model=deepseek-v4.1-flash provider=opencode-go in=299120 out=3270 total=302390 latency=17.8s cache=298496/299120 (100%)
+2026-11-18 08:26:30,284 INFO [20261104_114345_190ce9] agent.conversation_loop: Turn ended: reason=text_response(finish_reason=stop) model=deepseek-v4.1-flash api_calls=4/90 budget=4/90 tool_turns=150 last_msg_role=assistant response_len=5239 session=20261104_114345_190ce9
+2026-11-18 08:26:30,310 INFO [20261104_114345_190ce9] tools.terminal_tool: Manually cleaned up environment for task: session:agent:main:telegram:dm:8938729624
+2026-11-18 08:26:30,313 INFO [20261104_114345_190ce9] tools.terminal_tool: Cleaned 1 environments
+2026-11-18 08:26:30,383 INFO [20261104_114345_190ce9] cli: CLI cleanup calling memory shutdown for session 20261104_114345_190ce9 with 332 message(s)
+2026-11-18 08:29:12,505 INFO hermes_cli.plugins: Plugin 'browser-browser-use' registered browser provider: browser-use
+2026-11-18 08:29:12,699 INFO hermes_cli.plugins: Plugin 'browser-browserbase' registered browser provider: browserbase
+2026-11-18 08:29:12,723 INFO hermes_cli.plugins: Plugin 'browser-firecrawl' registered browser provider: firecrawl
+2026-11-18 08:29:13,628 INFO hermes_cli.plugins: Plugin 'deepinfra' registered image_gen provider: deepinfra
+2026-11-18 08:29:13,632 INFO hermes_cli.plugins: Plugin 'fal' registered image_gen provider: fal
+2026-11-18 08:29:13,942 INFO hermes_cli.plugins: Plugin 'krea' registered image_gen provider: krea
+2026-11-18 08:29:14,228 INFO hermes_cli.plugins: Plugin 'meta-ai-image-gen' registered image_gen provider: meta-ai
+2026-11-18 08:29:14,231 INFO hermes_cli.plugins: Plugin 'openai' registered image_gen provider: openai
+2026-11-18 08:29:14,235 INFO hermes_cli.plugins: Plugin 'openai-codex' registered image_gen provider: openai-codex
+2026-11-18 08:29:14,239 INFO hermes_cli.plugins: Plugin 'openrouter' registered image_gen provider: openrouter
+2026-11-18 08:29:14,240 INFO hermes_cli.plugins: Plugin 'openrouter' registered image_gen provider: nous
+2026-11-18 08:29:14,246 INFO hermes_cli.plugins: Plugin 'xai' registered image_gen provider: xai
+2026-11-18 08:29:14,311 INFO hermes_cli.plugins: Plugin 'deepinfra' registered video_gen provider: deepinfra
+2026-11-18 08:29:14,314 INFO hermes_cli.plugins: Plugin 'fal' registered video_gen provider: fal
+2026-11-18 08:29:14,319 INFO hermes_cli.plugins: Plugin 'xai' registered video_gen provider: xai
+2026-11-18 08:29:14,334 INFO hermes_cli.plugins: Plugin 'web-brave-free' registered web provider: brave-free
+2026-11-18 08:29:14,351 INFO hermes_cli.plugins: Plugin 'web-ddgs' registered web provider: ddgs
+2026-11-18 08:29:14,359 INFO hermes_cli.plugins: Plugin 'web-exa' registered web provider: exa
+2026-11-18 08:29:14,377 INFO hermes_cli.plugins: Plugin 'web-firecrawl' registered web provider: firecrawl
+2026-11-18 08:29:14,386 INFO hermes_cli.plugins: Plugin 'web-keenable' registered web provider: keenable
+2026-11-18 08:29:14,394 INFO hermes_cli.plugins: Plugin 'web-parallel' registered web provider: parallel
+2026-11-18 08:29:14,399 INFO hermes_cli.plugins: Plugin 'web-searxng' registered web provider: searxng
+2026-11-18 08:29:14,403 INFO hermes_cli.plugins: Plugin 'web-tavily' registered web provider: tavily
+2026-11-18 08:29:14,407 INFO hermes_cli.plugins: Plugin 'web-xai' registered web provider: xai
+2026-11-18 08:29:14,442 INFO hermes_cli.plugins: Plugin discovery complete: 56 found, 50 enabled
+2026-11-18 08:29:17,724 INFO tools.mcp_tool: MCP server 'x' (stdio): registered 103 tool(s): mcp__x__article_create_draft, mcp__x__list_broadcasts, mcp__x__get_chat_moderators, mcp__x__add_chat_moderator, mcp__x__remove_chat_moderator, mcp__x__list_scheduled_broadcasts, mcp__x__create_scheduled_broadcast, mcp__x__delete_scheduled_broadcast, mcp__x__get_scheduled_broadcast, mcp__x__update_scheduled_broadcast, mcp__x__go_live_scheduled_broadcast, mcp__x__get_broadcast, mcp__x__get_broadcast_chat, mcp__x__mute_broadcast_chat_user, mcp__x__unmute_broadcast_chat_user, mcp__x__list_scheduled_calls, mcp__x__schedule_call, mcp__x__cancel_scheduled_call, mcp__x__get_scheduled_call, mcp__x__update_scheduled_call, mcp__x__respond_to_scheduled_call, mcp__x__get_chat_conversations, mcp__x__get_chat_conversation, mcp__x__unarchive_chat_conversation, mcp__x__archive_chat_conversation, mcp__x__get_chat_conversation_events, mcp__x__add_conversation_keys, mcp__x__send_chat_message, mcp__x__mark_chat_conversation_read, mcp__x__send_chat_typing_indicator, mcp__x__mark_chat_conversation_unread, mcp__x__chat_media_upload_initialize, mcp__x__chat_media_upload_append, mcp__x__chat_media_upload_finalize, mcp__x__chat_media_download, mcp__x__get_chat_message_requests, mcp__x__get_chat_message_request, mcp__x__accept_chat_message_request, mcp__x__search_communities, mcp__x__get_communities_by_id, mcp__x__create_lists, mcp__x__get_lists_by_id, mcp__x__update_lists, mcp__x__get_lists_followers, mcp__x__get_lists_members, mcp__x__add_lists_member, mcp__x__remove_lists_member_by_user_id, mcp__x__get_lists_posts, mcp__x__media_upload, mcp__x__search_news, mcp__x__get_news, mcp__x__list_sources, mcp__x__create_source, mcp__x__delete_source, mcp__x__get_source, mcp__x__update_source, mcp__x__get_spaces_by_ids, mcp__x__get_spaces_by_creator_ids, mcp__x__search_spaces, mcp__x__get_spaces_by_id, mcp__x__get_spaces_posts, mcp__x__get_trends_by_woeid, mcp__x__get_posts_by_ids, mcp__x__create_posts, mcp__x__get_posts_counts_recent, mcp__x__search_posts_all, mcp__x__get_posts_by_id, mcp__x__get_posts_liking_users, mcp__x__get_posts_quoted_posts, mcp__x__get_posts_reposted_by, mcp__x__get_usage_credits, mcp__x__get_users_by_usernames, mcp__x__get_users_by_username, mcp__x__get_users_me, mcp__x__get_users_me_followers, mcp__x__get_users_me_following, mcp__x__get_users_public_keys, mcp__x__search_users, mcp__x__get_users_by_id, mcp__x__get_users_blocking, mcp__x__users_id_block, mcp__x__get_users_bookmarks, mcp__x__create_users_bookmark, mcp__x__get_users_bookmark_folders, mcp__x__create_users_bookmark_folder, mcp__x__get_users_bookmarks_by_folder_id, mcp__x__delete_users_bookmark, mcp__x__get_users_followed_lists, mcp__x__follow_list, mcp__x__unfollow_list, mcp__x__get_users_liked_posts, mcp__x__get_users_list_memberships, mcp__x__get_users_mentions, mcp__x__get_users_owned_lists, mcp__x__get_users_pinned_lists, mcp__x__pin_list, mcp__x__unpin_list, mcp__x__get_users_public_key, mcp__x__get_users_timeline, mcp__x__get_users_posts, mcp__x__users_id_unblock, mcp__x__list_resources, mcp__x__read_resource
+2026-11-18 08:29:20,313 INFO tools.mcp_tool: MCP server 'amap' (stdio): registered 12 tool(s): mcp__amap__maps_regeocode, mcp__amap__maps_geo, mcp__amap__maps_ip_location, mcp__amap__maps_weather, mcp__amap__maps_search_detail, mcp__amap__maps_bicycling, mcp__amap__maps_direction_walking, mcp__amap__maps_direction_driving, mcp__amap__maps_direction_transit_integrated, mcp__amap__maps_distance, mcp__amap__maps_text_search, mcp__amap__maps_around_search
+2026-11-18 08:29:20,314 INFO tools.mcp_tool: MCP: registered 115 tool(s) from 2 server(s)
+2026-11-18 08:29:20,315 INFO tools.mcp_tool:   MCP: 115 tool(s) from 2 server(s)
+2026-11-18 08:29:20,408 INFO run_agent: Loaded environment variables from C:\Users\Administrator\AppData\Local\hermes\profiles\health\.env
+2026-11-18 08:29:22,287 INFO run_agent: OpenAI client created (agent_init, shared=True) thread=MainThread:17080 provider=opencode-go base_url=https://opencode.ai/zen/go/v1 model=deepseek-v4.1-flash
+2026-11-18 08:29:22,376 WARNING tools.registry: check_fn check_browser_back_requirements returned False; dependent tools will be unavailable this turn
+2026-11-18 08:29:22,440 WARNING tools.registry: check_fn _browser_cdp_check returned False; dependent tools will be unavailable this turn
+2026-11-18 08:29:22,574 WARNING tools.registry: check_fn check_browser_click_requirements returned False; dependent tools will be unavailable this turn
+2026-11-18 08:29:22,633 WARNING tools.registry: check_fn check_browser_requirements returned False; dependent tools will be unavailable this turn
+2026-11-18 08:29:22,698 WARNING tools.registry: check_fn _browser_dialog_check returned False; dependent tools will be unavailable this turn
+2026-11-18 08:29:22,823 WARNING tools.registry: check_fn check_browser_navigate_requirements returned False; dependent tools will be unavailable this turn
+2026-11-18 08:29:22,886 WARNING tools.registry: check_fn check_browser_press_requirements returned False; dependent tools will be unavailable this turn
+2026-11-18 08:29:22,944 WARNING tools.registry: check_fn check_browser_scroll_requirements returned False; dependent tools will be unavailable this turn
+2026-11-18 08:29:23,002 WARNING tools.registry: check_fn check_browser_snapshot_requirements returned False; dependent tools will be unavailable this turn
+2026-11-18 08:29:23,060 WARNING tools.registry: check_fn check_browser_type_requirements returned False; dependent tools will be unavailable this turn
+2026-11-18 08:29:23,100 WARNING tools.registry: check_fn check_browser_vision_requirements returned False; dependent tools will be unavailable this turn
+2026-11-18 08:29:23,124 WARNING tools.registry: check_fn check_computer_use_requirements returned False; dependent tools will be unavailable this turn
+2026-11-18 08:29:23,155 WARNING tools.registry: check_fn check_image_generation_requirements returned False; dependent tools will be unavailable this turn
+2026-11-18 08:29:23,159 WARNING tools.registry: check_fn _check_kanban_mode returned False; dependent tools will be unavailable this turn
+2026-11-18 08:29:23,164 WARNING tools.registry: check_fn _check_kanban_orchestrator_mode returned False; dependent tools will be unavailable this turn
+2026-11-18 08:29:24,586 INFO tools.tool_search: tool_search activated (tier 1): 17 core/visible tools kept, 124 deferred (~38713 tokens), listing full (budget ~4000 tokens)
+2026-11-18 08:29:24,863 INFO [20261104_114345_190ce9] agent.turn_context: conversation turn: session=20261104_114345_190ce9 model=deepseek-v4.1-flash provider=opencode-go platform=cli history=332 msg='【任务：2026-11-18 早餐 —— 换回他自己那袋燕麦的标签值 + 写入建档（授权落盘）】  你是健康助理。上一轮你把早餐核算稿交上来了，但用户指出两点，...'
+2026-11-18 08:29:25,068 INFO run_agent: OpenAI client created (chat_completion_stream_request, shared=False) thread=Thread-26 (<lambda>):19328 provider=opencode-go base_url=https://opencode.ai/zen/go/v1 model=deepseek-v4.1-flash
+2026-11-18 08:29:29,681 INFO [20261104_114345_190ce9] agent.conversation_loop: API call #1: model=deepseek-v4.1-flash provider=opencode-go in=303720 out=106 total=303826 latency=4.7s cache=299008/303720 (98%)
+2026-11-18 08:29:31,134 INFO tools.terminal_tool: Creating new local environment for task session:...
+2026-11-18 08:29:31,900 INFO tools.environments.base: Session snapshot created (session=e15161253b84, cwd=C:\Users\Administrator)
+2026-11-18 08:29:31,902 INFO tools.terminal_tool: local environment ready for task session:
+2026-11-18 08:29:32,631 INFO [20261104_114345_190ce9] agent.tool_executor: tool terminal completed (1.51s, 1107 chars)
+2026-11-18 08:29:39,250 INFO [20261104_114345_190ce9] agent.conversation_loop: API call #2: model=deepseek-v4.1-flash provider=opencode-go in=304548 out=724 total=305272 latency=6.6s cache=303616/304548 (100%)
+2026-11-18 08:29:39,580 INFO [20261104_114345_190ce9] agent.tool_executor: tool terminal completed (0.31s, 2078 chars)
+2026-11-18 08:29:53,960 INFO [20261104_114345_190ce9] agent.conversation_loop: API call #3: model=deepseek-v4.1-flash provider=opencode-go in=306652 out=2339 total=308991 latency=14.3s cache=304512/306652 (99%)
+2026-11-18 08:29:54,421 INFO [20261104_114345_190ce9] agent.tool_executor: tool terminal completed (0.45s, 369 chars)
+2026-11-18 08:30:19,387 INFO [20261104_114345_190ce9] agent.conversation_loop: API call #4: model=deepseek-v4.1-flash provider=opencode-go in=309224 out=4396 total=313620 latency=24.9s cache=306560/309224 (99%)
+2026-11-18 08:30:20,425 INFO [20261104_114345_190ce9] agent.tool_executor: tool write_file completed (1.02s, 279 chars)
+2026-11-18 08:30:24,672 INFO [20261104_114345_190ce9] agent.conversation_loop: API call #5: model=deepseek-v4.1-flash provider=opencode-go in=313725 out=118 total=313843 latency=4.2s cache=309120/313725 (99%)
+2026-11-18 08:30:25,314 INFO [20261104_114345_190ce9] agent.tool_executor: tool terminal completed (0.63s, 1366 chars)
+2026-11-18 08:30:32,562 INFO [20261104_114345_190ce9] agent.conversation_loop: API call #6: model=deepseek-v4.1-flash provider=opencode-go in=314541 out=259 total=314800 latency=7.2s cache=313600/314541 (100%)
+2026-11-18 08:30:33,244 INFO [20261104_114345_190ce9] agent.tool_executor: tool terminal completed (0.67s, 787 chars)
+2026-11-18 08:30:55,703 INFO [20261104_114345_190ce9] agent.conversation_loop: API call #7: model=deepseek-v4.1-flash provider=opencode-go in=315221 out=3669 total=318890 latency=22.4s cache=314496/315221 (100%)
+2026-11-18 08:30:55,766 INFO [20261104_114345_190ce9] agent.conversation_loop: Turn ended: reason=text_response(finish_reason=stop) model=deepseek-v4.1-flash api_calls=7/90 budget=7/90 tool_turns=156 last_msg_role=assistant response_len=5970 session=20261104_114345_190ce9
+2026-11-18 08:30:55,792 INFO [20261104_114345_190ce9] tools.terminal_tool: Manually cleaned up environment for task: session:agent:main:telegram:dm:8938729624
+2026-11-18 08:30:55,794 INFO [20261104_114345_190ce9] tools.terminal_tool: Cleaned 1 environments
+2026-11-18 08:30:55,865 INFO [20261104_114345_190ce9] cli: CLI cleanup calling memory shutdown for session 20261104_114345_190ce9 with 346 message(s)
+2026-11-18 08:49:39,380 INFO hermes_cli.plugins: Plugin 'browser-browser-use' registered browser provider: browser-use
+2026-11-18 08:49:39,555 INFO hermes_cli.plugins: Plugin 'browser-browserbase' registered browser provider: browserbase
+2026-11-18 08:49:39,571 INFO hermes_cli.plugins: Plugin 'browser-firecrawl' registered browser provider: firecrawl
+2026-11-18 08:49:40,255 INFO hermes_cli.plugins: Plugin 'deepinfra' registered image_gen provider: deepinfra
+2026-11-18 08:49:40,258 INFO hermes_cli.plugins: Plugin 'fal' registered image_gen provider: fal
+2026-11-18 08:49:40,261 INFO hermes_cli.plugins: Plugin 'krea' registered image_gen provider: krea
+2026-11-18 08:49:40,264 INFO hermes_cli.plugins: Plugin 'meta-ai-image-gen' registered image_gen provider: meta-ai
+2026-11-18 08:49:40,267 INFO hermes_cli.plugins: Plugin 'openai' registered image_gen provider: openai
+2026-11-18 08:49:40,272 INFO hermes_cli.plugins: Plugin 'openai-codex' registered image_gen provider: openai-codex
+2026-11-18 08:49:40,277 INFO hermes_cli.plugins: Plugin 'openrouter' registered image_gen provider: openrouter
+2026-11-18 08:49:40,278 INFO hermes_cli.plugins: Plugin 'openrouter' registered image_gen provider: nous
+2026-11-18 08:49:40,285 INFO hermes_cli.plugins: Plugin 'xai' registered image_gen provider: xai
+2026-11-18 08:49:40,303 INFO hermes_cli.plugins: Plugin 'deepinfra' registered video_gen provider: deepinfra
+2026-11-18 08:49:40,307 INFO hermes_cli.plugins: Plugin 'fal' registered video_gen provider: fal
+2026-11-18 08:49:40,312 INFO hermes_cli.plugins: Plugin 'xai' registered video_gen provider: xai
+2026-11-18 08:49:40,695 INFO hermes_cli.plugins: Plugin 'web-brave-free' registered web provider: brave-free
+2026-11-18 08:49:40,702 INFO hermes_cli.plugins: Plugin 'web-ddgs' registered web provider: ddgs
+2026-11-18 08:49:40,708 INFO hermes_cli.plugins: Plugin 'web-exa' registered web provider: exa
+2026-11-18 08:49:40,720 INFO hermes_cli.plugins: Plugin 'web-firecrawl' registered web provider: firecrawl
+2026-11-18 08:49:40,757 INFO hermes_cli.plugins: Plugin 'web-keenable' registered web provider: keenable
+2026-11-18 08:49:40,763 INFO hermes_cli.plugins: Plugin 'web-parallel' registered web provider: parallel
+2026-11-18 08:49:40,771 INFO hermes_cli.plugins: Plugin 'web-searxng' registered web provider: searxng
+2026-11-18 08:49:40,783 INFO hermes_cli.plugins: Plugin 'web-tavily' registered web provider: tavily
+2026-11-18 08:49:40,790 INFO hermes_cli.plugins: Plugin 'web-xai' registered web provider: xai
+2026-11-18 08:49:40,849 INFO hermes_cli.plugins: Plugin discovery complete: 56 found, 50 enabled
+2026-11-18 08:49:43,476 INFO tools.mcp_tool: MCP server 'x' (stdio): registered 103 tool(s): mcp__x__article_create_draft, mcp__x__list_broadcasts, mcp__x__get_chat_moderators, mcp__x__add_chat_moderator, mcp__x__remove_chat_moderator, mcp__x__list_scheduled_broadcasts, mcp__x__create_scheduled_broadcast, mcp__x__delete_scheduled_broadcast, mcp__x__get_scheduled_broadcast, mcp__x__update_scheduled_broadcast, mcp__x__go_live_scheduled_broadcast, mcp__x__get_broadcast, mcp__x__get_broadcast_chat, mcp__x__mute_broadcast_chat_user, mcp__x__unmute_broadcast_chat_user, mcp__x__list_scheduled_calls, mcp__x__schedule_call, mcp__x__cancel_scheduled_call, mcp__x__get_scheduled_call, mcp__x__update_scheduled_call, mcp__x__respond_to_scheduled_call, mcp__x__get_chat_conversations, mcp__x__get_chat_conversation, mcp__x__unarchive_chat_conversation, mcp__x__archive_chat_conversation, mcp__x__get_chat_conversation_events, mcp__x__add_conversation_keys, mcp__x__send_chat_message, mcp__x__mark_chat_conversation_read, mcp__x__send_chat_typing_indicator, mcp__x__mark_chat_conversation_unread, mcp__x__chat_media_upload_initialize, mcp__x__chat_media_upload_append, mcp__x__chat_media_upload_finalize, mcp__x__chat_media_download, mcp__x__get_chat_message_requests, mcp__x__get_chat_message_request, mcp__x__accept_chat_message_request, mcp__x__search_communities, mcp__x__get_communities_by_id, mcp__x__create_lists, mcp__x__get_lists_by_id, mcp__x__update_lists, mcp__x__get_lists_followers, mcp__x__get_lists_members, mcp__x__add_lists_member, mcp__x__remove_lists_member_by_user_id, mcp__x__get_lists_posts, mcp__x__media_upload, mcp__x__search_news, mcp__x__get_news, mcp__x__list_sources, mcp__x__create_source, mcp__x__delete_source, mcp__x__get_source, mcp__x__update_source, mcp__x__get_spaces_by_ids, mcp__x__get_spaces_by_creator_ids, mcp__x__search_spaces, mcp__x__get_spaces_by_id, mcp__x__get_spaces_posts, mcp__x__get_trends_by_woeid, mcp__x__get_posts_by_ids, mcp__x__create_posts, mcp__x__get_posts_counts_recent, mcp__x__search_posts_all, mcp__x__get_posts_by_id, mcp__x__get_posts_liking_users, mcp__x__get_posts_quoted_posts, mcp__x__get_posts_reposted_by, mcp__x__get_usage_credits, mcp__x__get_users_by_usernames, mcp__x__get_users_by_username, mcp__x__get_users_me, mcp__x__get_users_me_followers, mcp__x__get_users_me_following, mcp__x__get_users_public_keys, mcp__x__search_users, mcp__x__get_users_by_id, mcp__x__get_users_blocking, mcp__x__users_id_block, mcp__x__get_users_bookmarks, mcp__x__create_users_bookmark, mcp__x__get_users_bookmark_folders, mcp__x__create_users_bookmark_folder, mcp__x__get_users_bookmarks_by_folder_id, mcp__x__delete_users_bookmark, mcp__x__get_users_followed_lists, mcp__x__follow_list, mcp__x__unfollow_list, mcp__x__get_users_liked_posts, mcp__x__get_users_list_memberships, mcp__x__get_users_mentions, mcp__x__get_users_owned_lists, mcp__x__get_users_pinned_lists, mcp__x__pin_list, mcp__x__unpin_list, mcp__x__get_users_public_key, mcp__x__get_users_timeline, mcp__x__get_users_posts, mcp__x__users_id_unblock, mcp__x__list_resources, mcp__x__read_resource
+2026-11-18 08:49:45,676 INFO tools.mcp_tool: MCP server 'amap' (stdio): registered 12 tool(s): mcp__amap__maps_regeocode, mcp__amap__maps_geo, mcp__amap__maps_ip_location, mcp__amap__maps_weather, mcp__amap__maps_search_detail, mcp__amap__maps_bicycling, mcp__amap__maps_direction_walking, mcp__amap__maps_direction_driving, mcp__amap__maps_direction_transit_integrated, mcp__amap__maps_distance, mcp__amap__maps_text_search, mcp__amap__maps_around_search
+2026-11-18 08:49:45,677 INFO tools.mcp_tool: MCP: registered 115 tool(s) from 2 server(s)
+2026-11-18 08:49:45,678 INFO tools.mcp_tool:   MCP: 115 tool(s) from 2 server(s)
+2026-11-18 08:49:45,785 INFO run_agent: Loaded environment variables from C:\Users\Administrator\AppData\Local\hermes\profiles\health\.env
+2026-11-18 08:49:47,100 INFO run_agent: OpenAI client created (agent_init, shared=True) thread=MainThread:17860 provider=opencode-go base_url=https://opencode.ai/zen/go/v1 model=deepseek-v4.1-flash
+2026-11-18 08:49:47,147 WARNING tools.registry: check_fn check_browser_back_requirements returned False; dependent tools will be unavailable this turn
+2026-11-18 08:49:47,185 WARNING tools.registry: check_fn _browser_cdp_check returned False; dependent tools will be unavailable this turn
+2026-11-18 08:49:47,224 WARNING tools.registry: check_fn check_browser_click_requirements returned False; dependent tools will be unavailable this turn
+2026-11-18 08:49:47,262 WARNING tools.registry: check_fn check_browser_requirements returned False; dependent tools will be unavailable this turn
+2026-11-18 08:49:47,299 WARNING tools.registry: check_fn _browser_dialog_check returned False; dependent tools will be unavailable this turn
+2026-11-18 08:49:47,381 WARNING tools.registry: check_fn check_browser_navigate_requirements returned False; dependent tools will be unavailable this turn
+2026-11-18 08:49:47,420 WARNING tools.registry: check_fn check_browser_press_requirements returned False; dependent tools will be unavailable this turn
+2026-11-18 08:49:47,458 WARNING tools.registry: check_fn check_browser_scroll_requirements returned False; dependent tools will be unavailable this turn
+2026-11-18 08:49:47,495 WARNING tools.registry: check_fn check_browser_snapshot_requirements returned False; dependent tools will be unavailable this turn
+2026-11-18 08:49:47,533 WARNING tools.registry: check_fn check_browser_type_requirements returned False; dependent tools will be unavailable this turn
+2026-11-18 08:49:47,570 WARNING tools.registry: check_fn check_browser_vision_requirements returned False; dependent tools will be unavailable this turn
+2026-11-18 08:49:47,592 WARNING tools.registry: check_fn check_computer_use_requirements returned False; dependent tools will be unavailable this turn
+2026-11-18 08:49:47,615 WARNING tools.registry: check_fn check_image_generation_requirements returned False; dependent tools will be unavailable this turn
+2026-11-18 08:49:47,618 WARNING tools.registry: check_fn _check_kanban_mode returned False; dependent tools will be unavailable this turn
+2026-11-18 08:49:47,621 WARNING tools.registry: check_fn _check_kanban_orchestrator_mode returned False; dependent tools will be unavailable this turn
+2026-11-18 08:49:48,890 INFO tools.tool_search: tool_search activated (tier 1): 17 core/visible tools kept, 124 deferred (~38713 tokens), listing full (budget ~4000 tokens)
+2026-11-18 08:49:49,137 INFO [20261104_114345_190ce9] agent.turn_context: conversation turn: session=20261104_114345_190ce9 model=deepseek-v4.1-flash provider=opencode-go platform=cli history=346 msg='【任务：把「家雀 钢切燕麦」建成自建条目 + 补可靠的钙数据（本轮授权写入）】  你是健康助理。用户同意把你的建议落地，但加了一个前置条件。  ## 一、用户原...'
+2026-11-18 08:49:49,386 INFO run_agent: OpenAI client created (chat_completion_stream_request, shared=False) thread=Thread-12 (<lambda>):18264 provider=opencode-go base_url=https://opencode.ai/zen/go/v1 model=deepseek-v4.1-flash
+2026-11-18 08:49:55,266 INFO [20261104_114345_190ce9] agent.conversation_loop: API call #1: model=deepseek-v4.1-flash provider=opencode-go in=320096 out=317 total=320413 latency=6.0s cache=315136/320096 (98%)
+2026-11-18 08:49:56,817 INFO tools.terminal_tool: Creating new local environment for task session:...
+2026-11-18 08:49:57,552 INFO tools.environments.base: Session snapshot created (session=3ce4d0066691, cwd=C:\Users\Administrator)
+2026-11-18 08:49:57,553 INFO tools.terminal_tool: local environment ready for task session:
+2026-11-18 08:49:58,024 INFO [20261104_114345_190ce9] agent.tool_executor: tool terminal completed (1.22s, 511 chars)
+2026-11-18 08:50:02,054 INFO [20261104_114345_190ce9] agent.conversation_loop: API call #2: model=deepseek-v4.1-flash provider=opencode-go in=320593 out=72 total=320665 latency=4.0s cache=320000/320593 (100%)
+2026-11-18 08:50:02,081 INFO tools.web_tools: Web search via tavily: 'USDA FoodData Central oats raw oat groats calcium mg per 100 g fdc id' (limit: 6)
+2026-11-18 08:50:02,089 INFO plugins.web.tavily.provider: Tavily search: 'USDA FoodData Central oats raw oat groats calcium mg per 100 g fdc id' (limit=10)
+2026-11-18 08:50:02,090 INFO plugins.web.tavily.provider: Tavily search request to https://api.tavily.com/search
+2026-11-18 08:50:03,985 INFO [20261104_114345_190ce9] agent.tool_executor: tool web_search completed (1.92s, 8730 chars)
+2026-11-18 08:50:09,192 INFO [20261104_114345_190ce9] agent.conversation_loop: API call #3: model=deepseek-v4.1-flash provider=opencode-go in=323257 out=284 total=323541 latency=5.2s cache=320512/323257 (99%)
+2026-11-18 08:50:09,223 INFO tools.web_tools: Web search via tavily: '"Oats" USDA SR Legacy 20038 calcium 52 mg potassium 362 mg per 100 g dry' (limit: 6)
+2026-11-18 08:50:09,230 INFO plugins.web.tavily.provider: Tavily search: '"Oats" USDA SR Legacy 20038 calcium 52 mg potassium 362 mg per 100 g dry' (limit=10)
+2026-11-18 08:50:09,231 INFO plugins.web.tavily.provider: Tavily search request to https://api.tavily.com/search
+2026-11-18 08:50:11,465 INFO [20261104_114345_190ce9] agent.tool_executor: tool web_search completed (2.25s, 9394 chars)
+2026-11-18 08:50:16,981 INFO [20261104_114345_190ce9] agent.conversation_loop: API call #4: model=deepseek-v4.1-flash provider=opencode-go in=326506 out=371 total=326877 latency=5.5s cache=323200/326506 (99%)
+2026-11-18 08:50:17,010 INFO tools.web_tools: Web search via tavily: '中国食物成分表 燕麦片 钙 mg/100g 钾 铁 硫胺素 燕麦 营养成分 中国营养学会 nlc' (limit: 6)
+2026-11-18 08:50:17,016 INFO plugins.web.tavily.provider: Tavily search: '中国食物成分表 燕麦片 钙 mg/100g 钾 铁 硫胺素 燕麦 营养成分 中国营养学会 nlc' (limit=10)
+2026-11-18 08:50:17,017 INFO plugins.web.tavily.provider: Tavily search request to https://api.tavily.com/search
+2026-11-18 08:50:19,121 INFO [20261104_114345_190ce9] agent.tool_executor: tool web_search completed (2.12s, 9013 chars)
+2026-11-18 08:50:28,227 INFO [20261104_114345_190ce9] agent.conversation_loop: API call #5: model=deepseek-v4.1-flash provider=opencode-go in=332137 out=995 total=333132 latency=9.1s cache=326400/332137 (98%)
+2026-11-18 08:50:28,255 INFO tools.web_tools: Web search via tavily: '"2346397" oats foundation food fdc id calcium' (limit: 4)
+2026-11-18 08:50:28,260 INFO plugins.web.tavily.provider: Tavily search: '"2346397" oats foundation food fdc id calcium' (limit=10)
+2026-11-18 08:50:28,261 INFO plugins.web.tavily.provider: Tavily search request to https://api.tavily.com/search
+2026-11-18 08:50:30,259 INFO [20261104_114345_190ce9] agent.tool_executor: tool web_search completed (2.01s, 5458 chars)
+2026-11-18 08:50:42,115 INFO [20261104_114345_190ce9] agent.conversation_loop: API call #6: model=deepseek-v4.1-flash provider=opencode-go in=334646 out=1647 total=336293 latency=11.8s cache=332032/334646 (99%)
+2026-11-18 08:50:42,756 INFO [20261104_114345_190ce9] agent.tool_executor: tool read_file completed (0.62s, 6041 chars)
+2026-11-18 08:51:06,322 INFO [20261104_114345_190ce9] agent.conversation_loop: API call #7: model=deepseek-v4.1-flash provider=opencode-go in=339351 out=4407 total=343758 latency=23.5s cache=334592/339351 (99%)
+2026-11-18 08:51:07,561 INFO [20261104_114345_190ce9] agent.tool_executor: tool write_file completed (1.22s, 279 chars)
+2026-11-18 08:51:13,033 INFO [20261104_114345_190ce9] agent.conversation_loop: API call #8: model=deepseek-v4.1-flash provider=opencode-go in=343862 out=78 total=343940 latency=5.4s cache=339328/343862 (99%)
+2026-11-18 08:51:13,476 WARNING [20261104_114345_190ce9] agent.tool_executor: Tool terminal returned error (0.43s): {"output": "现有条目 5 条：['CUSTOM-BEIBEINANGUA', 'CUSTOM-WHEY-CONC', 'CUSTOM-GREEK-YOGURT', 'CUSTOM-OYSTER-SAUCE', 'CUSTOM-YUMENG-HONGSUANTANG']\r\n写入后 6 条｜8123 bytes\r\n\r\n=== 回读：新条目原样 ===\r\n  foodCode
+2026-11-18 08:51:32,091 INFO [20261104_114345_190ce9] agent.conversation_loop: API call #9: model=deepseek-v4.1-flash provider=opencode-go in=344637 out=3597 total=348234 latency=18.6s cache=343808/344637 (100%)
+2026-11-18 08:51:33,119 INFO [20261104_114345_190ce9] agent.tool_executor: tool write_file completed (1.01s, 272 chars)
+2026-11-18 08:51:37,369 INFO [20261104_114345_190ce9] agent.conversation_loop: API call #10: model=deepseek-v4.1-flash provider=opencode-go in=348340 out=119 total=348459 latency=4.2s cache=344576/348340 (99%)
+2026-11-18 08:51:38,020 INFO [20261104_114345_190ce9] agent.tool_executor: tool terminal completed (0.63s, 892 chars)
+2026-11-18 08:51:44,369 INFO [20261104_114345_190ce9] agent.conversation_loop: API call #11: model=deepseek-v4.1-flash provider=opencode-go in=348903 out=447 total=349350 latency=6.3s cache=348288/348903 (100%)
+2026-11-18 08:51:44,685 INFO [20261104_114345_190ce9] agent.tool_executor: tool terminal completed (0.30s, 898 chars)
+2026-11-18 08:51:57,404 INFO [20261104_114345_190ce9] agent.conversation_loop: API call #12: model=deepseek-v4.1-flash provider=opencode-go in=349898 out=2060 total=351958 latency=12.7s cache=348800/349898 (100%)
+2026-11-18 08:51:58,414 INFO [20261104_114345_190ce9] agent.tool_executor: tool write_file completed (0.99s, 274 chars)
+2026-11-18 08:52:07,203 INFO [20261104_114345_190ce9] agent.conversation_loop: API call #13: model=deepseek-v4.1-flash provider=opencode-go in=352064 out=119 total=352183 latency=8.8s cache=349824/352064 (99%)
+2026-11-18 08:52:07,860 INFO [20261104_114345_190ce9] agent.tool_executor: tool terminal completed (0.64s, 678 chars)
+2026-11-18 08:52:14,170 INFO [20261104_114345_190ce9] agent.conversation_loop: API call #14: model=deepseek-v4.1-flash provider=opencode-go in=352502 out=392 total=352894 latency=6.3s cache=352000/352502 (100%)
+2026-11-18 08:52:14,857 INFO [20261104_114345_190ce9] agent.tool_executor: tool terminal completed (0.67s, 2098 chars)
+2026-11-18 08:52:23,477 INFO [20261104_114345_190ce9] agent.conversation_loop: API call #15: model=deepseek-v4.1-flash provider=opencode-go in=354147 out=387 total=354534 latency=8.6s cache=352384/354147 (100%)
+2026-11-18 08:52:25,052 INFO [20261104_114345_190ce9] agent.tool_executor: tool patch completed (1.56s, 2010 chars)
+2026-11-18 08:52:29,918 INFO [20261104_114345_190ce9] agent.conversation_loop: API call #16: model=deepseek-v4.1-flash provider=opencode-go in=355770 out=231 total=356001 latency=4.8s cache=354048/355770 (100%)
+2026-11-18 08:52:29,971 WARNING [20261104_114345_190ce9] agent.tool_executor: Tool terminal returned error (0.04s): {"output": "", "exit_code": -1, "error": "BLOCKED: Command flagged as dangerous (script execution via -e/-c flag) but single-query mode (-q) runs without a user present to approve it. Find an alternat
+2026-11-18 08:52:34,923 INFO [20261104_114345_190ce9] agent.conversation_loop: API call #17: model=deepseek-v4.1-flash provider=opencode-go in=356102 out=115 total=356217 latency=4.9s cache=355712/356102 (100%)
+2026-11-18 08:52:35,366 INFO [20261104_114345_190ce9] agent.tool_executor: tool terminal completed (0.43s, 449 chars)
+2026-11-18 08:52:50,904 INFO [20261104_114345_190ce9] agent.conversation_loop: API call #18: model=deepseek-v4.1-flash provider=opencode-go in=356424 out=2804 total=359228 latency=15.5s cache=356096/356424 (100%)
+2026-11-18 08:52:50,931 INFO [20261104_114345_190ce9] agent.conversation_loop: Turn ended: reason=text_response(finish_reason=stop) model=deepseek-v4.1-flash api_calls=18/90 budget=18/90 tool_turns=173 last_msg_role=assistant response_len=5459 session=20261104_114345_190ce9
+2026-11-18 08:52:50,983 INFO [20261104_114345_190ce9] tools.terminal_tool: Manually cleaned up environment for task: session:agent:main:telegram:dm:8938729624
+2026-11-18 08:52:50,985 INFO [20261104_114345_190ce9] tools.terminal_tool: Cleaned 1 environments
+2026-11-18 08:52:51,046 INFO run_agent: OpenAI client created (agent_init, shared=True) thread=bg-review:17580 provider=opencode-go base_url=https://opencode.ai/zen/go/v1 model=deepseek-v4.1-flash
+2026-11-18 08:52:51,075 INFO [20261104_114345_190ce9] cli: CLI cleanup calling memory shutdown for session 20261104_114345_190ce9 with 382 message(s)
+2026-11-18 08:52:51,116 WARNING tools.registry: check_fn check_browser_back_requirements returned False; dependent tools will be unavailable this turn
+2026-11-18 08:52:51,152 WARNING tools.registry: check_fn _browser_cdp_check returned False; dependent tools will be unavailable this turn
+2026-11-18 08:52:51,192 WARNING tools.registry: check_fn check_browser_click_requirements returned False; dependent tools will be unavailable this turn
+2026-11-18 08:52:51,248 WARNING tools.registry: check_fn check_browser_requirements returned False; dependent tools will be unavailable this turn
+2026-11-18 08:52:51,304 WARNING tools.registry: check_fn _browser_dialog_check returned False; dependent tools will be unavailable this turn
+2026-11-18 08:52:51,382 WARNING tools.registry: check_fn check_browser_navigate_requirements returned False; dependent tools will be unavailable this turn
+2026-11-18 08:52:51,421 WARNING tools.registry: check_fn check_browser_press_requirements returned False; dependent tools will be unavailable this turn
+2026-11-18 08:52:51,460 WARNING tools.registry: check_fn check_browser_scroll_requirements returned False; dependent tools will be unavailable this turn
+2026-11-18 08:52:51,498 WARNING tools.registry: check_fn check_browser_snapshot_requirements returned False; dependent tools will be unavailable this turn
+2026-11-18 08:52:51,536 WARNING tools.registry: check_fn check_browser_type_requirements returned False; dependent tools will be unavailable this turn
+2026-11-18 08:52:51,574 WARNING tools.registry: check_fn check_browser_vision_requirements returned False; dependent tools will be unavailable this turn
+2026-11-18 08:52:51,592 WARNING tools.registry: check_fn check_computer_use_requirements returned False; dependent tools will be unavailable this turn
+2026-11-18 08:52:51,611 WARNING tools.registry: check_fn check_image_generation_requirements returned False; dependent tools will be unavailable this turn
+2026-11-18 08:52:51,614 WARNING tools.registry: check_fn _check_kanban_mode returned False; dependent tools will be unavailable this turn
+2026-11-18 08:52:51,617 WARNING tools.registry: check_fn _check_kanban_orchestrator_mode returned False; dependent tools will be unavailable this turn
+2026-11-18 08:52:51,618 WARNING tools.registry: check_fn _make_check_fn.<locals>._check returned False; dependent tools will be unavailable this turn
+2026-11-18 08:52:51,732 INFO tools.tool_search: tool_search activated (tier 1): 17 core/visible tools kept, 9 deferred (~3462 tokens), listing full (budget ~4000 tokens)
+2026-11-18 08:52:51,762 INFO [20261104_114345_190ce9] agent.turn_context: conversation turn: session=20261104_114345_190ce9 model=deepseek-v4.1-flash provider=opencode-go platform=cli history=382 msg='Review the conversation above and update the skill library. Be ACTIVE — most ses...'
+2026-11-18 08:52:51,824 INFO run_agent: OpenAI client created (chat_completion_stream_request, shared=False) thread=Thread-61 (<lambda>):18864 provider=opencode-go base_url=https://opencode.ai/zen/go/v1 model=deepseek-v4.1-flash
+2026-11-18 12:50:13,996 INFO hermes_cli.plugins: Plugin 'browser-browser-use' registered browser provider: browser-use
+2026-11-18 12:50:14,007 INFO hermes_cli.plugins: Plugin 'browser-browserbase' registered browser provider: browserbase
+2026-11-18 12:50:14,015 INFO hermes_cli.plugins: Plugin 'browser-firecrawl' registered browser provider: firecrawl
+2026-11-18 12:50:14,958 INFO hermes_cli.plugins: Plugin 'deepinfra' registered image_gen provider: deepinfra
+2026-11-18 12:50:14,961 INFO hermes_cli.plugins: Plugin 'fal' registered image_gen provider: fal
+2026-11-18 12:50:14,964 INFO hermes_cli.plugins: Plugin 'krea' registered image_gen provider: krea
+2026-11-18 12:50:14,972 INFO hermes_cli.plugins: Plugin 'meta-ai-image-gen' registered image_gen provider: meta-ai
+2026-11-18 12:50:14,981 INFO hermes_cli.plugins: Plugin 'openai' registered image_gen provider: openai
+2026-11-18 12:50:14,992 INFO hermes_cli.plugins: Plugin 'openai-codex' registered image_gen provider: openai-codex
+2026-11-18 12:50:14,994 INFO hermes_cli.plugins: Plugin 'openrouter' registered image_gen provider: openrouter
+2026-11-18 12:50:14,995 INFO hermes_cli.plugins: Plugin 'openrouter' registered image_gen provider: nous
+2026-11-18 12:50:15,029 INFO hermes_cli.plugins: Plugin 'xai' registered image_gen provider: xai
+2026-11-18 12:50:15,044 INFO hermes_cli.plugins: Plugin 'deepinfra' registered video_gen provider: deepinfra
+2026-11-18 12:50:15,047 INFO hermes_cli.plugins: Plugin 'fal' registered video_gen provider: fal
+2026-11-18 12:50:15,051 INFO hermes_cli.plugins: Plugin 'xai' registered video_gen provider: xai
+2026-11-18 12:50:15,066 INFO hermes_cli.plugins: Plugin 'web-brave-free' registered web provider: brave-free
+2026-11-18 12:50:15,079 INFO hermes_cli.plugins: Plugin 'web-ddgs' registered web provider: ddgs
+2026-11-18 12:50:15,089 INFO hermes_cli.plugins: Plugin 'web-exa' registered web provider: exa
+2026-11-18 12:50:15,101 INFO hermes_cli.plugins: Plugin 'web-firecrawl' registered web provider: firecrawl
+2026-11-18 12:50:15,114 INFO hermes_cli.plugins: Plugin 'web-keenable' registered web provider: keenable
+2026-11-18 12:50:15,124 INFO hermes_cli.plugins: Plugin 'web-parallel' registered web provider: parallel
+2026-11-18 12:50:15,322 INFO hermes_cli.plugins: Plugin 'web-searxng' registered web provider: searxng
+2026-11-18 12:50:15,671 INFO hermes_cli.plugins: Plugin 'web-tavily' registered web provider: tavily
+2026-11-18 12:50:15,679 INFO hermes_cli.plugins: Plugin 'web-xai' registered web provider: xai
+2026-11-18 12:50:15,768 INFO hermes_cli.plugins: Plugin discovery complete: 56 found, 50 enabled
+2026-11-18 12:50:18,990 INFO tools.mcp_tool: MCP server 'x' (stdio): registered 103 tool(s): mcp__x__article_create_draft, mcp__x__list_broadcasts, mcp__x__get_chat_moderators, mcp__x__add_chat_moderator, mcp__x__remove_chat_moderator, mcp__x__list_scheduled_broadcasts, mcp__x__create_scheduled_broadcast, mcp__x__delete_scheduled_broadcast, mcp__x__get_scheduled_broadcast, mcp__x__update_scheduled_broadcast, mcp__x__go_live_scheduled_broadcast, mcp__x__get_broadcast, mcp__x__get_broadcast_chat, mcp__x__mute_broadcast_chat_user, mcp__x__unmute_broadcast_chat_user, mcp__x__list_scheduled_calls, mcp__x__schedule_call, mcp__x__cancel_scheduled_call, mcp__x__get_scheduled_call, mcp__x__update_scheduled_call, mcp__x__respond_to_scheduled_call, mcp__x__get_chat_conversations, mcp__x__get_chat_conversation, mcp__x__unarchive_chat_conversation, mcp__x__archive_chat_conversation, mcp__x__get_chat_conversation_events, mcp__x__add_conversation_keys, mcp__x__send_chat_message, mcp__x__mark_chat_conversation_read, mcp__x__send_chat_typing_indicator, mcp__x__mark_chat_conversation_unread, mcp__x__chat_media_upload_initialize, mcp__x__chat_media_upload_append, mcp__x__chat_media_upload_finalize, mcp__x__chat_media_download, mcp__x__get_chat_message_requests, mcp__x__get_chat_message_request, mcp__x__accept_chat_message_request, mcp__x__search_communities, mcp__x__get_communities_by_id, mcp__x__create_lists, mcp__x__get_lists_by_id, mcp__x__update_lists, mcp__x__get_lists_followers, mcp__x__get_lists_members, mcp__x__add_lists_member, mcp__x__remove_lists_member_by_user_id, mcp__x__get_lists_posts, mcp__x__media_upload, mcp__x__search_news, mcp__x__get_news, mcp__x__list_sources, mcp__x__create_source, mcp__x__delete_source, mcp__x__get_source, mcp__x__update_source, mcp__x__get_spaces_by_ids, mcp__x__get_spaces_by_creator_ids, mcp__x__search_spaces, mcp__x__get_spaces_by_id, mcp__x__get_spaces_posts, mcp__x__get_trends_by_woeid, mcp__x__get_posts_by_ids, mcp__x__create_posts, mcp__x__get_posts_counts_recent, mcp__x__search_posts_all, mcp__x__get_posts_by_id, mcp__x__get_posts_liking_users, mcp__x__get_posts_quoted_posts, mcp__x__get_posts_reposted_by, mcp__x__get_usage_credits, mcp__x__get_users_by_usernames, mcp__x__get_users_by_username, mcp__x__get_users_me, mcp__x__get_users_me_followers, mcp__x__get_users_me_following, mcp__x__get_users_public_keys, mcp__x__search_users, mcp__x__get_users_by_id, mcp__x__get_users_blocking, mcp__x__users_id_block, mcp__x__get_users_bookmarks, mcp__x__create_users_bookmark, mcp__x__get_users_bookmark_folders, mcp__x__create_users_bookmark_folder, mcp__x__get_users_bookmarks_by_folder_id, mcp__x__delete_users_bookmark, mcp__x__get_users_followed_lists, mcp__x__follow_list, mcp__x__unfollow_list, mcp__x__get_users_liked_posts, mcp__x__get_users_list_memberships, mcp__x__get_users_mentions, mcp__x__get_users_owned_lists, mcp__x__get_users_pinned_lists, mcp__x__pin_list, mcp__x__unpin_list, mcp__x__get_users_public_key, mcp__x__get_users_timeline, mcp__x__get_users_posts, mcp__x__users_id_unblock, mcp__x__list_resources, mcp__x__read_resource
+2026-11-18 12:50:23,214 INFO tools.mcp_tool: MCP server 'amap' (stdio): registered 12 tool(s): mcp__amap__maps_regeocode, mcp__amap__maps_geo, mcp__amap__maps_ip_location, mcp__amap__maps_weather, mcp__amap__maps_search_detail, mcp__amap__maps_bicycling, mcp__amap__maps_direction_walking, mcp__amap__maps_direction_driving, mcp__amap__maps_direction_transit_integrated, mcp__amap__maps_distance, mcp__amap__maps_text_search, mcp__amap__maps_around_search
+2026-11-18 12:50:23,216 INFO tools.mcp_tool: MCP: registered 115 tool(s) from 2 server(s)
+2026-11-18 12:50:23,217 INFO tools.mcp_tool:   MCP: 115 tool(s) from 2 server(s)
+2026-11-18 12:50:23,726 INFO run_agent: Loaded environment variables from C:\Users\Administrator\AppData\Local\hermes\profiles\health\.env
+2026-11-18 12:50:25,259 INFO run_agent: OpenAI client created (agent_init, shared=True) thread=MainThread:22048 provider=opencode-go base_url=https://opencode.ai/zen/go/v1 model=deepseek-v4.1-flash
+2026-11-18 12:50:25,312 WARNING tools.registry: check_fn check_browser_back_requirements returned False; dependent tools will be unavailable this turn
+2026-11-18 12:50:25,353 WARNING tools.registry: check_fn _browser_cdp_check returned False; dependent tools will be unavailable this turn
+2026-11-18 12:50:25,395 WARNING tools.registry: check_fn check_browser_click_requirements returned False; dependent tools will be unavailable this turn
+2026-11-18 12:50:25,437 WARNING tools.registry: check_fn check_browser_requirements returned False; dependent tools will be unavailable this turn
+2026-11-18 12:50:25,478 WARNING tools.registry: check_fn _browser_dialog_check returned False; dependent tools will be unavailable this turn
+2026-11-18 12:50:25,573 WARNING tools.registry: check_fn check_browser_navigate_requirements returned False; dependent tools will be unavailable this turn
+2026-11-18 12:50:25,614 WARNING tools.registry: check_fn check_browser_press_requirements returned False; dependent tools will be unavailable this turn
+2026-11-18 12:50:25,656 WARNING tools.registry: check_fn check_browser_scroll_requirements returned False; dependent tools will be unavailable this turn
+2026-11-18 12:50:25,697 WARNING tools.registry: check_fn check_browser_snapshot_requirements returned False; dependent tools will be unavailable this turn
+2026-11-18 12:50:25,740 WARNING tools.registry: check_fn check_browser_type_requirements returned False; dependent tools will be unavailable this turn
+2026-11-18 12:50:25,781 WARNING tools.registry: check_fn check_browser_vision_requirements returned False; dependent tools will be unavailable this turn
+2026-11-18 12:50:25,804 WARNING tools.registry: check_fn check_computer_use_requirements returned False; dependent tools will be unavailable this turn
+2026-11-18 12:50:25,833 WARNING tools.registry: check_fn check_image_generation_requirements returned False; dependent tools will be unavailable this turn
+2026-11-18 12:50:25,839 WARNING tools.registry: check_fn _check_kanban_mode returned False; dependent tools will be unavailable this turn
+2026-11-18 12:50:25,844 WARNING tools.registry: check_fn _check_kanban_orchestrator_mode returned False; dependent tools will be unavailable this turn
+2026-11-18 12:50:27,229 INFO tools.tool_search: tool_search activated (tier 1): 17 core/visible tools kept, 124 deferred (~38713 tokens), listing full (budget ~4000 tokens)
+2026-11-18 12:50:27,579 INFO [20261104_114345_190ce9] agent.turn_context: conversation turn: session=20261104_114345_190ce9 model=deepseek-v4.1-flash provider=opencode-go platform=cli history=382 msg='# 任务：核算并写入 2026-11-18 午餐，然后重出当日汇总  ## 1. 任务一句话 本轮是**核算 + 落盘**（他原话「记一下」＝直接入档，不需要再...'
+2026-11-18 12:50:27,825 INFO run_agent: OpenAI client created (chat_completion_stream_request, shared=False) thread=Thread-12 (<lambda>):4432 provider=opencode-go base_url=https://opencode.ai/zen/go/v1 model=deepseek-v4.1-flash
+2026-11-18 12:50:35,109 INFO [20261104_114345_190ce9] agent.conversation_loop: API call #1: model=deepseek-v4.1-flash provider=opencode-go in=360199 out=634 total=360833 latency=7.4s cache=356352/360199 (99%)
+2026-11-18 12:50:36,588 INFO tools.file_tools: Creating new local environment for task session:...
+2026-11-18 12:50:37,340 INFO tools.environments.base: Session snapshot created (session=232b4b6f392b, cwd=C:\Users\Administrator)
+2026-11-18 12:50:37,342 INFO tools.file_tools: local environment ready for task session:
+2026-11-18 12:50:38,371 INFO [20261104_114345_190ce9] agent.tool_executor: tool write_file completed (1.81s, 277 chars)
+2026-11-18 12:50:42,376 INFO [20261104_114345_190ce9] agent.conversation_loop: API call #2: model=deepseek-v4.1-flash provider=opencode-go in=360938 out=83 total=361021 latency=4.0s cache=360192/360938 (100%)
+2026-11-18 12:51:12,346 INFO [20261104_114345_190ce9] agent.tool_executor: tool terminal completed (29.95s, 2245 chars)
+2026-11-18 12:51:24,175 INFO [20261104_114345_190ce9] agent.conversation_loop: API call #3: model=deepseek-v4.1-flash provider=opencode-go in=361663 out=830 total=362493 latency=11.8s cache=360832/361663 (100%)
+2026-11-18 12:51:25,176 INFO [20261104_114345_190ce9] agent.tool_executor: tool write_file completed (0.99s, 280 chars)
+2026-11-18 12:51:29,339 INFO [20261104_114345_190ce9] agent.conversation_loop: API call #4: model=deepseek-v4.1-flash provider=opencode-go in=362597 out=82 total=362679 latency=4.1s cache=361600/362597 (100%)
+2026-11-18 12:51:35,004 INFO [20261104_114345_190ce9] agent.tool_executor: tool terminal completed (5.65s, 1250 chars)
+2026-11-18 12:51:40,471 INFO [20261104_114345_190ce9] agent.conversation_loop: API call #5: model=deepseek-v4.1-flash provider=opencode-go in=363392 out=359 total=363751 latency=5.4s cache=362496/363392 (100%)
+2026-11-18 12:51:41,494 INFO [20261104_114345_190ce9] agent.tool_executor: tool write_file completed (1.01s, 273 chars)
+2026-11-18 12:51:45,398 INFO [20261104_114345_190ce9] agent.conversation_loop: API call #6: model=deepseek-v4.1-flash provider=opencode-go in=363856 out=83 total=363939 latency=3.9s cache=363392/363856 (100%)
+2026-11-18 12:51:45,842 INFO [20261104_114345_190ce9] agent.tool_executor: tool terminal completed (0.43s, 353 chars)
+2026-11-18 12:51:52,815 INFO [20261104_114345_190ce9] agent.conversation_loop: API call #7: model=deepseek-v4.1-flash provider=opencode-go in=364170 out=543 total=364713 latency=6.9s cache=363776/364170 (100%)
+2026-11-18 12:51:53,843 INFO [20261104_114345_190ce9] agent.tool_executor: tool write_file completed (1.01s, 275 chars)
+2026-11-18 12:51:57,854 INFO [20261104_114345_190ce9] agent.conversation_loop: API call #8: model=deepseek-v4.1-flash provider=opencode-go in=364820 out=84 total=364904 latency=4.0s cache=364160/364820 (100%)
+2026-11-18 12:51:58,300 INFO [20261104_114345_190ce9] agent.tool_executor: tool terminal completed (0.43s, 510 chars)
+2026-11-18 12:52:30,612 INFO [20261104_114345_190ce9] agent.conversation_loop: API call #9: model=deepseek-v4.1-flash provider=opencode-go in=365102 out=6657 total=371759 latency=32.3s cache=364800/365102 (100%)
+2026-11-18 12:52:31,651 INFO [20261104_114345_190ce9] agent.tool_executor: tool write_file completed (1.02s, 365 chars)
+2026-11-18 12:52:36,439 INFO [20261104_114345_190ce9] agent.conversation_loop: API call #10: model=deepseek-v4.1-flash provider=opencode-go in=371887 out=303 total=372190 latency=4.8s cache=365056/371887 (98%)
+2026-11-18 12:52:38,353 INFO [20261104_114345_190ce9] agent.tool_executor: tool patch completed (1.90s, 948 chars)
+2026-11-18 12:52:42,440 INFO [20261104_114345_190ce9] agent.conversation_loop: API call #11: model=deepseek-v4.1-flash provider=opencode-go in=372683 out=100 total=372783 latency=4.1s cache=371840/372683 (100%)
+2026-11-18 12:52:43,125 INFO [20261104_114345_190ce9] agent.tool_executor: tool terminal completed (0.66s, 2551 chars)
+2026-11-18 12:52:54,506 INFO [20261104_114345_190ce9] agent.conversation_loop: API call #12: model=deepseek-v4.1-flash provider=opencode-go in=374201 out=1135 total=375336 latency=11.3s cache=372608/374201 (100%)
+2026-11-18 12:52:56,280 INFO [20261104_114345_190ce9] agent.tool_executor: tool patch completed (1.76s, 2083 chars)
+2026-11-18 12:53:00,443 INFO [20261104_114345_190ce9] agent.conversation_loop: API call #13: model=deepseek-v4.1-flash provider=opencode-go in=376572 out=98 total=376670 latency=4.1s cache=374144/376572 (99%)
+2026-11-18 12:53:01,087 INFO [20261104_114345_190ce9] agent.tool_executor: tool terminal completed (0.63s, 376 chars)
+2026-11-18 12:53:05,406 INFO [20261104_114345_190ce9] agent.conversation_loop: API call #14: model=deepseek-v4.1-flash provider=opencode-go in=376912 out=133 total=377045 latency=4.3s cache=376448/376912 (100%)
+2026-11-18 12:53:06,053 INFO [20261104_114345_190ce9] agent.tool_executor: tool terminal completed (0.63s, 1314 chars)
+2026-11-18 12:53:11,306 INFO [20261104_114345_190ce9] agent.conversation_loop: API call #15: model=deepseek-v4.1-flash provider=opencode-go in=377728 out=234 total=377962 latency=5.2s cache=376832/377728 (100%)
+2026-11-18 12:53:11,970 INFO [20261104_114345_190ce9] agent.tool_executor: tool terminal completed (0.65s, 563 chars)
+2026-11-18 12:53:27,070 INFO [20261104_114345_190ce9] agent.conversation_loop: API call #16: model=deepseek-v4.1-flash provider=opencode-go in=378297 out=2870 total=381167 latency=15.1s cache=377728/378297 (100%)
+2026-11-18 12:53:27,107 INFO [20261104_114345_190ce9] agent.conversation_loop: Turn ended: reason=text_response(finish_reason=stop) model=deepseek-v4.1-flash api_calls=16/90 budget=16/90 tool_turns=188 last_msg_role=assistant response_len=4832 session=20261104_114345_190ce9
+2026-11-18 12:53:27,194 INFO [20261104_114345_190ce9] tools.terminal_tool: Manually cleaned up environment for task: session:agent:main:telegram:dm:8938729624
+2026-11-18 12:53:27,198 INFO [20261104_114345_190ce9] tools.terminal_tool: Cleaned 1 environments
+2026-11-18 12:53:27,264 INFO run_agent: OpenAI client created (agent_init, shared=True) thread=bg-review:21188 provider=opencode-go base_url=https://opencode.ai/zen/go/v1 model=deepseek-v4.1-flash
+2026-11-18 12:53:27,342 INFO [20261104_114345_190ce9] cli: CLI cleanup calling memory shutdown for session 20261104_114345_190ce9 with 414 message(s)
+2026-11-18 12:53:27,349 INFO [20261104_114345_190ce9] agent.turn_context: conversation turn: session=20261104_114345_190ce9 model=deepseek-v4.1-flash provider=opencode-go platform=cli history=414 msg='Review the conversation above and update the skill library. Be ACTIVE — most ses...'
+2026-11-18 12:53:27,356 WARNING agent.relay_runtime: Hermes Relay drained 1 orphaned scope(s) before closing ScopeHandle(name='hermes.session', uuid='01a1ed00-aeb0-75f1-bee3-cad58588967f')
+2026-11-18 12:53:27,426 INFO run_agent: OpenAI client created (chat_completion_stream_request, shared=False) thread=Thread-73 (<lambda>):21908 provider=opencode-go base_url=https://opencode.ai/zen/go/v1 model=deepseek-v4.1-flash
+2026-11-18 16:40:42,903 INFO hermes_cli.plugins: Plugin 'browser-browser-use' registered browser provider: browser-use
+2026-11-18 16:40:42,911 INFO hermes_cli.plugins: Plugin 'browser-browserbase' registered browser provider: browserbase
+2026-11-18 16:40:42,922 INFO hermes_cli.plugins: Plugin 'browser-firecrawl' registered browser provider: firecrawl
+2026-11-18 16:40:43,845 INFO hermes_cli.plugins: Plugin 'deepinfra' registered image_gen provider: deepinfra
+2026-11-18 16:40:43,855 INFO hermes_cli.plugins: Plugin 'fal' registered image_gen provider: fal
+2026-11-18 16:40:43,859 INFO hermes_cli.plugins: Plugin 'krea' registered image_gen provider: krea
+2026-11-18 16:40:43,863 INFO hermes_cli.plugins: Plugin 'meta-ai-image-gen' registered image_gen provider: meta-ai
+2026-11-18 16:40:43,869 INFO hermes_cli.plugins: Plugin 'openai' registered image_gen provider: openai
+2026-11-18 16:40:43,872 INFO hermes_cli.plugins: Plugin 'openai-codex' registered image_gen provider: openai-codex
+2026-11-18 16:40:43,883 INFO hermes_cli.plugins: Plugin 'openrouter' registered image_gen provider: openrouter
+2026-11-18 16:40:43,884 INFO hermes_cli.plugins: Plugin 'openrouter' registered image_gen provider: nous
+2026-11-18 16:40:43,892 INFO hermes_cli.plugins: Plugin 'xai' registered image_gen provider: xai
+2026-11-18 16:40:43,913 INFO hermes_cli.plugins: Plugin 'deepinfra' registered video_gen provider: deepinfra
+2026-11-18 16:40:43,923 INFO hermes_cli.plugins: Plugin 'fal' registered video_gen provider: fal
+2026-11-18 16:40:43,927 INFO hermes_cli.plugins: Plugin 'xai' registered video_gen provider: xai
+2026-11-18 16:40:43,945 INFO hermes_cli.plugins: Plugin 'web-brave-free' registered web provider: brave-free
+2026-11-18 16:40:43,958 INFO hermes_cli.plugins: Plugin 'web-ddgs' registered web provider: ddgs
+2026-11-18 16:40:43,967 INFO hermes_cli.plugins: Plugin 'web-exa' registered web provider: exa
+2026-11-18 16:40:43,981 INFO hermes_cli.plugins: Plugin 'web-firecrawl' registered web provider: firecrawl
+2026-11-18 16:40:43,995 INFO hermes_cli.plugins: Plugin 'web-keenable' registered web provider: keenable
+2026-11-18 16:40:44,004 INFO hermes_cli.plugins: Plugin 'web-parallel' registered web provider: parallel
+2026-11-18 16:40:44,019 INFO hermes_cli.plugins: Plugin 'web-searxng' registered web provider: searxng
+2026-11-18 16:40:44,038 INFO hermes_cli.plugins: Plugin 'web-tavily' registered web provider: tavily
+2026-11-18 16:40:44,068 INFO hermes_cli.plugins: Plugin 'web-xai' registered web provider: xai
+2026-11-18 16:40:44,170 INFO hermes_cli.plugins: Plugin discovery complete: 56 found, 50 enabled
+2026-11-18 16:40:55,157 INFO tools.mcp_tool: MCP server 'x' (stdio): registered 103 tool(s): mcp__x__article_create_draft, mcp__x__list_broadcasts, mcp__x__get_chat_moderators, mcp__x__add_chat_moderator, mcp__x__remove_chat_moderator, mcp__x__list_scheduled_broadcasts, mcp__x__create_scheduled_broadcast, mcp__x__delete_scheduled_broadcast, mcp__x__get_scheduled_broadcast, mcp__x__update_scheduled_broadcast, mcp__x__go_live_scheduled_broadcast, mcp__x__get_broadcast, mcp__x__get_broadcast_chat, mcp__x__mute_broadcast_chat_user, mcp__x__unmute_broadcast_chat_user, mcp__x__list_scheduled_calls, mcp__x__schedule_call, mcp__x__cancel_scheduled_call, mcp__x__get_scheduled_call, mcp__x__update_scheduled_call, mcp__x__respond_to_scheduled_call, mcp__x__get_chat_conversations, mcp__x__get_chat_conversation, mcp__x__unarchive_chat_conversation, mcp__x__archive_chat_conversation, mcp__x__get_chat_conversation_events, mcp__x__add_conversation_keys, mcp__x__send_chat_message, mcp__x__mark_chat_conversation_read, mcp__x__send_chat_typing_indicator, mcp__x__mark_chat_conversation_unread, mcp__x__chat_media_upload_initialize, mcp__x__chat_media_upload_append, mcp__x__chat_media_upload_finalize, mcp__x__chat_media_download, mcp__x__get_chat_message_requests, mcp__x__get_chat_message_request, mcp__x__accept_chat_message_request, mcp__x__search_communities, mcp__x__get_communities_by_id, mcp__x__create_lists, mcp__x__get_lists_by_id, mcp__x__update_lists, mcp__x__get_lists_followers, mcp__x__get_lists_members, mcp__x__add_lists_member, mcp__x__remove_lists_member_by_user_id, mcp__x__get_lists_posts, mcp__x__media_upload, mcp__x__search_news, mcp__x__get_news, mcp__x__list_sources, mcp__x__create_source, mcp__x__delete_source, mcp__x__get_source, mcp__x__update_source, mcp__x__get_spaces_by_ids, mcp__x__get_spaces_by_creator_ids, mcp__x__search_spaces, mcp__x__get_spaces_by_id, mcp__x__get_spaces_posts, mcp__x__get_trends_by_woeid, mcp__x__get_posts_by_ids, mcp__x__create_posts, mcp__x__get_posts_counts_recent, mcp__x__search_posts_all, mcp__x__get_posts_by_id, mcp__x__get_posts_liking_users, mcp__x__get_posts_quoted_posts, mcp__x__get_posts_reposted_by, mcp__x__get_usage_credits, mcp__x__get_users_by_usernames, mcp__x__get_users_by_username, mcp__x__get_users_me, mcp__x__get_users_me_followers, mcp__x__get_users_me_following, mcp__x__get_users_public_keys, mcp__x__search_users, mcp__x__get_users_by_id, mcp__x__get_users_blocking, mcp__x__users_id_block, mcp__x__get_users_bookmarks, mcp__x__create_users_bookmark, mcp__x__get_users_bookmark_folders, mcp__x__create_users_bookmark_folder, mcp__x__get_users_bookmarks_by_folder_id, mcp__x__delete_users_bookmark, mcp__x__get_users_followed_lists, mcp__x__follow_list, mcp__x__unfollow_list, mcp__x__get_users_liked_posts, mcp__x__get_users_list_memberships, mcp__x__get_users_mentions, mcp__x__get_users_owned_lists, mcp__x__get_users_pinned_lists, mcp__x__pin_list, mcp__x__unpin_list, mcp__x__get_users_public_key, mcp__x__get_users_timeline, mcp__x__get_users_posts, mcp__x__users_id_unblock, mcp__x__list_resources, mcp__x__read_resource
+2026-11-18 16:40:58,779 INFO tools.mcp_tool: MCP server 'amap' (stdio): registered 12 tool(s): mcp__amap__maps_regeocode, mcp__amap__maps_geo, mcp__amap__maps_ip_location, mcp__amap__maps_weather, mcp__amap__maps_search_detail, mcp__amap__maps_bicycling, mcp__amap__maps_direction_walking, mcp__amap__maps_direction_driving, mcp__amap__maps_direction_transit_integrated, mcp__amap__maps_distance, mcp__amap__maps_text_search, mcp__amap__maps_around_search
+2026-11-18 16:40:58,780 INFO tools.mcp_tool: MCP: registered 115 tool(s) from 2 server(s)
+2026-11-18 16:40:58,783 INFO tools.mcp_tool:   MCP: 115 tool(s) from 2 server(s)
+2026-11-18 16:40:59,319 INFO run_agent: Loaded environment variables from C:\Users\Administrator\AppData\Local\hermes\profiles\health\.env
+2026-11-18 16:41:01,262 INFO run_agent: OpenAI client created (agent_init, shared=True) thread=MainThread:24900 provider=opencode-go base_url=https://opencode.ai/zen/go/v1 model=deepseek-v4.1-flash
+2026-11-18 16:41:01,346 WARNING tools.registry: check_fn check_browser_back_requirements returned False; dependent tools will be unavailable this turn
+2026-11-18 16:41:01,392 WARNING tools.registry: check_fn _browser_cdp_check returned False; dependent tools will be unavailable this turn
+2026-11-18 16:41:01,447 WARNING tools.registry: check_fn check_browser_click_requirements returned False; dependent tools will be unavailable this turn
+2026-11-18 16:41:01,505 WARNING tools.registry: check_fn check_browser_requirements returned False; dependent tools will be unavailable this turn
+2026-11-18 16:41:01,552 WARNING tools.registry: check_fn _browser_dialog_check returned False; dependent tools will be unavailable this turn
+2026-11-18 16:41:01,643 WARNING tools.registry: check_fn check_browser_navigate_requirements returned False; dependent tools will be unavailable this turn
+2026-11-18 16:41:01,707 WARNING tools.registry: check_fn check_browser_press_requirements returned False; dependent tools will be unavailable this turn
+2026-11-18 16:41:01,757 WARNING tools.registry: check_fn check_browser_scroll_requirements returned False; dependent tools will be unavailable this turn
+2026-11-18 16:41:01,800 WARNING tools.registry: check_fn check_browser_snapshot_requirements returned False; dependent tools will be unavailable this turn
+2026-11-18 16:41:01,863 WARNING tools.registry: check_fn check_browser_type_requirements returned False; dependent tools will be unavailable this turn
+2026-11-18 16:41:01,927 WARNING tools.registry: check_fn check_browser_vision_requirements returned False; dependent tools will be unavailable this turn
+2026-11-18 16:41:01,951 WARNING tools.registry: check_fn check_computer_use_requirements returned False; dependent tools will be unavailable this turn
+2026-11-18 16:41:01,977 WARNING tools.registry: check_fn check_image_generation_requirements returned False; dependent tools will be unavailable this turn
+2026-11-18 16:41:01,980 WARNING tools.registry: check_fn _check_kanban_mode returned False; dependent tools will be unavailable this turn
+2026-11-18 16:41:01,985 WARNING tools.registry: check_fn _check_kanban_orchestrator_mode returned False; dependent tools will be unavailable this turn
+2026-11-18 16:41:03,955 INFO tools.tool_search: tool_search activated (tier 1): 17 core/visible tools kept, 124 deferred (~38713 tokens), listing full (budget ~4000 tokens)
+2026-11-18 16:41:04,466 INFO [20261104_114345_190ce9] agent.turn_context: conversation turn: session=20261104_114345_190ce9 model=deepseek-v4.1-flash provider=opencode-go platform=cli history=414 msg='# 任务：核算并写入 2026-11-18 加餐，然后重出当日汇总  ## 1. 任务一句话 本轮是**核算 + 落盘**（他原话「记一下」＝直接入档），写完后...'
+2026-11-18 16:41:04,738 INFO run_agent: OpenAI client created (chat_completion_stream_request, shared=False) thread=Thread-26 (<lambda>):24996 provider=opencode-go base_url=https://opencode.ai/zen/go/v1 model=deepseek-v4.1-flash
+2026-11-18 16:41:11,394 INFO [20261104_114345_190ce9] agent.conversation_loop: API call #1: model=deepseek-v4.1-flash provider=opencode-go in=382248 out=203 total=382451 latency=6.7s cache=378240/382248 (99%)
+2026-11-18 16:41:13,085 INFO tools.terminal_tool: Creating new local environment for task session:...
+2026-11-18 16:41:13,847 INFO tools.environments.base: Session snapshot created (session=ea147c84f64f, cwd=C:\Users\Administrator)
+2026-11-18 16:41:13,848 INFO tools.terminal_tool: local environment ready for task session:
+2026-11-18 16:41:13,865 WARNING tools.approval: Hardline block: command parser limit or malformed executable payload (command: cd ~/health && grep -rn "卡士" diet/*.md reviews/*.md records/*.md 2>/dev/null | head -5; echo "--- 结果行数：$(grep -rc 卡士 diet/*.md 2>/dev/null | grep -v ':0' | wc -l) ---")
+2026-11-18 16:41:13,872 WARNING [20261104_114345_190ce9] agent.tool_executor: Tool terminal returned error (0.80s): {"output": "", "exit_code": -1, "error": "BLOCKED (hardline): command parser limit or malformed executable payload. This command is on the unconditional blocklist and cannot be executed via the agent 
+2026-11-18 16:41:18,627 INFO [20261104_114345_190ce9] agent.conversation_loop: API call #2: model=deepseek-v4.1-flash provider=opencode-go in=382690 out=95 total=382785 latency=4.7s cache=382208/382690 (100%)
+2026-11-18 16:41:21,553 INFO [20261104_114345_190ce9] agent.tool_executor: tool search_files completed (2.91s, 18 chars)
+2026-11-18 16:41:30,495 INFO [20261104_114345_190ce9] agent.conversation_loop: API call #3: model=deepseek-v4.1-flash provider=opencode-go in=382804 out=557 total=383361 latency=8.9s cache=382592/382804 (100%)
+2026-11-18 16:41:31,693 INFO [20261104_114345_190ce9] agent.tool_executor: tool write_file completed (1.18s, 278 chars)
+2026-11-18 16:41:53,424 INFO [20261104_114345_190ce9] agent.conversation_loop: API call #4: model=deepseek-v4.1-flash provider=opencode-go in=383467 out=83 total=383550 latency=21.7s cache=382720/383467 (100%)
+2026-11-18 16:42:41,323 INFO [20261104_114345_190ce9] agent.tool_executor: tool terminal completed (47.88s, 1877 chars)
+2026-11-18 16:42:50,988 INFO [20261104_114345_190ce9] agent.conversation_loop: API call #5: model=deepseek-v4.1-flash provider=opencode-go in=384191 out=565 total=384756 latency=9.6s cache=383360/384191 (100%)
+2026-11-18 16:42:52,353 INFO [20261104_114345_190ce9] agent.tool_executor: tool write_file completed (1.35s, 279 chars)
+2026-11-18 16:43:00,683 INFO [20261104_114345_190ce9] agent.conversation_loop: API call #6: model=deepseek-v4.1-flash provider=opencode-go in=384859 out=82 total=384941 latency=8.3s cache=384128/384859 (100%)
+2026-11-18 16:43:10,815 INFO [20261104_114345_190ce9] agent.tool_executor: tool terminal completed (10.10s, 707 chars)
+2026-11-18 16:43:42,138 INFO [20261104_114345_190ce9] agent.conversation_loop: API call #7: model=deepseek-v4.1-flash provider=opencode-go in=385318 out=5203 total=390521 latency=31.3s cache=384768/385318 (100%)
+2026-11-18 16:43:43,158 INFO [20261104_114345_190ce9] agent.tool_executor: tool write_file completed (1.00s, 279 chars)
+2026-11-18 16:43:48,874 INFO [20261104_114345_190ce9] agent.conversation_loop: API call #8: model=deepseek-v4.1-flash provider=opencode-go in=390625 out=118 total=390743 latency=5.7s cache=385280/390625 (99%)
+2026-11-18 16:43:49,731 INFO [20261104_114345_190ce9] agent.tool_executor: tool terminal completed (0.84s, 1005 chars)
+2026-11-18 16:43:58,995 INFO [20261104_114345_190ce9] agent.conversation_loop: API call #9: model=deepseek-v4.1-flash provider=opencode-go in=391333 out=293 total=391626 latency=9.2s cache=390528/391333 (100%)
+2026-11-18 16:43:59,911 INFO [20261104_114345_190ce9] agent.tool_executor: tool terminal completed (0.89s, 953 chars)
+2026-11-18 16:44:09,189 INFO [20261104_114345_190ce9] agent.conversation_loop: API call #10: model=deepseek-v4.1-flash provider=opencode-go in=392158 out=246 total=392404 latency=9.2s cache=391296/392158 (100%)
+2026-11-18 16:44:09,909 INFO [20261104_114345_190ce9] agent.tool_executor: tool terminal completed (0.70s, 350 chars)
+2026-11-18 16:44:31,115 INFO [20261104_114345_190ce9] agent.conversation_loop: API call #11: model=deepseek-v4.1-flash provider=opencode-go in=392635 out=2802 total=395437 latency=21.2s cache=392064/392635 (100%)
+2026-11-18 16:44:31,149 INFO [20261104_114345_190ce9] agent.conversation_loop: Turn ended: reason=text_response(finish_reason=stop) model=deepseek-v4.1-flash api_calls=11/90 budget=11/90 tool_turns=198 last_msg_role=assistant response_len=4645 session=20261104_114345_190ce9
+2026-11-18 16:44:31,217 INFO [20261104_114345_190ce9] tools.terminal_tool: Manually cleaned up environment for task: session:agent:main:telegram:dm:8938729624
+2026-11-18 16:44:31,220 INFO [20261104_114345_190ce9] tools.terminal_tool: Cleaned 1 environments
+2026-11-18 16:44:31,404 INFO run_agent: OpenAI client created (agent_init, shared=True) thread=bg-review:24996 provider=opencode-go base_url=https://opencode.ai/zen/go/v1 model=deepseek-v4.1-flash
+2026-11-18 16:44:31,571 INFO [20261104_114345_190ce9] cli: CLI cleanup calling memory shutdown for session 20261104_114345_190ce9 with 436 message(s)
+2026-11-18 16:44:31,594 INFO [20261104_114345_190ce9] agent.turn_context: conversation turn: session=20261104_114345_190ce9 model=deepseek-v4.1-flash provider=opencode-go platform=cli history=436 msg='Review the conversation above and update two things:  **Memory**: who the user i...'
+2026-11-18 16:44:31,682 INFO run_agent: OpenAI client created (chat_completion_stream_request, shared=False) thread=Thread-64 (<lambda>):24144 provider=opencode-go base_url=https://opencode.ai/zen/go/v1 model=deepseek-v4.1-flash
+2026-11-18 20:15:33,394 INFO hermes_cli.plugins: Plugin 'browser-browser-use' registered browser provider: browser-use
+2026-11-18 20:15:33,407 INFO hermes_cli.plugins: Plugin 'browser-browserbase' registered browser provider: browserbase
+2026-11-18 20:15:33,415 INFO hermes_cli.plugins: Plugin 'browser-firecrawl' registered browser provider: firecrawl
+2026-11-18 20:15:34,733 INFO hermes_cli.plugins: Plugin 'deepinfra' registered image_gen provider: deepinfra
+2026-11-18 20:15:34,752 INFO hermes_cli.plugins: Plugin 'fal' registered image_gen provider: fal
+2026-11-18 20:15:34,758 INFO hermes_cli.plugins: Plugin 'krea' registered image_gen provider: krea
+2026-11-18 20:15:34,761 INFO hermes_cli.plugins: Plugin 'meta-ai-image-gen' registered image_gen provider: meta-ai
+2026-11-18 20:15:34,766 INFO hermes_cli.plugins: Plugin 'openai' registered image_gen provider: openai
+2026-11-18 20:15:34,770 INFO hermes_cli.plugins: Plugin 'openai-codex' registered image_gen provider: openai-codex
+2026-11-18 20:15:34,773 INFO hermes_cli.plugins: Plugin 'openrouter' registered image_gen provider: openrouter
+2026-11-18 20:15:34,774 INFO hermes_cli.plugins: Plugin 'openrouter' registered image_gen provider: nous
+2026-11-18 20:15:34,779 INFO hermes_cli.plugins: Plugin 'xai' registered image_gen provider: xai
+2026-11-18 20:15:34,795 INFO hermes_cli.plugins: Plugin 'deepinfra' registered video_gen provider: deepinfra
+2026-11-18 20:15:34,803 INFO hermes_cli.plugins: Plugin 'fal' registered video_gen provider: fal
+2026-11-18 20:15:34,808 INFO hermes_cli.plugins: Plugin 'xai' registered video_gen provider: xai
+2026-11-18 20:15:34,827 INFO hermes_cli.plugins: Plugin 'web-brave-free' registered web provider: brave-free
+2026-11-18 20:15:34,835 INFO hermes_cli.plugins: Plugin 'web-ddgs' registered web provider: ddgs
+2026-11-18 20:15:34,849 INFO hermes_cli.plugins: Plugin 'web-exa' registered web provider: exa
+2026-11-18 20:15:35,478 INFO hermes_cli.plugins: Plugin 'web-firecrawl' registered web provider: firecrawl
+2026-11-18 20:15:35,487 INFO hermes_cli.plugins: Plugin 'web-keenable' registered web provider: keenable
+2026-11-18 20:15:35,494 INFO hermes_cli.plugins: Plugin 'web-parallel' registered web provider: parallel
+2026-11-18 20:15:35,502 INFO hermes_cli.plugins: Plugin 'web-searxng' registered web provider: searxng
+2026-11-18 20:15:35,513 INFO hermes_cli.plugins: Plugin 'web-tavily' registered web provider: tavily
+2026-11-18 20:15:35,526 INFO hermes_cli.plugins: Plugin 'web-xai' registered web provider: xai
+2026-11-18 20:15:35,650 INFO hermes_cli.plugins: Plugin discovery complete: 56 found, 50 enabled
+2026-11-18 20:15:38,637 INFO tools.mcp_tool: MCP server 'x' (stdio): registered 103 tool(s): mcp__x__article_create_draft, mcp__x__list_broadcasts, mcp__x__get_chat_moderators, mcp__x__add_chat_moderator, mcp__x__remove_chat_moderator, mcp__x__list_scheduled_broadcasts, mcp__x__create_scheduled_broadcast, mcp__x__delete_scheduled_broadcast, mcp__x__get_scheduled_broadcast, mcp__x__update_scheduled_broadcast, mcp__x__go_live_scheduled_broadcast, mcp__x__get_broadcast, mcp__x__get_broadcast_chat, mcp__x__mute_broadcast_chat_user, mcp__x__unmute_broadcast_chat_user, mcp__x__list_scheduled_calls, mcp__x__schedule_call, mcp__x__cancel_scheduled_call, mcp__x__get_scheduled_call, mcp__x__update_scheduled_call, mcp__x__respond_to_scheduled_call, mcp__x__get_chat_conversations, mcp__x__get_chat_conversation, mcp__x__unarchive_chat_conversation, mcp__x__archive_chat_conversation, mcp__x__get_chat_conversation_events, mcp__x__add_conversation_keys, mcp__x__send_chat_message, mcp__x__mark_chat_conversation_read, mcp__x__send_chat_typing_indicator, mcp__x__mark_chat_conversation_unread, mcp__x__chat_media_upload_initialize, mcp__x__chat_media_upload_append, mcp__x__chat_media_upload_finalize, mcp__x__chat_media_download, mcp__x__get_chat_message_requests, mcp__x__get_chat_message_request, mcp__x__accept_chat_message_request, mcp__x__search_communities, mcp__x__get_communities_by_id, mcp__x__create_lists, mcp__x__get_lists_by_id, mcp__x__update_lists, mcp__x__get_lists_followers, mcp__x__get_lists_members, mcp__x__add_lists_member, mcp__x__remove_lists_member_by_user_id, mcp__x__get_lists_posts, mcp__x__media_upload, mcp__x__search_news, mcp__x__get_news, mcp__x__list_sources, mcp__x__create_source, mcp__x__delete_source, mcp__x__get_source, mcp__x__update_source, mcp__x__get_spaces_by_ids, mcp__x__get_spaces_by_creator_ids, mcp__x__search_spaces, mcp__x__get_spaces_by_id, mcp__x__get_spaces_posts, mcp__x__get_trends_by_woeid, mcp__x__get_posts_by_ids, mcp__x__create_posts, mcp__x__get_posts_counts_recent, mcp__x__search_posts_all, mcp__x__get_posts_by_id, mcp__x__get_posts_liking_users, mcp__x__get_posts_quoted_posts, mcp__x__get_posts_reposted_by, mcp__x__get_usage_credits, mcp__x__get_users_by_usernames, mcp__x__get_users_by_username, mcp__x__get_users_me, mcp__x__get_users_me_followers, mcp__x__get_users_me_following, mcp__x__get_users_public_keys, mcp__x__search_users, mcp__x__get_users_by_id, mcp__x__get_users_blocking, mcp__x__users_id_block, mcp__x__get_users_bookmarks, mcp__x__create_users_bookmark, mcp__x__get_users_bookmark_folders, mcp__x__create_users_bookmark_folder, mcp__x__get_users_bookmarks_by_folder_id, mcp__x__delete_users_bookmark, mcp__x__get_users_followed_lists, mcp__x__follow_list, mcp__x__unfollow_list, mcp__x__get_users_liked_posts, mcp__x__get_users_list_memberships, mcp__x__get_users_mentions, mcp__x__get_users_owned_lists, mcp__x__get_users_pinned_lists, mcp__x__pin_list, mcp__x__unpin_list, mcp__x__get_users_public_key, mcp__x__get_users_timeline, mcp__x__get_users_posts, mcp__x__users_id_unblock, mcp__x__list_resources, mcp__x__read_resource
+2026-11-18 20:15:42,679 INFO tools.mcp_tool: MCP server 'amap' (stdio): registered 12 tool(s): mcp__amap__maps_regeocode, mcp__amap__maps_geo, mcp__amap__maps_ip_location, mcp__amap__maps_weather, mcp__amap__maps_search_detail, mcp__amap__maps_bicycling, mcp__amap__maps_direction_walking, mcp__amap__maps_direction_driving, mcp__amap__maps_direction_transit_integrated, mcp__amap__maps_distance, mcp__amap__maps_text_search, mcp__amap__maps_around_search
+2026-11-18 20:15:42,680 INFO tools.mcp_tool: MCP: registered 115 tool(s) from 2 server(s)
+2026-11-18 20:15:42,681 INFO tools.mcp_tool:   MCP: 115 tool(s) from 2 server(s)
+2026-11-18 20:15:43,107 INFO run_agent: Loaded environment variables from C:\Users\Administrator\AppData\Local\hermes\profiles\health\.env
+2026-11-18 20:15:44,406 INFO run_agent: OpenAI client created (agent_init, shared=True) thread=MainThread:25636 provider=opencode-go base_url=https://opencode.ai/zen/go/v1 model=deepseek-v4.1-flash
+2026-11-18 20:15:44,455 WARNING tools.registry: check_fn check_browser_back_requirements returned False; dependent tools will be unavailable this turn
+2026-11-18 20:15:44,493 WARNING tools.registry: check_fn _browser_cdp_check returned False; dependent tools will be unavailable this turn
+2026-11-18 20:15:44,533 WARNING tools.registry: check_fn check_browser_click_requirements returned False; dependent tools will be unavailable this turn
+2026-11-18 20:15:44,571 WARNING tools.registry: check_fn check_browser_requirements returned False; dependent tools will be unavailable this turn
+2026-11-18 20:15:44,610 WARNING tools.registry: check_fn _browser_dialog_check returned False; dependent tools will be unavailable this turn
+2026-11-18 20:15:44,691 WARNING tools.registry: check_fn check_browser_navigate_requirements returned False; dependent tools will be unavailable this turn
+2026-11-18 20:15:44,729 WARNING tools.registry: check_fn check_browser_press_requirements returned False; dependent tools will be unavailable this turn
+2026-11-18 20:15:44,767 WARNING tools.registry: check_fn check_browser_scroll_requirements returned False; dependent tools will be unavailable this turn
+2026-11-18 20:15:44,804 WARNING tools.registry: check_fn check_browser_snapshot_requirements returned False; dependent tools will be unavailable this turn
+2026-11-18 20:15:44,842 WARNING tools.registry: check_fn check_browser_type_requirements returned False; dependent tools will be unavailable this turn
+2026-11-18 20:15:44,879 WARNING tools.registry: check_fn check_browser_vision_requirements returned False; dependent tools will be unavailable this turn
+2026-11-18 20:15:44,899 WARNING tools.registry: check_fn check_computer_use_requirements returned False; dependent tools will be unavailable this turn
+2026-11-18 20:15:44,931 WARNING tools.registry: check_fn check_image_generation_requirements returned False; dependent tools will be unavailable this turn
+2026-11-18 20:15:44,934 WARNING tools.registry: check_fn _check_kanban_mode returned False; dependent tools will be unavailable this turn
+2026-11-18 20:15:44,938 WARNING tools.registry: check_fn _check_kanban_orchestrator_mode returned False; dependent tools will be unavailable this turn
+2026-11-18 20:15:46,335 INFO tools.tool_search: tool_search activated (tier 1): 17 core/visible tools kept, 124 deferred (~38713 tokens), listing full (budget ~4000 tokens)
+2026-11-18 20:15:46,654 INFO [20261104_114345_190ce9] agent.turn_context: conversation turn: session=20261104_114345_190ce9 model=deepseek-v4.1-flash provider=opencode-go platform=cli history=436 msg='【任务：写入轮 —— 把今天新报的运动（羽毛球）落盘，并重出当日汇总】  你是健康助理。这是 2026-11-18 的**写入轮**，不是核算轮：他明确说了「记...'
+2026-11-18 20:15:46,908 INFO run_agent: OpenAI client created (chat_completion_stream_request, shared=False) thread=Thread-12 (<lambda>):25920 provider=opencode-go base_url=https://opencode.ai/zen/go/v1 model=deepseek-v4.1-flash
+2026-11-18 20:16:14,419 INFO [20261104_114345_190ce9] agent.conversation_loop: API call #1: model=deepseek-v4.1-flash provider=opencode-go in=396623 out=4928 total=401551 latency=27.6s cache=392576/396623 (99%)
+2026-11-18 20:16:15,962 INFO tools.file_tools: Creating new local environment for task session:...
+2026-11-18 20:16:16,697 INFO tools.environments.base: Session snapshot created (session=4d483fe1dd5b, cwd=C:\Users\Administrator)
+2026-11-18 20:16:16,699 INFO tools.file_tools: local environment ready for task session:
+2026-11-18 20:16:17,737 INFO [20261104_114345_190ce9] agent.tool_executor: tool write_file completed (1.79s, 279 chars)
+2026-11-18 20:16:22,099 INFO [20261104_114345_190ce9] agent.conversation_loop: API call #2: model=deepseek-v4.1-flash provider=opencode-go in=401653 out=118 total=401771 latency=4.3s cache=396544/401653 (99%)
+2026-11-18 20:16:22,778 INFO [20261104_114345_190ce9] agent.tool_executor: tool terminal completed (0.66s, 1036 chars)
+2026-11-18 20:16:28,904 INFO [20261104_114345_190ce9] agent.conversation_loop: API call #3: model=deepseek-v4.1-flash provider=opencode-go in=402326 out=454 total=402780 latency=6.1s cache=401536/402326 (100%)
+2026-11-18 20:16:29,588 INFO [20261104_114345_190ce9] agent.tool_executor: tool terminal completed (0.67s, 808 chars)
+2026-11-18 20:16:43,473 INFO [20261104_114345_190ce9] agent.conversation_loop: API call #4: model=deepseek-v4.1-flash provider=opencode-go in=403256 out=2524 total=405780 latency=13.8s cache=402304/403256 (100%)
+2026-11-18 20:16:43,502 INFO [20261104_114345_190ce9] agent.conversation_loop: Turn ended: reason=text_response(finish_reason=stop) model=deepseek-v4.1-flash api_calls=4/90 budget=4/90 tool_turns=201 last_msg_role=assistant response_len=4693 session=20261104_114345_190ce9
+2026-11-18 20:16:43,530 INFO [20261104_114345_190ce9] tools.terminal_tool: Manually cleaned up environment for task: session:agent:main:telegram:dm:8938729624
+2026-11-18 20:16:43,532 INFO [20261104_114345_190ce9] tools.terminal_tool: Cleaned 1 environments
+2026-11-18 20:16:43,654 INFO [20261104_114345_190ce9] cli: CLI cleanup calling memory shutdown for session 20261104_114345_190ce9 with 444 message(s)
+2026-11-18 20:53:36,341 INFO hermes_cli.plugins: Plugin 'browser-browser-use' registered browser provider: browser-use
+2026-11-18 20:53:36,355 INFO hermes_cli.plugins: Plugin 'browser-browserbase' registered browser provider: browserbase
+2026-11-18 20:53:36,361 INFO hermes_cli.plugins: Plugin 'browser-firecrawl' registered browser provider: firecrawl
+2026-11-18 20:53:37,086 INFO hermes_cli.plugins: Plugin 'deepinfra' registered image_gen provider: deepinfra
+2026-11-18 20:53:37,096 INFO hermes_cli.plugins: Plugin 'fal' registered image_gen provider: fal
+2026-11-18 20:53:37,103 INFO hermes_cli.plugins: Plugin 'krea' registered image_gen provider: krea
+2026-11-18 20:53:37,109 INFO hermes_cli.plugins: Plugin 'meta-ai-image-gen' registered image_gen provider: meta-ai
+2026-11-18 20:53:37,113 INFO hermes_cli.plugins: Plugin 'openai' registered image_gen provider: openai
+2026-11-18 20:53:37,117 INFO hermes_cli.plugins: Plugin 'openai-codex' registered image_gen provider: openai-codex
+2026-11-18 20:53:37,120 INFO hermes_cli.plugins: Plugin 'openrouter' registered image_gen provider: openrouter
+2026-11-18 20:53:37,121 INFO hermes_cli.plugins: Plugin 'openrouter' registered image_gen provider: nous
+2026-11-18 20:53:37,126 INFO hermes_cli.plugins: Plugin 'xai' registered image_gen provider: xai
+2026-11-18 20:53:37,146 INFO hermes_cli.plugins: Plugin 'deepinfra' registered video_gen provider: deepinfra
+2026-11-18 20:53:37,166 INFO hermes_cli.plugins: Plugin 'fal' registered video_gen provider: fal
+2026-11-18 20:53:37,172 INFO hermes_cli.plugins: Plugin 'xai' registered video_gen provider: xai
+2026-11-18 20:53:37,201 INFO hermes_cli.plugins: Plugin 'web-brave-free' registered web provider: brave-free
+2026-11-18 20:53:37,215 INFO hermes_cli.plugins: Plugin 'web-ddgs' registered web provider: ddgs
+2026-11-18 20:53:37,224 INFO hermes_cli.plugins: Plugin 'web-exa' registered web provider: exa
+2026-11-18 20:53:37,239 INFO hermes_cli.plugins: Plugin 'web-firecrawl' registered web provider: firecrawl
+2026-11-18 20:53:37,248 INFO hermes_cli.plugins: Plugin 'web-keenable' registered web provider: keenable
+2026-11-18 20:53:37,256 INFO hermes_cli.plugins: Plugin 'web-parallel' registered web provider: parallel
+2026-11-18 20:53:37,263 INFO hermes_cli.plugins: Plugin 'web-searxng' registered web provider: searxng
+2026-11-18 20:53:37,272 INFO hermes_cli.plugins: Plugin 'web-tavily' registered web provider: tavily
+2026-11-18 20:53:37,281 INFO hermes_cli.plugins: Plugin 'web-xai' registered web provider: xai
+2026-11-18 20:53:37,526 INFO hermes_cli.plugins: Plugin discovery complete: 56 found, 50 enabled
+2026-11-18 20:53:40,548 INFO tools.mcp_tool: MCP server 'x' (stdio): registered 103 tool(s): mcp__x__article_create_draft, mcp__x__list_broadcasts, mcp__x__get_chat_moderators, mcp__x__add_chat_moderator, mcp__x__remove_chat_moderator, mcp__x__list_scheduled_broadcasts, mcp__x__create_scheduled_broadcast, mcp__x__delete_scheduled_broadcast, mcp__x__get_scheduled_broadcast, mcp__x__update_scheduled_broadcast, mcp__x__go_live_scheduled_broadcast, mcp__x__get_broadcast, mcp__x__get_broadcast_chat, mcp__x__mute_broadcast_chat_user, mcp__x__unmute_broadcast_chat_user, mcp__x__list_scheduled_calls, mcp__x__schedule_call, mcp__x__cancel_scheduled_call, mcp__x__get_scheduled_call, mcp__x__update_scheduled_call, mcp__x__respond_to_scheduled_call, mcp__x__get_chat_conversations, mcp__x__get_chat_conversation, mcp__x__unarchive_chat_conversation, mcp__x__archive_chat_conversation, mcp__x__get_chat_conversation_events, mcp__x__add_conversation_keys, mcp__x__send_chat_message, mcp__x__mark_chat_conversation_read, mcp__x__send_chat_typing_indicator, mcp__x__mark_chat_conversation_unread, mcp__x__chat_media_upload_initialize, mcp__x__chat_media_upload_append, mcp__x__chat_media_upload_finalize, mcp__x__chat_media_download, mcp__x__get_chat_message_requests, mcp__x__get_chat_message_request, mcp__x__accept_chat_message_request, mcp__x__search_communities, mcp__x__get_communities_by_id, mcp__x__create_lists, mcp__x__get_lists_by_id, mcp__x__update_lists, mcp__x__get_lists_followers, mcp__x__get_lists_members, mcp__x__add_lists_member, mcp__x__remove_lists_member_by_user_id, mcp__x__get_lists_posts, mcp__x__media_upload, mcp__x__search_news, mcp__x__get_news, mcp__x__list_sources, mcp__x__create_source, mcp__x__delete_source, mcp__x__get_source, mcp__x__update_source, mcp__x__get_spaces_by_ids, mcp__x__get_spaces_by_creator_ids, mcp__x__search_spaces, mcp__x__get_spaces_by_id, mcp__x__get_spaces_posts, mcp__x__get_trends_by_woeid, mcp__x__get_posts_by_ids, mcp__x__create_posts, mcp__x__get_posts_counts_recent, mcp__x__search_posts_all, mcp__x__get_posts_by_id, mcp__x__get_posts_liking_users, mcp__x__get_posts_quoted_posts, mcp__x__get_posts_reposted_by, mcp__x__get_usage_credits, mcp__x__get_users_by_usernames, mcp__x__get_users_by_username, mcp__x__get_users_me, mcp__x__get_users_me_followers, mcp__x__get_users_me_following, mcp__x__get_users_public_keys, mcp__x__search_users, mcp__x__get_users_by_id, mcp__x__get_users_blocking, mcp__x__users_id_block, mcp__x__get_users_bookmarks, mcp__x__create_users_bookmark, mcp__x__get_users_bookmark_folders, mcp__x__create_users_bookmark_folder, mcp__x__get_users_bookmarks_by_folder_id, mcp__x__delete_users_bookmark, mcp__x__get_users_followed_lists, mcp__x__follow_list, mcp__x__unfollow_list, mcp__x__get_users_liked_posts, mcp__x__get_users_list_memberships, mcp__x__get_users_mentions, mcp__x__get_users_owned_lists, mcp__x__get_users_pinned_lists, mcp__x__pin_list, mcp__x__unpin_list, mcp__x__get_users_public_key, mcp__x__get_users_timeline, mcp__x__get_users_posts, mcp__x__users_id_unblock, mcp__x__list_resources, mcp__x__read_resource
+2026-11-18 20:53:42,885 INFO tools.mcp_tool: MCP server 'amap' (stdio): registered 12 tool(s): mcp__amap__maps_regeocode, mcp__amap__maps_geo, mcp__amap__maps_ip_location, mcp__amap__maps_weather, mcp__amap__maps_search_detail, mcp__amap__maps_bicycling, mcp__amap__maps_direction_walking, mcp__amap__maps_direction_driving, mcp__amap__maps_direction_transit_integrated, mcp__amap__maps_distance, mcp__amap__maps_text_search, mcp__amap__maps_around_search
+2026-11-18 20:53:42,886 INFO tools.mcp_tool: MCP: registered 115 tool(s) from 2 server(s)
+2026-11-18 20:53:42,887 INFO tools.mcp_tool:   MCP: 115 tool(s) from 2 server(s)
+2026-11-18 20:53:43,327 INFO run_agent: Loaded environment variables from C:\Users\Administrator\AppData\Local\hermes\profiles\health\.env
+2026-11-18 20:53:44,866 INFO run_agent: OpenAI client created (agent_init, shared=True) thread=MainThread:23844 provider=opencode-go base_url=https://opencode.ai/zen/go/v1 model=deepseek-v4.1-flash
+2026-11-18 20:53:44,930 WARNING tools.registry: check_fn check_browser_back_requirements returned False; dependent tools will be unavailable this turn
+2026-11-18 20:53:44,983 WARNING tools.registry: check_fn _browser_cdp_check returned False; dependent tools will be unavailable this turn
+2026-11-18 20:53:45,044 WARNING tools.registry: check_fn check_browser_click_requirements returned False; dependent tools will be unavailable this turn
+2026-11-18 20:53:45,093 WARNING tools.registry: check_fn check_browser_requirements returned False; dependent tools will be unavailable this turn
+2026-11-18 20:53:45,133 WARNING tools.registry: check_fn _browser_dialog_check returned False; dependent tools will be unavailable this turn
+2026-11-18 20:53:45,226 WARNING tools.registry: check_fn check_browser_navigate_requirements returned False; dependent tools will be unavailable this turn
+2026-11-18 20:53:45,264 WARNING tools.registry: check_fn check_browser_press_requirements returned False; dependent tools will be unavailable this turn
+2026-11-18 20:53:45,304 WARNING tools.registry: check_fn check_browser_scroll_requirements returned False; dependent tools will be unavailable this turn
+2026-11-18 20:53:45,341 WARNING tools.registry: check_fn check_browser_snapshot_requirements returned False; dependent tools will be unavailable this turn
+2026-11-18 20:53:45,378 WARNING tools.registry: check_fn check_browser_type_requirements returned False; dependent tools will be unavailable this turn
+2026-11-18 20:53:45,415 WARNING tools.registry: check_fn check_browser_vision_requirements returned False; dependent tools will be unavailable this turn
+2026-11-18 20:53:45,436 WARNING tools.registry: check_fn check_computer_use_requirements returned False; dependent tools will be unavailable this turn
+2026-11-18 20:53:45,458 WARNING tools.registry: check_fn check_image_generation_requirements returned False; dependent tools will be unavailable this turn
+2026-11-18 20:53:45,461 WARNING tools.registry: check_fn _check_kanban_mode returned False; dependent tools will be unavailable this turn
+2026-11-18 20:53:45,464 WARNING tools.registry: check_fn _check_kanban_orchestrator_mode returned False; dependent tools will be unavailable this turn
+2026-11-18 20:53:46,637 INFO tools.tool_search: tool_search activated (tier 1): 17 core/visible tools kept, 124 deferred (~38713 tokens), listing full (budget ~4000 tokens)
+2026-11-18 20:53:46,950 INFO [20261104_114345_190ce9] agent.turn_context: conversation turn: session=20261104_114345_190ce9 model=deepseek-v4.1-flash provider=opencode-go platform=cli history=444 msg='【任务：写入轮 —— 把今天晚餐（昨天剩菜的另一半 ＋ 150 g 白米饭）落盘，并重出当日汇总】  你是健康助理。这是 2026-11-18 的**写入轮**...'
+2026-11-18 20:53:47,208 INFO run_agent: OpenAI client created (chat_completion_stream_request, shared=False) thread=Thread-12 (<lambda>):22928 provider=opencode-go base_url=https://opencode.ai/zen/go/v1 model=deepseek-v4.1-flash
+2026-11-18 20:53:56,855 INFO [20261104_114345_190ce9] agent.conversation_loop: API call #1: model=deepseek-v4.1-flash provider=opencode-go in=407443 out=197 total=407640 latency=9.7s cache=403200/407443 (99%)
+2026-11-18 20:53:58,410 INFO tools.file_tools: Creating new local environment for task session:...
+2026-11-18 20:53:59,142 INFO tools.environments.base: Session snapshot created (session=e110e67a4e12, cwd=C:\Users\Administrator)
+2026-11-18 20:53:59,144 INFO tools.file_tools: local environment ready for task session:
+2026-11-18 20:53:59,978 INFO [20261104_114345_190ce9] agent.tool_executor: tool read_file completed (1.58s, 4445 chars)
+2026-11-18 20:54:33,856 INFO [20261104_114345_190ce9] agent.conversation_loop: API call #2: model=deepseek-v4.1-flash provider=opencode-go in=410544 out=7067 total=417611 latency=33.8s cache=407424/410544 (99%)
+2026-11-18 20:54:34,917 INFO [20261104_114345_190ce9] agent.tool_executor: tool write_file completed (1.04s, 279 chars)
+2026-11-18 20:54:41,256 INFO [20261104_114345_190ce9] agent.conversation_loop: API call #3: model=deepseek-v4.1-flash provider=opencode-go in=417715 out=118 total=417833 latency=6.3s cache=410496/417715 (98%)
+2026-11-18 20:54:41,930 INFO [20261104_114345_190ce9] agent.tool_executor: tool terminal completed (0.66s, 1171 chars)
+2026-11-18 20:54:47,076 INFO [20261104_114345_190ce9] agent.conversation_loop: API call #4: model=deepseek-v4.1-flash provider=opencode-go in=418532 out=328 total=418860 latency=5.1s cache=417664/418532 (100%)
+2026-11-18 20:54:47,748 INFO [20261104_114345_190ce9] agent.tool_executor: tool terminal completed (0.66s, 698 chars)
+2026-11-18 20:55:08,468 INFO [20261104_114345_190ce9] agent.conversation_loop: API call #5: model=deepseek-v4.1-flash provider=opencode-go in=419268 out=3181 total=422449 latency=20.7s cache=418432/419268 (100%)
+2026-11-18 20:55:08,514 INFO [20261104_114345_190ce9] agent.conversation_loop: Turn ended: reason=text_response(finish_reason=stop) model=deepseek-v4.1-flash api_calls=5/90 budget=5/90 tool_turns=205 last_msg_role=assistant response_len=5884 session=20261104_114345_190ce9
+2026-11-18 20:55:08,541 INFO [20261104_114345_190ce9] tools.terminal_tool: Manually cleaned up environment for task: session:agent:main:telegram:dm:8938729624
+2026-11-18 20:55:08,544 INFO [20261104_114345_190ce9] tools.terminal_tool: Cleaned 1 environments
+2026-11-18 20:55:08,667 INFO [20261104_114345_190ce9] cli: CLI cleanup calling memory shutdown for session 20261104_114345_190ce9 with 454 message(s)
+2026-11-18 21:08:30,358 INFO hermes_cli.plugins: Plugin 'browser-browser-use' registered browser provider: browser-use
+2026-11-18 21:08:30,538 INFO hermes_cli.plugins: Plugin 'browser-browserbase' registered browser provider: browserbase
+2026-11-18 21:08:30,552 INFO hermes_cli.plugins: Plugin 'browser-firecrawl' registered browser provider: firecrawl
+2026-11-18 21:08:31,277 INFO hermes_cli.plugins: Plugin 'deepinfra' registered image_gen provider: deepinfra
+2026-11-18 21:08:31,279 INFO hermes_cli.plugins: Plugin 'fal' registered image_gen provider: fal
+2026-11-18 21:08:31,283 INFO hermes_cli.plugins: Plugin 'krea' registered image_gen provider: krea
+2026-11-18 21:08:31,285 INFO hermes_cli.plugins: Plugin 'meta-ai-image-gen' registered image_gen provider: meta-ai
+2026-11-18 21:08:31,288 INFO hermes_cli.plugins: Plugin 'openai' registered image_gen provider: openai
+2026-11-18 21:08:31,291 INFO hermes_cli.plugins: Plugin 'openai-codex' registered image_gen provider: openai-codex
+2026-11-18 21:08:31,294 INFO hermes_cli.plugins: Plugin 'openrouter' registered image_gen provider: openrouter
+2026-11-18 21:08:31,295 INFO hermes_cli.plugins: Plugin 'openrouter' registered image_gen provider: nous
+2026-11-18 21:08:31,300 INFO hermes_cli.plugins: Plugin 'xai' registered image_gen provider: xai
+2026-11-18 21:08:31,313 INFO hermes_cli.plugins: Plugin 'deepinfra' registered video_gen provider: deepinfra
+2026-11-18 21:08:31,319 INFO hermes_cli.plugins: Plugin 'fal' registered video_gen provider: fal
+2026-11-18 21:08:31,322 INFO hermes_cli.plugins: Plugin 'xai' registered video_gen provider: xai
+2026-11-18 21:08:31,337 INFO hermes_cli.plugins: Plugin 'web-brave-free' registered web provider: brave-free
+2026-11-18 21:08:31,347 INFO hermes_cli.plugins: Plugin 'web-ddgs' registered web provider: ddgs
+2026-11-18 21:08:31,355 INFO hermes_cli.plugins: Plugin 'web-exa' registered web provider: exa
+2026-11-18 21:08:31,752 INFO hermes_cli.plugins: Plugin 'web-firecrawl' registered web provider: firecrawl
+2026-11-18 21:08:31,758 INFO hermes_cli.plugins: Plugin 'web-keenable' registered web provider: keenable
+2026-11-18 21:08:31,765 INFO hermes_cli.plugins: Plugin 'web-parallel' registered web provider: parallel
+2026-11-18 21:08:31,773 INFO hermes_cli.plugins: Plugin 'web-searxng' registered web provider: searxng
+2026-11-18 21:08:31,822 INFO hermes_cli.plugins: Plugin 'web-tavily' registered web provider: tavily
+2026-11-18 21:08:31,828 INFO hermes_cli.plugins: Plugin 'web-xai' registered web provider: xai
+2026-11-18 21:08:31,889 INFO hermes_cli.plugins: Plugin discovery complete: 56 found, 50 enabled
+2026-11-18 21:08:34,538 INFO tools.mcp_tool: MCP server 'x' (stdio): registered 103 tool(s): mcp__x__article_create_draft, mcp__x__list_broadcasts, mcp__x__get_chat_moderators, mcp__x__add_chat_moderator, mcp__x__remove_chat_moderator, mcp__x__list_scheduled_broadcasts, mcp__x__create_scheduled_broadcast, mcp__x__delete_scheduled_broadcast, mcp__x__get_scheduled_broadcast, mcp__x__update_scheduled_broadcast, mcp__x__go_live_scheduled_broadcast, mcp__x__get_broadcast, mcp__x__get_broadcast_chat, mcp__x__mute_broadcast_chat_user, mcp__x__unmute_broadcast_chat_user, mcp__x__list_scheduled_calls, mcp__x__schedule_call, mcp__x__cancel_scheduled_call, mcp__x__get_scheduled_call, mcp__x__update_scheduled_call, mcp__x__respond_to_scheduled_call, mcp__x__get_chat_conversations, mcp__x__get_chat_conversation, mcp__x__unarchive_chat_conversation, mcp__x__archive_chat_conversation, mcp__x__get_chat_conversation_events, mcp__x__add_conversation_keys, mcp__x__send_chat_message, mcp__x__mark_chat_conversation_read, mcp__x__send_chat_typing_indicator, mcp__x__mark_chat_conversation_unread, mcp__x__chat_media_upload_initialize, mcp__x__chat_media_upload_append, mcp__x__chat_media_upload_finalize, mcp__x__chat_media_download, mcp__x__get_chat_message_requests, mcp__x__get_chat_message_request, mcp__x__accept_chat_message_request, mcp__x__search_communities, mcp__x__get_communities_by_id, mcp__x__create_lists, mcp__x__get_lists_by_id, mcp__x__update_lists, mcp__x__get_lists_followers, mcp__x__get_lists_members, mcp__x__add_lists_member, mcp__x__remove_lists_member_by_user_id, mcp__x__get_lists_posts, mcp__x__media_upload, mcp__x__search_news, mcp__x__get_news, mcp__x__list_sources, mcp__x__create_source, mcp__x__delete_source, mcp__x__get_source, mcp__x__update_source, mcp__x__get_spaces_by_ids, mcp__x__get_spaces_by_creator_ids, mcp__x__search_spaces, mcp__x__get_spaces_by_id, mcp__x__get_spaces_posts, mcp__x__get_trends_by_woeid, mcp__x__get_posts_by_ids, mcp__x__create_posts, mcp__x__get_posts_counts_recent, mcp__x__search_posts_all, mcp__x__get_posts_by_id, mcp__x__get_posts_liking_users, mcp__x__get_posts_quoted_posts, mcp__x__get_posts_reposted_by, mcp__x__get_usage_credits, mcp__x__get_users_by_usernames, mcp__x__get_users_by_username, mcp__x__get_users_me, mcp__x__get_users_me_followers, mcp__x__get_users_me_following, mcp__x__get_users_public_keys, mcp__x__search_users, mcp__x__get_users_by_id, mcp__x__get_users_blocking, mcp__x__users_id_block, mcp__x__get_users_bookmarks, mcp__x__create_users_bookmark, mcp__x__get_users_bookmark_folders, mcp__x__create_users_bookmark_folder, mcp__x__get_users_bookmarks_by_folder_id, mcp__x__delete_users_bookmark, mcp__x__get_users_followed_lists, mcp__x__follow_list, mcp__x__unfollow_list, mcp__x__get_users_liked_posts, mcp__x__get_users_list_memberships, mcp__x__get_users_mentions, mcp__x__get_users_owned_lists, mcp__x__get_users_pinned_lists, mcp__x__pin_list, mcp__x__unpin_list, mcp__x__get_users_public_key, mcp__x__get_users_timeline, mcp__x__get_users_posts, mcp__x__users_id_unblock, mcp__x__list_resources, mcp__x__read_resource
+2026-11-18 21:08:36,835 INFO tools.mcp_tool: MCP server 'amap' (stdio): registered 12 tool(s): mcp__amap__maps_regeocode, mcp__amap__maps_geo, mcp__amap__maps_ip_location, mcp__amap__maps_weather, mcp__amap__maps_search_detail, mcp__amap__maps_bicycling, mcp__amap__maps_direction_walking, mcp__amap__maps_direction_driving, mcp__amap__maps_direction_transit_integrated, mcp__amap__maps_distance, mcp__amap__maps_text_search, mcp__amap__maps_around_search
+2026-11-18 21:08:36,836 INFO tools.mcp_tool: MCP: registered 115 tool(s) from 2 server(s)
+2026-11-18 21:08:36,837 INFO tools.mcp_tool:   MCP: 115 tool(s) from 2 server(s)
+2026-11-18 21:08:36,941 INFO run_agent: Loaded environment variables from C:\Users\Administrator\AppData\Local\hermes\profiles\health\.env
+2026-11-18 21:08:38,335 INFO run_agent: OpenAI client created (agent_init, shared=True) thread=MainThread:25972 provider=opencode-go base_url=https://opencode.ai/zen/go/v1 model=deepseek-v4.1-flash
+2026-11-18 21:08:38,386 WARNING tools.registry: check_fn check_browser_back_requirements returned False; dependent tools will be unavailable this turn
+2026-11-18 21:08:38,428 WARNING tools.registry: check_fn _browser_cdp_check returned False; dependent tools will be unavailable this turn
+2026-11-18 21:08:38,467 WARNING tools.registry: check_fn check_browser_click_requirements returned False; dependent tools will be unavailable this turn
+2026-11-18 21:08:38,511 WARNING tools.registry: check_fn check_browser_requirements returned False; dependent tools will be unavailable this turn
+2026-11-18 21:08:38,552 WARNING tools.registry: check_fn _browser_dialog_check returned False; dependent tools will be unavailable this turn
+2026-11-18 21:08:38,638 WARNING tools.registry: check_fn check_browser_navigate_requirements returned False; dependent tools will be unavailable this turn
+2026-11-18 21:08:38,680 WARNING tools.registry: check_fn check_browser_press_requirements returned False; dependent tools will be unavailable this turn
+2026-11-18 21:08:38,720 WARNING tools.registry: check_fn check_browser_scroll_requirements returned False; dependent tools will be unavailable this turn
+2026-11-18 21:08:38,759 WARNING tools.registry: check_fn check_browser_snapshot_requirements returned False; dependent tools will be unavailable this turn
+2026-11-18 21:08:38,797 WARNING tools.registry: check_fn check_browser_type_requirements returned False; dependent tools will be unavailable this turn
+2026-11-18 21:08:38,836 WARNING tools.registry: check_fn check_browser_vision_requirements returned False; dependent tools will be unavailable this turn
+2026-11-18 21:08:38,864 WARNING tools.registry: check_fn check_computer_use_requirements returned False; dependent tools will be unavailable this turn
+2026-11-18 21:08:38,897 WARNING tools.registry: check_fn check_image_generation_requirements returned False; dependent tools will be unavailable this turn
+2026-11-18 21:08:38,900 WARNING tools.registry: check_fn _check_kanban_mode returned False; dependent tools will be unavailable this turn
+2026-11-18 21:08:38,903 WARNING tools.registry: check_fn _check_kanban_orchestrator_mode returned False; dependent tools will be unavailable this turn
+2026-11-18 21:08:40,159 INFO tools.tool_search: tool_search activated (tier 1): 17 core/visible tools kept, 124 deferred (~38713 tokens), listing full (budget ~4000 tokens)
+2026-11-18 21:08:40,401 INFO [20261104_114345_190ce9] agent.turn_context: conversation turn: session=20261104_114345_190ce9 model=deepseek-v4.1-flash provider=opencode-go platform=cli history=454 msg='【任务：核算轮（纯推演，不落盘）—— 假设再吃「一碗无糖酸奶拌蓝莓 ＋ 一个白煮蛋」，蛋白质能不能补够】  你是健康助理。这是 2026-11-18 的**核算...'
+2026-11-18 21:08:40,652 INFO run_agent: OpenAI client created (chat_completion_stream_request, shared=False) thread=Thread-12 (<lambda>):25496 provider=opencode-go base_url=https://opencode.ai/zen/go/v1 model=deepseek-v4.1-flash
+2026-11-18 21:09:01,390 INFO [20261104_114345_190ce9] agent.conversation_loop: API call #1: model=deepseek-v4.1-flash provider=opencode-go in=423821 out=3461 total=427282 latency=20.8s cache=419200/423821 (99%)
+2026-11-18 21:09:02,831 INFO tools.file_tools: Creating new local environment for task session:...
+2026-11-18 21:09:03,565 INFO tools.environments.base: Session snapshot created (session=4855d96a0fc8, cwd=C:\Users\Administrator)
+2026-11-18 21:09:03,568 INFO tools.file_tools: local environment ready for task session:
+2026-11-18 21:09:04,821 INFO [20261104_114345_190ce9] agent.tool_executor: tool write_file completed (2.01s, 276 chars)
+2026-11-18 21:09:12,619 INFO [20261104_114345_190ce9] agent.conversation_loop: API call #2: model=deepseek-v4.1-flash provider=opencode-go in=427390 out=80 total=427470 latency=7.8s cache=423808/427390 (99%)
+2026-11-18 21:09:16,166 INFO [20261104_114345_190ce9] agent.tool_executor: tool terminal completed (3.53s, 3024 chars)
+2026-11-18 21:09:39,096 INFO [20261104_114345_190ce9] agent.conversation_loop: API call #3: model=deepseek-v4.1-flash provider=opencode-go in=429160 out=2763 total=431923 latency=22.9s cache=427264/429160 (100%)
+2026-11-18 21:09:39,119 INFO [20261104_114345_190ce9] agent.conversation_loop: Turn ended: reason=text_response(finish_reason=stop) model=deepseek-v4.1-flash api_calls=3/90 budget=3/90 tool_turns=207 last_msg_role=assistant response_len=4632 session=20261104_114345_190ce9
+2026-11-18 21:09:39,150 INFO [20261104_114345_190ce9] tools.terminal_tool: Manually cleaned up environment for task: session:agent:main:telegram:dm:8938729624
+2026-11-18 21:09:39,153 INFO [20261104_114345_190ce9] tools.terminal_tool: Cleaned 1 environments
+2026-11-18 21:09:39,241 INFO [20261104_114345_190ce9] cli: CLI cleanup calling memory shutdown for session 20261104_114345_190ce9 with 460 message(s)
+2026-11-18 21:54:21,525 INFO hermes_cli.plugins: Plugin 'browser-browser-use' registered browser provider: browser-use
+2026-11-18 21:54:21,778 INFO hermes_cli.plugins: Plugin 'browser-browserbase' registered browser provider: browserbase
+2026-11-18 21:54:21,799 INFO hermes_cli.plugins: Plugin 'browser-firecrawl' registered browser provider: firecrawl
+2026-11-18 21:54:22,689 INFO hermes_cli.plugins: Plugin 'deepinfra' registered image_gen provider: deepinfra
+2026-11-18 21:54:22,692 INFO hermes_cli.plugins: Plugin 'fal' registered image_gen provider: fal
+2026-11-18 21:54:22,695 INFO hermes_cli.plugins: Plugin 'krea' registered image_gen provider: krea
+2026-11-18 21:54:22,699 INFO hermes_cli.plugins: Plugin 'meta-ai-image-gen' registered image_gen provider: meta-ai
+2026-11-18 21:54:22,705 INFO hermes_cli.plugins: Plugin 'openai' registered image_gen provider: openai
+2026-11-18 21:54:22,710 INFO hermes_cli.plugins: Plugin 'openai-codex' registered image_gen provider: openai-codex
+2026-11-18 21:54:22,716 INFO hermes_cli.plugins: Plugin 'openrouter' registered image_gen provider: openrouter
+2026-11-18 21:54:22,717 INFO hermes_cli.plugins: Plugin 'openrouter' registered image_gen provider: nous
+2026-11-18 21:54:22,725 INFO hermes_cli.plugins: Plugin 'xai' registered image_gen provider: xai
+2026-11-18 21:54:22,743 INFO hermes_cli.plugins: Plugin 'deepinfra' registered video_gen provider: deepinfra
+2026-11-18 21:54:22,748 INFO hermes_cli.plugins: Plugin 'fal' registered video_gen provider: fal
+2026-11-18 21:54:22,753 INFO hermes_cli.plugins: Plugin 'xai' registered video_gen provider: xai
+2026-11-18 21:54:23,196 INFO hermes_cli.plugins: Plugin 'web-brave-free' registered web provider: brave-free
+2026-11-18 21:54:23,205 INFO hermes_cli.plugins: Plugin 'web-ddgs' registered web provider: ddgs
+2026-11-18 21:54:23,214 INFO hermes_cli.plugins: Plugin 'web-exa' registered web provider: exa
+2026-11-18 21:54:23,227 INFO hermes_cli.plugins: Plugin 'web-firecrawl' registered web provider: firecrawl
+2026-11-18 21:54:23,270 INFO hermes_cli.plugins: Plugin 'web-keenable' registered web provider: keenable
+2026-11-18 21:54:23,278 INFO hermes_cli.plugins: Plugin 'web-parallel' registered web provider: parallel
+2026-11-18 21:54:23,286 INFO hermes_cli.plugins: Plugin 'web-searxng' registered web provider: searxng
+2026-11-18 21:54:23,300 INFO hermes_cli.plugins: Plugin 'web-tavily' registered web provider: tavily
+2026-11-18 21:54:23,309 INFO hermes_cli.plugins: Plugin 'web-xai' registered web provider: xai
+2026-11-18 21:54:23,371 INFO hermes_cli.plugins: Plugin discovery complete: 56 found, 50 enabled
+2026-11-18 21:54:26,318 INFO tools.mcp_tool: MCP server 'x' (stdio): registered 103 tool(s): mcp__x__article_create_draft, mcp__x__list_broadcasts, mcp__x__get_chat_moderators, mcp__x__add_chat_moderator, mcp__x__remove_chat_moderator, mcp__x__list_scheduled_broadcasts, mcp__x__create_scheduled_broadcast, mcp__x__delete_scheduled_broadcast, mcp__x__get_scheduled_broadcast, mcp__x__update_scheduled_broadcast, mcp__x__go_live_scheduled_broadcast, mcp__x__get_broadcast, mcp__x__get_broadcast_chat, mcp__x__mute_broadcast_chat_user, mcp__x__unmute_broadcast_chat_user, mcp__x__list_scheduled_calls, mcp__x__schedule_call, mcp__x__cancel_scheduled_call, mcp__x__get_scheduled_call, mcp__x__update_scheduled_call, mcp__x__respond_to_scheduled_call, mcp__x__get_chat_conversations, mcp__x__get_chat_conversation, mcp__x__unarchive_chat_conversation, mcp__x__archive_chat_conversation, mcp__x__get_chat_conversation_events, mcp__x__add_conversation_keys, mcp__x__send_chat_message, mcp__x__mark_chat_conversation_read, mcp__x__send_chat_typing_indicator, mcp__x__mark_chat_conversation_unread, mcp__x__chat_media_upload_initialize, mcp__x__chat_media_upload_append, mcp__x__chat_media_upload_finalize, mcp__x__chat_media_download, mcp__x__get_chat_message_requests, mcp__x__get_chat_message_request, mcp__x__accept_chat_message_request, mcp__x__search_communities, mcp__x__get_communities_by_id, mcp__x__create_lists, mcp__x__get_lists_by_id, mcp__x__update_lists, mcp__x__get_lists_followers, mcp__x__get_lists_members, mcp__x__add_lists_member, mcp__x__remove_lists_member_by_user_id, mcp__x__get_lists_posts, mcp__x__media_upload, mcp__x__search_news, mcp__x__get_news, mcp__x__list_sources, mcp__x__create_source, mcp__x__delete_source, mcp__x__get_source, mcp__x__update_source, mcp__x__get_spaces_by_ids, mcp__x__get_spaces_by_creator_ids, mcp__x__search_spaces, mcp__x__get_spaces_by_id, mcp__x__get_spaces_posts, mcp__x__get_trends_by_woeid, mcp__x__get_posts_by_ids, mcp__x__create_posts, mcp__x__get_posts_counts_recent, mcp__x__search_posts_all, mcp__x__get_posts_by_id, mcp__x__get_posts_liking_users, mcp__x__get_posts_quoted_posts, mcp__x__get_posts_reposted_by, mcp__x__get_usage_credits, mcp__x__get_users_by_usernames, mcp__x__get_users_by_username, mcp__x__get_users_me, mcp__x__get_users_me_followers, mcp__x__get_users_me_following, mcp__x__get_users_public_keys, mcp__x__search_users, mcp__x__get_users_by_id, mcp__x__get_users_blocking, mcp__x__users_id_block, mcp__x__get_users_bookmarks, mcp__x__create_users_bookmark, mcp__x__get_users_bookmark_folders, mcp__x__create_users_bookmark_folder, mcp__x__get_users_bookmarks_by_folder_id, mcp__x__delete_users_bookmark, mcp__x__get_users_followed_lists, mcp__x__follow_list, mcp__x__unfollow_list, mcp__x__get_users_liked_posts, mcp__x__get_users_list_memberships, mcp__x__get_users_mentions, mcp__x__get_users_owned_lists, mcp__x__get_users_pinned_lists, mcp__x__pin_list, mcp__x__unpin_list, mcp__x__get_users_public_key, mcp__x__get_users_timeline, mcp__x__get_users_posts, mcp__x__users_id_unblock, mcp__x__list_resources, mcp__x__read_resource
+2026-11-18 21:54:30,218 INFO tools.mcp_tool: MCP server 'amap' (stdio): registered 12 tool(s): mcp__amap__maps_regeocode, mcp__amap__maps_geo, mcp__amap__maps_ip_location, mcp__amap__maps_weather, mcp__amap__maps_search_detail, mcp__amap__maps_bicycling, mcp__amap__maps_direction_walking, mcp__amap__maps_direction_driving, mcp__amap__maps_direction_transit_integrated, mcp__amap__maps_distance, mcp__amap__maps_text_search, mcp__amap__maps_around_search
+2026-11-18 21:54:30,218 INFO tools.mcp_tool: MCP: registered 115 tool(s) from 2 server(s)
+2026-11-18 21:54:30,219 INFO tools.mcp_tool:   MCP: 115 tool(s) from 2 server(s)
+2026-11-18 21:54:30,315 INFO run_agent: Loaded environment variables from C:\Users\Administrator\AppData\Local\hermes\profiles\health\.env
+2026-11-18 21:54:32,140 INFO run_agent: OpenAI client created (agent_init, shared=True) thread=MainThread:20384 provider=opencode-go base_url=https://opencode.ai/zen/go/v1 model=deepseek-v4.1-flash
+2026-11-18 21:54:32,189 WARNING tools.registry: check_fn check_browser_back_requirements returned False; dependent tools will be unavailable this turn
+2026-11-18 21:54:32,227 WARNING tools.registry: check_fn _browser_cdp_check returned False; dependent tools will be unavailable this turn
+2026-11-18 21:54:32,265 WARNING tools.registry: check_fn check_browser_click_requirements returned False; dependent tools will be unavailable this turn
+2026-11-18 21:54:32,303 WARNING tools.registry: check_fn check_browser_requirements returned False; dependent tools will be unavailable this turn
+2026-11-18 21:54:32,341 WARNING tools.registry: check_fn _browser_dialog_check returned False; dependent tools will be unavailable this turn
+2026-11-18 21:54:32,431 WARNING tools.registry: check_fn check_browser_navigate_requirements returned False; dependent tools will be unavailable this turn
+2026-11-18 21:54:32,476 WARNING tools.registry: check_fn check_browser_press_requirements returned False; dependent tools will be unavailable this turn
+2026-11-18 21:54:32,514 WARNING tools.registry: check_fn check_browser_scroll_requirements returned False; dependent tools will be unavailable this turn
+2026-11-18 21:54:32,552 WARNING tools.registry: check_fn check_browser_snapshot_requirements returned False; dependent tools will be unavailable this turn
+2026-11-18 21:54:32,595 WARNING tools.registry: check_fn check_browser_type_requirements returned False; dependent tools will be unavailable this turn
+2026-11-18 21:54:32,634 WARNING tools.registry: check_fn check_browser_vision_requirements returned False; dependent tools will be unavailable this turn
+2026-11-18 21:54:32,656 WARNING tools.registry: check_fn check_computer_use_requirements returned False; dependent tools will be unavailable this turn
+2026-11-18 21:54:32,681 WARNING tools.registry: check_fn check_image_generation_requirements returned False; dependent tools will be unavailable this turn
+2026-11-18 21:54:32,685 WARNING tools.registry: check_fn _check_kanban_mode returned False; dependent tools will be unavailable this turn
+2026-11-18 21:54:32,688 WARNING tools.registry: check_fn _check_kanban_orchestrator_mode returned False; dependent tools will be unavailable this turn
+2026-11-18 21:54:34,456 INFO tools.tool_search: tool_search activated (tier 1): 17 core/visible tools kept, 124 deferred (~38713 tokens), listing full (budget ~4000 tokens)
+2026-11-18 21:54:34,775 INFO [20261104_114345_190ce9] agent.turn_context: conversation turn: session=20261104_114345_190ce9 model=deepseek-v4.1-flash provider=opencode-go platform=cli history=460 msg='【任务：写入轮 —— 把刚刚的加餐（酸奶拌黑莓＋蜂蜜＋2 个白煮蛋）落盘，并重出当日汇总】  你是健康助理。这是 2026-11-18 的**写入轮**，他明确...'
+2026-11-18 21:54:35,051 INFO run_agent: OpenAI client created (chat_completion_stream_request, shared=False) thread=Thread-12 (<lambda>):22188 provider=opencode-go base_url=https://opencode.ai/zen/go/v1 model=deepseek-v4.1-flash
+2026-11-18 21:55:07,586 INFO [20261104_114345_190ce9] agent.conversation_loop: API call #1: model=deepseek-v4.1-flash provider=opencode-go in=433393 out=7000 total=440393 latency=32.6s cache=429056/433393 (99%)
+2026-11-18 21:55:09,082 INFO tools.file_tools: Creating new local environment for task session:...
+2026-11-18 21:55:09,818 INFO tools.environments.base: Session snapshot created (session=05d027ad014f, cwd=C:\Users\Administrator)
+2026-11-18 21:55:09,821 INFO tools.file_tools: local environment ready for task session:
+2026-11-18 21:55:10,852 INFO [20261104_114345_190ce9] agent.tool_executor: tool write_file completed (1.79s, 283 chars)
+2026-11-18 21:55:19,484 INFO [20261104_114345_190ce9] agent.conversation_loop: API call #2: model=deepseek-v4.1-flash provider=opencode-go in=440501 out=120 total=440621 latency=8.6s cache=433280/440501 (98%)
+2026-11-18 21:55:20,153 INFO [20261104_114345_190ce9] agent.tool_executor: tool terminal completed (0.66s, 2620 chars)
+2026-11-18 21:55:27,307 INFO [20261104_114345_190ce9] agent.conversation_loop: API call #3: model=deepseek-v4.1-flash provider=opencode-go in=441847 out=590 total=442437 latency=7.1s cache=440448/441847 (100%)
+2026-11-18 21:55:27,365 WARNING [20261104_114345_190ce9] agent.tool_executor: Tool terminal returned error (0.04s): {"output": "", "exit_code": -1, "error": "BLOCKED: Command flagged as dangerous (script execution via heredoc) but single-query mode (-q) runs without a user present to approve it. Find an alternative
+2026-11-18 21:55:32,390 INFO [20261104_114345_190ce9] agent.conversation_loop: API call #4: model=deepseek-v4.1-flash provider=opencode-go in=442534 out=136 total=442670 latency=5.0s cache=441728/442534 (100%)
+2026-11-18 21:55:34,001 INFO [20261104_114345_190ce9] agent.tool_executor: tool patch completed (1.60s, 1361 chars)
+2026-11-18 21:55:42,254 INFO [20261104_114345_190ce9] agent.conversation_loop: API call #5: model=deepseek-v4.1-flash provider=opencode-go in=443404 out=134 total=443538 latency=8.2s cache=442496/443404 (100%)
+2026-11-18 21:55:43,840 INFO [20261104_114345_190ce9] agent.tool_executor: tool patch completed (1.57s, 1501 chars)
+2026-11-18 21:55:52,951 INFO [20261104_114345_190ce9] agent.conversation_loop: API call #6: model=deepseek-v4.1-flash provider=opencode-go in=444376 out=134 total=444510 latency=9.1s cache=443392/444376 (100%)
+2026-11-18 21:55:54,536 INFO [20261104_114345_190ce9] agent.tool_executor: tool patch completed (1.57s, 1348 chars)
+2026-11-18 21:55:59,124 INFO [20261104_114345_190ce9] agent.conversation_loop: API call #7: model=deepseek-v4.1-flash provider=opencode-go in=445234 out=134 total=445368 latency=4.6s cache=444288/445234 (100%)
+2026-11-18 21:56:00,948 INFO [20261104_114345_190ce9] agent.tool_executor: tool patch completed (1.81s, 1177 chars)
+2026-11-18 21:56:05,444 INFO [20261104_114345_190ce9] agent.conversation_loop: API call #8: model=deepseek-v4.1-flash provider=opencode-go in=445967 out=102 total=446069 latency=4.4s cache=445184/445967 (100%)
+2026-11-18 21:56:05,895 INFO [20261104_114345_190ce9] agent.tool_executor: tool terminal completed (0.44s, 433 chars)
+2026-11-18 21:56:10,100 INFO [20261104_114345_190ce9] agent.conversation_loop: API call #9: model=deepseek-v4.1-flash provider=opencode-go in=446329 out=129 total=446458 latency=4.2s cache=445952/446329 (100%)
+2026-11-18 21:56:10,552 INFO [20261104_114345_190ce9] agent.tool_executor: tool terminal completed (0.44s, 1365 chars)
+2026-11-18 21:56:15,609 INFO [20261104_114345_190ce9] agent.conversation_loop: API call #10: model=deepseek-v4.1-flash provider=opencode-go in=447301 out=288 total=447589 latency=5.0s cache=446208/447301 (100%)
+2026-11-18 21:56:16,270 INFO [20261104_114345_190ce9] agent.tool_executor: tool terminal completed (0.64s, 474 chars)
+2026-11-18 21:56:32,536 INFO [20261104_114345_190ce9] agent.conversation_loop: API call #11: model=deepseek-v4.1-flash provider=opencode-go in=447859 out=3179 total=451038 latency=16.2s cache=447232/447859 (100%)
+2026-11-18 21:56:32,569 INFO [20261104_114345_190ce9] agent.conversation_loop: Turn ended: reason=text_response(finish_reason=stop) model=deepseek-v4.1-flash api_calls=11/90 budget=11/90 tool_turns=217 last_msg_role=assistant response_len=5766 session=20261104_114345_190ce9
+2026-11-18 21:56:32,633 INFO [20261104_114345_190ce9] tools.terminal_tool: Manually cleaned up environment for task: session:agent:main:telegram:dm:8938729624
+2026-11-18 21:56:32,636 INFO [20261104_114345_190ce9] tools.terminal_tool: Cleaned 1 environments
+2026-11-18 21:56:32,680 INFO run_agent: OpenAI client created (agent_init, shared=True) thread=bg-review:26508 provider=opencode-go base_url=https://opencode.ai/zen/go/v1 model=deepseek-v4.1-flash
+2026-11-18 21:56:32,729 INFO [20261104_114345_190ce9] cli: CLI cleanup calling memory shutdown for session 20261104_114345_190ce9 with 482 message(s)
+2026-11-18 21:56:32,748 INFO [20261104_114345_190ce9] agent.turn_context: conversation turn: session=20261104_114345_190ce9 model=deepseek-v4.1-flash provider=opencode-go platform=cli history=482 msg='Review the conversation above and update the skill library. Be ACTIVE — most ses...'
+2026-11-18 21:56:32,820 INFO run_agent: OpenAI client created (chat_completion_stream_request, shared=False) thread=Thread-60 (<lambda>):21072 provider=opencode-go base_url=https://opencode.ai/zen/go/v1 model=deepseek-v4.1-flash
+2026-11-18 21:59:13,268 INFO hermes_cli.plugins: Plugin 'browser-browser-use' registered browser provider: browser-use
+2026-11-18 21:59:13,474 INFO hermes_cli.plugins: Plugin 'browser-browserbase' registered browser provider: browserbase
+2026-11-18 21:59:13,494 INFO hermes_cli.plugins: Plugin 'browser-firecrawl' registered browser provider: firecrawl
+2026-11-18 21:59:14,333 INFO hermes_cli.plugins: Plugin 'deepinfra' registered image_gen provider: deepinfra
+2026-11-18 21:59:14,337 INFO hermes_cli.plugins: Plugin 'fal' registered image_gen provider: fal
+2026-11-18 21:59:14,345 INFO hermes_cli.plugins: Plugin 'krea' registered image_gen provider: krea
+2026-11-18 21:59:14,349 INFO hermes_cli.plugins: Plugin 'meta-ai-image-gen' registered image_gen provider: meta-ai
+2026-11-18 21:59:14,582 INFO hermes_cli.plugins: Plugin 'openai' registered image_gen provider: openai
+2026-11-18 21:59:14,585 INFO hermes_cli.plugins: Plugin 'openai-codex' registered image_gen provider: openai-codex
+2026-11-18 21:59:14,775 INFO hermes_cli.plugins: Plugin 'openrouter' registered image_gen provider: openrouter
+2026-11-18 21:59:14,776 INFO hermes_cli.plugins: Plugin 'openrouter' registered image_gen provider: nous
+2026-11-18 21:59:14,782 INFO hermes_cli.plugins: Plugin 'xai' registered image_gen provider: xai
+2026-11-18 21:59:14,799 INFO hermes_cli.plugins: Plugin 'deepinfra' registered video_gen provider: deepinfra
+2026-11-18 21:59:14,802 INFO hermes_cli.plugins: Plugin 'fal' registered video_gen provider: fal
+2026-11-18 21:59:14,805 INFO hermes_cli.plugins: Plugin 'xai' registered video_gen provider: xai
+2026-11-18 21:59:14,864 INFO hermes_cli.plugins: Plugin 'web-brave-free' registered web provider: brave-free
+2026-11-18 21:59:14,872 INFO hermes_cli.plugins: Plugin 'web-ddgs' registered web provider: ddgs
+2026-11-18 21:59:14,888 INFO hermes_cli.plugins: Plugin 'web-exa' registered web provider: exa
+2026-11-18 21:59:14,906 INFO hermes_cli.plugins: Plugin 'web-firecrawl' registered web provider: firecrawl
+2026-11-18 21:59:14,918 INFO hermes_cli.plugins: Plugin 'web-keenable' registered web provider: keenable
+2026-11-18 21:59:14,935 INFO hermes_cli.plugins: Plugin 'web-parallel' registered web provider: parallel
+2026-11-18 21:59:14,941 INFO hermes_cli.plugins: Plugin 'web-searxng' registered web provider: searxng
+2026-11-18 21:59:14,950 INFO hermes_cli.plugins: Plugin 'web-tavily' registered web provider: tavily
+2026-11-18 21:59:14,958 INFO hermes_cli.plugins: Plugin 'web-xai' registered web provider: xai
+2026-11-18 21:59:15,020 INFO hermes_cli.plugins: Plugin discovery complete: 56 found, 50 enabled
+2026-11-18 21:59:18,408 INFO tools.mcp_tool: MCP server 'x' (stdio): registered 103 tool(s): mcp__x__article_create_draft, mcp__x__list_broadcasts, mcp__x__get_chat_moderators, mcp__x__add_chat_moderator, mcp__x__remove_chat_moderator, mcp__x__list_scheduled_broadcasts, mcp__x__create_scheduled_broadcast, mcp__x__delete_scheduled_broadcast, mcp__x__get_scheduled_broadcast, mcp__x__update_scheduled_broadcast, mcp__x__go_live_scheduled_broadcast, mcp__x__get_broadcast, mcp__x__get_broadcast_chat, mcp__x__mute_broadcast_chat_user, mcp__x__unmute_broadcast_chat_user, mcp__x__list_scheduled_calls, mcp__x__schedule_call, mcp__x__cancel_scheduled_call, mcp__x__get_scheduled_call, mcp__x__update_scheduled_call, mcp__x__respond_to_scheduled_call, mcp__x__get_chat_conversations, mcp__x__get_chat_conversation, mcp__x__unarchive_chat_conversation, mcp__x__archive_chat_conversation, mcp__x__get_chat_conversation_events, mcp__x__add_conversation_keys, mcp__x__send_chat_message, mcp__x__mark_chat_conversation_read, mcp__x__send_chat_typing_indicator, mcp__x__mark_chat_conversation_unread, mcp__x__chat_media_upload_initialize, mcp__x__chat_media_upload_append, mcp__x__chat_media_upload_finalize, mcp__x__chat_media_download, mcp__x__get_chat_message_requests, mcp__x__get_chat_message_request, mcp__x__accept_chat_message_request, mcp__x__search_communities, mcp__x__get_communities_by_id, mcp__x__create_lists, mcp__x__get_lists_by_id, mcp__x__update_lists, mcp__x__get_lists_followers, mcp__x__get_lists_members, mcp__x__add_lists_member, mcp__x__remove_lists_member_by_user_id, mcp__x__get_lists_posts, mcp__x__media_upload, mcp__x__search_news, mcp__x__get_news, mcp__x__list_sources, mcp__x__create_source, mcp__x__delete_source, mcp__x__get_source, mcp__x__update_source, mcp__x__get_spaces_by_ids, mcp__x__get_spaces_by_creator_ids, mcp__x__search_spaces, mcp__x__get_spaces_by_id, mcp__x__get_spaces_posts, mcp__x__get_trends_by_woeid, mcp__x__get_posts_by_ids, mcp__x__create_posts, mcp__x__get_posts_counts_recent, mcp__x__search_posts_all, mcp__x__get_posts_by_id, mcp__x__get_posts_liking_users, mcp__x__get_posts_quoted_posts, mcp__x__get_posts_reposted_by, mcp__x__get_usage_credits, mcp__x__get_users_by_usernames, mcp__x__get_users_by_username, mcp__x__get_users_me, mcp__x__get_users_me_followers, mcp__x__get_users_me_following, mcp__x__get_users_public_keys, mcp__x__search_users, mcp__x__get_users_by_id, mcp__x__get_users_blocking, mcp__x__users_id_block, mcp__x__get_users_bookmarks, mcp__x__create_users_bookmark, mcp__x__get_users_bookmark_folders, mcp__x__create_users_bookmark_folder, mcp__x__get_users_bookmarks_by_folder_id, mcp__x__delete_users_bookmark, mcp__x__get_users_followed_lists, mcp__x__follow_list, mcp__x__unfollow_list, mcp__x__get_users_liked_posts, mcp__x__get_users_list_memberships, mcp__x__get_users_mentions, mcp__x__get_users_owned_lists, mcp__x__get_users_pinned_lists, mcp__x__pin_list, mcp__x__unpin_list, mcp__x__get_users_public_key, mcp__x__get_users_timeline, mcp__x__get_users_posts, mcp__x__users_id_unblock, mcp__x__list_resources, mcp__x__read_resource
+2026-11-18 21:59:20,877 INFO tools.mcp_tool: MCP server 'amap' (stdio): registered 12 tool(s): mcp__amap__maps_regeocode, mcp__amap__maps_geo, mcp__amap__maps_ip_location, mcp__amap__maps_weather, mcp__amap__maps_search_detail, mcp__amap__maps_bicycling, mcp__amap__maps_direction_walking, mcp__amap__maps_direction_driving, mcp__amap__maps_direction_transit_integrated, mcp__amap__maps_distance, mcp__amap__maps_text_search, mcp__amap__maps_around_search
+2026-11-18 21:59:20,878 INFO tools.mcp_tool: MCP: registered 115 tool(s) from 2 server(s)
+2026-11-18 21:59:20,879 INFO tools.mcp_tool:   MCP: 115 tool(s) from 2 server(s)
+2026-11-18 21:59:21,041 INFO run_agent: Loaded environment variables from C:\Users\Administrator\AppData\Local\hermes\profiles\health\.env
+2026-11-18 21:59:22,519 INFO run_agent: OpenAI client created (agent_init, shared=True) thread=MainThread:26528 provider=opencode-go base_url=https://opencode.ai/zen/go/v1 model=deepseek-v4.1-flash
+2026-11-18 21:59:22,574 WARNING tools.registry: check_fn check_browser_back_requirements returned False; dependent tools will be unavailable this turn
+2026-11-18 21:59:22,614 WARNING tools.registry: check_fn _browser_cdp_check returned False; dependent tools will be unavailable this turn
+2026-11-18 21:59:22,655 WARNING tools.registry: check_fn check_browser_click_requirements returned False; dependent tools will be unavailable this turn
+2026-11-18 21:59:22,697 WARNING tools.registry: check_fn check_browser_requirements returned False; dependent tools will be unavailable this turn
+2026-11-18 21:59:22,736 WARNING tools.registry: check_fn _browser_dialog_check returned False; dependent tools will be unavailable this turn
+2026-11-18 21:59:22,845 WARNING tools.registry: check_fn check_browser_navigate_requirements returned False; dependent tools will be unavailable this turn
+2026-11-18 21:59:22,891 WARNING tools.registry: check_fn check_browser_press_requirements returned False; dependent tools will be unavailable this turn
+2026-11-18 21:59:22,935 WARNING tools.registry: check_fn check_browser_scroll_requirements returned False; dependent tools will be unavailable this turn
+2026-11-18 21:59:22,976 WARNING tools.registry: check_fn check_browser_snapshot_requirements returned False; dependent tools will be unavailable this turn
+2026-11-18 21:59:23,015 WARNING tools.registry: check_fn check_browser_type_requirements returned False; dependent tools will be unavailable this turn
+2026-11-18 21:59:23,054 WARNING tools.registry: check_fn check_browser_vision_requirements returned False; dependent tools will be unavailable this turn
+2026-11-18 21:59:23,079 WARNING tools.registry: check_fn check_computer_use_requirements returned False; dependent tools will be unavailable this turn
+2026-11-18 21:59:23,102 WARNING tools.registry: check_fn check_image_generation_requirements returned False; dependent tools will be unavailable this turn
+2026-11-18 21:59:23,105 WARNING tools.registry: check_fn _check_kanban_mode returned False; dependent tools will be unavailable this turn
+2026-11-18 21:59:23,108 WARNING tools.registry: check_fn _check_kanban_orchestrator_mode returned False; dependent tools will be unavailable this turn
+2026-11-18 21:59:24,570 INFO tools.tool_search: tool_search activated (tier 1): 17 core/visible tools kept, 124 deferred (~38713 tokens), listing full (budget ~4000 tokens)
+2026-11-18 21:59:25,103 INFO [20261104_114345_190ce9] agent.turn_context: conversation turn: session=20261104_114345_190ce9 model=deepseek-v4.1-flash provider=opencode-go platform=cli history=482 msg='【任务：评估轮（只读写，不落盘）—— 核对他对「今晚这顿加餐值不值」的四条自我论证】  你是健康助理。这是 2026-11-18 的**评估轮**，他主动问「这...'
+2026-11-18 21:59:25,507 INFO run_agent: OpenAI client created (chat_completion_stream_request, shared=False) thread=Thread-12 (<lambda>):25452 provider=opencode-go base_url=https://opencode.ai/zen/go/v1 model=deepseek-v4.1-flash
+2026-11-18 21:59:36,244 INFO [20261104_114345_190ce9] agent.conversation_loop: API call #1: model=deepseek-v4.1-flash provider=opencode-go in=453002 out=426 total=453428 latency=10.8s cache=447744/453002 (99%)
+2026-11-18 21:59:37,720 INFO tools.file_tools: Creating new local environment for task session:...
+2026-11-18 21:59:38,470 INFO tools.environments.base: Session snapshot created (session=86d6014be08c, cwd=C:\Users\Administrator)
+2026-11-18 21:59:38,471 INFO tools.file_tools: local environment ready for task session:
+2026-11-18 21:59:39,710 INFO [20261104_114345_190ce9] agent.tool_executor: tool write_file completed (2.01s, 275 chars)
+2026-11-18 21:59:44,300 INFO [20261104_114345_190ce9] agent.conversation_loop: API call #2: model=deepseek-v4.1-flash provider=opencode-go in=453533 out=129 total=453662 latency=4.6s cache=452992/453533 (100%)
+2026-11-18 21:59:45,371 INFO [20261104_114345_190ce9] agent.tool_executor: tool terminal completed (1.06s, 1042 chars)
+2026-11-18 22:00:04,216 INFO [20261104_114345_190ce9] agent.conversation_loop: API call #3: model=deepseek-v4.1-flash provider=opencode-go in=454120 out=3258 total=457378 latency=18.8s cache=453504/454120 (100%)
+2026-11-18 22:00:05,156 INFO [20261104_114345_190ce9] agent.tool_executor: tool write_file completed (0.93s, 270 chars)
+2026-11-18 22:00:09,893 INFO [20261104_114345_190ce9] agent.conversation_loop: API call #4: model=deepseek-v4.1-flash provider=opencode-go in=457480 out=77 total=457557 latency=4.7s cache=454016/457480 (99%)
+2026-11-18 22:00:10,348 INFO [20261104_114345_190ce9] agent.tool_executor: tool terminal completed (0.43s, 2030 chars)
+2026-11-18 22:00:34,051 INFO [20261104_114345_190ce9] agent.conversation_loop: API call #5: model=deepseek-v4.1-flash provider=opencode-go in=458585 out=3741 total=462326 latency=23.7s cache=457472/458585 (100%)
+2026-11-18 22:00:34,085 INFO [20261104_114345_190ce9] agent.conversation_loop: Turn ended: reason=text_response(finish_reason=stop) model=deepseek-v4.1-flash api_calls=5/90 budget=5/90 tool_turns=221 last_msg_role=assistant response_len=5090 session=20261104_114345_190ce9
+2026-11-18 22:00:34,113 INFO [20261104_114345_190ce9] tools.terminal_tool: Manually cleaned up environment for task: session:agent:main:telegram:dm:8938729624
+2026-11-18 22:00:34,115 INFO [20261104_114345_190ce9] tools.terminal_tool: Cleaned 1 environments
+2026-11-18 22:00:34,181 INFO [20261104_114345_190ce9] cli: CLI cleanup calling memory shutdown for session 20261104_114345_190ce9 with 492 message(s)
+2026-11-18 22:16:33,026 INFO hermes_cli.plugins: Plugin 'browser-browser-use' registered browser provider: browser-use
+2026-11-18 22:16:33,037 INFO hermes_cli.plugins: Plugin 'browser-browserbase' registered browser provider: browserbase
+2026-11-18 22:16:33,043 INFO hermes_cli.plugins: Plugin 'browser-firecrawl' registered browser provider: firecrawl
+2026-11-18 22:16:33,887 INFO hermes_cli.plugins: Plugin 'deepinfra' registered image_gen provider: deepinfra
+2026-11-18 22:16:33,890 INFO hermes_cli.plugins: Plugin 'fal' registered image_gen provider: fal
+2026-11-18 22:16:33,892 INFO hermes_cli.plugins: Plugin 'krea' registered image_gen provider: krea
+2026-11-18 22:16:33,895 INFO hermes_cli.plugins: Plugin 'meta-ai-image-gen' registered image_gen provider: meta-ai
+2026-11-18 22:16:33,898 INFO hermes_cli.plugins: Plugin 'openai' registered image_gen provider: openai
+2026-11-18 22:16:33,901 INFO hermes_cli.plugins: Plugin 'openai-codex' registered image_gen provider: openai-codex
+2026-11-18 22:16:33,903 INFO hermes_cli.plugins: Plugin 'openrouter' registered image_gen provider: openrouter
+2026-11-18 22:16:33,904 INFO hermes_cli.plugins: Plugin 'openrouter' registered image_gen provider: nous
+2026-11-18 22:16:33,908 INFO hermes_cli.plugins: Plugin 'xai' registered image_gen provider: xai
+2026-11-18 22:16:33,929 INFO hermes_cli.plugins: Plugin 'deepinfra' registered video_gen provider: deepinfra
+2026-11-18 22:16:33,934 INFO hermes_cli.plugins: Plugin 'fal' registered video_gen provider: fal
+2026-11-18 22:16:33,937 INFO hermes_cli.plugins: Plugin 'xai' registered video_gen provider: xai
+2026-11-18 22:16:33,956 INFO hermes_cli.plugins: Plugin 'web-brave-free' registered web provider: brave-free
+2026-11-18 22:16:34,165 INFO hermes_cli.plugins: Plugin 'web-ddgs' registered web provider: ddgs
+2026-11-18 22:16:34,386 INFO hermes_cli.plugins: Plugin 'web-exa' registered web provider: exa
+2026-11-18 22:16:34,397 INFO hermes_cli.plugins: Plugin 'web-firecrawl' registered web provider: firecrawl
+2026-11-18 22:16:34,406 INFO hermes_cli.plugins: Plugin 'web-keenable' registered web provider: keenable
+2026-11-18 22:16:34,449 INFO hermes_cli.plugins: Plugin 'web-parallel' registered web provider: parallel
+2026-11-18 22:16:34,457 INFO hermes_cli.plugins: Plugin 'web-searxng' registered web provider: searxng
+2026-11-18 22:16:34,463 INFO hermes_cli.plugins: Plugin 'web-tavily' registered web provider: tavily
+2026-11-18 22:16:34,471 INFO hermes_cli.plugins: Plugin 'web-xai' registered web provider: xai
+2026-11-18 22:16:34,527 INFO hermes_cli.plugins: Plugin discovery complete: 56 found, 50 enabled
+2026-11-18 22:16:37,182 INFO tools.mcp_tool: MCP server 'x' (stdio): registered 103 tool(s): mcp__x__article_create_draft, mcp__x__list_broadcasts, mcp__x__get_chat_moderators, mcp__x__add_chat_moderator, mcp__x__remove_chat_moderator, mcp__x__list_scheduled_broadcasts, mcp__x__create_scheduled_broadcast, mcp__x__delete_scheduled_broadcast, mcp__x__get_scheduled_broadcast, mcp__x__update_scheduled_broadcast, mcp__x__go_live_scheduled_broadcast, mcp__x__get_broadcast, mcp__x__get_broadcast_chat, mcp__x__mute_broadcast_chat_user, mcp__x__unmute_broadcast_chat_user, mcp__x__list_scheduled_calls, mcp__x__schedule_call, mcp__x__cancel_scheduled_call, mcp__x__get_scheduled_call, mcp__x__update_scheduled_call, mcp__x__respond_to_scheduled_call, mcp__x__get_chat_conversations, mcp__x__get_chat_conversation, mcp__x__unarchive_chat_conversation, mcp__x__archive_chat_conversation, mcp__x__get_chat_conversation_events, mcp__x__add_conversation_keys, mcp__x__send_chat_message, mcp__x__mark_chat_conversation_read, mcp__x__send_chat_typing_indicator, mcp__x__mark_chat_conversation_unread, mcp__x__chat_media_upload_initialize, mcp__x__chat_media_upload_append, mcp__x__chat_media_upload_finalize, mcp__x__chat_media_download, mcp__x__get_chat_message_requests, mcp__x__get_chat_message_request, mcp__x__accept_chat_message_request, mcp__x__search_communities, mcp__x__get_communities_by_id, mcp__x__create_lists, mcp__x__get_lists_by_id, mcp__x__update_lists, mcp__x__get_lists_followers, mcp__x__get_lists_members, mcp__x__add_lists_member, mcp__x__remove_lists_member_by_user_id, mcp__x__get_lists_posts, mcp__x__media_upload, mcp__x__search_news, mcp__x__get_news, mcp__x__list_sources, mcp__x__create_source, mcp__x__delete_source, mcp__x__get_source, mcp__x__update_source, mcp__x__get_spaces_by_ids, mcp__x__get_spaces_by_creator_ids, mcp__x__search_spaces, mcp__x__get_spaces_by_id, mcp__x__get_spaces_posts, mcp__x__get_trends_by_woeid, mcp__x__get_posts_by_ids, mcp__x__create_posts, mcp__x__get_posts_counts_recent, mcp__x__search_posts_all, mcp__x__get_posts_by_id, mcp__x__get_posts_liking_users, mcp__x__get_posts_quoted_posts, mcp__x__get_posts_reposted_by, mcp__x__get_usage_credits, mcp__x__get_users_by_usernames, mcp__x__get_users_by_username, mcp__x__get_users_me, mcp__x__get_users_me_followers, mcp__x__get_users_me_following, mcp__x__get_users_public_keys, mcp__x__search_users, mcp__x__get_users_by_id, mcp__x__get_users_blocking, mcp__x__users_id_block, mcp__x__get_users_bookmarks, mcp__x__create_users_bookmark, mcp__x__get_users_bookmark_folders, mcp__x__create_users_bookmark_folder, mcp__x__get_users_bookmarks_by_folder_id, mcp__x__delete_users_bookmark, mcp__x__get_users_followed_lists, mcp__x__follow_list, mcp__x__unfollow_list, mcp__x__get_users_liked_posts, mcp__x__get_users_list_memberships, mcp__x__get_users_mentions, mcp__x__get_users_owned_lists, mcp__x__get_users_pinned_lists, mcp__x__pin_list, mcp__x__unpin_list, mcp__x__get_users_public_key, mcp__x__get_users_timeline, mcp__x__get_users_posts, mcp__x__users_id_unblock, mcp__x__list_resources, mcp__x__read_resource
+2026-11-18 22:16:40,322 INFO tools.mcp_tool: MCP server 'amap' (stdio): registered 12 tool(s): mcp__amap__maps_regeocode, mcp__amap__maps_geo, mcp__amap__maps_ip_location, mcp__amap__maps_weather, mcp__amap__maps_search_detail, mcp__amap__maps_bicycling, mcp__amap__maps_direction_walking, mcp__amap__maps_direction_driving, mcp__amap__maps_direction_transit_integrated, mcp__amap__maps_distance, mcp__amap__maps_text_search, mcp__amap__maps_around_search
+2026-11-18 22:16:40,323 INFO tools.mcp_tool: MCP: registered 115 tool(s) from 2 server(s)
+2026-11-18 22:16:40,324 INFO tools.mcp_tool:   MCP: 115 tool(s) from 2 server(s)
+2026-11-18 22:16:40,793 INFO run_agent: Loaded environment variables from C:\Users\Administrator\AppData\Local\hermes\profiles\health\.env
+2026-11-18 22:16:42,139 INFO run_agent: OpenAI client created (agent_init, shared=True) thread=MainThread:25744 provider=opencode-go base_url=https://opencode.ai/zen/go/v1 model=deepseek-v4.1-flash
+2026-11-18 22:16:42,189 WARNING tools.registry: check_fn check_browser_back_requirements returned False; dependent tools will be unavailable this turn
+2026-11-18 22:16:42,230 WARNING tools.registry: check_fn _browser_cdp_check returned False; dependent tools will be unavailable this turn
+2026-11-18 22:16:42,270 WARNING tools.registry: check_fn check_browser_click_requirements returned False; dependent tools will be unavailable this turn
+2026-11-18 22:16:42,309 WARNING tools.registry: check_fn check_browser_requirements returned False; dependent tools will be unavailable this turn
+2026-11-18 22:16:42,346 WARNING tools.registry: check_fn _browser_dialog_check returned False; dependent tools will be unavailable this turn
+2026-11-18 22:16:42,430 WARNING tools.registry: check_fn check_browser_navigate_requirements returned False; dependent tools will be unavailable this turn
+2026-11-18 22:16:42,470 WARNING tools.registry: check_fn check_browser_press_requirements returned False; dependent tools will be unavailable this turn
+2026-11-18 22:16:42,511 WARNING tools.registry: check_fn check_browser_scroll_requirements returned False; dependent tools will be unavailable this turn
+2026-11-18 22:16:42,551 WARNING tools.registry: check_fn check_browser_snapshot_requirements returned False; dependent tools will be unavailable this turn
+2026-11-18 22:16:42,591 WARNING tools.registry: check_fn check_browser_type_requirements returned False; dependent tools will be unavailable this turn
+2026-11-18 22:16:42,629 WARNING tools.registry: check_fn check_browser_vision_requirements returned False; dependent tools will be unavailable this turn
+2026-11-18 22:16:42,650 WARNING tools.registry: check_fn check_computer_use_requirements returned False; dependent tools will be unavailable this turn
+2026-11-18 22:16:42,673 WARNING tools.registry: check_fn check_image_generation_requirements returned False; dependent tools will be unavailable this turn
+2026-11-18 22:16:42,676 WARNING tools.registry: check_fn _check_kanban_mode returned False; dependent tools will be unavailable this turn
+2026-11-18 22:16:42,680 WARNING tools.registry: check_fn _check_kanban_orchestrator_mode returned False; dependent tools will be unavailable this turn
+2026-11-18 22:16:43,889 INFO tools.tool_search: tool_search activated (tier 1): 17 core/visible tools kept, 124 deferred (~38713 tokens), listing full (budget ~4000 tokens)
+2026-11-18 22:16:44,196 INFO [20261104_114345_190ce9] agent.turn_context: conversation turn: session=20261104_114345_190ce9 model=deepseek-v4.1-flash provider=opencode-go platform=cli history=492 msg='【任务：收盘轮 —— 2026-11-18 当日饮食收盘，出当日评价并落盘】  你是健康助理。这是 2026-11-18 的**收盘轮**。他原话：「另外今天晚...'
+2026-11-18 22:16:44,476 INFO run_agent: OpenAI client created (chat_completion_stream_request, shared=False) thread=Thread-12 (<lambda>):26240 provider=opencode-go base_url=https://opencode.ai/zen/go/v1 model=deepseek-v4.1-flash
+2026-11-18 22:17:20,491 INFO [20261104_114345_190ce9] agent.conversation_loop: API call #1: model=deepseek-v4.1-flash provider=opencode-go in=464048 out=6795 total=470843 latency=36.1s cache=458496/464048 (99%)
+2026-11-18 22:17:21,995 INFO tools.file_tools: Creating new local environment for task session:...
+2026-11-18 22:17:22,728 INFO tools.environments.base: Session snapshot created (session=3c01216b241f, cwd=C:\Users\Administrator)
+2026-11-18 22:17:22,732 INFO tools.file_tools: local environment ready for task session:
+2026-11-18 22:17:23,781 INFO [20261104_114345_190ce9] agent.tool_executor: tool write_file completed (1.88s, 273 chars)
+2026-11-18 22:17:28,568 INFO [20261104_114345_190ce9] agent.conversation_loop: API call #2: model=deepseek-v4.1-flash provider=opencode-go in=470943 out=116 total=471059 latency=4.8s cache=464000/470943 (99%)
+2026-11-18 22:17:29,241 INFO [20261104_114345_190ce9] agent.tool_executor: tool terminal completed (0.66s, 698 chars)
+2026-11-18 22:17:37,209 INFO [20261104_114345_190ce9] agent.conversation_loop: API call #3: model=deepseek-v4.1-flash provider=opencode-go in=471404 out=1166 total=472570 latency=7.9s cache=470912/471404 (100%)
+2026-11-18 22:17:38,758 INFO [20261104_114345_190ce9] agent.tool_executor: tool patch completed (1.54s, 1138 chars)
+2026-11-18 22:17:43,296 INFO [20261104_114345_190ce9] agent.conversation_loop: API call #4: model=deepseek-v4.1-flash provider=opencode-go in=473238 out=155 total=473393 latency=4.5s cache=471296/473238 (100%)
+2026-11-18 22:17:43,791 INFO [20261104_114345_190ce9] agent.tool_executor: tool terminal completed (0.48s, 797 chars)
+2026-11-18 22:17:48,122 INFO [20261104_114345_190ce9] agent.conversation_loop: API call #5: model=deepseek-v4.1-flash provider=opencode-go in=473896 out=106 total=474002 latency=4.3s cache=473216/473896 (100%)
+2026-11-18 22:17:48,444 INFO [20261104_114345_190ce9] agent.tool_executor: tool terminal completed (0.30s, 1007 chars)
+2026-11-18 22:17:57,764 INFO [20261104_114345_190ce9] agent.conversation_loop: API call #6: model=deepseek-v4.1-flash provider=opencode-go in=474580 out=212 total=474792 latency=9.3s cache=473856/474580 (100%)
+2026-11-18 22:17:58,234 INFO [20261104_114345_190ce9] agent.tool_executor: tool terminal completed (0.46s, 865 chars)
+2026-11-18 22:18:16,834 INFO [20261104_114345_190ce9] agent.conversation_loop: API call #7: model=deepseek-v4.1-flash provider=opencode-go in=475307 out=2588 total=477895 latency=18.6s cache=474496/475307 (100%)
+2026-11-18 22:18:16,884 INFO [20261104_114345_190ce9] agent.conversation_loop: Turn ended: reason=text_response(finish_reason=stop) model=deepseek-v4.1-flash api_calls=7/90 budget=7/90 tool_turns=227 last_msg_role=assistant response_len=4583 session=20261104_114345_190ce9
+2026-11-18 22:18:16,921 INFO [20261104_114345_190ce9] tools.terminal_tool: Manually cleaned up environment for task: session:agent:main:telegram:dm:8938729624
+2026-11-18 22:18:16,925 INFO [20261104_114345_190ce9] tools.terminal_tool: Cleaned 1 environments
+2026-11-18 22:18:17,059 INFO [20261104_114345_190ce9] cli: CLI cleanup calling memory shutdown for session 20261104_114345_190ce9 with 506 message(s)
+2026-11-18 22:18:58,151 INFO hermes_cli.plugins: Plugin 'browser-browser-use' registered browser provider: browser-use
+2026-11-18 22:18:58,334 INFO hermes_cli.plugins: Plugin 'browser-browserbase' registered browser provider: browserbase
+2026-11-18 22:18:58,352 INFO hermes_cli.plugins: Plugin 'browser-firecrawl' registered browser provider: firecrawl
+2026-11-18 22:18:59,205 INFO hermes_cli.plugins: Plugin 'deepinfra' registered image_gen provider: deepinfra
+2026-11-18 22:18:59,210 INFO hermes_cli.plugins: Plugin 'fal' registered image_gen provider: fal
+2026-11-18 22:18:59,215 INFO hermes_cli.plugins: Plugin 'krea' registered image_gen provider: krea
+2026-11-18 22:18:59,219 INFO hermes_cli.plugins: Plugin 'meta-ai-image-gen' registered image_gen provider: meta-ai
+2026-11-18 22:18:59,230 INFO hermes_cli.plugins: Plugin 'openai' registered image_gen provider: openai
+2026-11-18 22:18:59,235 INFO hermes_cli.plugins: Plugin 'openai-codex' registered image_gen provider: openai-codex
+2026-11-18 22:18:59,241 INFO hermes_cli.plugins: Plugin 'openrouter' registered image_gen provider: openrouter
+2026-11-18 22:18:59,242 INFO hermes_cli.plugins: Plugin 'openrouter' registered image_gen provider: nous
+2026-11-18 22:18:59,588 INFO hermes_cli.plugins: Plugin 'xai' registered image_gen provider: xai
+2026-11-18 22:19:00,043 INFO hermes_cli.plugins: Plugin 'deepinfra' registered video_gen provider: deepinfra
+2026-11-18 22:19:00,048 INFO hermes_cli.plugins: Plugin 'fal' registered video_gen provider: fal
+2026-11-18 22:19:00,060 INFO hermes_cli.plugins: Plugin 'xai' registered video_gen provider: xai
+2026-11-18 22:19:00,122 INFO hermes_cli.plugins: Plugin 'web-brave-free' registered web provider: brave-free
+2026-11-18 22:19:00,136 INFO hermes_cli.plugins: Plugin 'web-ddgs' registered web provider: ddgs
+2026-11-18 22:19:00,142 INFO hermes_cli.plugins: Plugin 'web-exa' registered web provider: exa
+2026-11-18 22:19:00,155 INFO hermes_cli.plugins: Plugin 'web-firecrawl' registered web provider: firecrawl
+2026-11-18 22:19:00,166 INFO hermes_cli.plugins: Plugin 'web-keenable' registered web provider: keenable
+2026-11-18 22:19:00,175 INFO hermes_cli.plugins: Plugin 'web-parallel' registered web provider: parallel
+2026-11-18 22:19:00,206 INFO hermes_cli.plugins: Plugin 'web-searxng' registered web provider: searxng
+2026-11-18 22:19:00,214 INFO hermes_cli.plugins: Plugin 'web-tavily' registered web provider: tavily
+2026-11-18 22:19:00,226 INFO hermes_cli.plugins: Plugin 'web-xai' registered web provider: xai
+2026-11-18 22:19:00,296 INFO hermes_cli.plugins: Plugin discovery complete: 56 found, 50 enabled
+2026-11-18 22:19:03,372 INFO tools.mcp_tool: MCP server 'x' (stdio): registered 103 tool(s): mcp__x__article_create_draft, mcp__x__list_broadcasts, mcp__x__get_chat_moderators, mcp__x__add_chat_moderator, mcp__x__remove_chat_moderator, mcp__x__list_scheduled_broadcasts, mcp__x__create_scheduled_broadcast, mcp__x__delete_scheduled_broadcast, mcp__x__get_scheduled_broadcast, mcp__x__update_scheduled_broadcast, mcp__x__go_live_scheduled_broadcast, mcp__x__get_broadcast, mcp__x__get_broadcast_chat, mcp__x__mute_broadcast_chat_user, mcp__x__unmute_broadcast_chat_user, mcp__x__list_scheduled_calls, mcp__x__schedule_call, mcp__x__cancel_scheduled_call, mcp__x__get_scheduled_call, mcp__x__update_scheduled_call, mcp__x__respond_to_scheduled_call, mcp__x__get_chat_conversations, mcp__x__get_chat_conversation, mcp__x__unarchive_chat_conversation, mcp__x__archive_chat_conversation, mcp__x__get_chat_conversation_events, mcp__x__add_conversation_keys, mcp__x__send_chat_message, mcp__x__mark_chat_conversation_read, mcp__x__send_chat_typing_indicator, mcp__x__mark_chat_conversation_unread, mcp__x__chat_media_upload_initialize, mcp__x__chat_media_upload_append, mcp__x__chat_media_upload_finalize, mcp__x__chat_media_download, mcp__x__get_chat_message_requests, mcp__x__get_chat_message_request, mcp__x__accept_chat_message_request, mcp__x__search_communities, mcp__x__get_communities_by_id, mcp__x__create_lists, mcp__x__get_lists_by_id, mcp__x__update_lists, mcp__x__get_lists_followers, mcp__x__get_lists_members, mcp__x__add_lists_member, mcp__x__remove_lists_member_by_user_id, mcp__x__get_lists_posts, mcp__x__media_upload, mcp__x__search_news, mcp__x__get_news, mcp__x__list_sources, mcp__x__create_source, mcp__x__delete_source, mcp__x__get_source, mcp__x__update_source, mcp__x__get_spaces_by_ids, mcp__x__get_spaces_by_creator_ids, mcp__x__search_spaces, mcp__x__get_spaces_by_id, mcp__x__get_spaces_posts, mcp__x__get_trends_by_woeid, mcp__x__get_posts_by_ids, mcp__x__create_posts, mcp__x__get_posts_counts_recent, mcp__x__search_posts_all, mcp__x__get_posts_by_id, mcp__x__get_posts_liking_users, mcp__x__get_posts_quoted_posts, mcp__x__get_posts_reposted_by, mcp__x__get_usage_credits, mcp__x__get_users_by_usernames, mcp__x__get_users_by_username, mcp__x__get_users_me, mcp__x__get_users_me_followers, mcp__x__get_users_me_following, mcp__x__get_users_public_keys, mcp__x__search_users, mcp__x__get_users_by_id, mcp__x__get_users_blocking, mcp__x__users_id_block, mcp__x__get_users_bookmarks, mcp__x__create_users_bookmark, mcp__x__get_users_bookmark_folders, mcp__x__create_users_bookmark_folder, mcp__x__get_users_bookmarks_by_folder_id, mcp__x__delete_users_bookmark, mcp__x__get_users_followed_lists, mcp__x__follow_list, mcp__x__unfollow_list, mcp__x__get_users_liked_posts, mcp__x__get_users_list_memberships, mcp__x__get_users_mentions, mcp__x__get_users_owned_lists, mcp__x__get_users_pinned_lists, mcp__x__pin_list, mcp__x__unpin_list, mcp__x__get_users_public_key, mcp__x__get_users_timeline, mcp__x__get_users_posts, mcp__x__users_id_unblock, mcp__x__list_resources, mcp__x__read_resource
+2026-11-18 22:19:06,879 INFO tools.mcp_tool: MCP server 'amap' (stdio): registered 12 tool(s): mcp__amap__maps_regeocode, mcp__amap__maps_geo, mcp__amap__maps_ip_location, mcp__amap__maps_weather, mcp__amap__maps_search_detail, mcp__amap__maps_bicycling, mcp__amap__maps_direction_walking, mcp__amap__maps_direction_driving, mcp__amap__maps_direction_transit_integrated, mcp__amap__maps_distance, mcp__amap__maps_text_search, mcp__amap__maps_around_search
+2026-11-18 22:19:06,880 INFO tools.mcp_tool: MCP: registered 115 tool(s) from 2 server(s)
+2026-11-18 22:19:06,881 INFO tools.mcp_tool:   MCP: 115 tool(s) from 2 server(s)
+2026-11-18 22:19:06,982 INFO run_agent: Loaded environment variables from C:\Users\Administrator\AppData\Local\hermes\profiles\health\.env
+2026-11-18 22:19:08,468 INFO run_agent: OpenAI client created (agent_init, shared=True) thread=MainThread:26176 provider=opencode-go base_url=https://opencode.ai/zen/go/v1 model=deepseek-v4.1-flash
+2026-11-18 22:19:08,517 WARNING tools.registry: check_fn check_browser_back_requirements returned False; dependent tools will be unavailable this turn
+2026-11-18 22:19:08,558 WARNING tools.registry: check_fn _browser_cdp_check returned False; dependent tools will be unavailable this turn
+2026-11-18 22:19:08,597 WARNING tools.registry: check_fn check_browser_click_requirements returned False; dependent tools will be unavailable this turn
+2026-11-18 22:19:08,634 WARNING tools.registry: check_fn check_browser_requirements returned False; dependent tools will be unavailable this turn
+2026-11-18 22:19:08,672 WARNING tools.registry: check_fn _browser_dialog_check returned False; dependent tools will be unavailable this turn
+2026-11-18 22:19:08,755 WARNING tools.registry: check_fn check_browser_navigate_requirements returned False; dependent tools will be unavailable this turn
+2026-11-18 22:19:08,793 WARNING tools.registry: check_fn check_browser_press_requirements returned False; dependent tools will be unavailable this turn
+2026-11-18 22:19:08,832 WARNING tools.registry: check_fn check_browser_scroll_requirements returned False; dependent tools will be unavailable this turn
+2026-11-18 22:19:08,872 WARNING tools.registry: check_fn check_browser_snapshot_requirements returned False; dependent tools will be unavailable this turn
+2026-11-18 22:19:08,912 WARNING tools.registry: check_fn check_browser_type_requirements returned False; dependent tools will be unavailable this turn
+2026-11-18 22:19:08,952 WARNING tools.registry: check_fn check_browser_vision_requirements returned False; dependent tools will be unavailable this turn
+2026-11-18 22:19:08,972 WARNING tools.registry: check_fn check_computer_use_requirements returned False; dependent tools will be unavailable this turn
+2026-11-18 22:19:09,000 WARNING tools.registry: check_fn check_image_generation_requirements returned False; dependent tools will be unavailable this turn
+2026-11-18 22:19:09,004 WARNING tools.registry: check_fn _check_kanban_mode returned False; dependent tools will be unavailable this turn
+2026-11-18 22:19:09,008 WARNING tools.registry: check_fn _check_kanban_orchestrator_mode returned False; dependent tools will be unavailable this turn
+2026-11-18 22:19:10,600 INFO tools.tool_search: tool_search activated (tier 1): 17 core/visible tools kept, 124 deferred (~38713 tokens), listing full (budget ~4000 tokens)
+2026-11-18 22:19:10,850 INFO [20261104_114345_190ce9] agent.turn_context: conversation turn: session=20261104_114345_190ce9 model=deepseek-v4.1-flash provider=opencode-go platform=cli history=506 msg='【任务：口径修订轮 —— 把两条东西固化进你自己的核算/评估口径】  你是健康助理。今天（2026-11-18）已经收盘。这一轮不改任何饮食档案，只改**你自己...'
+2026-11-18 22:19:11,210 INFO run_agent: OpenAI client created (chat_completion_stream_request, shared=False) thread=Thread-12 (<lambda>):21852 provider=opencode-go base_url=https://opencode.ai/zen/go/v1 model=deepseek-v4.1-flash
+2026-11-18 22:19:23,505 INFO [20261104_114345_190ce9] agent.conversation_loop: API call #1: model=deepseek-v4.1-flash provider=opencode-go in=479203 out=348 total=479551 latency=12.4s cache=475264/479203 (99%)
+2026-11-18 22:19:25,057 INFO tools.terminal_tool: Creating new local environment for task session:...
+2026-11-18 22:19:25,789 INFO tools.environments.base: Session snapshot created (session=3e99573194eb, cwd=C:\Users\Administrator)
+2026-11-18 22:19:25,790 INFO tools.terminal_tool: local environment ready for task session:
+2026-11-18 22:19:26,260 INFO [20261104_114345_190ce9] agent.tool_executor: tool terminal completed (1.21s, 2471 chars)
+2026-11-18 22:19:31,690 INFO [20261104_114345_190ce9] agent.conversation_loop: API call #2: model=deepseek-v4.1-flash provider=opencode-go in=480937 out=248 total=481185 latency=5.4s cache=479104/480937 (100%)
+2026-11-18 22:19:32,128 INFO [20261104_114345_190ce9] agent.tool_executor: tool read_file completed (0.42s, 1493 chars)
+2026-11-18 22:19:45,115 INFO [20261104_114345_190ce9] agent.conversation_loop: API call #3: model=deepseek-v4.1-flash provider=opencode-go in=482078 out=974 total=483052 latency=13.0s cache=480896/482078 (100%)
+2026-11-18 22:19:45,571 INFO [20261104_114345_190ce9] agent.tool_executor: tool terminal completed (0.44s, 141 chars)
+2026-11-18 22:19:59,084 INFO [20261104_114345_190ce9] agent.conversation_loop: API call #4: model=deepseek-v4.1-flash provider=opencode-go in=483119 out=1606 total=484725 latency=13.5s cache=482048/483119 (100%)
+2026-11-18 22:20:01,038 INFO [20261104_114345_190ce9] agent.tool_executor: tool patch completed (1.94s, 3769 chars)
+2026-11-18 22:20:23,580 INFO [20261104_114345_190ce9] agent.conversation_loop: API call #5: model=deepseek-v4.1-flash provider=opencode-go in=486895 out=2572 total=489467 latency=22.5s cache=483072/486895 (99%)
+2026-11-18 22:20:24,597 INFO [20261104_114345_190ce9] agent.tool_executor: tool write_file completed (1.00s, 459 chars)
+2026-11-18 22:20:31,107 INFO [20261104_114345_190ce9] agent.conversation_loop: API call #6: model=deepseek-v4.1-flash provider=opencode-go in=489618 out=416 total=490034 latency=6.5s cache=486784/489618 (99%)
+2026-11-18 22:20:31,572 INFO [20261104_114345_190ce9] agent.tool_executor: tool terminal completed (0.45s, 575 chars)
+2026-11-18 22:20:36,228 INFO [20261104_114345_190ce9] agent.conversation_loop: API call #7: model=deepseek-v4.1-flash provider=opencode-go in=490368 out=97 total=490465 latency=4.6s cache=489600/490368 (100%)
+2026-11-18 22:20:36,858 INFO [20261104_114345_190ce9] agent.tool_executor: tool read_file completed (0.61s, 1678 chars)
+2026-11-18 22:20:42,027 INFO [20261104_114345_190ce9] agent.conversation_loop: API call #8: model=deepseek-v4.1-flash provider=opencode-go in=491470 out=113 total=491583 latency=5.1s cache=490368/491470 (100%)
+2026-11-18 22:20:42,482 INFO [20261104_114345_190ce9] agent.tool_executor: tool terminal completed (0.44s, 486 chars)
+2026-11-18 22:20:56,808 INFO [20261104_114345_190ce9] agent.conversation_loop: API call #9: model=deepseek-v4.1-flash provider=opencode-go in=491827 out=2737 total=494564 latency=14.3s cache=491392/491827 (100%)
+2026-11-18 22:20:56,840 INFO [20261104_114345_190ce9] agent.conversation_loop: Turn ended: reason=text_response(finish_reason=stop) model=deepseek-v4.1-flash api_calls=9/90 budget=9/90 tool_turns=235 last_msg_role=assistant response_len=4565 session=20261104_114345_190ce9
+2026-11-18 22:20:56,866 INFO [20261104_114345_190ce9] tools.terminal_tool: Manually cleaned up environment for task: session:agent:main:telegram:dm:8938729624
+2026-11-18 22:20:56,868 INFO [20261104_114345_190ce9] tools.terminal_tool: Cleaned 1 environments
+2026-11-18 22:20:56,944 INFO [20261104_114345_190ce9] cli: CLI cleanup calling memory shutdown for session 20261104_114345_190ce9 with 524 message(s)

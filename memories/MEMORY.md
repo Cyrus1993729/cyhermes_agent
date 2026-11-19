@@ -4,7 +4,7 @@ PowerShell经bash吃$和双引号,写.ps1/.mjs跑。
 §
 长 prompt 用 --query-file(勿 $(cat f))。delegate 子代理继承父模型。L1 见 skill l1-review。
 §
-路径:项目→D:\Workspace\;密钥→Desktop/各类api key/(从文件读不写死);归档 YYYY-MM-DD_主题.md;复盘写文件不写 skill。
+归档 YYYY-MM-DD_主题.md;桌面只留快捷方式+5个文件夹(散文档归入文档/);复盘写文件不写 skill。
 §
 外部:Tavily=搜索;高德MCP已配(静态地图用location非center)。
 §

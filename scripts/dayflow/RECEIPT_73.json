@@ -1,0 +1,104 @@
+{
+  "patch": "dayflow-73b",
+  "at": "2026-11-18T16:43:32+08:00",
+  "host": "PC-20260524NEAI",
+  "role": "niumai",
+  "scope": "staged only: df_reminders73.py read path rewritten to direct authenticated HTTP; df_watch73.py untouched; cron untouched; no sends",
+  "testsPassed": true,
+  "testRun": {
+    "command": "DAYFLOW_DRY=1 python tests73/test_df73.py",
+    "result": "PASS 55 / FAIL 0",
+    "fixture": "scripts/dayflow/tests73/due73_fictional.json (13 fictional candidates, temp state dir, fake channel, fake transport — no network)",
+    "regression": "python test_df.py -> 全部通过",
+    "compile": {
+      "files": ["df_reminders73.py", "df_watch73.py", "tests73/test_df73.py"],
+      "result": "py_compile OK"
+    }
+  },
+  "readPath": {
+    "oldClient": "sites29 build ignores --query; `client due` stalls 30s then returns [] (measured, retried twice)",
+    "new": "GET {url}/api/v1/reminders/due?calendarChanges=1&lead=18 via urllib",
+    "auth": "Authorization: Bearer <hermes-cloud-connection.json.key>; file discovered under DayflowHome/releases/*/runtime/.local/ (DAYFLOW_CONN_FILE override)",
+    "requiredHeader": {
+      "User-Agent": "DayflowHome/1.0 (dayflow-reminders73)",
+      "why": "without a UA the edge returns HTTP 403 'error code: 1010' — reproduced by direct probe"
+    },
+    "proxy": "calendar-automation.json httpProxy (http://127.0.0.1:10808), HTTPS_PROXY/HTTP_PROXY override",
+    "retry": {
+      "attempts": 2,
+      "on": ["transport error", 403, 408, 425, 429, 500, 502, 503, 504],
+      "retryAfterHonored": true,
+      "waitCapSeconds": 5,
+      "notRetried": ["bad JSON", "other 4xx"]
+    }
+  },
+  "formatCompat": {
+    "source": "only source=dingtalk handled; source missing or other -> skipped as source-empty/source-<x>, and required only on dingtalk candidates are message/path/key",
+    "kind": "missing = pre-meeting; calendar-change = reschedule (no time window, dedupe by key)",
+    "sourceLifecycle": "optional",
+    "leadMinutes": "optional — normal lead computed from date+start against Asia/Shanghai",
+    "emptyOrNonDingtalkOnly": "normal response: ready=true, zero sends, no error",
+    "unexpectedShape": "not an array and no array field -> ready=false, fail-closed, no snapshot fallback"
+  },
+  "liveReadOnlyProbes": [
+    {"route": "reminders/due?calendarChanges=1&lead=18", "http": 200, "candidates": 0, "ready": true, "sends": 0},
+    {"route": "reminders/due?calendarChanges=1&lead=1440", "http": 200, "candidates": 4, "fields": ["date", "end", "itemId", "key", "start", "title"], "skipReasons": ["source-empty", "source-empty", "source-empty", "source-empty"], "ready": true, "sends": 0},
+    {"route": "reminders/due (no params, via old node client)", "result": "transport_timeout 30s -> [] (client path abandoned)"}
+  ],
+  "enabled": false,
+  "enabledReason": "staged by instruction: not enabled, cron still points at df_watch.py. End-to-end DingTalk verification still impossible — the server currently returns zero candidates in the 18-minute window and none of the 24h-window candidates carry source=dingtalk.",
+  "currentScript": {
+    "path": "scripts/dayflow/df_watch.py",
+    "sha256": "913967d07e46732389e886c42feed1a1ff12e59d6aeab7593d15b87656f9ae3e",
+    "changed": false
+  },
+  "dfCommon": {
+    "path": "scripts/dayflow/df_common.py",
+    "sha256": "0041fe7c98505824c5097e98bb947e256bbdc20f703378e1a35e31976abb6ec8",
+    "changed": false
+  },
+  "originalBackup": {
+    "path": "scripts/dayflow/backup_73/df_watch.py.bak_20261118_1534",
+    "matchesCurrent": true
+  },
+  "stagedNotInstalled": {
+    "df_reminders73.py": "02837e371ad52f9480c484cdb9965bed34d6bf05e4df2b1fbe93eb645f6d65ca",
+    "df_watch73.py": "33eb3cf28656b531b9e49d57e54e49339f97bb76ee4c46586b0f7a64275774c8",
+    "tests73/test_df73.py": "9b5be264c4e389e68b622c9f6a4f125dbecbf2826cd03ed3f3692f09e9bea96f",
+    "tests73/due73_fictional.json": "78d7067084059f1dde3045e1c5a614f7ea68133c6a0e02a672a2f90b03e467c7",
+    "README_73.md": "see HASHES_73.txt (regenerated after this receipt was written)"
+  },
+  "cronEntry": {
+    "id": "1b3cca2ebcd9",
+    "name": "日程心跳-变更与提前15分提醒",
+    "script": "dayflow/df_watch.py",
+    "schedule": "every 5m",
+    "deliver": "local",
+    "enabled": true,
+    "changed": false,
+    "verifiedFrom": "cron/jobs.json read-back"
+  },
+  "checks": {
+    "formatCompatPerRequirement": {
+      "ok": true,
+      "evidence": "tests A3/B5/B7/B8/B9/B10/B11 + F1-F3: kind default, calendar-change, absent sourceLifecycle/leadMinutes, Beijing-time lead, DingTalk-only required fields, empty and non-DingTalk-only lists"
+    },
+    "existingFailureRetryUnchanged": {
+      "ok": true,
+      "evidence": "tests D3-D9 (PASS): ack failure queues pending_ack, next round re-acks only, zero re-send, channel failure -> no dedupe, no ack"
+    },
+    "readRetry": {
+      "ok": true,
+      "evidence": "tests E1-E11 (PASS): route exact, 403->200 self-heal in 2 calls, 5xx exhausted -> fail-closed, Retry-After honoured and capped, transport error, bad JSON not retried, unexpected shape"
+    },
+    "liveScriptsUntouched": {
+      "ok": true,
+      "evidence": "tests H1-H3 + sha256 of df_watch.py / df_common.py unchanged"
+    },
+    "noSendsPerformed": true,
+    "noCronChange": true,
+    "noNotificationSent": true
+  },
+  "nextStepNeeded": "approve switching cron to dayflow/df_watch73.py when Sites43 starts emitting source=dingtalk candidates (with message/path); until then the patch is inert because every live candidate lacks source.",
+  "secretsIncluded": false
+}

@@ -103,6 +103,18 @@ Node：`C:/Users/Administrator/AppData/Local/DayflowHome/tools/node24/node.exe`�
 
 同理，其它来源（google/outlook 等）先回读看能不能直接 patch 时间；只有真被锁时才走「取消原条目 + 重建」。
 
+<!-- DAYFLOW-REMINDERS73-STAGED-20261118 -->
+## 73 号提醒补丁（2026-11-18 暂存，**未上线**）
+
+`~/AppData/Local/hermes/scripts/dayflow/`：`df_reminders73.py`（逻辑）+ `df_watch73.py`（心跳补丁入口）+ `tests73/`（虚构夹具与 38 项离线验收）+ `backup_73/`（原文件备份）+ `README_73.md`/`HASHES_73.txt`。
+**df_watch.py / df_common.py 一行未改；cron 仍指向 `dayflow/df_watch.py`。**
+
+补丁语义：只接管 `source=dingtalk` 候选（旧快照不再发钉钉会前、失效态不兜底）；普通候选守原 [13,18] 窗口、`kind=calendar-change` 无时间窗独立按 key 去重；渠道成功才落去重再 ack（幂等键 `uuid5(key)`，失败进 `pending_ack_<date>.json` 下轮只补 ack）；同时写旧键 `ID|开始|日期` 保证回滚不重发；73 未部署（旧形态/空数组）时**失败关闭**，不兜底。
+
+验证：`DAYFLOW_DRY=1 python tests73/test_df73.py`（临时状态目录 + 假通道，38/38）。
+上线：cron `script` 改 `dayflow/df_watch73.py`；回滚：改回 `dayflow/df_watch.py`。
+<!-- /DAYFLOW-REMINDERS73-STAGED-20261118 -->
+
 ## 排障：长期会话看不到新规则
 
 **症状**：新写的 memory / 新装的 skill 对某个聊天窗口不生效，它照旧用老办法。

@@ -71,6 +71,12 @@ for j in jobs:
 ```
 **先看清它是“调模型的 agent 任务”还是“纯脚本”，再谈要不要改造。** 任务名只能告诉你它叫什么，不能告诉你它怎么跑。
 
+### 定位 script 实际路径与最后运行时间（2026-11-18 实测）
+
+- **相对 script 路径的解析规则**（cron/scheduler.py L4564/L4593）：一律 `HERMES_HOME/scripts/<script>`，绝对路径也被强制限制在 scripts 目录内（防穿越）。HERMES_HOME 用 `hermes_constants.get_hermes_home()` 确认（本机 = `C:\Users\<user>\AppData\Local\hermes`），不要拿别处 guess。
+- 🔴 **jobs.json 里 `last_run` 字段可能恒为 null，别拿它当运行记录**。真实运行历史在 `cron/executions.db`（SQLite，表 `executions`：`job_id, status, started_at, finished_at, error, source`）。取证用只读连接：`sqlite3.connect(f"file:{db}?mode=ro", uri=True)`，按 `job_id` 过滤 `order by started_at desc limit N`。
+- jobs.json 的 `last_status='ok'` 只说明最后一次的状态，历史成功/失败次数以 executions.db 为准（例：某心跳任务 last_run=null 但库里 552 次全部 completed）。
+
 ## 坑
 
 - 🔴 **采集 ≠ 落地**：上游同步器（钉钉日历、邮件采集器）往往**只抓不写**——抓回来落成缓存文件就结束了。早报/心跳读的是本地主库，所以**不仅不报错，还会自信地把过期安排推给用户**。用户质疑“有同步最新邮件吗”时，先分清是采集断了还是落地没做，别看同步任务 exit 0 就答“同步正常”。发现“延期/改期/以此邮件为准”类更新，必须当场回写事项再刷新快照。排查步骤见 `references/dayflow-mail-sync.md`。
@@ -83,6 +89,7 @@ for j in jobs:
 ## 参考
 
 - `references/dayflow-daily-assistant.md` — Dayflow 日程助手实例：脚本清单、cron 参数、状态文件、API 字段实测。
+- `references/df-dayflow-73.md` — df_watch73 演练取证：HERMES_HOME 解析、executions.db 查运行史、scripts/dayflow 目录实照（mtime 会漂移，现查）。
 - `references/dayflow-mail-sync.md` — 邮件→日程链路排查：同步任务、mail-cache 结构、按关键词找信、回写字段实测。
 - `hermes-wechat-delivery` — 微信 iLink 配额、分块线、`hermes send` 实测路径。
 - `hermes-telegram-delivery` — Telegram 投递验证的真相源字段。

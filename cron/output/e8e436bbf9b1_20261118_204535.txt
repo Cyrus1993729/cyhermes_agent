@@ -1,0 +1,126 @@
+Cronjob Response: TrendRadar跨境日报投递
+(job_id: e8e436bbf9b1)
+-------------
+
+⚡ 今日速览
+· 中加扩大关税减免清单，加拿大站要重算成本
+· Temu 黑五前在欧洲上线银行直付
+· eBay 报告：1.47 亿买家撑起收藏品，卡牌创纪录
+
+🏛 政策风向 · 门槛变了吗
+
+▶ 中加扩大贸易协议，更多产品进减免清单
+　干货：新增一批品类纳入关税减免；中加此前因电动车、油菜籽等关税问题存在摩擦，这次是减免清单扩容。
+　对你：做加拿大站的，报价前先查自己品类在不在减免清单里，别按老税率算成本。
+
+▶ 🔴 美国对华木线条反倾销终裁落地
+　干货：11 月 17 日公布终裁，复审期 2024 年 2 月至 2025 年 1 月；福建鸿佳、南平华泰被认定低于正常价值销售。
+　对你：木制品、建材出口美国，反倾销税是实打实的成本，选品时就得算进去。
+
+▶ 马来西亚有人要封跨境电商卖食品
+　干货：网购粤式烧鹅只要 8 令吉（约 13 元人民币），陈泓缣据此建议封锁跨境平台卖食品，理由冲击本地餐饮。
+　对你：食品类目在东南亚监管更严，新手选品先避开吃进嘴里的东西。
+
+🛒 平台规则 · 在哪卖、怎么卖
+
+▶ Temu 黑五前在欧洲上线银行直付
+　干货：与 TrueLayer 合作，结账时直接从银行账户扣款；TrueLayer 的 Pay by Bank 网络在欧洲有 3000 万用户。
+　对你：欧洲站多一种付款方式，低价品转化可能变好，但退款对账要多留时间。
+
+▶ eBay 收藏报告：28 亿在售、卡牌创纪录
+　干货：2026 年报告点出三大趋势：宝可梦 30 周年、交易卡销售创纪录、英国动漫圈层崛起；样本是 1.47 亿活跃买家。
+　对你：卡牌、动漫周边靠老买家复购，别拿低价去打这个市场。
+
+▶ Adyen 收单铺到 easyShop、Comet
+　干货：与 OnCommerce 的合作从 OnBuy 扩到另两个平台，统一收单覆盖 43 个站点、21 个市场。
+　对你：多平台铺货时，支付接入这块的重复工作量在减少。
+
+📈 市场与成本 · 钱往哪走
+
+▶ DPD 新开 7 个站点备战旺季
+　干货：黑五前几周新开 7 个分拨站，电动车和司机数量均创新高，为 2026 旺季扩容。
+　对你：欧洲尾程在加容量，旺季仓位会紧，发货承诺要留缓冲。
+
+▶ 石家庄海关 23 天跨境进口 2.8 亿元
+　干货：23 天内监管跨境电商进口货值超 2.8 亿元，这是海外货卖进中国的数据。
+　对你：进口端在涨，跟出口是两条路，先别混着看。
+
+🧰 实战参考 · 别人怎么做的
+
+▶ 81% 的收藏商品一周内成交
+　干货：Visualsoft 分析近 30 万件被收藏商品，81% 的成交发生在收藏后一周内，窗口很短。
+　对你：给收藏过的用户发一封提醒，成本很低，值得试。
+
+▶ Boden 用统一库存系统打美国市场
+　干货：上财年全渠道营收 3.87 亿英镑，用 OneStock 打通库存与订单流，同时做美国 DTC 和批发。
+　对你：一个人管多平台，库存不同步就超卖，先上统一库存工具再谈扩市场。
+
+▶ BigCommerce 商户能开 AI 购物助手
+　干货：旺季前向符合条件的商户开放 Shopping Agent，可自定义外观和话术，在店里引导访客选品。
+　对你：独立站没客服也能接客，但答案取决于商品资料，参数先写全。
+
+📖 小白词典
+· DSA（数字服务法）：欧盟管平台的规矩，平台对非法商品要主动排查处置，做不好最高罚全球营业额 6%。
+· 反倾销：出口价被认定低于正常价值、还伤了当地产业，进口国就再加一道税。
+· Pay by Bank：不刷卡不绑卡，结账时直接从银行账户划钱，像给商家转了一笔账。
+
+✅ 今天该做的一件事
+把自己想做的品类 HS 编码查一遍，看加拿大最新关税减免清单里有没有它。
+
+————————————————
+
+📦 跨境电商日报 11月18日（过去24小时 · 11 条）
+
+🛃 政策法规
+
+• 🔴 加拿大与中国扩大贸易协议，更多产品获关税减免（Radio-Canada）
+  摘要：加拿大与中国扩大贸易协议范围，更多产品被写进关税减免清单。加方媒体在 11 月中旬报道了这一进展，涉及的是减免清单的扩容。做加拿大站的卖家，产品成本可能要重算。
+  🔗 [查看原文](https://news.google.com/rss/articles/CBMi2gFBVV95cUxQZTRWSkZLNkZ1VUtHdEh4cDI4dVJpbUZ3VzlKV2tTUGc2SDlfOVg0b2NSSGhITVJRSFJHeEdBU0RGMkszN00yXzVtWGNFNjZjYlhZdmI1U0RUT09ITmItaFZMYktiZFl2UU9oRHdVSVNvb1hNeDdMeTBJcGFvRk0zNEhYTU0tRDdLd0c0b0RKcGpaSjZ4UTlDcVR3RjRDTF8zc2tfaFYydmhuNURqZEZ2WUtvVFk2T2k5b3pnZjZtWVlsSVRRdVV5TDFsNkEyTWk3NmhtWHlvRnByUQ?oc=5)
+
+• 🔤 🔴 美国对华木线条反倾销终裁：福建鸿佳、南平华泰被认定低价销售（Wood Mouldings and Millwork Products From China: Final Results of Antidumping Duty Administrative Review）（美国联邦公报）
+  摘要：美国商务部 11 月 17 日公布终裁，认定福建鸿佳工艺品、南平华泰木竹在复审期内以低于正常价值的价格在美销售木线条与装饰线条。复审期为 2024 年 2 月 1 日至 2025 年 1 月 31 日。
+  🔗 [查看原文](https://www.federalregister.gov/documents/2026/11/17/2026-23402/wood-mouldings-and-millwork-products-from-the-peoples-republic-of-china-final-results-of-antidumping)
+
+• 🔤 马来西亚陈泓缣提议封锁跨境电商食品销售，8 令吉烧鹅成导火索（網購粵式烧鹅才8令吉 陈泓缣建议封锁跨境电商賣食品）（东方日报）
+  摘要：马来西亚网购粤式烧鹅只要 8 令吉（约 13 元人民币），陈泓缣据此建议封锁跨境平台的食品销售。他的理由是低价食品冲击本地餐饮与小贩。
+  🔗 [查看原文](https://news.google.com/rss/articles/CBMi_wJBVV95cUxQRGZqQWdnQzJkZGttaENYVDhkRDlYVzd2c0VtYzhfckV2TXlYX0YwM2tWQUZBNkd3MjY3cmZuVlptcHhSVHcwMnVRRlF0SnNtcTJUQU9mMGtaZ2FPUnBrTk1OQURJaWVaOG5SbDZxSTJjQ1FseTh6YkFUUHJXd29MRDdnUTRNbERxa3BzQlN0TjVrSFpQU24wdzktNUZnUWh5SkJmR1pVRm5VWlhaV1FvaEM0VEl6VGlIUl9vUjN4WXpXWUFZRDZSQkFWYWFXaHBQWEFTWjRLNjY4cm4xNTZHYV9XZ0k4c0VyVnpmWnlmdmRvRER2RkQxb05YQUxRQlF6SGlZUHp2SmZUZG84WjRGbDZXUjN6eFVfTkZHaUc0eUNlRHpoaWlfNFF4SXVQYWZCbjFmV25iZHE2X0lLT2t0UW5uRFFYeDAtTjQ5bnJzQkFSbVlNZ0NHU0lsU2lMX2NsM3U0Tm9yZE5nUHFmbFhCZTZvQW9XN0p1SjhsWnByVQ?oc=5)
+
+🏪 平台动态
+
+• 🔤 Temu 黑五前在欧洲上线银行直付（Temu rolls out Pay by Bank with TrueLayer ahead of Black Friday）（ChannelX）
+  摘要：Temu 与 TrueLayer 合作，在欧洲结账页接入 Pay by Bank，消费者可直接从银行账户付款。TrueLayer 的 Pay by Bank 网络在欧洲有超 3000 万用户，此次赶在黑五前铺开。
+  🔗 [查看原文](https://channelx.world/2026/11/temu-rolls-out-pay-by-bank-with-truelayer-ahead-of-black-friday/)
+
+• 🔤 eBay 年度收藏报告：1.47 亿活跃买家、28 亿在售 listing（Annual eBay Collected Report launches）（ChannelX）
+  摘要：eBay 发布 2026 年 Collected Report，三大趋势是宝可梦 30 周年、交易卡销售创纪录、英国动漫圈层崛起。报告数据取自 1.47 亿全球活跃买家和 28 亿条在售 listing。
+  🔗 [查看原文](https://channelx.world/2026/11/annual-ebay-collected-report-launches/)
+
+• 🔤 Adyen 收单铺到 easyShop 与 Comet，覆盖 43 个站点（Adyen to power checkout across easyShop and Comet with OnCommerce）（ChannelX）
+  摘要：OnCommerce 与 Adyen 的合作从 OnBuy 扩到 easyShop 和 Comet，统一三个平台的收单。此次覆盖 43 个站点、21 个市场。
+  🔗 [查看原文](https://channelx.world/2026/11/adyen-to-power-checkout-across-easyshop-and-comet-with-oncommerce/)
+
+📦 物流与市场
+
+• 🔤 DPD 备战旺季：新开 7 个包裹站点，电动车与司机数量创新高（DPD ready for record peak with more EVs and greater depot capacity）（ChannelX）
+  摘要：黑五前几周，DPD 新开 7 个分拨站，电动配送车和司机数量均创新高，为 2026 旺季与全年包裹增长扩容。
+  🔗 [查看原文](https://channelx.world/2026/11/dpd-ready-for-record-peak-with-more-evs-and-greater-depot-capacity/)
+
+• 石家庄海关 23 天监管跨境电商进口货值超 2.8 亿元（搜狐）
+  摘要：石家庄海关公布，23 天内监管跨境电商进口货值超 2.8 亿元。这是跨境进口（海外商品卖进中国）的通关数据，与出口不是一回事。
+  🔗 [查看原文](https://news.google.com/rss/articles/CBMijAFBVV95cUxQd2J0OWxPUVpRdFY1NGVZVGxVNS1rbVNUUVhQT3dPOVRmVWZzV202VE9YaE4yT1dLUFpHaVhjc0I5WkdLSGJmbDhUN2JEdlRBeExHY0tPQU1iUVduUE5LcmNxMFZqbFF5VWhVY1lvbUw0czQ0RmJkejRLN0dJQ3RpZExIb0lvNlRGYmY5eg?oc=5)
+
+💼 卖家运营
+
+• 🔤 收藏夹数据：81% 的收藏商品一周内成交（Eight in ten wishlist saves convert within a week）（ChannelX）
+  摘要：Visualsoft 旗下 VS Labs 分析近 30 万件被收藏商品，81% 的成交发生在收藏后一周内。窗口很短，越早提醒越有效。
+  🔗 [查看原文](https://channelx.world/2026/11/eight-in-ten-wishlist-saves-convert-within-a-week/)
+
+• 🔤 英国品牌 Boden 选 OneStock 统一库存，加速美国 DTC 扩张（Boden selects OneStock to power its U.S. expansion）（ChannelX）
+  摘要：Boden 上财年全渠道营收 3.87 亿英镑，选 OneStock 统一库存与订单流，支撑美国 DTC 与批发业务扩张。
+  🔗 [查看原文](https://channelx.world/2026/11/boden-selects-onestock-to-power-its-u-s-expansion/)
+
+• 🔤 BigCommerce 商户可用 AI 购物助手接客（Commerce launches AI Shopping Agent for BigCommerce merchants）（ChannelX）
+  摘要：Commerce.com 在旺季前向符合条件的 BigCommerce 商户开放 Shopping Agent，商户可自定义助手外观与话术，由它在店内引导访客选品下单。
+  🔗 [查看原文](https://channelx.world/2026/11/commerce-launches-ai-shopping-agent-for-bigcommerce-merchants/)
+
+To stop or manage this job, send me a new message (e.g. "stop reminder TrendRadar跨境日报投递").

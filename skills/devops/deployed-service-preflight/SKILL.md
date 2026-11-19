@@ -351,3 +351,104 @@ manifest 路径 + 两个文件的 expected SHA256 + 要核的原任务状态。*
   第三种补丁形状（只换读取器模块 + 新增一个 schema 模块、不含技能追加、带 `check-reader.mjs` 内存演练）
   与第四种形状（单文件包装替换、`changes` 只 1 条、manifest 只追加 marker + 一个 sourceCommit 键）
   的实测值与回执见 `references/patch-install-a2a.md` 末两节。
+
+---
+
+## 暂存补丁的验收（只跑已有测试，不改任何文件）
+
+触发：对端说「已有补丁 N 在暂存目录，正式站已发布，**只跑已有 tests/test_*.py 和 py_compile**，
+设好 dry 开关，禁止真实投递，顺手只读 GET 某个新路由确认状态码，立刻回测试是否通过 / 两个文件的
+SHA256 / 备份是否可用，未完成的单列」。这类任务**不是安装也不是复验**：一个字节都不该写。
+本次实测（Dayflow 73 号提醒补丁，2026-11-18）见 `references/staged-patch-acceptance.md`。
+
+**门禁顺序（跑完再报告，别边跑边下结论）**
+
+1. `sha256sum -c <HASHES_N>.txt` —— 一次核对整套暂存物 + 线上原文件 + 备份（对方已有的清单优先用，
+   比自己现算一套更能证明「没被动过」）。
+2. `python -m py_compile <新脚本> <被改脚本> <测试>` —— 编译通过才谈跑测试。
+3. dry 跑已有测试：`DAYFLOW_DRY=1 python tests/test_x.py`，取末尾 `PASS n / FAIL m` 与退出码。
+4. 只读 GET 新路由（用部署自带传输层，见 `local-cli-client-ops` 第九节），报 status + 形状 + 条数。
+5. 备份可用性 + 「线上零改动」+「任务未切换」三项旁证。
+
+**「禁止真实投递」要给证据结构，不是复述环境变量**
+
+- 读测试源码确认它把通道换成了假的：`C.send = Rec()` 注入 + 状态目录指向 `tempfile.mkdtemp()`；
+  只覆盖 DRY 的段落靠 `[DRY]` 输出，覆盖状态机的段落靠假通道。仅凭 `DAYFLOW_DRY=1` 不能证明
+  第 C/D/F 段（它们内部会把 dry 改回 0）没有真发。
+- 任务侧旁证：读 `cron/jobs.json`（或计划任务）**仍是旧脚本**，报告里写一句「未切换」——这同时回答
+  「补丁是否已上线」和「我刚才的测试是否可能被心跳撞上」。
+- 测试自己会在 `%TEMP%` 留沙箱目录（本次 34 个 `*_test_*`）；说明「只落在 Temp、项目目录零改动」，
+  要不要删由对方定。
+
+**备份可用 ≠ 备份存在：两步证明**
+
+1. 逐字节相同：备份 vs 线上现文件 `sha256sum` 相等（说明可直接覆盖回滚）。
+2. 可编译：把备份**复制到 Temp** 再 `py_compile`。🔴 `py_compile` 会在源文件旁写 `__pycache__`——
+   就地编译备份 = 往备份目录里写文件，直接违反「不改任何文件」。同理别在 `backup_*/` 下跑测试。
+3. 顺手说清备份范围：只备份了会被改的原文件；新增文件无需备份（回滚就是删掉它们）。
+
+**「服务端已发布」≠「本地客户端已升级」**
+
+对端说正式站发布了新版本时，只读 GET 的结果必须和本地 release 名一起报：本地仍是 `releases/sites29-…`
+而服务端已到 Sites43 是可能且常见的。此时新路由回 `200 []` 有三种成因（真无候选 / 旧契约 / 参数没透传）。
+别停在「只读无法区分」——下面的参数扫描可以真的分开（2026-11-18 实测），**分开之前不许写「接口正常」**。
+
+### `200 []` 的三种成因怎么分开：参数扫描 + 字段级契约比对
+
+一键探针：`scripts/probe-endpoint-shape.mjs <releaseRoot> <connection.json> <route> [route...]`
+（逐条 GET，输出 status / 形状 / 条数 / 字段并集 / 字节数，不打印 url、key、正文）；
+没 pwsh 或就想用 stdlib 时用 `scripts/probe-api-shape.py auto <route> [route...]`（自带 UA、自找连接文件与代理）。
+完整实测（Dayflow 73 vs Sites43）见 `references/live-endpoint-shape-diff.md`。
+
+1. **先查本地客户端认不认补丁要传的 flag**：`grep -c -- '--query' <release>/runtime/scripts/hermes-client.mjs`。
+   本次 = **0**，说明 `--query calendarChanges=1&lead=18` 被静默丢弃（mapping 里只有 op→method/route，多余参数没人看）。
+   结论要写「本地客户端丢参数」，不是「接口没有数据」。别信补丁注释里写的「73 客户端才认」。
+2. **直连的关键是 `User-Agent`，不是「用哪个库」**（2026-11-18 复核修正）。缺 UA 时裸 `fetch`、python `urllib`
+   都会回 `403 error code: 1010`（Cloudflare 挡指纹），**这不是鉴权失败、也不是接口不存在**；补一行常规
+   `User-Agent` + 同样的 `Authorization: Bearer` 后，python `urllib` 直接 200（同日实测：`/api/v1/state` 47 KB、
+   `due?lead=1440` 200 4 条）。两条路都行：release 自带的 `http-request.mjs`（win32 下 `spawn('pwsh')`，
+   要把 `<root>/tools/pwsh7` 前置进 `PATH`，否则 `runtime_missing`），或 stdlib + UA（探针
+   `scripts/probe-api-shape.py`，不需要 pwsh）。连接文件取 `releases/*/runtime/.local/hermes-cloud-connection.json`
+   里 mtime 最新那份，代理取同目录 `calendar-automation.json` 的 `httpProxy`。
+3. **参数扫描分辨三种成因**：同一条路由跑四组 —— 裸路径 / `?calendarChanges=1&lead=18` / `?lead=1200` /
+   `?calendarChanges=1&lead=1200`。窗口放大（1200 分钟）能逼出候选 ⇒ 服务端在、参数被解析（否则 `[]` 且
+   畸形值也 200）；仍全 `[]` ⇒ 旧契约未上线。本次正是靠这条把「没候选」证伪成「有候选但字段不对」。
+4. **字段级契约比对（这一步才是重点）**：线上候选字段清单 vs 补丁 `normalize()/classify()` 必须读的字段。
+   本次线上每条只有 `{date,end,itemId,key,start,title}`，而 `classify()` 先看 `source`（空 ⇒ `source-empty` 跳过）、
+   再看 `message`（空 ⇒ `no-message` 跳过）⇒ **一条都不会发**。
+5. **判定规则**：补丁是 fail-close（快照路径已剔除钉钉）+ 线上缺关键字段 ⇒ **不切换，保留旧入口**。
+   这是比「测试失败」更隐蔽的拦路：离线夹具是照补丁**自己**的契约编的，38/38 全过也发现不了；
+   缺字段的后果是通知静默全停，不是报错。
+6. 替代路线要作为「待用户定」的选项列出，不自行改设计：例如用 `due.itemId` 回查 `/api/v1/items`
+   （`items` 里 `source`/`sourceLifecycle` 齐全，实测 98 条中 dingtalk 30），或等对端下发新版 home 包。
+
+**回执形状（对方要的就是这几项，按序给）**
+
+1. 测试：`PASS n / FAIL m` + 退出码 + 分块计数；py_compile 单独一行。
+2. 两个文件的 SHA256 原文（一行一个），并注明与对方提供的清单一致。
+3. 备份：相等哈希 + 编译通过 + 范围说明 → 「可直接覆盖回滚」。
+4. 只读 GET：status / content-type / body 字节数 / 形状 / 条数（正文与密钥一律不打）。
+5. **未完成项单列，每条写清为什么阻塞**（本次：空数组判定歧义会把整轮提醒失败关闭；客户端丢 query
+   参数；cron 未切换等对方确认；真实一轮观察会发消息故禁止）。不要把这些塞进「结论：通过」。
+6. 对端点名要 `RECEIPT_N.json` 时：`testsPassed` 与 `enabled` 是**两个独立字段**，`testsPassed:true` +
+   `enabled:false` 是合法且常见的结论，别把两者压成一个「结果」。`enabled=false` 的理由要写成可复核的事实
+   （缺哪几个字段、哪条检查没过、现网脚本哈希与备份是否仍相等），不写「有风险」。回执里附
+   `checks{dingtalkSnapshotNoPreMeeting, ackRetryNoResend, liveDueReadiness}` 这类逐项布尔，比一句结论好核。
+7. A2A 对端说「前两次回复超时」时：**先把回执文件落盘，再回话**，回话压到 3 行内（结论 + 阻塞事实 + 下一步二选一），
+   细节全留在 JSON 里让对方自己读。
+
+### 第二轮：批准后把契约改成格式自适应（仍不切 cron）
+
+触发：对端看了第一轮的阻塞项后回来说「读取改直连带认证 HTTP，按实际格式兼容：X 才接管、Y 缺省是什么、
+空列表和非目标候选都算正常」。完整配方（字段→行为映射、重试表、测试矩阵、回执字段）见
+`references/api-contract-adaptation.md`。要点：
+
+1. **读取换直连，并写清老客户端为何弃用**：`client due` 实测先等 30 s 超时再回 `[]`，参数被 mapping 丢掉。
+2. **判定顺序决定回执好不好看**：先判「是不是我这路的来源」再要求 `key`/`message`；反过来会把一堆正常候选
+   报成 `no-key`/`no-message`，看着像故障。
+3. **「缺失=跳过」还是「缺失=失败」要逐个字段问**：只有契约必需字段才 fail-close；可选字段缺失按对端口径给默认值。
+4. **空响应/非目标候选 = 正常**（对端明确这么说时才改），并在 docstring 里写死口径，别只留在代码注释。
+5. **测试要能注入 transport**：`run(..., transport=fake)`；注意 fixture 分支若优先于 transport，带 fixture 的用例会
+   静默绕过假通道（本次踩过）。必测 `403→200` 自愈、5xx 用尽、429 `Retry-After`、坏 JSON 不重试、异常形态。
+6. **已知缺口单独成段**：「查询失败时本轮该来源提醒会被跳过且无兜底」，并写「要回退需另外批准」——
+   这比藏在「已按 fail-close 处理」里诚实，对方才敢批上线。

@@ -492,7 +492,7 @@
       },
       {
         "name": "get_trends_by_woeid",
-        "description": "Retrieves trending topics for a specific location identified by its WOEID. Each returned trend includes a `url` deeplinking to its x.com search.",
+        "description": "Retrieves trending topics for a specific location identified by its WOEID. `meta.location` describes that location: its `woeid` and `name`, and when they are known its `country`, `country_code`, `place_type` (`town`, `country` or `supername`) and `parent_id`, the WOEID of the place that contains it. Each returned trend includes a `url` deeplinking to its x.com search.",
         "inputSchema": {},
         "annotations": {
           "readOnlyHint": false
@@ -844,7 +844,7 @@
       }
     ],
     "ttl_ms": 0,
-    "written_at": 1794923093.517791,
+    "written_at": 1795011543.361322,
     "cache_scope": "private"
   },
   "amap": {
@@ -949,7 +949,7 @@
     ],
     "utility_tools": [],
     "ttl_ms": 0,
-    "written_at": 1794923095.201893,
+    "written_at": 1795011546.8700674,
     "cache_scope": "private"
   }
 }

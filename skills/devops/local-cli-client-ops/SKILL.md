@@ -181,11 +181,51 @@ export PATH="/c/Users/Administrator/AppData/Local/DayflowHome/tools/pwsh7:$PATH"
    ① 他去源系统改（同步回来自动更新）；② 我建本地副本，并告知会重叠显示。
 4. 只有用户选 ② 才建。
 
+## 九、route 是常量的包装器：带参路由 / 查询参数只能自建探针
+
+很多 CLI 包装器把 **route 写成常量 mapping**（Dayflow `hermes-client.mjs`：`due:['GET','reminders/due']`），
+`args` 只喂给少数几个 op（`models-test-status`、`category-patch`、`confirm`）。
+⇒ **查询参数根本发不出去**（`client due --foo` 被当未知参数或直接忽略）。别因为客户端不接受就断定服务端不支持。
+
+判断「服务端到底支不支持某参数」用**独立只读探针**（现成：`scripts/probe-auth-get.mjs <releaseRoot> "<route>?<query>"`）：
+
+- 只读 import 部署自带的 `runtime/scripts/http-request.mjs`，**别用裸 fetch**（win32 上边缘层挡 undici 指纹，回 403 HTML）。
+- 复刻入口脚本的 `environment()`：`calendar-automation.json` 的 `pwshExe` 目录前置到 PATH，`httpProxy` 设成 `HTTP_PROXY`/`HTTPS_PROXY`；只前置本次进程环境，不改系统 PATH。
+- 凭据只从私有连接文件读，**只输出 status / bodyKind / count / 字段名**，正文与密钥一句不打。
+
+🔴 **「契约未上线」的长相不是 4xx**：把参数设成**非法值**（`?lead=abc`）或胡编一个（`?bogus=1`），
+仍 200 ⇒ 服务端既不解析也不校验，只是恰好现在没数据。2026-11-18 Dayflow `/api/v1/reminders/due`
+四种写法（无参 / `calendarChanges=1&lead=18` / `lead=abc` / `bogus=1`）全 200 空数组，凭这一组才敢判「契约未上线」。
+反之非法值若 400，说明参数已被解析，可以继续验语义。
+
+🔴 **别为了加参数去改 release 里的包装器**：`manifest.json` 的 sha256 会让 `verify`/`preflight`/`smoke`/`run` 全挂，
+而 `client` 子命令不校验 → 症状是「查询读写照跑、定时同步静默死掉」（你只会看到 22:00 的活没了）。
+要扩展就新增独立脚本，或走官方补丁包。
+
+**服务端回执键 ≠ 本地去重键**：ack 要的是服务端给的 key（Dayflow 形如 `id:date:start:reminderMinutes`），
+不是本地 `id|start|date`。两个都落库，否则「发成功但 ack 用错键」会重复提醒；且 lead 或时间一变服务端键就变
+⇒ 改期必然二次提醒，任何「改期优先处理」的设计都要先处理这个键。
+
+**白名单外的子命令要 stdin + 幂等键**：`hermes-local.mjs` 只对 `state/items/due/categories/category-delete/models/models-catalog/models-test-status` 免 stdin；
+`ack` 这类写命令必须 `--json-file` + `--request-id`，否则报「请求必须是 JSON」/「写入前设置 DAYFLOW_REQUEST_ID」。
+
+🔴 **「服务端已发布新版本」不等于「本地客户端已升级」**：对端说正式站已到 Sites43 时，先看本地
+活动 release 目录名（实测仍 `releases/sites29-afdf902-home1`，`df_common.HOME_MJS` 指着它）。
+两者不同时，所有「新契约」探测都只能打到旧客户端，回 `200 []` 要同时报三件事：本地 release 名、
+参数是否被包装器丢弃、body 形状与条数。空数组 + 参数被丢 ⇒「真无候选 / 旧契约 / 参数没透传」
+三种成因，**只读无法区分**，别写成「接口正常」。要给这种判读做旁证，先看同目录空数组、再拿非法值探
+（见上一节）；验收流程与回执形状见 `deployed-service-preflight` 的「暂存补丁的验收」。
+
 ## 参考
 
+- `references/reminders-due-ack-contract-2026-11.md` — Dayflow 提醒 due/ack 契约核查：客户端 mapping 能力边界、
+  due 返回字段、df_watch 逐函数边界与 6 处适配点、缺口清单（2026-11-18 A2A 联调）。
+- `scripts/probe-auth-get.mjs` — 只读探针：`node probe-auth-get.mjs <releaseRoot> "<route>?<query>"`，
+  自动复刻 PATH/代理，stdout 只给 status/形状/字段名。
 - `references/dayflow-client-2026-11.md` — Dayflow `home.mjs client` 实测证据：
   两行 JSON 原文、full-UUID 404 回执、钉钉字段锁粒度、批量写三条的完整命令。
 - `references/hermes-local-wrapper-2026-11.md` — `runtime/scripts/hermes-local.mjs`（`--connection`
   入口）实测：pwsh PATH 坑原文、`models`/`models-set` stdin 规则、同型号 pin 的写读判据、脱敏汇报口径。
 - `dayflow-personal-planner` — Dayflow 业务口径（字段、分类、提醒、钉钉源约束）。
+- `deployed-service-preflight` — 暂存补丁验收（只跑已有测试/py_compile/哈希/备份可用性/只读 GET）与回执形状。
 - `hermes-windows-ops` — MSYS 路径参数、杀进程、gateway 重启。

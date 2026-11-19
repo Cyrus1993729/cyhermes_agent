@@ -1,0 +1,132 @@
+[
+ {
+  "key": "fx-normal-in-window",
+  "source": "dingtalk",
+  "itemId": "fx-item-001",
+  "date": "2026-11-18",
+  "start": "09:45",
+  "end": "10:15",
+  "title": "虚构周会（无 kind / 无 leadMinutes / 无 sourceLifecycle）",
+  "message": "还有约 15 分钟：虚构周会",
+  "path": "/items/fx-item-001"
+ },
+ {
+  "key": "fx-normal-too-early",
+  "source": "dingtalk",
+  "itemId": "fx-item-002",
+  "date": "2026-11-18",
+  "start": "09:55",
+  "end": "10:25",
+  "title": "虚构太早的会",
+  "message": "虚构太早：25 分钟外",
+  "path": "/items/fx-item-002"
+ },
+ {
+  "key": "fx-normal-too-late",
+  "source": "dingtalk",
+  "itemId": "fx-item-003",
+  "date": "2026-11-18",
+  "start": "09:42",
+  "end": "10:12",
+  "title": "虚构太晚的会",
+  "message": "虚构太晚：12 分钟",
+  "path": "/items/fx-item-003"
+ },
+ {
+  "key": "fx-change-far",
+  "source": "dingtalk",
+  "kind": "calendar-change",
+  "itemId": "fx-item-004",
+  "date": "2026-11-18",
+  "start": "14:00",
+  "end": "14:30",
+  "title": "虚构改期会议",
+  "message": "虚构会议改到 14:00",
+  "path": "/items/fx-item-004"
+ },
+ {
+  "key": "fx-cancelled",
+  "source": "dingtalk",
+  "sourceLifecycle": "cancelled",
+  "itemId": "fx-item-005",
+  "date": "2026-11-18",
+  "start": "09:45",
+  "end": "10:15",
+  "title": "虚构已取消",
+  "message": "虚构已取消（不该发）",
+  "path": "/items/fx-item-005"
+ },
+ {
+  "key": "fx-pending-reschedule",
+  "source": "dingtalk",
+  "sourceLifecycle": "PendingReschedule",
+  "itemId": "fx-item-006",
+  "date": "2026-11-18",
+  "start": "09:45",
+  "end": "10:15",
+  "title": "虚构待改期",
+  "message": "虚构待改期（不该发）",
+  "path": "/items/fx-item-006"
+ },
+ {
+  "key": "fx-hermes-source",
+  "source": "hermes",
+  "itemId": "fx-item-007",
+  "date": "2026-11-18",
+  "start": "09:45",
+  "end": "10:15",
+  "title": "虚构助理事项（非钉钉，无 message/path）"
+ },
+ {
+  "key": "fx-no-message",
+  "source": "dingtalk",
+  "itemId": "fx-item-009",
+  "date": "2026-11-18",
+  "start": "09:45",
+  "end": "10:15",
+  "title": "虚构缺 message 的钉钉候选"
+ },
+ {
+  "key": "fx-legacy-dup",
+  "source": "dingtalk",
+  "itemId": "fx-item-008",
+  "date": "2026-11-18",
+  "start": "09:45",
+  "end": "10:15",
+  "title": "虚构已被旧脚本提醒过",
+  "message": "虚构旧键已送达",
+  "path": "/items/fx-item-008"
+ },
+ {
+  "date": "2026-11-18",
+  "end": "11:00",
+  "itemId": "fx-plain-01",
+  "key": "fx-plain-01|09:30|2026-11-18",
+  "start": "09:30",
+  "title": "虚构站点候选·无 source 字段"
+ },
+ {
+  "date": "2026-11-18",
+  "end": "12:00",
+  "itemId": "fx-plain-02",
+  "key": "fx-plain-02|11:30|2026-11-18",
+  "start": "11:30",
+  "title": "虚构站点候选·无 source 字段"
+ },
+ {
+  "date": "2026-11-18",
+  "end": "16:00",
+  "itemId": "fx-plain-03",
+  "key": "fx-plain-03|15:30|2026-11-18",
+  "start": "15:30",
+  "title": "虚构站点候选·无 source 字段"
+ },
+ {
+  "date": "2026-11-18",
+  "end": "18:00",
+  "itemId": "fx-plain-04",
+  "key": "fx-plain-04|17:30|2026-11-18",
+  "start": "17:30",
+  "title": "虚构站点候选·无 source 字段"
+ }
+]
